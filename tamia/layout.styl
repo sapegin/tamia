@@ -1,0 +1,189 @@
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Grids and layouts
+
+// Grid gutter size, in pixels (default: 2×spacer).
+grid-gutter ?= 2*spacer
+
+// Number of columns in grid (default: 12).
+grid-columns ?= 12
+
+
+//
+// Grid
+// Inspired by http://zengrids.com
+//
+
+// Columns wrapper.
+grid-row()
+	clearfix()
+	grid-wrapper()
+
+// Column (grid).
+//
+// position - Start column number (default: 1).
+// span - Width, in culumns (default: 1).
+// context - Width of parent column (default: null).
+//
+// Example:
+//   .row>.col1+.col2
+//
+//   .row
+//     grid-row()
+//   .col1
+//     grid-col(1,2)
+//   .col2
+//     grid-col(3,10)
+grid-col(position=1, span=1, context=null)
+	_grid-column(position, span, context)
+	_grid-float()
+	grid-padding()
+
+// Single column.
+//
+// position - Start column number (default: 1).
+// span - Width, in culumns (default: 1).
+// context - Width of parent column (default: null).
+grid-one(position=1, span=1, context=null)
+	_grid-column(position, span, context)
+	grid-padding()
+
+// Single column (without padding, wrapper for child columns).
+//
+// position - Start column number (default: 1).
+// span - Width, in culumns (default: 1).
+// context - Width of parent column (default: null).
+grid-one-container(position=1, span=1, context=null)
+	clearfix()
+	_grid-column(position, span, context)
+
+// Gutter size negative margin + padding to make column with different background.
+grid-explode()
+	margin: (-(grid-gutter))
+	padding: grid-gutter (grid-gutter / 2)
+
+// Width of column, in percent.
+//
+// position - Start column number (default: 1).
+// span - Width, in culumns (default: 1).
+//
+// Returns percent.
+grid-width(span=1, context=null)
+	context = grid-columns if not context
+	unit-width = 100% / context
+	span * unit-width
+
+// Column left/right padding.
+grid-padding()
+	side-gutter = grid-gutter / 2;
+	padding-left: side-gutter
+	padding-right: side-gutter
+
+// Column wrapper left/right negative margin.
+grid-wrapper()
+	side-gutter = (-(grid-gutter / 2))
+	margin-left: side-gutter
+	margin-right: side-gutter
+
+_grid-column(position=1, span=1, context=null)
+	context = grid-columns if not context
+	unit-width = 100% / context
+	width: span * unit-width
+	margin-left: (position - 1) * unit-width
+
+_grid-float()
+	float: left
+	margin-right: -100%
+
+
+//
+// Layouts
+//
+
+// Column (simple layout).
+//
+// part - 1/Nth part of wrapper.
+//
+// Example
+//   .row>.col+.col
+//
+//   .row
+//     grid-row()
+//   .col
+//     layout-col(2)  // Half
+layout-col(part)
+	_layout-col()
+	_layout-part(part)
+
+_layout-col()
+	grid-padding()
+	float: left
+
+_layout-part(part)
+	width: (100% / part)
+
+
+//
+// Classes
+//
+
+// Column wrapper (.g-row for grid and .l-row for simple layout).
+.l-row,
+.g-row
+	grid-row()
+
+.l-quarter,
+.l-third,
+.l-half,
+.l-three-quarters,
+.l-two-thirds
+	_layout-col()
+
+// Quarter (to use inside .l-row).
+.l-quarter
+	_layout-part(4)
+
+// Three quarters (to use inside .l-row).
+.l-three-quarters
+	_layout-part(4*3)
+
+// Third (to use inside .l-row).
+.l-third
+	_layout-part(3)
+
+// Two thirds (to use inside .l-row).
+.l-two-thirds
+	_layout-part(3*2)
+
+// Half (to use inside .l-row).
+.l-half
+	_layout-part(2)
+
+// Last column (to use inside .l-row).
+.l-last
+	float: right
+
+
+//
+// Debug stuff
+//
+
+if DEBUG
+	.g-debug-col
+		_l-col()
+		width: grid-width()
+
+	.g-debug-helper
+		position: absolute
+		left: 0
+		right: 0
+		height: 100%
+		min-height: 3000px
+		z-index: 10000
+		pointer-events: none
+		*
+			height: 100%
+		.g-debug-col:before
+			content: ""
+			display: block
+			height: 100%
+			background: hsla(220,40%,50%,.25)

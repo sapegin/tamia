@@ -1,0 +1,69 @@
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Misc functions and mixins
+
+// Easing: ease out quint.
+ease-out-quint = cubic-bezier(0.23,1,0.32,1)
+
+// Ellipsis text overflow.
+ellipsis()
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+
+// Text selection style.
+//
+// color - Text color.
+// background - Background color.
+text-selection(color, background)
+	::-moz-selection
+		color: color
+		background: background
+		text-shadow: none
+	::selection
+		color: color
+		background: background
+		text-shadow: none
+
+// Disable columns.
+no-cols()
+	position: static
+	display: block
+	float: none
+	width: auto
+	margin-left: 0
+	margin-right: 0
+
+// Disable transitions.
+//
+// imp - Important? (default: false).
+no-transition(imp=false)
+	// It is the shortest crossbrowser way
+	if imp
+		transition 0s !important
+	else
+		transition 0s
+
+// Sticky footer wrapper.
+//
+// h - Footer height.
+sticky-footer-wrapper(h)
+	position: relative
+	min-height: 100%
+	margin-bottom: h
+
+// Sticky footer.
+//
+// h - Footer height.
+sticky-footer(h)
+	position: absolute
+	left: 0
+	right: 0
+	bottom: 0
+	height: h
+
+// Draws color outline around an element.
+//
+// Works only when DEBUG == true.
+_debug-colors = cyan magenta orange green blue red
+debug()
+	outline: 1px solid pop(_debug-colors) if DEBUG

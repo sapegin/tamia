@@ -1,0 +1,28 @@
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Web fonts: icon fonts
+
+// Icon font wrapper.
+//
+// font - Font name.
+//
+// Example:
+//   <i class="ficon_icon-name"><span>Fallback text</span></i>
+//
+//   .ficon
+//     font-icon(IcoMoon)
+//     &_icon-name:before
+//       content: "\c0ffee"
+font-icon(font)
+	display: inline-block
+	font-family: font
+	font-style: normal
+	speak: none
+	-webkit-font-smoothing: antialiased
+	&:link, &:visited, &:hover, &:active, &:focus
+		text-decoration: none
+		border: none
+		background-image: none
+	span
+		display: none
+		.no-generatedcontent &
+			display: block

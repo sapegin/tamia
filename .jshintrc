@@ -1,0 +1,12 @@
+{
+	"browser": true,
+	"white": false,
+	"smarttabs": true,
+	"eqeqeq": true,
+	"immed": true,
+	"latedef": false,
+	"newcap": true,
+	"undef": true,
+	"trailing": true,
+	"jquery": true
+}

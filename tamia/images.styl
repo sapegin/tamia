@@ -1,0 +1,87 @@
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+
+// Images, sprites, Retina support
+
+// Enable Retina support (default: false).
+retina ?= false
+
+// Path to calculate file system image path based on CSS path (default: .).
+images-relative-root ?= '.'
+
+// Default sprite image file (default: ../images/sprite.png).
+sprite-image ?= '../images/sprite.png';
+
+// Sprite step size (default: 20px).
+sprite-step ?= 20px;
+
+
+// background-image with Retina variant.
+//
+// path - Image file path.
+// x - background-position x (default: 0).
+// y - background-position y (default: 0).
+//
+// Retina image file should be named path@2x.png.
+if retina
+	image(path, x=0, y=0)
+		background: url(path) x y
+		@media (-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)
+			ext = extname(path)
+			hdpath = dirname(path) + '/' + basename(path, ext) + '@2x' + ext
+			background: url(hdpath) x y
+			background-size: image-size(pathjoin(images-relative-root, path))
+else
+	image(path, x=0, y=0)
+		background: url(path) x y
+
+
+// Sprite (to use in pseudo element).
+//
+// x - Horizontal position in sprite grid.
+// y - Vertical position in sprite grid.
+// w - Sprite width, pixels.
+// h - sprite height, pixels.
+//
+// Example
+//   .elem
+//     sprite(5, 6, 36, 22);
+sprite(x, y, w, h)
+	image(sprite-image, sprite-x(x), sprite-y(y))
+	content: ""
+	width: w
+	height: h
+
+// Horizontal position of sprite image.
+//
+// x - Horizontal position in sprite grid.
+//
+// Returns pixels.
+sprite-x(x)
+	(-((x - 1)*sprite-step+1));
+
+// Vertical position of sprite image.
+//
+// y - Vertical position in sprite grid.
+//
+// Returns pixels.
+sprite-y(y)
+	(-((y - 1)*sprite-step+1));
+
+// background-position for sprite.
+//
+// x - Horizontal position in sprite grid.
+// y - Vertical position in sprite grid.
+//
+// Example
+//  .elem
+//    sprite-bg()
+//    sprite-pos(5,6)
+sprite-pos(x, y)
+	background-position: sprite-x(x) sprite-y(y)
+
+// background-image for sprite.
+//
+// x - Horizontal position in sprite grid (default: 0).
+// y - Vertical position in sprite grid (default: 0).
+sprite-bg(x=0, y=0)
+	image(sprite-image, x, x)
