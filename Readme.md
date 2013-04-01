@@ -1,8 +1,8 @@
 # Tâmia
 
-Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of three parts: 
+Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of three parts:
 
-1. Stylus bootstap. 
+1. Stylus bootstap.
 2. JavaScript helpers.
 3. Blocks library.
 
@@ -22,7 +22,7 @@ I love new technologies so I spend as little time on old browsers as possible. T
 
 ## Workflow
 
-Usually I use [grunt-init](https://github.com/gruntjs/grunt-init) (Yeomen generators in the future) for bootstrapping new projects: create folders and all required files.
+Usually I use [grunt-init](https://github.com/gruntjs/grunt-init) (Yeomen generators in the future) for scaffolding new projects: create folders and all required files.
 
 I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
 
@@ -44,7 +44,7 @@ It’s a base CSS rules (like Normalize.css but a quite different) and a lot of 
 
 * Fluid grid.
 * Sprites (manual or generated) with Retina support.
-* Links with three types of underlining: text-decoration, border-buttom and linear-gradient.
+* Links with three types of underlining: text-decoration, border-bottom and linear-gradient.
 * Sticky footer.
 * Debug helpers.
 * Lot of useful mixins.
