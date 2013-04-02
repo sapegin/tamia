@@ -26,7 +26,7 @@ Usually I use [grunt-init](https://github.com/gruntjs/grunt-init) (Yeomen genera
 
 I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
 
-For CSS I use kinda BEM light methodology—OPOR, briefly described [here](http://nano.sapegin.ru/all/opor-methodology/) (in Russian).
+For CSS I use kinda [BEM](http://bem.info/) light methodology—OPOR, briefly described [here](http://nano.sapegin.ru/all/opor-methodology/) (in Russian).
 
 And then I use BitBucket and Fabric to deploy website to a server.
 
@@ -79,12 +79,71 @@ Not done yet. See comments in code.
 
 ## Installation
 
-…
+The easiest way to install Tâmia is to use Yeomen generator. (Which is under development now, so more information will be available later.)
+
+You can also install manually:
+
+1. Download and unzip repository to `tamia` folder inside your project.
+
+2. Include Stylus bootstrap to your main Stylus stylesheet: `import "tamia/tamia"`.
+
+3. Include JavaScript helpers to your page: `<script src="tamia/tamia/tamia.js"></script>`.
 
 
 ## Getting Started
 
-…
+### Configuration
+
+Stylus bootstrap has a lot of parameters you can change.
+
+Add all parameters to your main Stylus stylesheet, before `tamia/tamia` import:
+
+```
+link-style = "gradient"
+link-color = #c0ffee
+...
+```
+
+### Using Blocks
+
+Any block consists of stylesheet and / or script. You should include both.
+
+Import block’s stylesheet to your main Stylus stylesheet, after `tamia/tamia` import:
+
+```
+import "tamia/tamia"
+import "tamia/blocks/select"
+```
+
+Include block’s JavaScript to your page:
+
+```html
+<script src="tamia/tamia/tamia.js"></script>
+<script src="tamia/blocks/select/script.js"></script>
+```
+
+Blocks can also have parameters and / or optional default skin.
+
+### Debug Mode
+
+**Note:** Available only if you use Yeomen generator to initialize Tâmia and Grunt to build your project.
+
+Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
+
+Stylus:
+
+```
+div
+	outline: 1px solid #c0ffee if DEBUG
+```
+
+JavaScript:
+
+```
+if (DEBUG) console.log('Debug info');
+```
+
+To enable debug mode in Stylus just run Grunt with `--debug` command line option. Debug mode in JavaScript enabled by default in unminified code.
 
 
 ## The Name
