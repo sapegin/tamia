@@ -9,12 +9,12 @@
     if (supported === void 0) {
       supported = (((jQuery('<b>')).html('<!--[if lte IE 8]><i></i><![endif]-->')).find('i')).length !== 1;
     }
+    if (!supported) {
+      return this;
+    }
     return this.each(function() {
       var container, field, locked, lockedType, toggle, unlockedClass, unlockedType;
 
-      if (!supported) {
-        return;
-      }
       container = jQuery(this);
       unlockedClass = 'is-unlocked';
       lockedType = 'password';

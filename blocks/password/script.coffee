@@ -9,10 +9,9 @@ jQuery::tamiaPassword = ->
 	# IE8+
 	if supported is undefined
 		supported = (((jQuery '<b>').html '<!--[if lte IE 8]><i></i><![endif]-->').find 'i').length isnt 1
+	return this unless supported
 
 	return @each ->
-		return unless supported
-
 		container = jQuery this
 		unlockedClass = 'is-unlocked'
 		lockedType = 'password'
