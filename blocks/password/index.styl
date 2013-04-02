@@ -1,0 +1,43 @@
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Password field with toggle to show characters
+
+/* Bones */
+
+.password
+	position: relative
+
+	&__field
+		position:relative;
+		z-index: 90
+
+	&__toggle
+		display: none
+	&.is-ok &__toggle
+		position: absolute
+		display: block
+		top: 0
+		bottom: 0
+		right: 0
+		cursor: pointer
+		z-index: 100
+		&:before
+			content: ""
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%,-50%)
+
+
+/* Default skin */
+
+blocks_default_skin ?= true
+password_default_skin ?= false
+
+if blocks_default_skin or password_default_skin
+	.password
+		&__toggle
+			width: 20px
+			&:before
+				content: "●"
+		&.is-unlocked &__toggle:before
+			content: "◦"
