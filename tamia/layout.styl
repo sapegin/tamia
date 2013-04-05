@@ -163,19 +163,27 @@ _layout-part(part)
 	float: right
 
 
+//
 // Spacing
+//
+
+// Space after block.
+//
+// rows - Number of “rows” (one row = default spacer).
+space(rows=1)
+	margin-bottom: rows*spacer
 
 // Standard bottom margin.
 .l-space
-	margin-bottom: spacer
+	space()
 
 // Double bottom margin.
 .l-double-space
-	margin-bottom: 2*spacer
+	space(2)
 
 // Triple bottom margin.
 .l-triple-space
-	margin-bottom: 2*spacer
+	space(3)
 
 
 //
