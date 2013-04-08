@@ -27,6 +27,7 @@ jQuery::tamiaPassword = ->
 			focused = document.activeElement is field[0]
 			locked = not locked
 			fieldType = field.attr 'type'
+			container.toggleClass unlockedClass, not locked
 			if fieldType is lockedType and not locked
 				field.attr 'type', unlockedType
 			else if fieldType is unlockedType and locked
