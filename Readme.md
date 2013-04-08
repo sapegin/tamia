@@ -6,7 +6,7 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 2. JavaScript helpers.
 3. Blocks library.
 
-There’re few other things made specifically for Tâmia: Yeomen project generator (not done yet) and [Grunt task](https://github.com/sapegin/grunt-squirrelsprite) for generating sprites.
+There’re few other things made specifically for Tâmia: Yeomen project generator (not done yet) and [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
 
 
 ## Browser Support
