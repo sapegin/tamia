@@ -141,6 +141,12 @@ layout-nth(part)
 layout-change(part)
 	_layout-part(part)
 
+// Disable columns.
+//
+// Alias for layout-change(1).
+layout-stop()
+	_layout-part(1)
+
 _layout-col()
 	grid-padding()
 	// IE8-9
@@ -227,7 +233,7 @@ space(rows=1)
 
 if DEBUG
 	.g-debug-col
-		_l-col()
+		_layout-col()
 		width: grid-width()
 
 	.g-debug-helper
