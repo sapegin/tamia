@@ -26,3 +26,4 @@ Classes and tweaks for better typography.
 ## Tools
 
 * [richtypo.js](https://github.com/sapegin/richtypo.js) for Node.js.
+* [wp-typohelper](https://github.com/sapegin/wp-typohelper) for Wordpress.
