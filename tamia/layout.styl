@@ -101,6 +101,7 @@ _grid-float()
 
 // Layout wrapper.
 layout-row()
+	grid-wrapper()
 	// Temporary flexbox implementaion that works in IE 10
 	// Nib implementation is broken
 	display: -ms-flexbox
@@ -127,14 +128,14 @@ layout-row()
 //   .row
 //     layout-row()
 //   .col
-//     layout-col(2)  // Half
-layout-col(part)
+//     layout-nth(2)  // Half
+layout-nth(part)
 	_layout-col()
 	_layout-part(part)
 
 // Change number of columns.
 //
-// Use it to change number of columns (defined via layout-col()) inside media queries.
+// Use it to change number of columns (defined via layout-nth()) inside media queries.
 //
 // part - 1/Nth part of wrapper.
 layout-change(part)
@@ -156,16 +157,21 @@ _layout-part(part)
 // Classes
 //
 
-// Column wrapper (.g-row for grid and .l-row for simple layout).
+// Column wrapper.
 .l-row
 	layout-row()
 
+.l-sixth,
 .l-quarter,
 .l-third,
 .l-half,
 .l-three-quarters,
 .l-two-thirds
 	_layout-col()
+
+// Sixth (to use inside .l-row).
+.l-sixth
+	_layout-part(6)
 
 // Quarter (to use inside .l-row).
 .l-quarter
