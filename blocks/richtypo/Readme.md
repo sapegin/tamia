@@ -7,7 +7,9 @@ Classes and tweaks for better typography.
 
 ### Abbreviations with spacing
 
-	<abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.
+<div class="text">
+	<p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
+</div>
 
 ### The best ampersand
 
@@ -20,7 +22,7 @@ Classes and tweaks for better typography.
 
 ## Caveats
 
-* Enables ligatures in headings (h1—h6 and .alpha—.zeta).
+* Enables ligatures in headings (h1—h6 inside .text and .alpha—.zeta).
 
 
 ## Tools
