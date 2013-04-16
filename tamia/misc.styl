@@ -17,6 +17,13 @@ ellipsis()
 tweak-inverted-text()
 	-webkit-font-smoothing: antialiased
 
+// Enables ligatures in text.
+enable-ligatures()
+	text-rendering: optimizeLegibility
+	-webkit-font-feature-settings: "liga", "dlig"
+	-moz-font-feature-settings: "liga=1, dlig=1"
+	font-feature-settings: "liga", "dlig"
+
 // Text selection style.
 //
 // color - Text color.
