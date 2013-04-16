@@ -20,7 +20,7 @@ Classes and tweaks for better typography.
 
 ## Caveats
 
-* Enables ligatures in headings (<h1>—<h6> and .alpha—.zeta).
+* Enables ligatures in headings (h1—h6 and .alpha—.zeta).
 
 
 ## Tools
