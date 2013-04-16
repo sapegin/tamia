@@ -99,6 +99,24 @@ _grid-float()
 // Layouts
 //
 
+// Layout wrapper.
+layout-row()
+	// Temporary flexbox implementaion that works in IE 10
+	// Nib implementation is broken
+	display: -ms-flexbox
+	-ms-box-orient: horizontal
+	display: -webkit-flex
+	display: -moz-flex
+	display: -ms-flex
+	display: flex
+	-webkit-flex-flow: row wrap
+	-moz-flex-flow: row wrap
+	-ms-flex-flow: row wrap
+	flex-flow: row wrap
+	// IE8-9
+	.no-flexbox &
+		letter-spacing: -0.31em
+
 // Column (simple layout).
 //
 // part - 1/Nth part of wrapper.
@@ -107,16 +125,28 @@ _grid-float()
 //   .row>.col+.col
 //
 //   .row
-//     grid-row()
+//     layout-row()
 //   .col
 //     layout-col(2)  // Half
 layout-col(part)
 	_layout-col()
 	_layout-part(part)
 
+// Change number of columns.
+//
+// Use it to change number of columns (defined via layout-col()) inside media queries.
+//
+// part - 1/Nth part of wrapper.
+layout-change(part)
+	_layout-part(part)
+
 _layout-col()
 	grid-padding()
-	float: left
+	// IE8-9
+	.no-flexbox &
+		display: inline-block
+		vertical-align: top
+		letter-spacing: normal
 
 _layout-part(part)
 	width: (100% / part)
@@ -127,9 +157,8 @@ _layout-part(part)
 //
 
 // Column wrapper (.g-row for grid and .l-row for simple layout).
-.l-row,
-.g-row
-	grid-row()
+.l-row
+	layout-row()
 
 .l-quarter,
 .l-third,
