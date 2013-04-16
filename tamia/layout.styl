@@ -7,6 +7,9 @@ grid-gutter ?= 2*spacer
 // Number of columns in grid (default: 12).
 grid-columns ?= 12
 
+// Generate layout classes (default: true).
+layout-classes ?= true
+
 
 //
 // Grid
@@ -163,45 +166,47 @@ _layout-part(part)
 // Classes
 //
 
-// Column wrapper.
-.l-row
-	layout-row()
+if layout-classes
 
-.l-sixth,
-.l-quarter,
-.l-third,
-.l-half,
-.l-three-quarters,
-.l-two-thirds
-	_layout-col()
+	// Column wrapper.
+	.l-row
+		layout-row()
 
-// Sixth (to use inside .l-row).
-.l-sixth
-	_layout-part(6)
+	.l-sixth,
+	.l-quarter,
+	.l-third,
+	.l-half,
+	.l-three-quarters,
+	.l-two-thirds
+		_layout-col()
 
-// Quarter (to use inside .l-row).
-.l-quarter
-	_layout-part(4)
+	// Sixth (to use inside .l-row).
+	.l-sixth
+		_layout-part(6)
 
-// Three quarters (to use inside .l-row).
-.l-three-quarters
-	_layout-part(4/3)
+	// Quarter (to use inside .l-row).
+	.l-quarter
+		_layout-part(4)
 
-// Third (to use inside .l-row).
-.l-third
-	_layout-part(3)
+	// Three quarters (to use inside .l-row).
+	.l-three-quarters
+		_layout-part(4/3)
 
-// Two thirds (to use inside .l-row).
-.l-two-thirds
-	_layout-part(3/2)
+	// Third (to use inside .l-row).
+	.l-third
+		_layout-part(3)
 
-// Half (to use inside .l-row).
-.l-half
-	_layout-part(2)
+	// Two thirds (to use inside .l-row).
+	.l-two-thirds
+		_layout-part(3/2)
 
-// Last column (to use inside .l-row).
-.l-last
-	float: right
+	// Half (to use inside .l-row).
+	.l-half
+		_layout-part(2)
+
+	// Last column (to use inside .l-row).
+	.l-last
+		float: right
 
 
 //
@@ -214,24 +219,26 @@ _layout-part(part)
 space(rows=1)
 	margin-bottom: rows*spacer
 
-// Standard bottom margin.
-.l-space
-	space()
+if layout-classes
 
-// Double bottom margin.
-.l-double-space
-	space(2)
+	// Standard bottom margin.
+	.l-space
+		space()
 
-// Triple bottom margin.
-.l-triple-space
-	space(3)
+	// Double bottom margin.
+	.l-double-space
+		space(2)
+
+	// Triple bottom margin.
+	.l-triple-space
+		space(3)
 
 
 //
 // Debug stuff
 //
 
-if DEBUG
+if DEBUG and layout-classes
 	.g-debug-col
 		_layout-col()
 		width: grid-width()
