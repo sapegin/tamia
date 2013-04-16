@@ -18,6 +18,7 @@ I love new technologies so I spend as little time on old browsers as possible. T
 
 * Stylus and Nib.
 * jQuery.
+* Modernizr.
 
 
 ## Workflow
