@@ -113,12 +113,12 @@ a:active
 
 // Text selection and iOS tap highlighting.
 if light(bg-color)
-	selection-color = hslaa(darken(bg-color,60),.5)
+	selection-color = rgba(darken(bg-color,60),.5)
 else
-	selection-color = hslaa(lighten(bg-color,60),.5)
+	selection-color = rgba(lighten(bg-color,60),.5)
 text-selection(base-color, selection-color)
 a:link
-	-webkit-tap-highlight-color: hslaa(selection-color,.25)
+	-webkit-tap-highlight-color: rgba(selection-color,.25)
 
 // Hide phone links from desktop browsers.
 .no-touch a[href^="tel"]
