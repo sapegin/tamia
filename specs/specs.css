@@ -1,7 +1,8 @@
-.l-row{display:-ms-flexbox;-ms-box-orient:horizontal;display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:flex;-webkit-flex-flow:row wrap;-moz-flex-flow:row wrap;-ms-flex-flow:row wrap;flex-flow:row wrap;}
+.l-row{margin-left:-10px;margin-right:-10px;display:-ms-flexbox;-ms-box-orient:horizontal;display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:flex;-webkit-flex-flow:row wrap;-moz-flex-flow:row wrap;-ms-flex-flow:row wrap;flex-flow:row wrap;}
 .no-flexbox .l-row{letter-spacing:-.31em}
-.l-quarter,.l-third,.l-half,.l-three-quarters,.l-two-thirds{padding-left:10px;padding-right:10px;}
-.no-flexbox .l-quarter,.no-flexbox .l-third,.no-flexbox .l-half,.no-flexbox .l-three-quarters,.no-flexbox .l-two-thirds{display:inline-block;vertical-align:top;letter-spacing:normal}
+.l-sixth,.l-quarter,.l-third,.l-half,.l-three-quarters,.l-two-thirds{padding-left:10px;padding-right:10px;}
+.no-flexbox .l-sixth,.no-flexbox .l-quarter,.no-flexbox .l-third,.no-flexbox .l-half,.no-flexbox .l-three-quarters,.no-flexbox .l-two-thirds{display:inline-block;vertical-align:top;letter-spacing:normal}
+.l-sixth{width:16.666666666666668%}
 .l-quarter{width:25%}
 .l-three-quarters{width:75%}
 .l-third{width:33.333333333333336%}
