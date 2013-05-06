@@ -27,7 +27,7 @@ Usually I use [grunt-init](https://github.com/gruntjs/grunt-init) (Yeomen genera
 
 I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
 
-For CSS I use kinda [BEM](http://bem.info/) light methodology—OPOR, briefly described [here](http://nano.sapegin.ru/all/opor-methodology/) (in Russian).
+For CSS I use kinda [BEM](http://bem.info/) light methodology—[OPOR](http://blog.sapegin.me/all/opor-methodology) (One Page of Rules).
 
 And then I use BitBucket and Fabric to deploy website to a server.
 
