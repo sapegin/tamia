@@ -13,7 +13,7 @@ code_default_skin ?= false
 
 .code
 	display: block
-	white-space: pre
+	white-space: pre-wrap
 	-moz-tab-size: 4
 	  -o-tab-size: 4
 	     tab-size: 4
@@ -30,7 +30,7 @@ code_default_skin ?= false
 	if blocks_default_skin or code_default_skin
 
 		@import 'tomorrow'
-		
+
 		code
 			padding: spacer
 			background: #fff
