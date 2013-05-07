@@ -6,7 +6,7 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 2. JavaScript helpers.
 3. Blocks library.
 
-There’re few other things made specifically for Tâmia: Yeomen project generator (not done yet) and [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
+There’re few other things made specifically for Tâmia: [Yeomen project generator](https://github.com/sapegin/generator-tamia) and [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
 
 
 ## Browser Support
@@ -23,7 +23,7 @@ I love new technologies so I spend as little time on old browsers as possible. T
 
 ## Workflow
 
-Usually I use [grunt-init](https://github.com/gruntjs/grunt-init) (Yeomen generators in the future) for scaffolding new projects: create folders and all required files.
+Usually I use [Yeomen generator](https://github.com/sapegin/generator-tamia) for scaffolding new projects: create folders and all required files.
 
 I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
 
