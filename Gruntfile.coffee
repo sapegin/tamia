@@ -49,6 +49,8 @@ module.exports = (grunt) ->
 				files: '<%= concat.main.src %>'
 				tasks: 'concat'
 			stylus:
+				options:
+					livereload: true
 				files: [
 					'tamia/**/*.styl',
 					'specs/specs.styl'
