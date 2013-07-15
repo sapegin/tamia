@@ -80,3 +80,4 @@ module.exports = (grunt) ->
 		grunt.file.write filename, html
 
 	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'cleanup']
+	grunt.registerTask 'build', ['coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'cleanup']

@@ -13,7 +13,6 @@
     }
     return this.each(function() {
       var container, field, locked, lockedType, toggle, unlockedClass, unlockedType;
-
       container = jQuery(this);
       unlockedClass = 'is-unlocked';
       lockedType = 'password';
@@ -24,7 +23,6 @@
       container.addClass('is-ok');
       return toggle.mousedown(function() {
         var fieldType, focused;
-
         focused = document.activeElement === field[0];
         locked = !locked;
         fieldType = field.attr('type');

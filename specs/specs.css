@@ -12,6 +12,7 @@
 .l-space{margin-bottom:10px}
 .l-double-space{margin-bottom:20px}
 .l-triple-space{margin-bottom:30px}
+.l-quad-space{margin-bottom:40px}
 *{padding:0;margin:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block}
 sup,sub,small,code{line-height:0}
@@ -55,8 +56,8 @@ a:link{-webkit-tap-highlight-color:rgba(102,102,102,0.25)}
 .link:visited,.link u:visited{color:#1978c8;}
 .link:hover,.link u:hover,.link:active,.link u:active,.link:focus,.link u:focus{color:#1978c8;}
 .link_fake,.link u_fake{text-decoration:none;background-position:0 76.5%;-webkit-background-size:5px 1px;-moz-background-size:5px 1px;background-size:5px 1px;background-repeat:repeat-x;}
-.link_fake,.link u_fake,.link_fake:link,.link u_fake:link,.link_fake:visited,.link u_fake:visited{color:#1978c8;background-image:-webkit-gradient(linear, left top, right top, color-stop(0, #1978c8), color-stop(0.5, #1978c8), color-stop(0.5, transparent));background-image:-webkit-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:-moz-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:-o-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:-ms-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%)}
-.link_fake:hover,.link u_fake:hover,.link_fake:active,.link u_fake:active,.link_fake:focus,.link u_fake:focus{background-image:-webkit-gradient(linear, left top, right top, color-stop(0, #1978c8), color-stop(0.5, #1978c8), color-stop(0.5, transparent));background-image:-webkit-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:-moz-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:-o-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:-ms-linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%);background-image:linear-gradient(left, #1978c8 0%, #1978c8 50%, transparent 50%)}
+.link_fake,.link u_fake,.link_fake:link,.link u_fake:link,.link_fake:visited,.link u_fake:visited{color:#1978c8;background-image:-webkit-gradient(linear, left top, right top, color-stop(0, #1978c8), color-stop(0.5, #1978c8), color-stop(0.5, transparent));background-image:-webkit-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:-moz-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:-o-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:-ms-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%)}
+.link_fake:hover,.link u_fake:hover,.link_fake:active,.link u_fake:active,.link_fake:focus,.link u_fake:focus{background-image:-webkit-gradient(linear, left top, right top, color-stop(0, #1978c8), color-stop(0.5, #1978c8), color-stop(0.5, transparent));background-image:-webkit-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:-moz-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:-o-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:-ms-linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%);background-image:linear-gradient(left, #1978c8 0, #1978c8 50%, transparent 50%)}
 .no-cssgradients .link{text-decoration:underline}
 .no-cssgradients .link_fake{text-decoration:none;border-bottom:1px dotted}
 .c1{background:#90a959}
