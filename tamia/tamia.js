@@ -86,7 +86,7 @@
 	 */
 	$(document).click(function(e) {
 		var target = e.target;
-		if (target.parentNode && target.parentNode.getAttribute('data-fire')) target = target.parentNode;
+		if (target.parentNode && target.parentNode.getAttribute && target.parentNode.getAttribute('data-fire')) target = target.parentNode;
 		if (target.getAttribute('data-fire') && target.getAttribute('data-to')) {
 			target = $(target);
 			var attrs = (''+target.data('attrs')).split(/[;, ]/);
