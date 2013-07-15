@@ -59,10 +59,10 @@ grid-one-container(position=1, span=1, context=null)
 	clearfix()
 	_grid-column(position, span, context)
 
-// Gutter size negative margin + padding to make column with different background.
+// Gutter size negative margin to make column with different background.
+// You should adjust padding depending on content.
 grid-explode()
 	margin: (-(grid-gutter))
-	padding: grid-gutter (grid-gutter / 2)
 
 // Width of column, in percent.
 //
