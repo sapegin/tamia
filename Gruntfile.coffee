@@ -53,6 +53,7 @@ module.exports = (grunt) ->
 					livereload: true
 				files: [
 					'tamia/**/*.styl',
+					'blocks/**/*.styl',
 					'specs/specs.styl'
 				]
 				tasks: 'stylus:specs'
