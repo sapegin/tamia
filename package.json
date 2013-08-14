@@ -4,10 +4,10 @@
   "devDependencies": {
     "grunt-contrib-concat": "~0.3.0",
     "matchdep": "~0.1.2",
-    "grunt-contrib-stylus": "~0.6.0",
-    "grunt-contrib-watch": "~0.4.4",
+    "grunt-contrib-stylus": "~0.7.0",
+    "grunt-contrib-watch": "~0.5.1",
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-jshint": "~0.6.2",
     "grunt-contrib-coffee": "~0.7.0",
     "grunt-coffeelint": "0.0.7",
     "marked": "~0.2.9"
