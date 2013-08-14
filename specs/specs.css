@@ -55,6 +55,15 @@
 .l-last {
   float: right;
 }
+.l-center {
+  display: table;
+  width: 100%;
+}
+.l-center-i {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
 .l-space {
   margin-bottom: 10px;
 }
