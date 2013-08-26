@@ -103,3 +103,12 @@ sprite-pos(img)
 // y - Vertical position in sprite grid (default: 0).
 sprite-bg(x=0, y=0)
 	image(sprite-image, x, x)
+
+// Element width/height for sprite.
+//
+// Example
+//   .elem
+//     sprite-size(sprite_pony);
+sprite-size(img)
+	width: img[2]
+	height: img[3]
