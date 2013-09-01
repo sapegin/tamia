@@ -57,44 +57,57 @@ link-pressable ?= true
 
 // Remove underline.
 .no-underline
-	text-decoration: none
-	border-bottom: 0
-	background-image: none
+	&:link,
+	&:visited,
+	&:hover,
+	&:active,
+	&:focus
+		text-decoration: none
+		border-bottom: 0
+		background-image: none
 
 // Link.
 //
 // .link_fake - Pseudo link with dashed underline.
 // .link_quoted - Link in quotes (quotes should be colored but not underlined). Example: a.link.link_quoted>u.
 .link
-	@extend .pressable
-	transition: border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out
-	cursor: pointer
-	if link-style == "underline"
-		text-decoration: underline
-	else
-		text-decoration: none
-	if link-style == "border"
-		border-bottom-width: 1px
-		border-bottom-style: solid
-	if link-style == "gradient"
-		background-position: 0 link-underline-position
-		background-size: 5px 1px
-		background-repeat: repeat-x
+	&,
+	& u
+		@extend .pressable
+		transition: border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out
+		cursor: pointer
+		if link-style == "underline"
+			text-decoration: underline
+		else
+			text-decoration: none
+		if link-style == "border"
+			border-bottom-width: 1px
+			border-bottom-style: solid
+		if link-style == "gradient"
+			background-position: 0 link-underline-position
+			background-size: 5px 1px
+			background-repeat: repeat-x
 
 	&,
-	&:link
+	&:link,
+	& u,
+	&:link u
 		color: link-color
 		if link-style == "gradient"
 			background-image: linear-gradient(left, link-underline-color, link-underline-color)
 
-	&:visited
+	&:visited,
+	&:visited u
 		color: visited-color
 		if link-style == "gradient"
 			background-image: linear-gradient(left, visited-underline-color, visited-underline-color)
 
 	&:hover,
 	&:active,
-	&:focus
+	&:focus,
+	&:hover u,
+	&:active u,
+	&:focus u
 		color: hover-color
 		if link-style == "gradient"
 			background-image: linear-gradient(left, hover-underline-color, hover-underline-color)
@@ -122,15 +135,7 @@ link-pressable ?= true
 				background-image: linear-gradient(left, hover-underline-color, hover-underline-color 50%, transparent 50%)
 
 	&_quoted
-		&:link,
-		&:visited,
-		&:hover,
-		&:active,
-		&:focus
-			@extend .no-underline
-
-.link u
-	@extend .link
+		@extend .no-underline
 
 .no-cssgradients
 	.link
