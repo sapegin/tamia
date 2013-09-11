@@ -1,4 +1,4 @@
-# Tâmia
+# Tâmia [![Build Status](https://travis-ci.org/sapegin/tamia.png)](https://travis-ci.org/sapegin/tamia)
 
 Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of three parts:
 
