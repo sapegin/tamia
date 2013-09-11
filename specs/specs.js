@@ -24,7 +24,7 @@
 	 *
 	 *   <div data-component="pony"></div>
 	 *
-	 *   utils.initComponents({
+	 *   tamia.initComponents({
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -120,7 +120,7 @@
 
 
 	// Expose namespace
-	window.utils = {
+	window.tamia = {
 		initComponents: initComponents
 	};
 
@@ -169,7 +169,7 @@
     });
   };
 
-  utils.initComponents({
+  tamia.initComponents({
     password: {
       tamiaPassword: void 0
     }
@@ -180,7 +180,7 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Select with custom design
 
-/*global utils:true*/
+/*global tamia:true*/
 ;(function($) {
 	'use strict';
 
@@ -210,7 +210,7 @@
 	};
 
 	// Init component
-	utils.initComponents({ select: function(elem) {
+	tamia.initComponents({ select: function(elem) {
 		$(elem).formSelect();
 	}});
 

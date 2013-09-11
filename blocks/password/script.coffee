@@ -38,4 +38,4 @@ jQuery::tamiaPassword = ->
 				), 0
 
 # Init component
-utils.initComponents password: tamiaPassword: undefined
+tamia.initComponents password: tamiaPassword: undefined

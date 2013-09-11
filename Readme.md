@@ -60,7 +60,7 @@ The main purpose of JavaScript helper is components initialization:
 ```
 
 ```javascript
-utils.initComponents({
+tamia.initComponents({
 	pony: function(elem) {
 		alert('I am pink pony! Yay!');
 	}

@@ -24,7 +24,7 @@
 	 *
 	 *   <div data-component="pony"></div>
 	 *
-	 *   utils.initComponents({
+	 *   tamia.initComponents({
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -120,7 +120,7 @@
 
 
 	// Expose namespace
-	window.utils = {
+	window.tamia = {
 		initComponents: initComponents
 	};
 

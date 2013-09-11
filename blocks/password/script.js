@@ -41,7 +41,7 @@
     });
   };
 
-  utils.initComponents({
+  tamia.initComponents({
     password: {
       tamiaPassword: void 0
     }

@@ -1,7 +1,7 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Select with custom design
 
-/*global utils:true*/
+/*global tamia:true*/
 ;(function($) {
 	'use strict';
 
@@ -31,7 +31,7 @@
 	};
 
 	// Init component
-	utils.initComponents({ select: function(elem) {
+	tamia.initComponents({ select: function(elem) {
 		$(elem).formSelect();
 	}});
 
