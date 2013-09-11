@@ -1,6 +1,9 @@
 {
   "name": "tamia",
   "version": "0.0.0",
+  "scripts": {
+  	"test": "grunt test"
+  },
   "devDependencies": {
     "grunt-contrib-concat": "~0.3.0",
     "matchdep": "~0.1.2",
