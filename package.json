@@ -4,6 +4,10 @@
   "scripts": {
   	"test": "grunt casperjs"
   },
+  "repository": {
+  	"type": "git",
+    "url": "http://github.com/sapegin/tamia.git"
+  },
   "devDependencies": {
     "grunt-contrib-concat": "~0.3.0",
     "matchdep": "~0.1.2",
