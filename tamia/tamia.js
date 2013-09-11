@@ -1,11 +1,15 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
-// Core helpers
+// https://github.com/sapegin/tamia
+// JS core
 
-;(function ($, window, undefined) {
+;(function(window, undefined) {
 	'use strict';
 
 	// IE8+
 	if (!document.querySelectorAll) return;
+
+	// jQuery is not required but very useful for Tâmia
+	var jQuery = window.jQuery || null;
 
 	var _containersCache;
 	var _components = {};
@@ -69,11 +73,11 @@
 			if (typeof component === 'function') {
 				component(container);
 			}
-			else {
+			else if (jQuery) {
 				// Shortcut for jQuery plugins initialization
 				for (var method in component) {
 					// @todo apply?
-					$(container)[method](component[method]);
+					jQuery(container)[method](component[method]);
 				}
 			}
 
@@ -86,42 +90,46 @@
 		}
 	}
 
+	if (jQuery) {
 
-	/**
-	 * Controls.
-	 *
-	 * Example:
-	 *
-	 *   <span data-fire="slider-next" data-to=".portfolio" data-attrs="1,2,3">Next</span>
-	 */
-	$(document).click(function(e) {
-		var target = e.target;
-		if (target.parentNode && target.parentNode.getAttribute && target.parentNode.getAttribute('data-fire')) target = target.parentNode;
-		if (target.getAttribute('data-fire') && target.getAttribute('data-to')) {
-			target = $(target);
-			var attrs = (''+target.data('attrs')).split(/[;, ]/);
-			$(target.data('to')).trigger(target.data('fire'), attrs);
-			e.preventDefault();
-		}
-	});
+		/**
+		 * Controls.
+		 *
+		 * Example:
+		 *
+		 *   <span data-fire="slider-next" data-to=".portfolio" data-attrs="1,2,3">Next</span>
+		 */
+		jQuery(document).click(function(e) {
+			// @todo addEventListener
+			var target = e.target;
+			// @todo Cache target.parentNode
+			if (target.parentNode && target.parentNode.getAttribute && target.parentNode.getAttribute('data-fire')) target = target.parentNode;
+			if (target.getAttribute('data-fire') && target.getAttribute('data-to')) {
+				target = jQuery(target);
+				var attrs = (''+target.data('attrs')).split(/[;, ]/);
+				jQuery(target.data('to')).trigger(target.data('fire'), attrs);
+				e.preventDefault();
+			}
+		});
 
 
-	/**
-	 * Init components inside any jQuery node.
-	 *
-	 * Examples:
-	 *
-	 *   $(window).trigger('init.tamia');
-	 *   $('.js-container').trigger('init.tamia');
-	 */
-	$(window).on('init.tamia', function(event) {
-		initComponents(undefined, event.target);
-	});
+		/**
+		 * Init components inside any jQuery node.
+		 *
+		 * Examples:
+		 *
+		 *   $(window).trigger('init.tamia');
+		 *   $('.js-container').trigger('init.tamia');
+		 */
+		jQuery(window).on('init.tamia', function(event) {
+			initComponents(undefined, event.target);
+		});
 
+	}
 
 	// Expose namespace
 	window.tamia = {
 		initComponents: initComponents
 	};
 
-}(jQuery, window));
+}(window));
