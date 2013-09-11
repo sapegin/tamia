@@ -74,5 +74,40 @@
 	<a href="#" class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</a>
 </div>
 
+<h2>Password</h2>
+
+<div class="spec spec_password">
+	<div class="password" data-component="password">
+		<span class="password__toggle"></span>
+		<input type="password" class="password__field field">
+	</div>
+</div>
+
+<h2>JS helpers</h2>
+
+<div class="js-container">
+	<div class="spec spec_password">
+		<div class="password" data-component="password">
+			<span class="password__toggle"></span>
+			<input type="password" class="password__field field">
+		</div>
+		<p><span class="link js-reinit">Reinit</span></p>
+	</div>
+</div>
+<script>
+var containerHtml = document.querySelector('.js-container').innerHTML;
+</script>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="specs.js"></script>
+
+<script>
+var container = $('.js-container');
+container.on('click', '.js-reinit', function() {
+	container.html(containerHtml);
+	container.trigger('init.tamia');
+});
+</script>
 </body>
 </html>

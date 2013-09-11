@@ -35,9 +35,9 @@ password_default_skin ?= false
 
 if blocks_default_skin or password_default_skin
 	.password
-		&__toggle
+		&.is-ok &__toggle
 			width: 20px
 			&:before
-				content: "●"
-		&.is-unlocked &__toggle:before
-			content: "◦"
+				content: "a"
+		&.is-ok.is-unlocked &__toggle:before
+			content: "●"

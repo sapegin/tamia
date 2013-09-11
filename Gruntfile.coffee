@@ -11,8 +11,7 @@ module.exports = (grunt) ->
 			options:
 				jshintrc: '.jshintrc'
 			files: [
-				'tamia/tamia.js',
-				'blocks/*/*.js'
+				'tamia/tamia.js'
 			]
 		coffeelint:
 			all:
@@ -27,6 +26,12 @@ module.exports = (grunt) ->
 				dest: 'blocks',
 				ext: '.js'
 		concat:
+			specs:
+				src: [
+					'tamia/tamia.js',
+					'blocks/*/*.js'
+				]
+				dest: 'specs/specs.js'
 			main:
 				src: [
 					'tamia/tamia.js',

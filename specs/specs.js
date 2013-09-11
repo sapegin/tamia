@@ -125,3 +125,93 @@
 	};
 
 }(jQuery, window));
+
+(function() {
+  'use strict';
+  var supported;
+
+  supported = void 0;
+
+  jQuery.prototype.tamiaPassword = function() {
+    if (supported === void 0) {
+      supported = (((jQuery('<b>')).html('<!--[if lte IE 8]><i></i><![endif]-->')).find('i')).length !== 1;
+    }
+    if (!supported) {
+      return this;
+    }
+    return this.each(function() {
+      var container, field, locked, lockedType, toggle, unlockedClass, unlockedType;
+      container = jQuery(this);
+      unlockedClass = 'is-unlocked';
+      lockedType = 'password';
+      unlockedType = 'text';
+      toggle = container.find('.password__toggle');
+      field = container.find('.password__field');
+      locked = !container.hasClass(unlockedClass);
+      container.addClass('is-ok');
+      return toggle.mousedown(function() {
+        var fieldType, focused;
+        focused = document.activeElement === field[0];
+        locked = !locked;
+        fieldType = field.attr('type');
+        container.toggleClass(unlockedClass, !locked);
+        if (fieldType === lockedType && !locked) {
+          field.attr('type', unlockedType);
+        } else if (fieldType === unlockedType && locked) {
+          field.attr('type', lockedType);
+        }
+        if (focused) {
+          return setTimeout((function() {
+            return field.focus();
+          }), 0);
+        }
+      });
+    });
+  };
+
+  utils.initComponents({
+    password: {
+      tamiaPassword: void 0
+    }
+  });
+
+}).call(this);
+
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Select with custom design
+
+/*global utils:true*/
+;(function($) {
+	'use strict';
+
+	$.fn.formSelect = function() {
+		return this.each(function() {
+			var container = $(this),
+				select = container.find('select'),
+				box = container.find('.select__box');
+
+				if (!box.length) {
+					box = $('<div class="select__box">');
+					container.append(box);
+				}
+
+				select.focus(function() {
+					container.addClass('is-focused');
+				});
+				select.blur(function() {
+					container.removeClass('is-focused');
+				});
+				select.change(function() {
+					box.text(select.find(':selected').text());
+				});
+
+				select.triggerHandler('change');
+		});
+	};
+
+	// Init component
+	utils.initComponents({ select: function(elem) {
+		$(elem).formSelect();
+	}});
+
+})(jQuery);

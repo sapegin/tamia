@@ -1,5 +1,8 @@
+blocks_default_skin = true
+
 @import "tamia"
 @import "blocks/tooltip"
+@import "blocks/password"
 
 // Colors
 // http://chriskempson.github.io/base16/
@@ -23,6 +26,14 @@
 //
 .spec
 	margin-bottom: 20px
+
+	&_password
+		width: 200px
+		.password,
+		.password__field
+			width: inherit
+
+
 
 body
 	padding: 20px
