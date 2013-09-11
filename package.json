@@ -2,7 +2,7 @@
   "name": "tamia",
   "version": "0.0.0",
   "scripts": {
-  	"test": "grunt test"
+  	"test": "grunt casperjs"
   },
   "devDependencies": {
     "grunt-contrib-concat": "~0.3.0",
