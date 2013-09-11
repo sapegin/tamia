@@ -1,15 +1,13 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // https://github.com/sapegin/tamia
 // JS core
+// jQuery is not required but very useful
 
-;(function(window, undefined) {
+;(function(window, jQuery, undefined) {
 	'use strict';
 
 	// IE8+
 	if (!document.querySelectorAll) return;
-
-	// jQuery is not required but very useful for Tâmia
-	var jQuery = window.jQuery || null;
 
 	var _containersCache;
 	var _components = {};
@@ -132,4 +130,4 @@
 		initComponents: initComponents
 	};
 
-}(window));
+}(window, window.jQuery));
