@@ -77,7 +77,7 @@
 <h2>Password</h2>
 
 <div class="spec spec_password">
-	<div class="password" data-component="password">
+	<div class="password js-password" data-component="password">
 		<span class="password__toggle"></span>
 		<input type="password" class="password__field field">
 	</div>
@@ -97,6 +97,16 @@
 <script>
 var containerHtml = document.querySelector('.js-container').innerHTML;
 </script>
+
+<div class="js-invisible" style="display:none">
+	<div class="spec spec_password">
+		<div class="password" data-component="password">
+			<span class="password__toggle"></span>
+			<input type="password" class="password__field field">
+		</div>
+		<p><span class="link js-reinit">Reinit</span></p>
+	</div>
+</div>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

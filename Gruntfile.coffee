@@ -49,6 +49,8 @@ module.exports = (grunt) ->
 					paths: ['.']
 				files:
 					'docs/styles.css': '__all.styl'
+		casperjs:
+			tests: 'tests/*.coffee'
 		watch:
 			concat:
 				files: '<%= concat.main.src %>'
@@ -85,5 +87,5 @@ module.exports = (grunt) ->
 		html = grunt.template.process template, {data: {title: 'Test title', html: html}}
 		grunt.file.write filename, html
 
-	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'cleanup']
+	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'casperjs', 'cleanup']
 	grunt.registerTask 'build', ['coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'cleanup']
