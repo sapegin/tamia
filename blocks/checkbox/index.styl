@@ -18,8 +18,15 @@
 
 	&__input:checked,
 	&__input:not(:checked)
+		// Input should be hidden but focusable
+		// display:none and width=height=0 don’t work here
 		position: absolute
 		opacity: 0
+		overflow: hidden
+		height: 1px
+		width: 1px
+		padding: 0
+		border: 0
 
 	&__input:checked + &__label &__button,
 	&__input:not(:checked) + &__label &__button
