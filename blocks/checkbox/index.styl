@@ -32,6 +32,9 @@
 			position: absolute
 			line-height: 1
 
+	&__input:focus + &__label &__text
+		outline: 1px dotted
+
 
 /* Default skin */
 
@@ -57,7 +60,8 @@ if blocks_default_skin or checkbox_default_skin
 			border-radius: .2em
 			box-shadow: inset 0 1px 2px black(.2)
 
-		&__input:active + &__label &__button
+		&__input:active + &__label &__button,
+		&__input:focus + &__label &__button
 			background: #f4f4f4
 
 	.checkbox
