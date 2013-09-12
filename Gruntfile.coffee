@@ -48,7 +48,7 @@ module.exports = (grunt) ->
 				options:
 					paths: ['.']
 				files:
-					'docs/styles.css': '__all.styl'
+					'docs/styles.css': 'docs_src/docs.styl'
 		casperjs:
 			tests: 'tests/*.coffee'
 		watch:
@@ -62,30 +62,71 @@ module.exports = (grunt) ->
 					'tamia/**/*.styl',
 					'blocks/**/*.styl',
 					'specs/specs.styl'
+					'docs_src/docs.styl'
 				]
-				tasks: 'stylus:specs'
+				tasks: 'stylus'
 
-	grunt.registerTask 'prepareStylus', ->
-		blocks = grunt.file.expand 'blocks/*'
-		blocks = ("@import \"#{name}\"" for name in blocks)
-		styl = '@import "tamia"\n' + (blocks.join '\n')
-		grunt.file.write '__all.styl', styl
-
-	grunt.registerTask 'cleanup', ->
-		grunt.file.delete '__all.styl'
+	marked.setOptions
+		smartypants: true
 
 	grunt.registerTask 'docs', ->
-		readmes = grunt.file.expand 'blocks/*/Readme.md'
-		html = _.map readmes, (name) ->
-			return marked grunt.file.read name
-		html = html.join '\n'
-		#saveNormalHtml 'docs/blocks.html', html
-		saveSourceHtml 'docs/index.html', html
+		html = []
 
-	saveSourceHtml = (filename, html) ->
-		template = grunt.file.read 'docs_src/source.html'
-		html = grunt.template.process template, {data: {title: 'Test title', html: html}}
+		# JS core
+		jscore = grunt.file.read 'tamia/tamia.js'
+		jscore = docsProcessJs jscore
+		html.push (docsAppendTitle jscore, 'JavaScript Helpers')
+
+		# readmes = grunt.file.expand 'blocks/*/Readme.md'
+		# html = _.map readmes, (name) ->
+		# 	return grunt.file.read name
+
+		saveHtml 'docs/index.html', marked html.join '\n\n'
+
+	saveHtml = (filename, html) ->
+		template = grunt.file.read 'docs_src/template.html'
+		html = grunt.template.process template, data: html: html
 		grunt.file.write filename, html
 
-	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'casperjs', 'cleanup']
-	grunt.registerTask 'build', ['coffee', 'concat', 'prepareStylus', 'stylus', 'docs', 'cleanup']
+
+	docsProcessJs = (code) ->
+		docs = []
+		blocksRegEx = /\/\*\*([\S\s]*?)\*\/\s*(.*?)\n/mg
+		while true
+			matches = blocksRegEx.exec code
+			break  unless matches
+			text = matches[1]
+			firstLine = matches[2]
+
+			text = text.replace /\n\s*\* ?/mg, '\n'  # Clean up
+			text = text.replace /^\s*/, ''  # Clean up
+			text = text.replace /@param {(\w+)} ([-\w]+)/g, '* *$1* **$2**'  # Params
+			text = text.replace /@param ([-\w]+)/g, '* **$1**'  # Params
+			text = text.replace /^(.*?):$/mg, '#### $1'  # Sections
+			text = text.replace /^  /mg, '    '  # Code blocks
+			text = text.replace /^    (\d+\.)/mg, '$1'  # Ordered lists
+
+			title = null
+			m = /function (\w+)/.exec firstLine
+			if m
+				title = m[1]
+			m = /jQuery\(\w+?\).on\('(\w+?.tamia)'/.exec firstLine
+			if m
+				title = m[1]
+			if title
+				text = "### #{title}\n\n#{text}"
+			else
+				# The first line is a title
+				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
+				text = "### #{text}"
+
+			docs.push text
+
+		docs.join '\n\n'
+
+	docsAppendTitle = (text, title) ->
+		"## #{title}\n\n#{text}"
+
+
+	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat','stylus', 'docs', 'casperjs']
+	grunt.registerTask 'build', ['coffee', 'concat', 'stylus', 'docs']

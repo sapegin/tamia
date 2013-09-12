@@ -47,9 +47,9 @@
 	 *
 	 *   1. Components inside hidden containers (width === height === 0) willn’t be initialized.
 	 *   2. To initialize components inside container that was hidden or inside dynamically created container use
-	 *      init.tamia event:  $('.js-container').trigger('init.tamia');
+	 *   init.tamia event: $('.js-container').trigger('init.tamia');
 	 *   3. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
-	 *      or nodes that was hidden before will be affected.
+	 *   or nodes that was hidden before will be affected.
 	 */
 	function initComponents(components, parent) {
 		var containers;
@@ -91,11 +91,30 @@
 	if (jQuery) {
 
 		/**
+		 * Init components inside any jQuery node.
+		 *
+		 * Examples:
+		 *
+		 *   $(window).trigger('init.tamia');
+		 *   $('.js-container').trigger('init.tamia');
+		 */
+		jQuery(window).on('init.tamia', function(event) {
+			initComponents(undefined, event.target);
+		});
+
+		/**
 		 * Controls.
+		 *
+		 * Fires jQuery event to specified element on click at this element.
+		 *
+		 * @param data-fire Event name.
+		 * @param data-to Target element selector.
+		 * @param data-attrs Comma separated attributes list.
 		 *
 		 * Example:
 		 *
 		 *   <span data-fire="slider-next" data-to=".portfolio" data-attrs="1,2,3">Next</span>
+		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
 		 */
 		jQuery(document).click(function(e) {
 			// @todo addEventListener
@@ -108,19 +127,6 @@
 				jQuery(target.data('to')).trigger(target.data('fire'), attrs);
 				e.preventDefault();
 			}
-		});
-
-
-		/**
-		 * Init components inside any jQuery node.
-		 *
-		 * Examples:
-		 *
-		 *   $(window).trigger('init.tamia');
-		 *   $('.js-container').trigger('init.tamia');
-		 */
-		jQuery(window).on('init.tamia', function(event) {
-			initComponents(undefined, event.target);
 		});
 
 	}
