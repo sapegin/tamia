@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tâmia</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="text">
+
+		<h1>Tâmia</h1>
+
+		<h2>JavaScript Helpers</h2>
+<h3>initComponents</h3>
+<p>Initialize components.</p>
+<ul>
+<li><em>Object</em> <strong>components</strong> Initializers for each component.</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>&lt;div data-component=&quot;pony&quot;&gt;&lt;/div&gt;
+
+tamia.initComponents({
+  // Plain initializer
+  pony: function(elem) {
+    // $(elem) === &lt;div data-component=&quot;pony&quot;&gt;
+  },
+  // Initialize jQuery plugins (plain initializer)
+  jquerypony: function(elem) {
+    $(elem).pluginmethod({option1: &#39;val1&#39;, options2: &#39;val2&#39;});
+    $(elem).pluginmethod2();
+  },
+  // Initialize jQuery plugins (shortcut)
+  jquerypony: {
+    pluginmethod: {option1: &#39;val1&#39;, options2: &#39;val2&#39;},
+    pluginmethod2: null
+  }
+}</code></pre>
+<h4>Caveats</h4>
+<ol>
+<li>Components inside hidden containers (width === height === 0) willn’t be initialized.</li>
+<li>To initialize components inside container that was hidden or inside dynamically created container use
+ init.tamia event: $(‘.js-container’).trigger(‘init.tamia’);</li>
+<li>No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
+ or nodes that was hidden before will be affected.</li>
+</ol>
+<h3>init.tamia</h3>
+<p>Init components inside any jQuery node.</p>
+<h4>Examples</h4>
+<pre><code>$(window).trigger(&#39;init.tamia&#39;);
+$(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);</code></pre>
+<h3>Controls</h3>
+<p>Fires jQuery event to specified element on click at this element.</p>
+<ul>
+<li><strong>data-fire</strong> Event name.</li>
+<li><strong>data-to</strong> Target element selector.</li>
+<li><strong>data-attrs</strong> Comma separated attributes list.</li>
+</ul>
+<h4>Example</h4>
+<pre><code>&lt;span data-fire=&quot;slider-next&quot; data-to=&quot;.portfolio&quot; data-attrs=&quot;1,2,3&quot;&gt;Next&lt;/span&gt;
+&lt;!-- $(&#39;.portfolio&#39;).trigger(&#39;slider-next&#39;, [1, 2, 3]); --&gt;</code></pre>
+
+
+	</div>
+
+
+	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+	<script>
+	hljs.tabReplace = '<span class="indent">\t</span>';
+	hljs.initHighlightingOnLoad();
+	</script>
+</body>
+</html>
