@@ -12,13 +12,318 @@
 
 		<h1>Tâmia</h1>
 
-		<h2>JavaScript Helpers</h2>
-<h3>initComponents</h3>
+		<h2>Configuration</h2>
+<h4>spacer</h4>
+<p>Default spacer (default: 10px).</p>
+<h4>max-width</h4>
+<p>Max page with.</p>
+<h4>content-max-width</h4>
+<p>Max content block (.content) with.</p>
+<h4>sticky-footer-height</h4>
+<p>Sticky footer height (default: no sticky footer).</p>
+<h4>bg-color</h4>
+<p>Background color (default: white).</p>
+<h4>base-color</h4>
+<p>Base text color (default: #111).</p>
+<h2>Grids and layouts</h2>
+<h3>Configuration</h3>
+<h4>grid-gutter</h4>
+<p>Grid gutter size, in pixels (default: 2×spacer).</p>
+<h4>grid-columns</h4>
+<p>Number of columns in grid (default: 12).</p>
+<h4>layout-classes</h4>
+<p>Generate layout classes (default: true).</p>
+<h3>Grid</h3>
+<h4>grid-row()</h4>
+<p>Columns wrapper.</p>
+<h4>grid-col(position, span, context)</h4>
+<p>Column (grid).</p>
+<ul>
+<li><strong>position</strong> Start column number (default: 1).</li>
+<li><strong>span</strong> Width, in culumns (default: 1).</li>
+<li><strong>context</strong> Width of parent column (default: null).</li>
+</ul>
+<h5>Example</h5>
+<pre><code>.row&gt;.col1+.col2
+
+.row
+  grid-row()
+.col1
+  grid-col(1,2)
+.col2
+  grid-col(3,10)</code></pre>
+<h4>grid-one(position, span, context)</h4>
+<p>Single column.</p>
+<ul>
+<li><strong>position</strong> Start column number (default: 1).</li>
+<li><strong>span</strong> Width, in culumns (default: 1).</li>
+<li><strong>context</strong> Width of parent column (default: null).</li>
+</ul>
+<h4>grid-one-container(position, span, context)</h4>
+<p>Single column (without padding, wrapper for child columns).</p>
+<ul>
+<li><strong>position</strong> Start column number (default: 1).</li>
+<li><strong>span</strong> Width, in culumns (default: 1).</li>
+<li><strong>context</strong> Width of parent column (default: null).</li>
+</ul>
+<h4>grid-explode()</h4>
+<p>Gutter size negative margin to make column with different background.
+You should adjust padding depending on content.</p>
+<h4>context</h4>
+<p>Width of column, in percent.</p>
+<ul>
+<li><strong>position</strong> Start column number (default: 1).</li>
+<li><strong>span</strong> Width, in culumns (default: 1).</li>
+</ul>
+<p>Returns percent.</p>
+<h4>grid-padding()</h4>
+<p>Column left/right padding.</p>
+<h4>grid-wrapper()</h4>
+<p>Column wrapper left/right negative margin.</p>
+<h3>Layouts</h3>
+<h4>layout-row()</h4>
+<p>Layout wrapper.</p>
+<h4>layout-nth(part)</h4>
+<p>Column (simple layout).</p>
+<ul>
+<li><strong>part</strong> 1/Nth part of wrapper.</li>
+</ul>
+<h5>Example</h5>
+<pre><code>.row&gt;.col+.col
+
+.row
+  layout-row()
+.col
+  layout-nth(2)  // Half</code></pre>
+<h4>layout-change(part)</h4>
+<p>Change number of columns.</p>
+<p>Use it to change number of columns (defined via layout-nth()) inside media queries.</p>
+<ul>
+<li><strong>part</strong> 1/Nth part of wrapper.</li>
+</ul>
+<h4>layout-stop()</h4>
+<p>Disable columns.</p>
+<p>Alias for layout-change(1).</p>
+<h4>_layout-part()</h4>
+<p>IE8-9</p>
+<h3>Classes</h3>
+<h4>.l-row</h4>
+<p>Column wrapper.</p>
+<h4>.l-sixth</h4>
+<p>Sixth (to use inside .l-row).</p>
+<h4>.l-quarter</h4>
+<p>Quarter (to use inside .l-row).</p>
+<h4>.l-three-quarters</h4>
+<p>Three quarters (to use inside .l-row).</p>
+<h4>.l-third</h4>
+<p>Third (to use inside .l-row).</p>
+<h4>.l-two-thirds</h4>
+<p>Two thirds (to use inside .l-row).</p>
+<h4>.l-half</h4>
+<p>Half (to use inside .l-row).</p>
+<h4>.l-last</h4>
+<p>Last column (to use inside .l-row).</p>
+<h4>.l-center</h4>
+<p>Centered content (vertically and horizontally).</p>
+<h5>Example</h5>
+<pre><code>.l-center&gt;.l-center-i&gt;span</code></pre>
+<h3>Spacing</h3>
+<h4>space(rows)</h4>
+<p>Space after block.</p>
+<ul>
+<li><strong>rows</strong> Number of “rows” (one row = default spacer).</li>
+</ul>
+<h4>.l-space</h4>
+<p>Standard bottom margin.</p>
+<h4>.l-double-space</h4>
+<p>Double bottom margin.</p>
+<h4>.l-triple-space</h4>
+<p>Triple bottom margin.</p>
+<h4>.l-quad-space</h4>
+<p>Quadruple bottom margin.</p>
+<h2>Links</h2>
+<h3>Configuration</h3>
+<h4>link-style</h4>
+<p>Link style (default: underline).</p>
+<h5>Values</h5>
+<ul>
+<li>underline - text-decoration:underline.</li>
+<li>border - border-bottom:1px solid.</li>
+<li>gradient - Uses CSS gradients to position line under text (cannot change line color on hover).</li>
+</ul>
+<h4>link-color</h4>
+<p>Link color (default: #1978c8).</p>
+<h4>visited-color</h4>
+<p>Visited link color.</p>
+<h4>hover-color</h4>
+<p>Hovered link color.</p>
+<h4>link-underline-color</h4>
+<p>Link underline color.</p>
+<h4>visited-underline-color</h4>
+<p>Visited link underline color.</p>
+<h4>hover-underline-color</h4>
+<p>Hovered link underline color.</p>
+<h4>link-underline-position</h4>
+<p>Link underline position (only when link-style == gradient, default: 80%)</p>
+<h4>link-pressable</h4>
+<p>Pressable links (shifts down by 1px, default: true).</p>
+<h3>Classes</h3>
+<h4>.pressable-inset</h4>
+<p>Pressable element: pointer cursor + disable text selection.</p>
+<h4>.pressable</h4>
+<p>Pressable element: shifts down by 1px on click.</p>
+<h4>.no-pressable</h4>
+<p>Non-pressable element: cancels .pressable.</p>
+<h4>.no-underline</h4>
+<p>Remove underline.</p>
+<h4>.link</h4>
+<p>Link.</p>
+<ul>
+<li><strong>.link_fake</strong> Pseudo link with dashed underline.</li>
+<li><strong>.link_quoted</strong> Link in quotes (quotes should be colored but not underlined). Example: a.link.link_quoted&gt;u.</li>
+</ul>
+<h2>Images, sprites, Retina support</h2>
+<h3>Configuration</h3>
+<h4>retina</h4>
+<p>Enable Retina support (default: false).</p>
+<h4>images-relative-root</h4>
+<p>Path to calculate file system image path based on CSS path (default: .).</p>
+<h4>Default sprite image file (default: ../build/sprite.png)</h4>
+<h4>sprite-step</h4>
+<p>Sprite step size (default: 20px).</p>
+<h3>Functions</h3>
+<h4>ext</h4>
+<p>background-image with Retina variant.</p>
+<ul>
+<li><strong>path</strong> Image file path.
+x - background-position x (default: 0).
+y - background-position y (default: 0).</li>
+</ul>
+<p>Retina image file should be named path@2x.png.</p>
+<h4>sprite(img, x, y, w)</h4>
+<p>Sprite (to use in pseudo element).</p>
+<h5>Sprite generated by grunt-squirrelsprite</h5>
+<ul>
+<li><strong>img</strong> Sprite image variable.</li>
+</ul>
+<h5>Manually created sprite</h5>
+<ul>
+<li><strong>x</strong> Horizontal position in sprite grid.</li>
+<li><strong>y</strong> Vertical position in sprite grid.</li>
+<li><strong>w</strong> Sprite width, pixels.
+h - sprite height, pixels.</li>
+</ul>
+<h5>Example</h5>
+<pre><code>.elem
+  sprite(sprite_pony);
+
+.elem2
+  sprite(5, 6, 36, 22);</code></pre>
+<h4>sprite-x(x)</h4>
+<p>Horizontal position of sprite image.</p>
+<ul>
+<li><strong>x</strong> Horizontal position in sprite grid.</li>
+</ul>
+<p>Returns pixels.</p>
+<h4>sprite-y(y)</h4>
+<p>Vertical position of sprite image.</p>
+<ul>
+<li><strong>y</strong> Vertical position in sprite grid.</li>
+</ul>
+<p>Returns pixels.</p>
+<h4>sprite-pos(x, y)</h4>
+<p>background-position for sprite.</p>
+<ul>
+<li><strong>x</strong> Horizontal position in sprite grid.</li>
+<li><strong>y</strong> Vertical position in sprite grid.</li>
+</ul>
+<h5>Example</h5>
+<pre><code>.elem
+  sprite-bg()
+  sprite-pos(5,6)
+  sprite-pos(sprite_pony-hover)</code></pre>
+<h4>sprite-bg(img, x, y)</h4>
+<p>background-image for sprite.</p>
+<h5>Sprite generated by grunt-squirrelsprite</h5>
+<ul>
+<li><strong>img</strong> Sprite image variable.</li>
+</ul>
+<h5>Manually created sprite</h5>
+<ul>
+<li><strong>x</strong> Horizontal position in sprite grid (default: 0).</li>
+<li><strong>y</strong> Vertical position in sprite grid (default: 0).</li>
+</ul>
+<h4>sprite-size()</h4>
+<p>Element width/height for sprite.</p>
+<h5>Example</h5>
+<pre><code>.elem
+  sprite-size(sprite_pony);</code></pre>
+<h2>Misc functions and mixins</h2>
+<h3>Easings</h3>
+<h4>ease-in-sine</h4>
+<p>Ease in sine.</p>
+<h4>ease-out-quint</h4>
+<p>Ease out quint.</p>
+<h4>ease-out-back</h4>
+<p>Ease out back.</p>
+<h3>Typography and text</h3>
+<h4>ellipsis()</h4>
+<p>Ellipsis text overflow.</p>
+<h4>tweak-inverted-text()</h4>
+<p>Tweak inverted text (light on dark) for webkit.</p>
+<h4>enable-ligatures()</h4>
+<p>Enables ligatures in text.</p>
+<h4>text-selection(color, background)</h4>
+<p>Text selection style.</p>
+<ul>
+<li><strong>color</strong> Text color.</li>
+<li><strong>background</strong> Background color.</li>
+</ul>
+<h4>placeholder-color(color)</h4>
+<p>Input placeholder color.</p>
+<ul>
+<li><strong>color</strong> Placeholder color.</li>
+</ul>
+<h4>no-select()</h4>
+<p>Disables text selection.</p>
+<h3>Misc.</h3>
+<h4>no-cols()</h4>
+<p>Disables columns.</p>
+<h4>no-transition(imp)</h4>
+<p>Disables transitions.</p>
+<ul>
+<li><strong>imp</strong> Important? (default: false).</li>
+</ul>
+<h4>triangle(direction, size, color)</h4>
+<p>Draws triangle.</p>
+<ul>
+<li><strong>direction</strong> Triangle direction (up, down, left, right).</li>
+<li><strong>size</strong> Size (default: 10px).</li>
+<li><strong>color</strong> Color (default: black).</li>
+</ul>
+<h4>debug()</h4>
+<p>Draws color outline around an element.</p>
+<p>Works only when DEBUG == true.</p>
+<h2>Functions</h2>
+<h4>white(opacity)</h4>
+<p>White color with transparency.</p>
+<ul>
+<li><strong>opacity</strong> Opacity value (0—1).</li>
+</ul>
+<p>Returns color.</p>
+<h4>black(opacity)</h4>
+<p>Black color with transparency.</p>
+<ul>
+<li><strong>opacity</strong> Opacity value (0—1).</li>
+</ul>
+<p>Returns color.</p>
+<h2>JavaScript Helpers</h2>
+<h4>initComponents(components)</h4>
 <p>Initialize components.</p>
 <ul>
 <li><em>Object</em> <strong>components</strong> Initializers for each component.</li>
 </ul>
-<h4>Examples</h4>
+<h5>Examples</h5>
 <pre><code>&lt;div data-component=&quot;pony&quot;&gt;&lt;/div&gt;
 
 tamia.initComponents({
@@ -37,7 +342,7 @@ tamia.initComponents({
     pluginmethod2: null
   }
 }</code></pre>
-<h4>Caveats</h4>
+<h5>Caveats</h5>
 <ol>
 <li>Components inside hidden containers (width === height === 0) willn’t be initialized.</li>
 <li>To initialize components inside container that was hidden or inside dynamically created container use
@@ -45,19 +350,19 @@ tamia.initComponents({
 <li>No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
  or nodes that was hidden before will be affected.</li>
 </ol>
-<h3>init.tamia</h3>
+<h4>init.tamia</h4>
 <p>Init components inside any jQuery node.</p>
-<h4>Examples</h4>
+<h5>Examples</h5>
 <pre><code>$(window).trigger(&#39;init.tamia&#39;);
 $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);</code></pre>
-<h3>Controls</h3>
+<h4>Controls</h4>
 <p>Fires jQuery event to specified element on click at this element.</p>
 <ul>
 <li><strong>data-fire</strong> Event name.</li>
 <li><strong>data-to</strong> Target element selector.</li>
 <li><strong>data-attrs</strong> Comma separated attributes list.</li>
 </ul>
-<h4>Example</h4>
+<h5>Example</h5>
 <pre><code>&lt;span data-fire=&quot;slider-next&quot; data-to=&quot;.portfolio&quot; data-attrs=&quot;1,2,3&quot;&gt;Next&lt;/span&gt;
 &lt;!-- $(&#39;.portfolio&#39;).trigger(&#39;slider-next&#39;, [1, 2, 3]); --&gt;</code></pre>
 

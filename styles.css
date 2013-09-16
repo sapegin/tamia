@@ -63,12 +63,13 @@ a:link{-webkit-tap-highlight-color:rgba(102,102,102,0.25)}
 .no-cssgradients .link{text-decoration:underline}
 .no-cssgradients .link_fake{text-decoration:none;border-bottom:1px dotted}
 .text p,.text ul,.text ol,.text li,.text pre{margin-bottom:10px}
-.alpha,.text h1,.beta,.text h2,.gamma,.text h3,.delta,.text h4{margin-top:30px;margin-bottom:10px;line-height:1.2;font-weight:normal}
+.alpha,.text h1,.beta,.text h2,.gamma,.text h3,.delta,.text h4,.epsilon,.text h5{margin-top:30px;margin-bottom:10px;line-height:1.2;font-weight:normal}
 .alpha,.text h1{font-size:44px}
 .beta,.text h2{font-size:34px}
 .gamma,.text h3{font-size:28px}
 .delta,.text h4{font-size:20px}
-.text h1 + h2,.text h2 + h3,.text h3 + h4,.alpha + .beta,.beta + .gamma,.gamma + .delta{margin-top:0}
+.epsilon,.text h5{font-size:1em;font-weight:bold}
+.text h1 + h2,.text h2 + h3,.text h3 + h4,.text h4 + h5,.alpha + .beta,.beta + .gamma,.gamma + .delta,.delta + .epsilon{margin-top:0}
 .list > li,.text ul > li{position:relative;padding-left:1.3em;margin-left:-1.3em}
 .list > li:before,.text ul > li:before{position:absolute;left:0;content:"\2014\a0"}
 .list ul,.text ul ul{margin-left:1.3em}
