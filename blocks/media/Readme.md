@@ -3,7 +3,7 @@
 Media object from OOCSS.
 
 
-# Markup
+## Markup
 
 	<div class="media">
 		<img src="http://placedog.com/200/200" alt="" class="media__img">
@@ -11,9 +11,9 @@ Media object from OOCSS.
 	</div>
 
 
-# Modifiers
+## Modifiers
 
-## `.media__img_rev`
+### `.media__img_rev`
 
 Reversed image location (right instead of left).
 

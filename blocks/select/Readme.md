@@ -3,7 +3,7 @@
 Select with custom design
 
 
-# Markup
+## Markup
 
 	<div class="select" data-component="select">
 		<select>
@@ -16,8 +16,6 @@ Select with custom design
 	</div>
 
 
-## Configuration
+## Skin
 
-### `select_default_skin` (Boolean, default: `false`) and `blocks_default_skin` (Boolean, default: `true`)
-
-Disable default skin if both are `false`.
+Set `select_default_skin` or `blocks_default_skin` to `true` to enable default skin.

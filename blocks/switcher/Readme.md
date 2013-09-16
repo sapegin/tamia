@@ -3,7 +3,7 @@
 Nice looking radio buttons group.
 
 
-# Markup
+## Markup
 
 	<div class="switcher">
 		<input id="type_first" type="radio" name="type" value="first" checked="checked"/>
@@ -15,8 +15,7 @@ Nice looking radio buttons group.
 	</div>
 
 
-## Configuration
 
-### `switcher_default_skin` (Boolean, default: `false`) and `blocks_default_skin` (Boolean, default: `true`)
+## Skin
 
-Disable default skin if both are `false`.
+Set `switcher_default_skin` or `blocks_default_skin` to `true` to enable default skin.

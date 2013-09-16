@@ -3,7 +3,7 @@
 Checkbox and radio button with custom design.
 
 
-# Markup
+## Markup
 
 Checkbox:
 
@@ -26,8 +26,6 @@ Radio button:
 	</div>
 
 
-## Configuration
+## Skin
 
-### `checkbox_default_skin` (Boolean, default: `false`) and `blocks_default_skin` (Boolean, default: `true`)
-
-Disable default skin if both are `false`.
+Set `checkbox_default_skin` or `blocks_default_skin` to `true` to enable default skin.

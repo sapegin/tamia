@@ -94,12 +94,13 @@ module.exports = (grunt) ->
 		jscore = docsProcessJs jscore
 		html.push (docsAppendTitle jscore, 'JavaScript Helpers')
 
-		# Blocks TODO: generate to separate file
-		# readmes = grunt.file.expand 'blocks/*/Readme.md'
-		# html = _.map readmes, (name) ->
-		# 	return grunt.file.read name
-
 		saveHtml 'docs/index.html', marked html.join '\n\n'
+
+		# Blocks
+		readmes = grunt.file.expand 'blocks/*/Readme.md'
+		html = _.map readmes, (name) ->
+			return grunt.file.read name
+		saveHtml 'docs/blocks.html', marked html.join '\n\n'
 
 
 	saveHtml = (filename, html) ->

@@ -3,7 +3,7 @@
 Password field with toggle to show characters.
 
 
-# Markup
+## Markup
 
 	<div class="password" data-component="password">
 		<span class="password__toggle"></span>
@@ -25,3 +25,8 @@ Password characters are visible.
 ## Caveats
 
 IE9+.
+
+
+## Skin
+
+Set `password_default_skin` or `blocks_default_skin` to `true` to enable default skin.
