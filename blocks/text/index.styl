@@ -16,7 +16,9 @@
 .gamma,
 .text h3,
 .delta,
-.text h4
+.text h4,
+.epsilon,
+.text h5
 	margin-top: 3*spacer
 	margin-bottom: spacer
 	line-height: 1.2
@@ -38,11 +40,18 @@
 .text h4
 	font-size: 20px
 
+.epsilon,
+.text h5
+	font-size: 1em
+	font-weight: bold
+
 // Collapse margin between headings.
 .text h1 + h2,
 .text h2 + h3,
 .text h3 + h4,
+.text h4 + h5,
 .alpha + .beta,
 .beta + .gamma,
-.gamma + .delta
+.gamma + .delta,
+.delta + .epsilon
 	margin-top: 0
