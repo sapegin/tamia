@@ -1,6 +1,10 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Grids and layouts
 
+//
+// Configuration
+//
+
 // Grid gutter size, in pixels (default: 2×spacer).
 grid-gutter ?= 2*spacer
 
@@ -13,8 +17,9 @@ layout-classes ?= true
 
 //
 // Grid
-// Inspired by http://zengrids.com
 //
+
+/// Inspired by http://zengrids.com
 
 // Columns wrapper.
 grid-row()
@@ -28,6 +33,7 @@ grid-row()
 // context - Width of parent column (default: null).
 //
 // Example:
+//
 //   .row>.col1+.col2
 //
 //   .row
@@ -105,8 +111,8 @@ _grid-float()
 // Layout wrapper.
 layout-row()
 	grid-wrapper()
-	// Temporary flexbox implementaion that works in IE 10
-	// Nib implementation is broken
+	/// Temporary flexbox implementaion that works in IE 10
+	/// Nib implementation is broken
 	display: -ms-flexbox
 	-ms-box-orient: horizontal
 	display: -webkit-flex
@@ -117,7 +123,7 @@ layout-row()
 	-moz-flex-flow: row wrap
 	-ms-flex-flow: row wrap
 	flex-flow: row wrap
-	// IE8-9
+	/// IE8-9
 	.no-flexbox &
 		letter-spacing: -0.31em
 
@@ -125,7 +131,8 @@ layout-row()
 //
 // part - 1/Nth part of wrapper.
 //
-// Example
+// Example:
+//
 //   .row>.col+.col
 //
 //   .row
@@ -210,7 +217,8 @@ if layout-classes
 
 	// Centered content (vertically and horizontally).
 	//
-	// Example
+	// Example:
+	//
 	//   .l-center>.l-center-i>span
 	.l-center
 		display: table
@@ -251,9 +259,9 @@ if layout-classes
 		space(4)
 
 
-//
-// Debug stuff
-//
+///
+/// Debug stuff
+///
 
 if DEBUG and layout-classes
 	.g-debug-col

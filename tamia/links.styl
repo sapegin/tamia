@@ -1,6 +1,10 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Links
 
+//
+// Configuration
+//
+
 // Link style (default: underline).
 //
 // Values:
@@ -9,7 +13,7 @@
 // - gradient - Uses CSS gradients to position line under text (cannot change line color on hover).
 link-style ?= "underline"
 
-// Link color.
+// Link color (default: #1978c8).
 link-color ?= #1978c8
 
 // Visited link color.
@@ -34,7 +38,12 @@ link-underline-position = 76.5% if link-style == "underline"
 // Pressable links (shifts down by 1px, default: true).
 link-pressable ?= true
 
-// Pressable element: pointer cursor + disable text selection
+
+//
+// Classes
+//
+
+// Pressable element: pointer cursor + disable text selection.
 .pressable-inset
 	no-select()
 	cursor: pointer

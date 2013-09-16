@@ -1,6 +1,10 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Images, sprites, Retina support
 
+//
+// Configuration
+//
+
 // Enable Retina support (default: false).
 retina ?= false
 
@@ -13,6 +17,10 @@ sprite-image ?= '../build/sprite.png';
 // Sprite step size (default: 20px).
 sprite-step ?= 20px;
 
+
+//
+// Functions
+//
 
 // background-image with Retina variant.
 //
@@ -45,9 +53,11 @@ else
 // w - Sprite width, pixels.
 // h - sprite height, pixels.
 //
-// Example
+// Example:
+//
 //   .elem
 //     sprite(sprite_pony);
+//
 //   .elem2
 //     sprite(5, 6, 36, 22);
 sprite(img)
@@ -82,11 +92,12 @@ sprite-y(y)
 // x - Horizontal position in sprite grid.
 // y - Vertical position in sprite grid.
 //
-// Example
-//  .elem
-//    sprite-bg()
-//    sprite-pos(5,6)
-//    sprite-pos(sprite_pony-hover)
+// Example:
+//
+//   .elem
+//     sprite-bg()
+//     sprite-pos(5,6)
+//     sprite-pos(sprite_pony-hover)
 sprite-pos(img)
 	if length(img) > 1
 		background-position: img[0] img[1]
@@ -106,7 +117,8 @@ sprite-bg(x=0, y=0)
 
 // Element width/height for sprite.
 //
-// Example
+// Example:
+//
 //   .elem
 //     sprite-size(sprite_pony);
 sprite-size(img)
