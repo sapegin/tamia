@@ -265,7 +265,8 @@ if layout-classes
 
 if DEBUG and layout-classes
 	.g-debug-col
-		_layout-col()
+		grid-padding()
+		float: left
 		width: grid-width()
 
 	.g-debug-helper
@@ -275,11 +276,14 @@ if DEBUG and layout-classes
 		height: 100%
 		min-height: 3000px
 		z-index: 10000
+		overflow: hidden
 		pointer-events: none
 		*
 			height: 100%
+		[data-component="grid"]
+			grid-wrapper()
 		.g-debug-col:before
 			content: ""
 			display: block
-			height: 100%
+			height: inherit
 			background: hsla(220,40%,50%,.25)

@@ -3,6 +3,30 @@
 // JS core
 // jQuery is not required but very useful
 
+/*global DEBUG:true*/
+
+/**
+ * Debug mode.
+ *
+ * You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.
+ *
+ * To make it work add to your Gruntfile:
+ *
+ *   uglify: {
+ *     options: {
+ *       compress: {
+ *         global_defs: {
+ *           DEBUG: !!grunt.option('debug')
+ *         }
+ *      }
+ *    },
+ *    ...
+ *  }
+ *
+ * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
+ */
+if (typeof DEBUG === 'undefined') DEBUG = true;
+
 ;(function(window, jQuery, undefined) {
 	'use strict';
 
@@ -129,7 +153,25 @@
 			}
 		});
 
+		/**
+		 * Grid helper.
+		 *
+		 * Example:
+		 *
+		 *   <div data-component="grid"></div>
+		 */
+		if (DEBUG) initComponents({
+				elem = $(elem);
+				elem
+					.html(
+						new Array((elem.data('columns') || 12) + 1).join('<b class="g-debug-col" style="height:'+document.documentElement.scrollHeight+'px"></b>')
+					)
+				;
+			}
+		});
+
 	}
+
 
 	// Expose namespace
 	window.tamia = {
