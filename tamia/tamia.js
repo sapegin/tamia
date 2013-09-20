@@ -161,8 +161,10 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 *   <div data-component="grid"></div>
 		 */
 		if (DEBUG) initComponents({
+			grid: function(elem) {
 				elem = $(elem);
 				elem
+					.addClass('g-row')
 					.html(
 						new Array((elem.data('columns') || 12) + 1).join('<b class="g-debug-col" style="height:'+document.documentElement.scrollHeight+'px"></b>')
 					)
