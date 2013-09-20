@@ -82,10 +82,15 @@ grid-width(span=1, context=null)
 	span * unit-width
 
 // Column left/right padding.
-grid-padding()
+//
+// full - Padding on all sides if true, left/right otherwise (default: false).
+grid-padding(full=false)
 	side-gutter = grid-gutter / 2;
-	padding-left: side-gutter
-	padding-right: side-gutter
+	if full
+		padding: side-gutter
+	else
+		padding-left: side-gutter
+		padding-right: side-gutter
 
 // Column wrapper left/right negative margin.
 grid-wrapper()
