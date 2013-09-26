@@ -33,6 +33,9 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 	// IE8+
 	if (!document.querySelectorAll) return;
 
+	// Namespace
+	var tamia = window.tamia = {};
+
 	var _containersCache;
 	var _components = {};
 
@@ -75,7 +78,7 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 	 *   3. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
 	 *   or nodes that was hidden before will be affected.
 	 */
-	function initComponents(components, parent) {
+	tamia.initComponents = function(components, parent) {
 		var containers;
 		if (parent === undefined) {
 			containers = _containersCache || (_containersCache = _getContainers());
@@ -110,20 +113,22 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		for (var name in components) {
 			_components[name] = components[name];
 		}
-	}
+	};
 
 	if (jQuery) {
+
+		var _doc = jQuery(document);
 
 		/**
 		 * Init components inside any jQuery node.
 		 *
 		 * Examples:
 		 *
-		 *   $(window).trigger('init.tamia');
+		 *   $(document).trigger('init.tamia');
 		 *   $('.js-container').trigger('init.tamia');
 		 */
-		jQuery(window).on('init.tamia', function(event) {
-			initComponents(undefined, event.target);
+		_doc.on('init.tamia', function(event) {
+			tamia.initComponents(undefined, event.target);
 		});
 
 		/**
@@ -140,11 +145,10 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 *   <span data-fire="slider-next" data-to=".portfolio" data-attrs="1,2,3">Next</span>
 		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
 		 */
-		jQuery(document).click(function(e) {
-			// @todo addEventListener
+		_doc.click(function(e) {
 			var target = e.target;
-			// @todo Cache target.parentNode
-			if (target.parentNode && target.parentNode.getAttribute && target.parentNode.getAttribute('data-fire')) target = target.parentNode;
+			var parent = target.parentNode;
+			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) target = parent;
 			if (target.getAttribute('data-fire') && target.getAttribute('data-to')) {
 				target = jQuery(target);
 				var attrs = (''+target.data('attrs')).split(/[;, ]/);
@@ -160,7 +164,7 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 *
 		 *   <div data-component="grid"></div>
 		 */
-		if (DEBUG) initComponents({
+		if (DEBUG) tamia.initComponents({
 			grid: function(elem) {
 				elem = $(elem);
 				elem
@@ -173,11 +177,5 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		});
 
 	}
-
-
-	// Expose namespace
-	window.tamia = {
-		initComponents: initComponents
-	};
 
 }(window, window.jQuery));
