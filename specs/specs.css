@@ -52,7 +52,7 @@ a:link{-webkit-tap-highlight-color:rgba(102,102,102,0.25)}
 .pressable:active,.link:active,.link u:active{position:relative;top:1px}
 .no-pressable,.no-pressable:hover,.no-pressable:active{cursor:default}
 .no-pressable:active{position:static}
-.no-underline:link,.link_quoted:link,.no-underline:visited,.link_quoted:visited,.no-underline:hover,.link_quoted:hover,.no-underline:active,.link_quoted:active,.no-underline:focus,.link_quoted:focus{text-decoration:none;border-bottom:0;background-image:none}
+.no-underline,.link_quoted,.no-underline:link,.link_quoted:link,.no-underline:visited,.link_quoted:visited,.no-underline:hover,.link_quoted:hover,.no-underline:active,.link_quoted:active,.no-underline:focus,.link_quoted:focus,.link_quoted{text-decoration:none;border-bottom:0;background-image:none}
 .link,.link u{-webkit-transition:border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out;-moz-transition:border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out;-o-transition:border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out;-ms-transition:border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out;transition:border .1s ease-in-out,color .2s ease-in-out,background .2s ease-in-out;cursor:pointer;text-decoration:underline;}
 .link,.link:link,.link u,.link:link u{color:#1978c8;}
 .link:visited,.link:visited u{color:#1978c8;}

@@ -2,17 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Tâmia</title>
+	<title><% if (page !== 'index') { %><%= menu[page] %> — <% } %>Tâmia</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
 
-	<div class="text">
+	<header class="header">
+		<div class="content">
+			<div class="logo">
+				<% if (page === 'index') { %>
+					Tâmia
+				<% } else { %>
+					<a href="/tamia/" class="logo__link">Tâmia</a>
+				<% } %>
+			</div>
+			<nav class="nav">
+				<% for (var name in menu) { %>
+					<li class="nav__item">
+						<a href="<%= name %>.html" class="nav__link <% if (name === page) { %>nav__link_active<% } %>">
+							<%= menu[name] %>
+						</a>
+					</li>
+				<% } %>
+			</nav>
+		</div>
+	</header>
 
-		<h1>Tâmia</h1>
 
-		<%= html %>
+	<div class="page-content content">
+		<% if (page === 'index') { %>
+			<div class="splash">
+				<h1 class="splash__title">Tâmia</h1>
+				<div class="splash__subtitle">Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/" class="link">Artem Sapegin</a>.</div>
+			</div>
+		<% } %>
+
+		<div class="text">
+			<%= html %>
+		</div>
 
 	</div>
 

@@ -1,4 +1,5 @@
 blocks_default_skin = true
+content-max-width = 1024px
 
 @import "tamia"
 @import "blocks/text"
@@ -7,6 +8,58 @@ blocks_default_skin = true
 @import "blocks/richtypo"
 
 body
-	padding: 2*spacer 4*spacer
-	font: 16px/1.4 Helvetica, arial, freesans, clean, sans-serif
+	font: 16px/1.4 "Helvetica Neue", Arial, sans-serif
 
+.content
+	padding: 0 4*spacer
+
+.page-content
+	padding-top: spacer
+	padding-bottom: spacer
+
+.header
+	tweak-inverted-text()
+	background: #222
+	color: #fff
+
+	a
+		&,
+		&:link,
+		&:visited,
+		&:hover,
+		&:active,
+		&:focus
+			color: #fff
+
+.logo
+	display: inline-block
+	margin-right: 2em
+	padding: 4px 0 10px
+	font-size: 24px
+
+.nav
+	display: inline-block
+	list-style-type: none
+
+	&__item
+		display: inline-block
+
+	&__link
+		display: block
+		padding: 12px .75em 13px
+
+	&__link_active
+		background: #555
+		background: linear-gradient(#555, #3f3f3f)
+		text-decoration: none
+
+
+.splash
+	space(4)
+
+	&__title
+		font-size: 56px
+		font-weight: normal
+
+	&__subtitle
+		font-size: 28px

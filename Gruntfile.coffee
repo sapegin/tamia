@@ -71,8 +71,19 @@ module.exports = (grunt) ->
 		smartypants: true
 
 
+	docsMenu =
+		docs: 'Documentation'
+		blocks: 'Blocks'
+
+
 	grunt.registerTask 'docs', ->
 		html = []
+
+		# Index page
+		readme = grunt.file.read 'Readme.md'
+		readme = readme.replace /^[\S\s]*?##/, '##'
+		readme = readme.replace /The MIT License, see the included `License.md` file./, 'The [MIT License](https://github.com/sapegin/tamia/blob/master/License.md).'
+		saveHtml 'index', marked readme
 
 		# Stylus modules
 		modules = [
@@ -94,19 +105,19 @@ module.exports = (grunt) ->
 		jscore = docsProcessJs jscore
 		html.push (docsAppendTitle jscore, 'JavaScript Helpers')
 
-		saveHtml 'docs/index.html', marked html.join '\n\n'
+		saveHtml 'docs', marked html.join '\n\n'
 
 		# Blocks
 		readmes = grunt.file.expand 'blocks/*/Readme.md'
 		html = _.map readmes, (name) ->
 			return grunt.file.read name
-		saveHtml 'docs/blocks.html', marked html.join '\n\n'
+		saveHtml 'blocks', marked html.join '\n\n'
 
 
-	saveHtml = (filename, html) ->
+	saveHtml = (name, html) ->
 		template = grunt.file.read 'docs_src/template.html'
-		html = grunt.template.process template, data: html: html
-		grunt.file.write filename, html
+		html = grunt.template.process template, data: html: html, page: name, menu: docsMenu
+		grunt.file.write "docs/#{name}.html", html
 
 	docsProcessJs = (code) ->
 		docs = []

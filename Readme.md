@@ -6,19 +6,17 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 2. JavaScript helpers.
 3. Blocks library.
 
-There’re few other things made specifically for Tâmia: [Yeomen project generator](https://github.com/sapegin/generator-tamia) and [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
-
-
-## Browser Support
-
-I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).
-
 
 ## Requirements
 
 * Stylus and Nib.
 * jQuery.
 * Modernizr.
+
+
+## Browser Support
+
+I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).
 
 
 ## Workflow
@@ -71,6 +69,11 @@ tamia.initComponents({
 ## Blocks library
 
 Block is an independent component with appearance (Stylus) and behavior (JavaScript) which can be used on many websites. Some blocks have only appearance. Some blocks have default skin that you can disable if you want.
+
+
+## Tools
+
+There’re few other things made specifically for Tâmia: [Yeomen project generator](https://github.com/sapegin/generator-tamia) and [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
 
 
 ## Documentation
