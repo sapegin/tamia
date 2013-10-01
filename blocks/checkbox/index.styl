@@ -1,5 +1,6 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Checkbox and radio button
+// Requires Modernizr.svg
 
 /* Bones */
 
@@ -58,7 +59,7 @@ if blocks_default_skin or checkbox_default_skin
 		&__button,
 		&__text
 			line-height: 1.8
-			font-size: 16px
+			font-size: 1em
 
 		&__input:checked + &__label &__button,
 		&__input:not(:checked) + &__label &__button
@@ -68,19 +69,27 @@ if blocks_default_skin or checkbox_default_skin
 			margin-right: .15em
 			border: 1px solid #bbb
 			border-radius: .2em
-			box-shadow: inset 0 1px 2px black(.2)
+			box-shadow: inset 0 .1em .2em black(.1)
 
-		&__input:not(:disabled):active + &__label &__button,
+		&__input:enabled:active + &__label &__button,
 		&__input:focus + &__label &__button
 			background: #f4f4f4
 
 	.checkbox
 		&__input:checked + &__label &__button
 			&:before
+				top: .15em
+				left: .09em
+				width: .8em
+				height: .65em
+				background: embedurl('check.svg')
+				background-size: 100% 100%
+			.no-svg &:before
 				top: -.2em
 				left: .05em
 				font-size: 1.25em
 				color: #444
+				background: none
 				content: "✓"
 
 	.radiobutton
