@@ -42,22 +42,24 @@ module.exports = (grunt) ->
 			specs:
 				options:
 					paths: ['.']
+					urlfunc: 'embedurl'
 				files:
 					'specs/specs.css': 'specs/specs.styl'
 			docs:
 				options:
 					paths: ['.']
+					urlfunc: 'embedurl'
 				files:
 					'docs/styles.css': 'docs_src/docs.styl'
 		casperjs:
 			tests: 'tests/*.coffee'
 		watch:
+			options:
+				livereload: true
 			concat:
 				files: '<%= concat.main.src %>'
 				tasks: 'concat'
 			stylus:
-				options:
-					livereload: true
 				files: [
 					'tamia/**/*.styl',
 					'blocks/**/*.styl',
