@@ -1,0 +1,33 @@
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Spinner
+// Based on http://codepen.io/beben-koben/pen/JcGnK
+
+spinner-fallback-gif ?= false
+
+@keyframes spinner-rotate
+	0%
+		transform: rotate(0deg)
+	100%
+		transform: rotate(360deg)
+
+.spinner
+	display: block
+	width: .25em
+	height: .25em
+	margin: .5em .2em
+	opacity: .7
+	border-radius: 50%
+	font-size: 16px
+	box-shadow: 0 -.4em 0 0 rgba(0,0,0,1), -.28em -.28em 0 0 rgba(0,0,0,.75), -.4em 0 0 0 rgba(0,0,0,.5), -.28em .28em 0 0 rgba(0,0,0,.25)
+	animation: .85s spinner-rotate steps(9) infinite
+
+	&_big
+		font-size: 32px
+
+if spinner-fallback-gif
+	.no-cssanimations .spinner
+		width: 16px
+		height: 16px
+		margin: 0
+		opacity: 1
+		background: url(spinner-fallback-gif)
