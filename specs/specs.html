@@ -64,14 +64,41 @@
 	</div>
 </div>
 
-<h2>Tooltip</h2>
+<h2>Form</h2>
 
-<div class="spec">
-	<div class="tooltip">I’m tooltip!</div>
+<div class="spec" style="width:300px">
+	<input type="text" class="field" value="Text field">
 </div>
 
-<div class="spec">
-	<a href="#" class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</a>
+<div class="spec" style="width:300px">
+	<textarea class="field field_area" rows="3">Text area</textarea>
+</div>
+
+<div class="spec" style="width:300px">
+	<input type="button" class="button" value="Click me!">
+</div>
+
+<div class="spec form form_inline">
+	<input type="button" class="button" value="input[type=button]">
+	<input type="submit" class="button" value="input[type=submit]">
+	<button class="button">button</button>
+	<a href="#" class="button">a[href]</a>
+	<span class="button" tabindex="0">span</span>
+</div>
+
+<div class="spec form form_inline">
+	<input type="text" class="field" placeholder="Name">
+	<input type="email" class="field" placeholder="Email">
+	<input type="button" class="button" value="Boom!">
+</div>
+
+<div class="spec form form_inline">
+	<input type="text" class="field" placeholder="input[type=text]" disabled>
+	<input type="button" class="button" value="input[type=button]" disabled>
+	<input type="submit" class="button" value="input[type=submit]" disabled>
+	<button class="button" disabled>button</button>
+	<a href="#" class="button is-disabled">a[href]</a>
+	<span class="button is-disabled" tabindex="0">span</span>
 </div>
 
 <h2>Checkbox &amp; radio button</h2>
@@ -124,6 +151,20 @@
 	</div>
 </div>
 
+<h2>Switcher</h2>
+
+<div class="spec">
+	<div class="switcher">
+		<input class="switcher__input" id="type_first" type="radio" name="type" value="first" checked="checked"/>
+		<label class="switcher__label" for="type_first">Dog</label>
+		<input class="switcher__input" id="type_second" type="radio" name="type" value="second"/>
+		<label class="switcher__label" for="type_second">Cat</label>
+		<input class="switcher__input" id="type_third" type="radio" name="type" value="third"/>
+		<label class="switcher__label" for="type_third">Hamster</label>
+	</div>
+</div>
+
+
 <h2>Password</h2>
 
 <div class="spec spec_password">
@@ -140,6 +181,16 @@
 </div>
 <div class="spec">
 	<div class="spinner spinner_big"></div>
+</div>
+
+<h2>Tooltip</h2>
+
+<div class="spec">
+	<div class="tooltip">I’m tooltip!</div>
+</div>
+
+<div class="spec">
+	<a href="#" class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</a>
 </div>
 
 <h2>Flippable</h2>
