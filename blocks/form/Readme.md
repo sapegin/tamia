@@ -15,3 +15,10 @@ Controls:
 ## Skin
 
 Set `form_default_skin` or `blocks_default_skin` to `true` to enable default skin.
+
+
+## Configuration
+
+### `form_focus_color` (CSS color)
+
+Color of focus otline.
