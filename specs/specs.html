@@ -128,25 +128,25 @@
 </div>
 
 <div class="spec">
-	<div class="radiobutton">
-		<input class="radiobutton__input" id="my_radio1" type="radio" name="my_radio" value="dog" checked>
-		<label class="radiobutton__label" for="my_radio1">
-			<span class="radiobutton__button"></span>
-			<span class="radiobutton__text">Dog</span>
+	<div class="radio">
+		<input class="radio__input" id="my_radio1" type="radio" name="my_radio" value="dog" checked>
+		<label class="radio__label" for="my_radio1">
+			<span class="radio__button"></span>
+			<span class="radio__text">Dog</span>
 		</label>
 	</div>
-	<div class="radiobutton">
-		<input class="radiobutton__input" id="my_radio2" type="radio" name="my_radio" value="hamster">
-		<label class="radiobutton__label" for="my_radio2">
-			<span class="radiobutton__button"></span>
-			<span class="radiobutton__text">Hamster</span>
+	<div class="radio">
+		<input class="radio__input" id="my_radio2" type="radio" name="my_radio" value="hamster">
+		<label class="radio__label" for="my_radio2">
+			<span class="radio__button"></span>
+			<span class="radio__text">Hamster</span>
 		</label>
 	</div>
-	<div class="radiobutton">
-		<input class="radiobutton__input" id="my_radio3" type="radio" name="my_radio" value="cat" disabled>
-		<label class="radiobutton__label" for="my_radio3">
-			<span class="radiobutton__button"></span>
-			<span class="radiobutton__text">Cat</span>
+	<div class="radio">
+		<input class="radio__input" id="my_radio3" type="radio" name="my_radio" value="cat" disabled>
+		<label class="radio__label" for="my_radio3">
+			<span class="radio__button"></span>
+			<span class="radio__text">Cat</span>
 		</label>
 	</div>
 </div>
@@ -227,6 +227,13 @@ var containerHtml = document.querySelector('.js-container').innerHTML;
 	</div>
 </div>
 
+<div class="spec">
+	<div class="dialog js-dialog is-hidden">
+		<p>Hello!</p>
+		<p><span class="link js-disappear" data-fire="disappear.tamia" data-target=".js-dialog">Disappear</span></p>
+	</div>
+	<p><span class="link js-appear" data-fire="appear.tamia" data-target=".js-dialog">Appear</span> or <span class="link js-toggle" data-fire="toggle.tamia" data-target=".js-dialog">Toggle</span></p>
+</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="specs.js"></script>

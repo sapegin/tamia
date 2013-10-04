@@ -50,6 +50,30 @@ casper.thenEvaluate ->
 casper.then ->
 	@test.assertEquals (@count '[data-component]'), (@count '[_tamia-yep="yes"]'), 'All new components initialized'
 
+# Appear/disappear
+casper.thenEvaluate ->
+	@test.assertNotVisible '.js-dialog', 'Dialog is hidden by default'
+
+casper.thenClick '.js-appear', ->
+	@test.assertVisible '.js-dialog', 'Dialog is visible after click on Appear link'
+	@test.assertExists '.js-dialog.is-transit', 'Dialog has .is-transit class just after click'
+
+casper.wait 750, ->
+	@test.assertVisible '.js-dialog', 'Dialog is still visible after transition ends'
+	@test.assertEval (->
+		!(jQuery '.js-dialog').hasClass('is-transit')
+	), '.is-transit class has been removed after transition but before fallback timeout'
+
+casper.thenClick '.js-disappear', ->
+	@test.assertVisible '.js-dialog', 'Dialog is visible just after click on Disappear link'
+	@test.assertExists '.js-dialog.is-transit', 'Dialog has .is-transit class just after click'
+
+casper.wait 750, ->
+	@test.assertNotVisible '.js-dialog', 'Dialog is not visible after transition ends'
+	@test.assertEval (->
+		!(jQuery '.js-dialog').hasClass('is-transit')
+	), '.is-transit class has been removed after transition but before fallback timeout'
+
 
 ##########
 # Blocks #

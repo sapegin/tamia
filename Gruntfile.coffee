@@ -94,7 +94,8 @@ module.exports = (grunt) ->
 			'links',
 			'images',
 			'misc',
-			'functions'
+			'functions',
+			'classes'
 		]
 		for name in modules
 			module = grunt.file.read "tamia/#{name}.styl"
@@ -146,7 +147,7 @@ module.exports = (grunt) ->
 				params = text.match /\* \*\*([a-z]+)(?=\*\*)/g
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 				title = m[1] + '(' + (params.join ', ') + ')'
-			m = /jQuery\(\w+?\).on\('(\w+?.tamia)'/.exec firstLine  # Event
+			m = /_handlers\.(\w+)'/.exec firstLine  # Event
 			if m
 				title = m[1]
 			if title

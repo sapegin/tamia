@@ -39,6 +39,19 @@ blocks_default_skin = true
 			width: inherit
 
 
+.dialog
+	position: fixed
+	left: 50%
+	top: 50%
+	padding: 2*spacer
+	transform: translate(-50%, -50%)
+	background: #fff
+	box-shadow: 0 0 10px black(.2)
+	transition: opacity .5s ease-in-out
+
+	&.is-hidden
+		opacity: 0
+
 
 body
 	padding: 20px

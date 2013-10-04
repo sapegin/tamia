@@ -3,7 +3,7 @@
 // JS core
 // jQuery is not required but very useful
 
-/*global DEBUG:true*/
+/*global DEBUG:true, Modernizr:false, console:false*/
 
 /**
  * Debug mode.
@@ -27,8 +27,25 @@
  */
 if (typeof DEBUG === 'undefined') DEBUG = true;
 
-;(function(window, jQuery, undefined) {
+;(function(window, jQuery, Modernizr, undefined) {
 	'use strict';
+
+	if (DEBUG) {
+		// Debug logger
+		var logger = function() {
+			var args = Array.prototype.slice.call(arguments);
+			var func = args.shift();
+			args[0] = 'Tâmia: ' + args[0];
+			console[func].apply(console, args);
+		};
+		var log = logger.bind(null, 'log');
+		var warn = logger.bind(null, 'warn');
+
+		// Check optional dependencies
+		if (!jQuery) warn('jQuery not found.');
+		if (!Modernizr) warn('Modernizr not found.');
+	}
+
 
 	// IE8+
 	if (!document.querySelectorAll) return;
@@ -118,6 +135,31 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 	if (jQuery) {
 
 		var _doc = jQuery(document);
+		var _hiddenClass = 'is-hidden';
+		var _transitionClass = 'is-transit';
+		var _fallbackTimeout = 1000;
+
+		var _transitionEndEvent = Modernizr && {
+			WebkitTransition : 'webkitTransitionEnd',
+			transition : 'transitionend'
+		}[Modernizr.prefixed('transition')];
+
+		var _removeTransitionClass = function(elem) {
+			var called = false;
+			elem.one(_transitionEndEvent, function() {
+				elem.removeClass(_transitionClass);
+				called = true;
+			});
+
+			// Fallback: http://blog.alexmaccaw.com/css-transitions
+			setTimeout(function() {
+				if (!called) {
+					elem.removeClass(_transitionClass);
+				}
+			}, _fallbackTimeout);
+		};
+
+		var _handlers = {};
 
 		/**
 		 * Init components inside any jQuery node.
@@ -127,9 +169,84 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 *   $(document).trigger('init.tamia');
 		 *   $('.js-container').trigger('init.tamia');
 		 */
-		_doc.on('init.tamia', function(event) {
-			tamia.initComponents(undefined, event.target);
+		_handlers.init = function(elem) {
+			tamia.initComponents(undefined, elem);
+		};
+
+		/**
+		 * Show element with CSS transition.
+		 *
+		 * Example:
+		 *
+		 *   .dialog
+		 *     transition: opacity .5s ease-in-out
+		 *     ...
+		 *     &.is-hidden
+		 *       opacity: 0
+		 *
+		 *   <div class="dialog is-hidden js-dialog">...</div>
+		 *
+		 *   $('.js-dialog').trigger('appear.tamia');
+		 */
+		_handlers.appear = function(elem) {
+			elem = $(elem);
+			if (Modernizr && Modernizr.csstransitions) {
+				if (elem.hasClass(_transitionClass)) return;
+				elem.addClass(_transitionClass);
+				setTimeout(function() {
+					elem.removeClass(_hiddenClass);
+					_removeTransitionClass(elem);
+				}, 0);
+			}
+			else {
+				elem.removeClass(_hiddenClass);
+			}
+		};
+
+		/**
+		 * Hide element with CSS transition.
+		 *
+		 * Opposite of `appear.tamia` event.
+		 */
+		_handlers.disappear = function(elem) {
+			elem = $(elem);
+			if (Modernizr && Modernizr.csstransitions) {
+				if (elem.hasClass(_transitionClass)) return;
+				elem.addClass(_transitionClass);
+				elem.addClass(_hiddenClass);
+				_removeTransitionClass(elem);
+			}
+			else {
+				elem.addClass(_hiddenClass);
+			}
+		};
+
+		/**
+		 * Toggles element’s visibility with CSS transition.
+		 *
+		 * See `appear.tamia` event for details.
+		 */
+		_handlers.toggle = function(elem) {
+			elem = $(elem);
+			if (elem.hasClass(_transitionClass)) return;
+			if (elem.hasClass(_hiddenClass)) {
+				_handlers.appear(elem);
+			}
+			else {
+				_handlers.disappear(elem);
+			}
+		};
+
+		var _tamiaze = function (handler, name) {
+			return name + '.tamia';
+		};
+
+		var _events = $.map(_handlers, _tamiaze).join(' ');
+		_doc.on(_events, function(event) {
+			if (DEBUG) log('Event "%s":', event.type, event.target);
+			_handlers[event.type](event.target);
 		});
+
 
 		/**
 		 * Controls.
@@ -137,22 +254,22 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 * Fires jQuery event to specified element on click at this element.
 		 *
 		 * @param data-fire Event name.
-		 * @param data-to Target element selector.
+		 * @param data-target Target element selector.
 		 * @param data-attrs Comma separated attributes list.
 		 *
 		 * Example:
 		 *
-		 *   <span data-fire="slider-next" data-to=".portfolio" data-attrs="1,2,3">Next</span>
+		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
 		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
 		 */
 		_doc.click(function(e) {
 			var target = e.target;
 			var parent = target.parentNode;
 			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) target = parent;
-			if (target.getAttribute('data-fire') && target.getAttribute('data-to')) {
+			if (target.getAttribute('data-fire') && target.getAttribute('data-target')) {
 				target = jQuery(target);
 				var attrs = (''+target.data('attrs')).split(/[;, ]/);
-				jQuery(target.data('to')).trigger(target.data('fire'), attrs);
+				jQuery(target.data('target')).trigger(target.data('fire'), attrs);
 				e.preventDefault();
 			}
 		});
@@ -178,4 +295,4 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 
 	}
 
-}(window, window.jQuery));
+}(window, window.jQuery, window.Modernizr));
