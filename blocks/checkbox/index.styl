@@ -5,17 +5,21 @@
 /* Bones */
 
 .checkbox,
-.radiobutton
+.radio
+	white-space: nowrap
+
 	&__button
 		// For prehistoric browsers
 		display: none
 
 	&__text
 		display: inline-block
+		white-space: normal
 
 	&__button,
 	&__text
 		vertical-align: middle
+
 
 	&__input:checked,
 	&__input:not(:checked)
@@ -40,9 +44,6 @@
 			position: absolute
 			line-height: 1
 
-	&__input:focus + &__label &__text
-		outline: 1px dotted
-
 	&__input:disabled + &__label
 		opacity: .4
 
@@ -55,7 +56,7 @@ checkbox_default_skin ?= false
 if blocks_default_skin or checkbox_default_skin
 
 	.checkbox,
-	.radiobutton
+	.radio
 		&__button,
 		&__text
 			line-height: 1.8
@@ -92,7 +93,7 @@ if blocks_default_skin or checkbox_default_skin
 				background: none
 				content: "✓"
 
-	.radiobutton
+	.radio
 		&__input:checked + &__label &__button,
 		&__input:not(:checked) + &__label &__button
 			border-radius: 50%
