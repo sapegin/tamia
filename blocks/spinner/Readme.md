@@ -27,4 +27,4 @@ You can set any spinner size changing `font-size` property.
 
 ## IE 8—9 callback
 
-Copy `spinner.gif` to your images folder and set `spinner-fallback-gif` variable to its URL.
+Copy `spinner.gif` to your images folder and set `spinner_fallback_gif` variable to its URL.

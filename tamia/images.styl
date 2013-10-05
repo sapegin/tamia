@@ -9,13 +9,13 @@
 retina ?= false
 
 // Path to calculate file system image path based on CSS path (default: .).
-images-relative-root ?= '.'
+images_relative_root ?= '.'
 
 // Default sprite image file (default: ../build/sprite.png).
-sprite-image ?= '../build/sprite.png';
+sprite_image ?= '../build/sprite.png';
 
 // Sprite step size (default: 20px).
-sprite-step ?= 20px;
+sprite_step ?= 20px;
 
 
 //
@@ -36,7 +36,7 @@ if retina
 			ext = extname(path)
 			hdpath = dirname(path) + '/' + basename(path, ext) + '@2x' + ext
 			background: url(hdpath) x y
-			background-size: image-size(pathjoin(images-relative-root, path))
+			background-size: image-size(pathjoin(images_relative_root, path))
 else
 	image(path, x=0, y=0)
 		background: url(path) x y
@@ -63,11 +63,11 @@ else
 sprite(img)
 	content: ""
 	if length(img) > 1
-		image(sprite-image, img[0], img[1])
+		image(sprite_image, img[0], img[1])
 		width: img[2]
 		height: img[3]
 	else
-		image(sprite-image, sprite-x(arguments[0]), sprite-y(arguments[1]))
+		image(sprite_image, sprite-x(arguments[0]), sprite-y(arguments[1]))
 		width: arguments[2]
 		height: arguments[3]
 
@@ -77,7 +77,7 @@ sprite(img)
 //
 // Returns pixels.
 sprite-x(x)
-	(-((x - 1)*sprite-step+1));
+	(-((x - 1)*sprite_step+1));
 
 // Vertical position of sprite image.
 //
@@ -85,7 +85,7 @@ sprite-x(x)
 //
 // Returns pixels.
 sprite-y(y)
-	(-((y - 1)*sprite-step+1));
+	(-((y - 1)*sprite_step+1));
 
 // background-position for sprite.
 //
@@ -113,7 +113,7 @@ sprite-pos(img)
 // x - Horizontal position in sprite grid (default: 0).
 // y - Vertical position in sprite grid (default: 0).
 sprite-bg(x=0, y=0)
-	image(sprite-image, x, x)
+	image(sprite_image, x, x)
 
 // Element width/height for sprite.
 //

@@ -34,20 +34,20 @@ html
 	    -ms-text-size-adjust: 100%
 	// maxvoltar.com/archive/-webkit-font-smoothing
 	-webkit-font-smoothing: subpixel-antialiased
-	if sticky-footer-height
+	if sticky_footer_height
 		position: relative
 		min-height: 100%
 
 // Sticky footer: mystrd.at/modern-clean-css-sticky-footer/.
-if sticky-footer-height
+if sticky_footer_height
 	body
-		padding-bottom: sticky-footer-height
+		padding-bottom: sticky_footer_height
 	.footer
-		sticky-footer(sticky-footer-height)
+		sticky-footer(sticky_footer_height)
 		padding: 0 spacer
-		if max-width
+		if max_width
 			&-i
-				max-width: max-width
+				max-width: max_width
 				margin-left: auto
 				margin-right: auto
 
@@ -112,13 +112,13 @@ a:active
 	outline: 0
 
 // Text selection and iOS tap highlighting.
-if light(bg-color)
-	selection-color = rgba(darken(bg-color,60),.5)
+if light(bg_color)
+	_selection_color = rgba(darken(bg_color,60),.5)
 else
-	selection-color = rgba(lighten(bg-color,60),.5)
-text-selection(base-color, selection-color)
+	_selection_color = rgba(lighten(bg_color,60),.5)
+text-selection(base_color, _selection_color)
 a:link
-	-webkit-tap-highlight-color: rgba(selection-color,.25)
+	-webkit-tap-highlight-color: rgba(_selection_color,.25)
 
 // Hide phone links from desktop browsers.
 .no-touch a[href^="tel"]
@@ -149,7 +149,7 @@ a:link
 .group
 	clearfix()
 
-if content-max-width
+if content_max_width
 	.content
-		max-width: content-max-width
+		max-width: content_max_width
 		margin: 0 auto

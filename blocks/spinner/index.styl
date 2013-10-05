@@ -2,7 +2,7 @@
 // Spinner
 // Based on http://codepen.io/beben-koben/pen/JcGnK
 
-spinner-fallback-gif ?= false
+spinner_fallback_gif ?= false
 
 @keyframes spinner-rotate
 	0%
@@ -24,10 +24,10 @@ spinner-fallback-gif ?= false
 	&_big
 		font-size: 32px
 
-if spinner-fallback-gif
+if spinner_fallback_gif
 	.no-cssanimations .spinner
 		width: 16px
 		height: 16px
 		margin: 0
 		opacity: 1
-		background: url(spinner-fallback-gif)
+		background: url(spinner_fallback_gif)

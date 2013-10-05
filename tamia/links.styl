@@ -11,32 +11,32 @@
 // - underline - text-decoration:underline.
 // - border - border-bottom:1px solid.
 // - gradient - Uses CSS gradients to position line under text (cannot change line color on hover).
-link-style ?= "underline"
+link_style ?= "underline"
 
 // Link color (default: #1978c8).
-link-color ?= #1978c8
+link_color ?= #1978c8
 
 // Visited link color.
-visited-color ?= link-color
+visited_color ?= link_color
 
 // Hovered link color.
-hover-color ?= link-color
+hover_color ?= link_color
 
 // Link underline color.
-link-underline-color ?= link-color
+link_underline_color ?= link_color
 
 // Visited link underline color.
-visited-underline-color ?= visited-color
+visited_underline_color ?= visited_color
 
 // Hovered link underline color.
-hover-underline-color ?= hover-color
+hover_underline_color ?= hover_color
 
-// Link underline position (only when link-style == gradient, default: 80%)
-link-underline-position ?= 80%
-link-underline-position = 76.5% if link-style == "underline"
+// Link underline position (only when link_style == gradient, default: 80%)
+link_underline_position ?= 80%
+link_underline_position = 76.5% if link_style == "underline"
 
 // Pressable links (shifts down by 1px, default: true).
-link-pressable ?= true
+link_pressable ?= true
 
 
 //
@@ -52,8 +52,8 @@ link-pressable ?= true
 .pressable
 	@extend .pressable-inset
 	&:active
-		position: relative if link-pressable
-		top: 1px if link-pressable
+		position: relative if link_pressable
+		top: 1px if link_pressable
 
 // Non-pressable element: cancels .pressable.
 .no-pressable
@@ -62,7 +62,7 @@ link-pressable ?= true
 	&:active
 		cursor: default
 	&:active
-		position: static if link-pressable
+		position: static if link_pressable
 
 // Remove underline.
 .no-underline
@@ -86,15 +86,15 @@ link-pressable ?= true
 		@extend .pressable
 		transition: border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out
 		cursor: pointer
-		if link-style == "underline"
+		if link_style == "underline"
 			text-decoration: underline
 		else
 			text-decoration: none
-		if link-style == "border"
+		if link_style == "border"
 			border-bottom-width: 1px
 			border-bottom-style: solid
-		if link-style == "gradient"
-			background-position: 0 link-underline-position
+		if link_style == "gradient"
+			background-position: 0 link_underline_position
 			background-size: 5px 1px
 			background-repeat: repeat-x
 
@@ -102,15 +102,15 @@ link-pressable ?= true
 	&:link,
 	& u,
 	&:link u
-		color: link-color
-		if link-style == "gradient"
-			background-image: linear-gradient(left, link-underline-color, link-underline-color)
+		color: link_color
+		if link_style == "gradient"
+			background-image: linear-gradient(left, link_underline_color, link_underline_color)
 
 	&:visited,
 	&:visited u
-		color: visited-color
-		if link-style == "gradient"
-			background-image: linear-gradient(left, visited-underline-color, visited-underline-color)
+		color: visited_color
+		if link_style == "gradient"
+			background-image: linear-gradient(left, visited_underline_color, visited_underline_color)
 
 	&:hover,
 	&:active,
@@ -118,32 +118,32 @@ link-pressable ?= true
 	&:hover u,
 	&:active u,
 	&:focus u
-		color: hover-color
-		if link-style == "gradient"
-			background-image: linear-gradient(left, hover-underline-color, hover-underline-color)
+		color: hover_color
+		if link_style == "gradient"
+			background-image: linear-gradient(left, hover_underline_color, hover_underline_color)
 
 	&_fake
-		if link-style == "border"
+		if link_style == "border"
 			border-bottom-style: dotted
-		if link-style != "gradient"
+		if link_style != "gradient"
 			text-decoration: none
-			background-position: 0 link-underline-position
+			background-position: 0 link_underline_position
 			background-size: 5px 1px
 			background-repeat: repeat-x
 
 		&,
 		&:link,
 		&:visited
-			color: link-color
-			if link-style != "border"
-				background-image: linear-gradient(left, link-underline-color, link-underline-color 50%, transparent 50%)
+			color: link_color
+			if link_style != "border"
+				background-image: linear-gradient(left, link_underline_color, link_underline_color 50%, transparent 50%)
 
 		&:hover,
 		&:active,
 		&:focus
-			color: hover-color
-			if link-style != "border"
-				background-image: linear-gradient(left, hover-underline-color, hover-underline-color 50%, transparent 50%)
+			color: hover_color
+			if link_style != "border"
+				background-image: linear-gradient(left, hover_underline_color, hover_underline_color 50%, transparent 50%)
 
 	&_quoted
 		@extend .no-underline

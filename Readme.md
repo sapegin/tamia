@@ -103,8 +103,8 @@ Stylus bootstrap has a lot of parameters you can change.
 Add all parameters to your main Stylus stylesheet, before `tamia/tamia` import:
 
 ```
-link-style = "gradient"
-link-color = #c0ffee
+link_style = "gradient"
+link_color = #c0ffee
 ...
 ```
 
