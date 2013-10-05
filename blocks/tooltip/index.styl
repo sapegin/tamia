@@ -41,23 +41,23 @@ tooltip_default_skin ?= false
 
 if blocks_default_skin or tooltip_default_skin
 
-	tooltip_arrow = 5px
-	tooltip_bg = black(0.9)
+	_tooltip_arrow = 5px
+	_tooltip_bg = black(0.9)
 
 	.tooltip,
 	.has-tooltip:before
 		padding: .2em .5em
-		background: tooltip_bg
+		background: _tooltip_bg
 		color: #fff
 		font-size: 14px
 		border-radius: .2em
 
 	.tooltip:after,
 	.has-tooltip:after
-		triangle("up", tooltip_arrow, tooltip_bg)
+		triangle("up", _tooltip_arrow, _tooltip_bg)
 
 	.tooltip:after
-		top: (-(tooltip_arrow))
+		top: (-(_tooltip_arrow))
 
 	.has-tooltip:before
-		margin-top: tooltip_arrow
+		margin-top: _tooltip_arrow
