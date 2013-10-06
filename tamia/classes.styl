@@ -1,10 +1,6 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Helper classes
 
-//
-// Visibility
-//
-
 // Element is hidden.
 .is-hidden
 	display: none
@@ -12,3 +8,18 @@
 /// Element is in transit between hidden (.is-hidden) and visible.
 .is-transit
 	display: block
+
+// Image replacement.
+.ir
+	background-color: transparent
+	border: 0
+	overflow: hidden
+	&:before
+		content: ""
+		display: block
+		width: 0
+		height: 150%
+
+// Clearfix.
+.group
+	clearfix()
