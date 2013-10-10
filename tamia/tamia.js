@@ -25,7 +25,7 @@
  *
  * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
  */
-if (typeof DEBUG === 'undefined') DEBUG = true;
+if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 ;(function(window, jQuery, Modernizr, undefined) {
 	'use strict';
@@ -110,9 +110,14 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
 			var component = components[container.getAttribute('data-component')];
-			if (!component || (!container.offsetWidth && !container.offsetHeight) || container.hasAttribute('_tamia-yep')) continue;
+			if (!component || container.hasAttribute('_tamia-yep')) continue;
 
-			if (typeof component === 'function') {
+			if ('__tamia_cmpnt__' in component) {
+				// New style component
+				new component(container);
+			}
+			else if (typeof component === 'function') {
+				// Old style component
 				component(container);
 			}
 			else if (jQuery) {

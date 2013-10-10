@@ -8,5 +8,6 @@
 	"newcap": true,
 	"undef": true,
 	"trailing": true,
-	"jquery": true
+	"jquery": true,
+	"esnext": true
 }

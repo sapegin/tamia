@@ -1,6 +1,9 @@
 casper = require('casper').create
 	verbose: true
-	# logLevel: 'debug'
+	logLevel: 'debug'
+
+casper.on 'remote.message', (message) ->
+    console.log 'BROWSER:', message
 
 casper.count = (s) ->
 	@evaluate ((s) ->
@@ -22,7 +25,7 @@ casper.then ->
 # All components initialized
 casper.then ->
 	@test.assert (@count '[data-component]') > 0, 'There are some components'
-	@test.assert (@count '[_tamia-yep="yes"]') == (@count '[data-component]') - 1, 'All visible components initialized'  # Except one invisible
+ 	@test.assert (@count '[_tamia-yep="yes"]') == ((@count '[data-component]') - 1), 'All visible components initialized'  # Except one invisible
 
 
 # Invisible components initialization
@@ -50,6 +53,7 @@ casper.thenEvaluate ->
 casper.then ->
 	@test.assertEquals (@count '[data-component]'), (@count '[_tamia-yep="yes"]'), 'All new components initialized'
 
+
 # Appear/disappear
 casper.thenEvaluate ->
 	@test.assertNotVisible '.js-dialog', 'Dialog is hidden by default'
@@ -73,6 +77,11 @@ casper.wait 750, ->
 	@test.assertEval (->
 		!(jQuery '.js-dialog').hasClass('is-transit')
 	), '.is-transit class has been removed after transition but before fallback timeout'
+
+
+# Controls
+casper.thenClick '.js-control-link', ->
+	@test.assertSelectorHasText '.js-control-target',  '1two', 'Event was fired, arguments passed properly'
 
 
 ##########
@@ -100,6 +109,13 @@ casper.then ->
 	@test.assertEval (->
 		document.activeElement == (jQuery '.js-password .password__field')[0]
 	), 'Password: input has focus'
+
+
+# Flippable
+# TODO
+
+# Select
+# TODO
 
 
 casper.run ->

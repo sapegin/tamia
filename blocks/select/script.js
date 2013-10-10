@@ -1,38 +1,35 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Select with custom design
 
-/*global tamia:true*/
-;(function($) {
+/*global tamia:false, Component:false*/
+;(function(window, $, undefined) {
 	'use strict';
 
-	$.fn.formSelect = function() {
-		return this.each(function() {
-			var container = $(this),
-				select = container.find('select'),
-				box = container.find('.select__box');
+	class Select extends Component {
+		init() {
+			this.selectElem = this.find('select');
+			this.boxElem = this.find('box');
 
-				if (!box.length) {
-					box = $('<div class="select__box">');
-					container.append(box);
-				}
+			this.on('focus', 'select', this.focus);
+			this.on('blur', 'select', this.blur);
+			this.on('change', 'select', this.change);
 
-				select.focus(function() {
-					container.addClass('is-focused');
-				});
-				select.blur(function() {
-					container.removeClass('is-focused');
-				});
-				select.change(function() {
-					box.text(select.find(':selected').text());
-				});
+			this.change();
+		}
 
-				select.triggerHandler('change');
-		});
-	};
+		focus() {
+			this.addState('focused');
+		}
 
-	// Init component
-	tamia.initComponents({ select: function(elem) {
-		$(elem).formSelect();
-	}});
+		blur() {
+			this.removeState('focused');
+		}
 
-})(jQuery);
+		change() {
+			this.boxElem.text(this.selectElem.find(':selected').text());
+		}
+	}
+
+	tamia.initComponents({select: Select});
+
+}(window, jQuery));

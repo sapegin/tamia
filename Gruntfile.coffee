@@ -11,33 +11,30 @@ module.exports = (grunt) ->
 			options:
 				jshintrc: '.jshintrc'
 			files: [
-				'tamia/tamia.js'
+				'tamia/*.js',
+				'blocks/*/*.js'
 			]
-		coffeelint:
-			all:
-				options:
-					no_tabs: false
-				files: 'blocks/*/*.coffee'
-		coffee:
-			compile:
-				expand: true,
-				cwd: 'blocks',
-				src: ['*/*.coffee'],
-				dest: 'blocks',
-				ext: '.js'
 		concat:
+			docs:
+				src: [
+					'tamia/tamia.js',
+					'blocks/*/*.js'
+				]
+				dest: 'tmp/docs/scripts.js'
+		traceur_build:
+			options:
+				blockBinding: true
+				freeVariableChecker: false
 			specs:
 				src: [
 					'tamia/tamia.js',
-					'blocks/*/*.js'
+					'tamia/component.js',
+					# 'blocks/*/*.js'
+					'blocks/flippable/script.js',
+					'blocks/password/script.js'
+					'blocks/select/script.js'
 				]
 				dest: 'specs/specs.js'
-			main:
-				src: [
-					'tamia/tamia.js',
-					'blocks/*/*.js'
-				]
-				dest: 'docs/scripts.js'
 		stylus:
 			specs:
 				options:
@@ -56,9 +53,12 @@ module.exports = (grunt) ->
 		watch:
 			options:
 				livereload: true
-			concat:
-				files: '<%= concat.main.src %>'
-				tasks: 'concat'
+			traceur_build:
+				files: [
+					'<%= traceur_build.specs.src %>'
+					# '<%= concat.docs.dest %>'
+				]
+				tasks: 'traceur_build'
 			stylus:
 				files: [
 					'tamia/**/*.styl',
@@ -217,5 +217,6 @@ module.exports = (grunt) ->
 		"## #{title}\n\n#{text}"
 
 
-	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat','stylus', 'docs', 'casperjs']
-	grunt.registerTask 'build', ['coffee', 'concat', 'stylus', 'docs']
+	grunt.registerTask 'default', ['jshint', 'traceur_build', 'stylus', 'docs', 'casperjs']
+	grunt.registerTask 'build', ['traceur_build', 'stylus', 'docs']
+	grunt.registerTask 'test', ['casperjs']
