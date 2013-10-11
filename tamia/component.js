@@ -118,7 +118,7 @@
 			}
 			else {
 				// Multiple states
-				Object.mixin(this.states, name);
+				$.extend(this.states, name);
 			}
 
 			this._updateStates();
@@ -181,9 +181,11 @@
 		_fillStates() {
 			var states = {};
 			var classes = this.elemNode.className.split(' ');
-			for (let cls of classes) {
-				if (cls.startsWith('is-')) {
-					states[cls.replace(/^is-/, '')] = true;
+			for (let clsName in classes) {
+				var cls = classes[clsName];
+				var re = /^is-/;
+				if (re.test(cls)) {
+					states[cls.replace(re, '')] = true;
 				}
 			}
 			this.states = states;
@@ -207,5 +209,5 @@
 
 	window.Component = Component;
 
-}(window, window.jQuery));
+}(window, jQuery));
 

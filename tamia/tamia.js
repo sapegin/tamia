@@ -3,6 +3,7 @@
 // JS core
 // jQuery is not required but very useful
 
+/*jshint newcap:false*/
 /*global DEBUG:true, Modernizr:false, console:false*/
 
 /**

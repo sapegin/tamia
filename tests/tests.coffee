@@ -1,6 +1,6 @@
 casper = require('casper').create
 	verbose: true
-	logLevel: 'debug'
+	# logLevel: 'debug'
 
 casper.on 'remote.message', (message) ->
     console.log 'BROWSER:', message
@@ -24,21 +24,22 @@ casper.then ->
 
 # All components initialized
 casper.then ->
-	@test.assert (@count '[data-component]') > 0, 'There are some components'
- 	@test.assert (@count '[_tamia-yep="yes"]') == ((@count '[data-component]') - 1), 'All visible components initialized'  # Except one invisible
+	all = @count '[data-component]'
+	@test.assert all > 0, 'There are some components'
+	@test.assertEquals all, (@count '[_tamia-yep="yes"]'), 'All components initialized'
 
 
 # Invisible components initialization
-casper.then ->
-	@test.assertNotVisible '.js-invisible', 'Invisible element is invisible'
-casper.thenEvaluate ->
-	(jQuery '.js-invisible').show()
-casper.then ->
-	@test.assertVisible '.js-invisible', 'Invisible element is now visible'
-casper.thenEvaluate ->
-	(jQuery '.js-invisible').trigger 'init.tamia'
-casper.then ->
-	@test.assertEquals (@count '[data-component]'), (@count '[_tamia-yep="yes"]'), 'All invisible components initialized'
+# casper.then ->
+# 	@test.assertNotVisible '.js-invisible', 'Invisible element is invisible'
+# casper.thenEvaluate ->
+# 	(jQuery '.js-invisible').show()
+# casper.then ->
+# 	@test.assertVisible '.js-invisible', 'Invisible element is now visible'
+# casper.thenEvaluate ->
+# 	(jQuery '.js-invisible').trigger 'init.tamia'
+# casper.then ->
+# 	@test.assertEquals (@count '[data-component]'), (@count '[_tamia-yep="yes"]'), 'All invisible components initialized'
 
 
 # Dynamic initialization

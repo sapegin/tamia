@@ -50,6 +50,19 @@ var $__getDescriptors = function(object) {
   }
   return rv;
 };
+var $__tamia_traceur_rt_light_js = (function() {
+  "use strict";
+  Object.getPropertyDescriptor = function(subject, name) {
+    var pd = Object.getOwnPropertyDescriptor(subject, name);
+    var proto = Object.getPrototypeOf(subject);
+    while (pd === undefined && proto !== null) {
+      pd = Object.getOwnPropertyDescriptor(proto, name);
+      proto = Object.getPrototypeOf(proto);
+    }
+    return pd;
+  };
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
 var $__tamia_tamia_js = (function() {
   "use strict";
   if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
@@ -212,14 +225,14 @@ var $__tamia_component_js = (function() {
           return this.elem.find('.js-' + name).first();
         },
         on: function() {
-          var $__6;
-          for (var args = [], $__3 = 0; $__3 < arguments.length; $__3++) args[$__3] = arguments[$__3];
-          ($__6 = this)._toggleEvent.apply($__6, $__spread(['on'], args));
+          var $__4;
+          for (var args = [], $__1 = 0; $__1 < arguments.length; $__1++) args[$__1] = arguments[$__1];
+          ($__4 = this)._toggleEvent.apply($__4, $__spread(['on'], args));
         },
         off: function() {
-          var $__6;
-          for (var args = [], $__4 = 0; $__4 < arguments.length; $__4++) args[$__4] = arguments[$__4];
-          ($__6 = this)._toggleEvent.apply($__6, $__spread(['off'], args));
+          var $__4;
+          for (var args = [], $__2 = 0; $__2 < arguments.length; $__2++) args[$__2] = arguments[$__2];
+          ($__4 = this)._toggleEvent.apply($__4, $__spread(['off'], args));
         },
         state: function(name, value) {
           if (!arguments.length) {
@@ -232,7 +245,7 @@ var $__tamia_component_js = (function() {
               this.states[name] = value;
             }
           } else {
-            Object.mixin(this.states, name);
+            $.extend(this.states, name);
           }
           this._updateStates();
         },
@@ -251,27 +264,27 @@ var $__tamia_component_js = (function() {
           this._updateStates();
         },
         _toggleEvent: function(func) {
-          var $__6;
-          for (var args = [], $__5 = 1; $__5 < arguments.length; $__5++) args[$__5 - 1] = arguments[$__5];
+          var $__4;
+          for (var args = [], $__3 = 1; $__3 < arguments.length; $__3++) args[$__3 - 1] = arguments[$__3];
           if (typeof args[1] === 'string') {
             args[1] = '.js-' + args[1];
           }
           var funcArg = (typeof args[1] === 'function') ? 1: 2;
           args[funcArg] = args[funcArg].bind(this);
-          ($__6 = this.elem)[func].apply($__6, $__toObject(args));
+          ($__4 = this.elem)[func].apply($__4, $__toObject(args));
         },
         _fillStates: function() {
           var states = {};
           var classes = this.elemNode.className.split(' ');
-          for (var $__1 = $traceurRuntime.getIterator(classes), $__2; !($__2 = $__1.next()).done;) {
+          for (var $clsName in classes) {
             try {
               throw undefined;
-            } catch (cls) {
-              cls = $__2.value;
-              {
-                if (cls.startsWith('is-')) {
-                  states[cls.replace(/^is-/, '')] = true;
-                }
+            } catch (clsName) {
+              clsName = $clsName;
+              var cls = classes[clsName];
+              var re = /^is-/;
+              if (re.test(cls)) {
+                states[cls.replace(re, '')] = true;
               }
             }
           }
@@ -297,7 +310,7 @@ var $__tamia_component_js = (function() {
     }();
     Component.__tamia_cmpnt__ = true;
     window.Component = Component;
-  }(window, window.jQuery));
+  }(window, jQuery));
   return Object.preventExtensions(Object.create(null, {}));
 }).call(this);
 var $__blocks_flippable_script_js = (function() {
@@ -347,7 +360,6 @@ var $__blocks_password_script_js = (function() {
             locked: 'password',
             unlocked: 'text'
           };
-          this.states = {locked: true};
           this.fieldElem = this.find('field');
           this.toggleElem = this.find('toggle');
           this.on('mousedown', 'toggle', this.toggle);
@@ -359,9 +371,9 @@ var $__blocks_password_script_js = (function() {
         },
         toggle: function() {
           var focused = document.activeElement === this.fieldElem[0];
-          var locked = !this.hasState('locked');
+          var locked = this.hasState('unlocked');
           var fieldType = this.fieldElem.attr('type');
-          this.toggleState('locked');
+          this.toggleState('unlocked');
           if (fieldType === this.types.locked && !locked) {
             this.fieldElem.attr('type', this.types.unlocked);
           } else if (fieldType === this.types.unlocked && locked) {

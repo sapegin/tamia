@@ -27,12 +27,10 @@ module.exports = (grunt) ->
 				freeVariableChecker: false
 			specs:
 				src: [
+					'tamia/traceur-rt-light.js',
 					'tamia/tamia.js',
 					'tamia/component.js',
-					# 'blocks/*/*.js'
-					'blocks/flippable/script.js',
-					'blocks/password/script.js'
-					'blocks/select/script.js'
+					'blocks/*/*.js'
 				]
 				dest: 'specs/specs.js'
 		stylus:
