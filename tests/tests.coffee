@@ -29,19 +29,6 @@ casper.then ->
 	@test.assertEquals all, (@count '[_tamia-yep="yes"]'), 'All components initialized'
 
 
-# Invisible components initialization
-# casper.then ->
-# 	@test.assertNotVisible '.js-invisible', 'Invisible element is invisible'
-# casper.thenEvaluate ->
-# 	(jQuery '.js-invisible').show()
-# casper.then ->
-# 	@test.assertVisible '.js-invisible', 'Invisible element is now visible'
-# casper.thenEvaluate ->
-# 	(jQuery '.js-invisible').trigger 'init.tamia'
-# casper.then ->
-# 	@test.assertEquals (@count '[data-component]'), (@count '[_tamia-yep="yes"]'), 'All invisible components initialized'
-
-
 # Dynamic initialization
 casper.thenEvaluate ->
 	container = (jQuery '.js-container')
@@ -113,10 +100,35 @@ casper.then ->
 
 
 # Flippable
-# TODO
+casper.then ->
+	@test.assertEval (->
+		!(jQuery '.js-flip').hasClass('is-flipped')
+	), 'Flippable: not flipped by default'
+casper.thenEvaluate ->
+	(jQuery '.js-flip').click()
+casper.then ->
+	@test.assertEval (->
+		(jQuery '.js-flip').hasClass('is-flipped')
+	), 'Flippable: flipped after click'
+
 
 # Select
-# TODO
+casper.thenEvaluate ->
+	(jQuery '.js-select').val('dog').change()
+casper.then ->
+	@test.assertSelectorHasText '.js-select-component', 'Dog', 'Select: text in text box changed'
+casper.thenEvaluate ->
+	(jQuery '.js-select').focus()
+casper.then ->
+	@test.assertEval (->
+		(jQuery '.js-select-component').hasClass('is-focused')
+	), 'Select: focused state set'
+casper.thenEvaluate ->
+	(jQuery '.js-select').blur()
+casper.then ->
+	@test.assertEval (->
+		!(jQuery '.js-select-component').hasClass('is-focused')
+	), 'Select: focused state removed'
 
 
 casper.run ->
