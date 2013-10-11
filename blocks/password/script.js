@@ -14,11 +14,6 @@
 				unlocked: 'text'
 			};
 
-			// Default states
-			this.states = {
-				locked: true
-			};
-
 			this.fieldElem = this.find('field');
 			this.toggleElem = this.find('toggle');
 
@@ -35,11 +30,11 @@
 
 		toggle() {
 			var focused = document.activeElement === this.fieldElem[0];
-			var locked = !this.hasState('locked');
+			var locked = this.hasState('unlocked');
 
 			var fieldType = this.fieldElem.attr('type');
 
-			this.toggleState('locked');
+			this.toggleState('unlocked');
 
 			if (fieldType === this.types.locked && !locked) {
 				this.fieldElem.attr('type', this.types.unlocked);
