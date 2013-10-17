@@ -244,6 +244,9 @@ container.on('click', '.js-reinit', function() {
 	container.html(containerHtml);
 	container.trigger('init.tamia');
 });
+var dialog = $('.js-dialog');
+dialog.on('appeared.tamia', console.log.bind(console, 'Dialog appeared'));
+dialog.on('disappeared.tamia', console.log.bind(console, 'Dialog disappeared'));
 </script>
 </body>
 </html>
