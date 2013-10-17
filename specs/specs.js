@@ -69,6 +69,8 @@ var $__tamia_tamia_js = (function() {
   ;
   (function(window, jQuery, Modernizr, undefined) {
     'use strict';
+    if (!document.querySelectorAll) return;
+    var tamia = window.tamia = {};
     if (DEBUG) {
       var logger = function() {
         var args = Array.prototype.slice.call(arguments);
@@ -76,15 +78,14 @@ var $__tamia_tamia_js = (function() {
         args[0] = 'Tâmia: ' + args[0];
         console[func].apply(console, args);
       };
-      var log = logger.bind(null, 'log');
-      var warn = logger.bind(null, 'warn');
+      var log = tamia.log = logger.bind(null, 'log');
+      var warn = tamia.warn = logger.bind(null, 'warn');
       if (!jQuery) warn('jQuery not found.');
       if (!Modernizr) warn('Modernizr not found.');
     }
-    if (!document.querySelectorAll) return;
-    var tamia = window.tamia = {};
     var _containersCache;
     var _components = {};
+    var _initializedAttribute = '_tamia-yep';
     function _getContainers(parent) {
       return (parent || document).querySelectorAll('[data-component]');
     }
@@ -98,18 +99,29 @@ var $__tamia_tamia_js = (function() {
       }
       for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
         var container = containers[containerIdx];
-        var component = components[container.getAttribute('data-component')];
-        if (!component || container.hasAttribute('_tamia-yep')) continue;
+        var componentName = container.getAttribute('data-component');
+        var component = components[componentName];
+        if (!component || container.hasAttribute(_initializedAttribute)) continue;
+        var initialized = true;
         if ('__tamia_cmpnt__'in component) {
-          new component(container);
+          initialized = (new component(container)).initializable;
         } else if (typeof component === 'function') {
-          component(container);
+          initialized = component(container);
         } else if (jQuery) {
           for (var method in component) {
-            jQuery(container)[method](component[method]);
+            var params = component[method];
+            var elem = jQuery(container);
+            if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+            if (jQuery.isArray(params)) {
+              elem[method].apply(elem, params);
+            } else {
+              elem[method](params);
+            }
           }
         }
-        container.setAttribute('_tamia-yep', 'yes');
+        if (initialized !== false) {
+          container.setAttribute(_initializedAttribute, 'yes');
+        }
       }
       for (var name in components) {
         _components[name] = components[name];
@@ -210,17 +222,31 @@ var $__tamia_component_js = (function() {
       'use strict';
       var $Component = ($__createClassNoExtends)({
         constructor: function(elem) {
-          if (!this.isSupported()) return;
+          if (!elem || elem.nodeType !== 1) throw new ReferenceError('No DOM node passed to Component constructor.');
           this.elemNode = elem;
           this.elem = $(elem);
+          this.initializable = this.isInitializable();
+          if (!this.initializable) {
+            return;
+          }
           this._fillStates();
-          this.init();
-          this.addState('ok');
+          if (this.isSupported()) {
+            this.handlers = {};
+            this.init();
+            this.addState('ok');
+          } else {
+            this.fallback();
+            this.addState('unsupported');
+          }
         },
+        init: function() {},
         isSupported: function() {
           return true;
         },
-        init: function() {},
+        isInitializable: function() {
+          return true;
+        },
+        fallback: function() {},
         find: function(name) {
           return this.elem.find('.js-' + name).first();
         },
@@ -233,21 +259,6 @@ var $__tamia_component_js = (function() {
           var $__4;
           for (var args = [], $__2 = 0; $__2 < arguments.length; $__2++) args[$__2] = arguments[$__2];
           ($__4 = this)._toggleEvent.apply($__4, $__spread(['off'], args));
-        },
-        state: function(name, value) {
-          if (!arguments.length) {
-            return this.states;
-          }
-          if (typeof name === 'string') {
-            if (value === undefined) {
-              return this.states[name];
-            } else {
-              this.states[name] = value;
-            }
-          } else {
-            $.extend(this.states, name);
-          }
-          this._updateStates();
         },
         hasState: function(name) {
           return !!this.states[name];
@@ -263,15 +274,40 @@ var $__tamia_component_js = (function() {
           this.states[name] = value;
           this._updateStates();
         },
-        _toggleEvent: function(func) {
+        isVisible: function() {
+          return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
+        },
+        _toggleEvent: function(action) {
           var $__4;
           for (var args = [], $__3 = 1; $__3 < arguments.length; $__3++) args[$__3 - 1] = arguments[$__3];
           if (typeof args[1] === 'string') {
             args[1] = '.js-' + args[1];
           }
-          var funcArg = (typeof args[1] === 'function') ? 1: 2;
-          args[funcArg] = args[funcArg].bind(this);
-          ($__4 = this.elem)[func].apply($__4, $__toObject(args));
+          var funcArg = args.length - 1;
+          var func = args[funcArg];
+          var handler;
+          if (this.handlers[func]) {
+            handler = this.handlers[func];
+          }
+          if (action === 'on') {
+            if (handler) {
+              handler.counter++;
+            } else {
+              this.handlers[func] = handler = {
+                counter: 1,
+                func: func.bind(this)
+              };
+            }
+          }
+          if (!handler) return;
+          args[funcArg] = handler.func;
+          ($__4 = this.elem)[action].apply($__4, $__toObject(args));
+          if (action === 'off') {
+            handler.counter--;
+            if (handler.counter <= 0) {
+              this.handlers[func] = null;
+            }
+          }
         },
         _fillStates: function() {
           var states = {};
@@ -291,8 +327,9 @@ var $__tamia_component_js = (function() {
           this.states = states;
         },
         _updateStates: function() {
-          var classes = this.elemNode.className.replace(/\bis-[\w]+/g, '').split(' ');
-          ;
+          var classes = this.elemNode.className;
+          classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
+          classes = classes.split(/ +/);
           for (var $name in this.states) {
             try {
               throw undefined;
@@ -311,6 +348,79 @@ var $__tamia_component_js = (function() {
     Component.__tamia_cmpnt__ = true;
     window.Component = Component;
   }(window, jQuery));
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
+var $__specs_test_js = (function() {
+  "use strict";
+  ;
+  (function(window, $, undefined) {
+    'use strict';
+    var Hidden = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Hidden = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.addState('pony');
+        },
+        isInitializable: function() {
+          return this.isVisible();
+        }
+      }, {}, $__proto, $__super, false);
+      return $Hidden;
+    }(Component);
+    tamia.initComponents({hidden: Hidden});
+    var Unsupported = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Unsupported = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.addState('pony');
+        },
+        fallback: function() {
+          this.addState('no-pony');
+        },
+        isSupported: function() {
+          return false;
+        }
+      }, {}, $__proto, $__super, false);
+      return $Unsupported;
+    }(Component);
+    tamia.initComponents({unsupported: Unsupported});
+    var Test = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Test = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.reset();
+          this.on('test1', 'elem', this.handler);
+          this.on('test2', 'elem', this.handler);
+        },
+        detachFirstHandler: function() {
+          this.off('test1', 'elem', this.handler);
+        },
+        detachSecondHandler: function() {
+          this.off('test2', 'elem', this.handler);
+        },
+        reset: function() {
+          this.handled = false;
+        },
+        handler: function() {
+          this.handled = true;
+        }
+      }, {}, $__proto, $__super, false);
+      return $Test;
+    }(Component);
+    window.Test = Test;
+  }(window, window.jQuery));
   return Object.preventExtensions(Object.create(null, {}));
 }).call(this);
 var $__blocks_flippable_script_js = (function() {

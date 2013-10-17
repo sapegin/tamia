@@ -240,6 +240,21 @@ var containerHtml = document.querySelector('.js-container').innerHTML;
 	<p><span class="link js-appear" data-fire="appear.tamia" data-target=".js-dialog">Appear</span> or <span class="link js-toggle" data-fire="toggle.tamia" data-target=".js-dialog">Toggle</span></p>
 </div>
 
+
+<!-- Hidden component test -->
+<div style="display:none">
+	<div class="password" data-component="password">
+		<span class="password__toggle js-toggle"></span>
+		<input type="password" class="password__field field js-field">
+	</div>
+</div>
+<div class="js-hidden" style="display:none">
+	<div class="js-hidden-component" data-component="hidden">Pony</div>
+</div>
+
+<!-- Unsupported component test -->
+<div class="js-unsupported-component" data-component="unsupported"></div>
+
 <script>DEBUG = false</script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>

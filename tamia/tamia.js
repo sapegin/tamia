@@ -1,7 +1,7 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // https://github.com/sapegin/tamia
 // JS core
-// jQuery is not required but very useful
+// jQuery and Modernizr aren’t required but very useful
 
 /*jshint newcap:false*/
 /*global DEBUG:true, Modernizr:false, console:false*/
@@ -31,6 +31,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, jQuery, Modernizr, undefined) {
 	'use strict';
 
+	// IE8+
+	if (!document.querySelectorAll) return;
+
+	// Namespace
+	var tamia = window.tamia = {};
+
+
 	if (DEBUG) {
 		// Debug logger
 		var logger = function() {
@@ -39,8 +46,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			args[0] = 'Tâmia: ' + args[0];
 			console[func].apply(console, args);
 		};
-		var log = logger.bind(null, 'log');
-		var warn = logger.bind(null, 'warn');
+		var log = tamia.log = logger.bind(null, 'log');
+		var warn = tamia.warn = logger.bind(null, 'warn');
 
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
@@ -48,14 +55,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	}
 
 
-	// IE8+
-	if (!document.querySelectorAll) return;
-
-	// Namespace
-	var tamia = window.tamia = {};
-
 	var _containersCache;
 	var _components = {};
+	var _initializedAttribute = '_tamia-yep';
 
 	function _getContainers(parent) {
 		return (parent || document).querySelectorAll('[data-component]');
@@ -72,6 +74,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *   <div data-component="pony"></div>
 	 *
 	 *   tamia.initComponents({
+	 *     // New style component
+	 *     pony: Pony,  // class Pony extends Component {...}
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -84,16 +88,16 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *     // Initialize jQuery plugins (shortcut)
 	 *     jquerypony: {
 	 *       pluginmethod: {option1: 'val1', options2: 'val2'},
-	 *       pluginmethod2: null
+	 *       pluginmethod2: ['attr1', 'attr2', 'attr3'],
+	 *       pluginmethod3: null
 	 *     }
 	 *   }
 	 *
 	 * Caveats:
 	 *
-	 *   1. Components inside hidden containers (width === height === 0) willn’t be initialized.
-	 *   2. To initialize components inside container that was hidden or inside dynamically created container use
+	 *   1. To initialize components inside container that was hidden or inside dynamically created container use
 	 *   init.tamia event: `$('.js-container').trigger('init.tamia');`
-	 *   3. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
+	 *   2. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
 	 *   or nodes that was hidden before will be affected.
 	 */
 	tamia.initComponents = function(components, parent) {
@@ -110,26 +114,37 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		// Init components
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
-			var component = components[container.getAttribute('data-component')];
-			if (!component || container.hasAttribute('_tamia-yep')) continue;
+			var componentName = container.getAttribute('data-component');
+			var component = components[componentName];
+			if (!component || container.hasAttribute(_initializedAttribute)) continue;
 
+			var initialized = true;
 			if ('__tamia_cmpnt__' in component) {
 				// New style component
-				new component(container);
+				initialized = (new component(container)).initializable;
 			}
 			else if (typeof component === 'function') {
 				// Old style component
-				component(container);
+				initialized = component(container);
 			}
 			else if (jQuery) {
-				// Shortcut for jQuery plugins initialization
+				// jQuery plugins shortcut
 				for (var method in component) {
-					// @todo apply?
-					jQuery(container)[method](component[method]);
+					var params = component[method];
+					var elem = jQuery(container);
+					if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+					if (jQuery.isArray(params)) {
+						elem[method].apply(elem, params);
+					}
+					else {
+						elem[method](params);
+					}
 				}
 			}
 
-			container.setAttribute('_tamia-yep', 'yes');
+			if (initialized !== false) {
+				container.setAttribute(_initializedAttribute, 'yes');
+			}
 		}
 
 		// Add new components to all components array

@@ -30,6 +30,7 @@ module.exports = (grunt) ->
 					'tamia/traceur-rt-light.js',
 					'tamia/tamia.js',
 					'tamia/component.js',
+					'specs/test.js',
 					'blocks/*/*.js'
 				]
 				dest: 'specs/specs.js'
