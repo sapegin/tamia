@@ -44,6 +44,17 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
 		if (!Modernizr) warn('Modernizr not found.');
+
+		// Check required Modernizr features
+		$.each([
+			'prefixed',
+			'csstransitions',
+			'cssgradients',
+			'flexbox',
+			'touch',
+		], function(idx, feature) {
+			if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
+		});
 	}
 
 
@@ -137,6 +148,8 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		var _doc = jQuery(document);
 		var _hiddenClass = 'is-hidden';
 		var _transitionClass = 'is-transit';
+		var _appearedEvent = 'appeared.tamia';
+		var _disappearedEvent = 'disappeared.tamia';
 		var _fallbackTimeout = 1000;
 
 		var _transitionEndEvent = Modernizr && {
@@ -144,10 +157,11 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 			transition : 'transitionend'
 		}[Modernizr.prefixed('transition')];
 
-		var _removeTransitionClass = function(elem) {
+		var _removeTransitionClass = function(elem, callback) {
 			var called = false;
 			elem.one(_transitionEndEvent, function() {
 				elem.removeClass(_transitionClass);
+				callback();
 				called = true;
 			});
 
@@ -155,6 +169,7 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 			setTimeout(function() {
 				if (!called) {
 					elem.removeClass(_transitionClass);
+					callback();
 				}
 			}, _fallbackTimeout);
 		};
@@ -176,6 +191,8 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		/**
 		 * Show element with CSS transition.
 		 *
+		 * appeared.tamia event will be fired the moment transition ends.
+		 *
 		 * Example:
 		 *
 		 *   .dialog
@@ -195,16 +212,21 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 				elem.addClass(_transitionClass);
 				setTimeout(function() {
 					elem.removeClass(_hiddenClass);
-					_removeTransitionClass(elem);
+					_removeTransitionClass(elem, function() {
+						elem.trigger(_appearedEvent);
+					});
 				}, 0);
 			}
 			else {
 				elem.removeClass(_hiddenClass);
+				elem.trigger(_appearedEvent);
 			}
 		};
 
 		/**
 		 * Hide element with CSS transition.
+		 *
+		 * disappeared.tamia event will be fired the moment transition ends.
 		 *
 		 * Opposite of `appear.tamia` event.
 		 */
@@ -214,10 +236,13 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 				if (elem.hasClass(_transitionClass)) return;
 				elem.addClass(_transitionClass);
 				elem.addClass(_hiddenClass);
-				_removeTransitionClass(elem);
+				_removeTransitionClass(elem, function() {
+					elem.trigger(_disappearedEvent);
+				});
 			}
 			else {
 				elem.addClass(_hiddenClass);
+				elem.trigger(_disappearedEvent);
 			}
 		};
 
@@ -247,15 +272,17 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 			_handlers[event.type](event.target);
 		});
 
-
 		/**
 		 * Controls.
 		 *
 		 * Fires jQuery event to specified element on click at this element.
 		 *
 		 * @param data-fire Event name.
-		 * @param data-target Target element selector.
-		 * @param data-attrs Comma separated attributes list.
+		 * @param [data-target] Target element selector.
+		 * @param [data-closest] Target element selector: search only through element ancestors.
+		 * @param [data-attrs] Comma separated attributes list.
+		 *
+		 * Either of data-target or data-closest is required.
 		 *
 		 * Example:
 		 *
@@ -263,13 +290,14 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
 		 */
 		_doc.click(function(e) {
-			var target = e.target;
-			var parent = target.parentNode;
-			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) target = parent;
-			if (target.getAttribute('data-fire') && target.getAttribute('data-target')) {
-				target = jQuery(target);
-				var attrs = (''+target.data('attrs')).split(/[;, ]/);
-				jQuery(target.data('target')).trigger(target.data('fire'), attrs);
+			var elem = e.target;
+			var parent = elem.parentNode;
+			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) elem = parent;
+			if (elem.getAttribute('data-fire') && elem.getAttribute('data-target') || elem.getAttribute('data-closest')) {
+				elem = jQuery(elem);
+				var attrs = (''+elem.data('attrs')).split(/[;, ]/);
+				var target = elem.data('target') || elem.closest(elem.data('closest'));
+				jQuery(target).trigger(elem.data('fire'), attrs);
 				e.preventDefault();
 			}
 		});
