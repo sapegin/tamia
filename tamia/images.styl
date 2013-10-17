@@ -115,6 +115,18 @@ sprite-pos(img)
 sprite-bg(x=0, y=0)
 	image(sprite_image, x, x)
 
+// Element width for sprite.
+//
+// Returns pixels
+sprite-width(img)
+	img[2]
+
+// Element height for sprite.
+//
+// Returns pixels
+sprite-height(img)
+	img[3]
+
 // Element width/height for sprite.
 //
 // Example:
@@ -122,5 +134,5 @@ sprite-bg(x=0, y=0)
 //   .elem
 //     sprite-size(sprite_pony);
 sprite-size(img)
-	width: img[2]
-	height: img[3]
+	width: sprite-width(img)
+	height: sprite-height(img)
