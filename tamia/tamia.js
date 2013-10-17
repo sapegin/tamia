@@ -44,6 +44,17 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
 		if (!Modernizr) warn('Modernizr not found.');
+
+		// Check required Modernizr features
+		$.each([
+			'prefixed',
+			'csstransitions',
+			'cssgradients',
+			'flexbox',
+			'touch',
+		], function(idx, feature) {
+			if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
+		});
 	}
 
 
