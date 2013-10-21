@@ -289,16 +289,18 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
 		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
 		 */
-		_doc.click(function(e) {
-			var elem = e.target;
+		_doc.click(function(event) {
+			var elem = event.target;
 			var parent = elem.parentNode;
 			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) elem = parent;
 			if (elem.getAttribute('data-fire') && elem.getAttribute('data-target') || elem.getAttribute('data-closest')) {
 				elem = jQuery(elem);
-				var attrs = (''+elem.data('attrs')).split(/[;, ]/);
-				var target = elem.data('target') || elem.closest(elem.data('closest'));
-				jQuery(target).trigger(elem.data('fire'), attrs);
-				e.preventDefault();
+				var data = elem.data();
+				var target = data.target || elem.closest(data.closest);
+				var attrs = data.attrs;
+				if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
+				jQuery(target).trigger(data.fire, attrs ? attrs.split(/[;, ]/) : undefined);
+				event.preventDefault();
 			}
 		});
 
