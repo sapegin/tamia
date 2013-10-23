@@ -100,10 +100,9 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 	 *
 	 * Caveats:
 	 *
-	 *   1. Components inside hidden containers (width === height === 0) willn’t be initialized.
-	 *   2. To initialize components inside container that was hidden or inside dynamically created container use
+	 *   1. To initialize components inside container that was hidden or inside dynamically created container use
 	 *   init.tamia event: `$('.js-container').trigger('init.tamia');`
-	 *   3. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
+	 *   2. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
 	 *   or nodes that was hidden before will be affected.
 	 */
 	tamia.initComponents = function(components, parent) {
@@ -121,7 +120,7 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
 			var component = components[container.getAttribute('data-component')];
-			if (!component || (!container.offsetWidth && !container.offsetHeight) || container.hasAttribute('_tamia-yep')) continue;
+			if (!component || container.hasAttribute('_tamia-yep')) continue;
 
 			if (typeof component === 'function') {
 				component(container);
