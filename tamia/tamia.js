@@ -208,7 +208,7 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		_handlers.appear = function(elem) {
 			elem = $(elem);
 			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass)) return;
+				if (elem.hasClass(_transitionClass) && !elem.hasClass(_hiddenClass)) return;
 				elem.addClass(_transitionClass);
 				setTimeout(function() {
 					elem.removeClass(_hiddenClass);
@@ -233,7 +233,7 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 		_handlers.disappear = function(elem) {
 			elem = $(elem);
 			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass)) return;
+				if (elem.hasClass(_transitionClass) && elem.hasClass(_hiddenClass)) return;
 				elem.addClass(_transitionClass);
 				elem.addClass(_hiddenClass);
 				_removeTransitionClass(elem, function() {
