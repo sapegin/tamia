@@ -1,17 +1,25 @@
-(function() {
-  'use strict';
-  tamia.initComponents({
-    flippable: function(container) {
-      var toggle;
-      toggle = function() {
-        return ($(this)).toggleClass('is-flipped');
-      };
-      container = $(container);
-      (container.find('.js-flip')).click(toggle);
-      if (container.is('.js-flip')) {
-        return container.click(toggle);
-      }
-    }
-  });
+// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Flippable pane
 
-}).call(this);
+/*global tamia:false, Component:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	class Flippable extends Component {
+		init() {
+			if (this.elem.hasClass('js-flip')) {
+				this.on('click', this.toggle);
+			}
+			else {
+				this.on('click', 'flip', this.toggle);
+			}
+		}
+
+		toggle() {
+			this.toggleState('flipped');
+		}
+	}
+
+	tamia.initComponents({flippable: Flippable});
+
+}(window, window.jQuery));

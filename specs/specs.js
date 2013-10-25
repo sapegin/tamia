@@ -1,436 +1,558 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
-// https://github.com/sapegin/tamia
-// JS core
-// jQuery is not required but very useful
-
-/*global DEBUG:true, Modernizr:false, console:false*/
-
-/**
- * Debug mode.
- *
- * You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.
- *
- * To make it work add to your Gruntfile:
- *
- *   uglify: {
- *     options: {
- *       compress: {
- *         global_defs: {
- *           DEBUG: !!grunt.option('debug')
- *         }
- *      }
- *    },
- *    ...
- *  }
- *
- * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
- */
-if (typeof DEBUG === 'undefined') DEBUG = true;
-
-;(function(window, jQuery, Modernizr, undefined) {
-	'use strict';
-
-	if (DEBUG) {
-		// Debug logger
-		var logger = function() {
-			var args = Array.prototype.slice.call(arguments);
-			var func = args.shift();
-			args[0] = 'Tâmia: ' + args[0];
-			console[func].apply(console, args);
-		};
-		var log = logger.bind(null, 'log');
-		var warn = logger.bind(null, 'warn');
-
-		// Check optional dependencies
-		if (!jQuery) warn('jQuery not found.');
-		if (!Modernizr) warn('Modernizr not found.');
-
-		// Check required Modernizr features
-		$.each([
-			'prefixed',
-			'csstransitions',
-			'cssgradients',
-			'flexbox',
-			'touch',
-		], function(idx, feature) {
-			if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
-		});
-	}
-
-
-	// IE8+
-	if (!document.querySelectorAll) return;
-
-	// Namespace
-	var tamia = window.tamia = {};
-
-	var _containersCache;
-	var _components = {};
-
-	function _getContainers(parent) {
-		return (parent || document).querySelectorAll('[data-component]');
-	}
-
-
-	/**
-	 * Initialize components.
-	 *
-	 * @param {Object} components Initializers for each component.
-	 *
-	 * Examples:
-	 *
-	 *   <div data-component="pony"></div>
-	 *
-	 *   tamia.initComponents({
-	 *     // Plain initializer
-	 *     pony: function(elem) {
-	 *       // $(elem) === <div data-component="pony">
-	 *     },
-	 *     // Initialize jQuery plugins (plain initializer)
-	 *     jquerypony: function(elem) {
-	 *       $(elem).pluginmethod({option1: 'val1', options2: 'val2'});
-	 *       $(elem).pluginmethod2();
-	 *     },
-	 *     // Initialize jQuery plugins (shortcut)
-	 *     jquerypony: {
-	 *       pluginmethod: {option1: 'val1', options2: 'val2'},
-	 *       pluginmethod2: null
-	 *     }
-	 *   }
-	 *
-	 * Caveats:
-	 *
-	 *   1. Components inside hidden containers (width === height === 0) willn’t be initialized.
-	 *   2. To initialize components inside container that was hidden or inside dynamically created container use
-	 *   init.tamia event: `$('.js-container').trigger('init.tamia');`
-	 *   3. No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
-	 *   or nodes that was hidden before will be affected.
-	 */
-	tamia.initComponents = function(components, parent) {
-		var containers;
-		if (parent === undefined) {
-			containers = _containersCache || (_containersCache = _getContainers());
-		}
-		else {
-			// Init all components inside DOM node
-			containers = _getContainers(parent);
-			components = _components;
-		}
-
-		// Init components
-		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
-			var container = containers[containerIdx];
-			var component = components[container.getAttribute('data-component')];
-			if (!component || (!container.offsetWidth && !container.offsetHeight) || container.hasAttribute('_tamia-yep')) continue;
-
-			if (typeof component === 'function') {
-				component(container);
-			}
-			else if (jQuery) {
-				// Shortcut for jQuery plugins initialization
-				for (var method in component) {
-					// @todo apply?
-					jQuery(container)[method](component[method]);
-				}
-			}
-
-			container.setAttribute('_tamia-yep', 'yes');
-		}
-
-		// Add new components to all components array
-		for (var name in components) {
-			_components[name] = components[name];
-		}
-	};
-
-	if (jQuery) {
-
-		var _doc = jQuery(document);
-		var _hiddenClass = 'is-hidden';
-		var _transitionClass = 'is-transit';
-		var _appearedEvent = 'appeared.tamia';
-		var _disappearedEvent = 'disappeared.tamia';
-		var _fallbackTimeout = 1000;
-
-		var _transitionEndEvent = Modernizr && {
-			WebkitTransition : 'webkitTransitionEnd',
-			transition : 'transitionend'
-		}[Modernizr.prefixed('transition')];
-
-		var _removeTransitionClass = function(elem, callback) {
-			var called = false;
-			elem.one(_transitionEndEvent, function() {
-				elem.removeClass(_transitionClass);
-				callback();
-				called = true;
-			});
-
-			// Fallback: http://blog.alexmaccaw.com/css-transitions
-			setTimeout(function() {
-				if (!called) {
-					elem.removeClass(_transitionClass);
-					callback();
-				}
-			}, _fallbackTimeout);
-		};
-
-		var _handlers = {};
-
-		/**
-		 * Init components inside any jQuery node.
-		 *
-		 * Examples:
-		 *
-		 *   $(document).trigger('init.tamia');
-		 *   $('.js-container').trigger('init.tamia');
-		 */
-		_handlers.init = function(elem) {
-			tamia.initComponents(undefined, elem);
-		};
-
-		/**
-		 * Show element with CSS transition.
-		 *
-		 * appeared.tamia event will be fired the moment transition ends.
-		 *
-		 * Example:
-		 *
-		 *   .dialog
-		 *     transition: opacity .5s ease-in-out
-		 *     ...
-		 *     &.is-hidden
-		 *       opacity: 0
-		 *
-		 *   <div class="dialog is-hidden js-dialog">...</div>
-		 *
-		 *   $('.js-dialog').trigger('appear.tamia');
-		 */
-		_handlers.appear = function(elem) {
-			elem = $(elem);
-			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass)) return;
-				elem.addClass(_transitionClass);
-				setTimeout(function() {
-					elem.removeClass(_hiddenClass);
-					_removeTransitionClass(elem, function() {
-						elem.trigger(_appearedEvent);
-					});
-				}, 0);
-			}
-			else {
-				elem.removeClass(_hiddenClass);
-				elem.trigger(_appearedEvent);
-			}
-		};
-
-		/**
-		 * Hide element with CSS transition.
-		 *
-		 * disappeared.tamia event will be fired the moment transition ends.
-		 *
-		 * Opposite of `appear.tamia` event.
-		 */
-		_handlers.disappear = function(elem) {
-			elem = $(elem);
-			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass)) return;
-				elem.addClass(_transitionClass);
-				elem.addClass(_hiddenClass);
-				_removeTransitionClass(elem, function() {
-					elem.trigger(_disappearedEvent);
-				});
-			}
-			else {
-				elem.addClass(_hiddenClass);
-				elem.trigger(_disappearedEvent);
-			}
-		};
-
-		/**
-		 * Toggles element’s visibility with CSS transition.
-		 *
-		 * See `appear.tamia` event for details.
-		 */
-		_handlers.toggle = function(elem) {
-			elem = $(elem);
-			if (elem.hasClass(_transitionClass)) return;
-			if (elem.hasClass(_hiddenClass)) {
-				_handlers.appear(elem);
-			}
-			else {
-				_handlers.disappear(elem);
-			}
-		};
-
-		var _tamiaze = function (handler, name) {
-			return name + '.tamia';
-		};
-
-		var _events = $.map(_handlers, _tamiaze).join(' ');
-		_doc.on(_events, function(event) {
-			if (DEBUG) log('Event "%s":', event.type, event.target);
-			_handlers[event.type](event.target);
-		});
-
-		/**
-		 * Controls.
-		 *
-		 * Fires jQuery event to specified element on click at this element.
-		 *
-		 * @param data-fire Event name.
-		 * @param [data-target] Target element selector.
-		 * @param [data-closest] Target element selector: search only through element ancestors.
-		 * @param [data-attrs] Comma separated attributes list.
-		 *
-		 * Either of data-target or data-closest is required.
-		 *
-		 * Example:
-		 *
-		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
-		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
-		 */
-		_doc.click(function(event) {
-			var elem = event.target;
-			var parent = elem.parentNode;
-			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) elem = parent;
-			if (elem.getAttribute('data-fire') && elem.getAttribute('data-target') || elem.getAttribute('data-closest')) {
-				elem = jQuery(elem);
-				var data = elem.data();
-				var target = data.target || elem.closest(data.closest);
-				var attrs = data.attrs;
-				if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
-				jQuery(target).trigger(data.fire, attrs ? attrs.split(/[;, ]/) : undefined);
-				event.preventDefault();
-			}
-		});
-
-		/**
-		 * Grid helper.
-		 *
-		 * Example:
-		 *
-		 *   <div data-component="grid"></div>
-		 */
-		if (DEBUG) tamia.initComponents({
-			grid: function(elem) {
-				elem = $(elem);
-				elem
-					.addClass('g-row')
-					.html(
-						new Array((elem.data('columns') || 12) + 1).join('<b class="g-debug-col" style="height:'+document.documentElement.scrollHeight+'px"></b>')
-					)
-				;
-			}
-		});
-
-	}
-
-}(window, window.jQuery, window.Modernizr));
-
-(function() {
-  'use strict';
-  tamia.initComponents({
-    flippable: function(container) {
-      var toggle;
-      toggle = function() {
-        return ($(this)).toggleClass('is-flipped');
-      };
-      container = $(container);
-      (container.find('.js-flip')).click(toggle);
-      if (container.is('.js-flip')) {
-        return container.click(toggle);
-      }
+var $__getDescriptors = function(object) {
+  var descriptors = {}, name, names = Object.getOwnPropertyNames(object);
+  for (var i = 0; i < names.length; i++) {
+    var name = names[i];
+    descriptors[name] = Object.getOwnPropertyDescriptor(object, name);
+  }
+  return descriptors;
+}, $__createClassNoExtends = function(object, staticObject) {
+  var ctor = object.constructor;
+  Object.defineProperty(object, 'constructor', {enumerable: false});
+  ctor.prototype = object;
+  Object.defineProperties(ctor, $__getDescriptors(staticObject));
+  return ctor;
+}, $__superDescriptor = function(proto, name) {
+  if (!proto) throw new TypeError('super is null');
+  return Object.getPropertyDescriptor(proto, name);
+}, $__superCall = function(self, proto, name, args) {
+  var descriptor = $__superDescriptor(proto, name);
+  if (descriptor) {
+    if ('value'in descriptor) return descriptor.value.apply(self, args);
+    if (descriptor.get) return descriptor.get.call(self).apply(self, args);
+  }
+  throw new TypeError("Object has no method '" + name + "'.");
+}, $__getProtoParent = function(superClass) {
+  if (typeof superClass === 'function') {
+    var prototype = superClass.prototype;
+    if (Object(prototype) === prototype || prototype === null) return superClass.prototype;
+  }
+  if (superClass === null) return null;
+  throw new TypeError();
+}, $__createClass = function(object, staticObject, protoParent, superClass, hasConstructor) {
+  var ctor = object.constructor;
+  if (typeof superClass === 'function') ctor.__proto__ = superClass;
+  if (!hasConstructor && protoParent === null) ctor = object.constructor = function() {};
+  var descriptors = $__getDescriptors(object);
+  descriptors.constructor.enumerable = false;
+  ctor.prototype = Object.create(protoParent, descriptors);
+  Object.defineProperties(ctor, $__getDescriptors(staticObject));
+  return ctor;
+}, $__toObject = function(value) {
+  if (value == null) throw TypeError();
+  return Object(value);
+}, $__spread = function() {
+  var rv = [], k = 0;
+  for (var i = 0; i < arguments.length; i++) {
+    var value = $__toObject(arguments[i]);
+    for (var j = 0; j < value.length; j++) {
+      rv[k++] = value[j];
     }
-  });
-
+  }
+  return rv;
+};
+var $__tamia_traceur_rt_light_js = (function() {
+  "use strict";
+  Object.getPropertyDescriptor = function(subject, name) {
+    var pd = Object.getOwnPropertyDescriptor(subject, name);
+    var proto = Object.getPrototypeOf(subject);
+    while (pd === undefined && proto !== null) {
+      pd = Object.getOwnPropertyDescriptor(proto, name);
+      proto = Object.getPrototypeOf(proto);
+    }
+    return pd;
+  };
+  return Object.preventExtensions(Object.create(null, {}));
 }).call(this);
-
-(function() {
-  'use strict';
-  var supported;
-
-  supported = void 0;
-
-  jQuery.prototype.tamiaPassword = function() {
-    if (supported === void 0) {
-      supported = (((jQuery('<b>')).html('<!--[if lte IE 8]><i></i><![endif]-->')).find('i')).length !== 1;
+var $__tamia_tamia_js = (function() {
+  "use strict";
+  if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
+  ;
+  (function(window, jQuery, Modernizr, undefined) {
+    'use strict';
+    if (!document.querySelectorAll) return;
+    var tamia = window.tamia = {};
+    if (DEBUG) {
+      var logger = function() {
+        var args = Array.prototype.slice.call(arguments);
+        var func = args.shift();
+        args[0] = 'Tâmia: ' + args[0];
+        console[func].apply(console, args);
+      };
+      var log = tamia.log = logger.bind(null, 'log');
+      var warn = tamia.warn = logger.bind(null, 'warn');
+      if (!jQuery) warn('jQuery not found.');
+      if (!Modernizr) warn('Modernizr not found.');
+      $.each(['prefixed', 'csstransitions', 'cssgradients', 'flexbox', 'touch'], function(idx, feature) {
+        if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
+      });
     }
-    if (!supported) {
-      return this;
+    var _containersCache;
+    var _components = {};
+    var _initializedAttribute = '_tamia-yep';
+    function _getContainers(parent) {
+      return (parent || document).querySelectorAll('[data-component]');
     }
-    return this.each(function() {
-      var container, field, locked, lockedType, toggle, unlockedClass, unlockedType;
-      container = jQuery(this);
-      unlockedClass = 'is-unlocked';
-      lockedType = 'password';
-      unlockedType = 'text';
-      toggle = container.find('.password__toggle');
-      field = container.find('.password__field');
-      locked = !container.hasClass(unlockedClass);
-      container.addClass('is-ok');
-      return toggle.mousedown(function() {
-        var fieldType, focused;
-        focused = document.activeElement === field[0];
-        locked = !locked;
-        fieldType = field.attr('type');
-        container.toggleClass(unlockedClass, !locked);
-        if (fieldType === lockedType && !locked) {
-          field.attr('type', unlockedType);
-        } else if (fieldType === unlockedType && locked) {
-          field.attr('type', lockedType);
+    tamia.initComponents = function(components, parent) {
+      var containers;
+      if (parent === undefined) {
+        containers = _containersCache || (_containersCache = _getContainers());
+      } else {
+        containers = _getContainers(parent);
+        components = _components;
+      }
+      for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
+        var container = containers[containerIdx];
+        var componentName = container.getAttribute('data-component');
+        var component = components[componentName];
+        if (!component || container.hasAttribute(_initializedAttribute)) continue;
+        var initialized = true;
+        if ('__tamia_cmpnt__'in component) {
+          initialized = (new component(container)).initializable;
+        } else if (typeof component === 'function') {
+          initialized = component(container);
+        } else if (jQuery) {
+          for (var method in component) {
+            var params = component[method];
+            var elem = jQuery(container);
+            if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+            if (jQuery.isArray(params)) {
+              elem[method].apply(elem, params);
+            } else {
+              elem[method](params);
+            }
+          }
         }
-        if (focused) {
-          return setTimeout((function() {
-            return field.focus();
-          }), 0);
+        if (initialized !== false) {
+          container.setAttribute(_initializedAttribute, 'yes');
+        }
+      }
+      for (var name in components) {
+        _components[name] = components[name];
+      }
+    };
+    if (jQuery) {
+      var _doc = jQuery(document);
+      var _hiddenClass = 'is-hidden';
+      var _transitionClass = 'is-transit';
+      var _appearedEvent = 'appeared.tamia';
+      var _disappearedEvent = 'disappeared.tamia';
+      var _fallbackTimeout = 1000;
+      var _transitionEndEvent = Modernizr && {
+        WebkitTransition: 'webkitTransitionEnd',
+        transition: 'transitionend'
+      }[Modernizr.prefixed('transition')];
+      var _removeTransitionClass = function(elem, callback) {
+        var called = false;
+        elem.one(_transitionEndEvent, function() {
+          elem.removeClass(_transitionClass);
+          callback();
+          called = true;
+        });
+        setTimeout(function() {
+          if (!called) {
+            elem.removeClass(_transitionClass);
+            callback();
+          }
+        }, _fallbackTimeout);
+      };
+      var _handlers = {};
+      _handlers.init = function(elem) {
+        tamia.initComponents(undefined, elem);
+      };
+      _handlers.appear = function(elem) {
+        elem = $(elem);
+        if (Modernizr && Modernizr.csstransitions) {
+          if (elem.hasClass(_transitionClass) && !elem.hasClass(_hiddenClass)) return;
+          elem.addClass(_transitionClass);
+          setTimeout(function() {
+            elem.removeClass(_hiddenClass);
+            _removeTransitionClass(elem, function() {
+              elem.trigger(_appearedEvent);
+            });
+          }, 0);
+        } else {
+          elem.removeClass(_hiddenClass);
+          elem.trigger(_appearedEvent);
+        }
+      };
+      _handlers.disappear = function(elem) {
+        elem = $(elem);
+        if (Modernizr && Modernizr.csstransitions) {
+          if (elem.hasClass(_transitionClass) && elem.hasClass(_hiddenClass)) return;
+          elem.addClass(_transitionClass);
+          elem.addClass(_hiddenClass);
+          _removeTransitionClass(elem, function() {
+            elem.trigger(_disappearedEvent);
+          });
+        } else {
+          elem.addClass(_hiddenClass);
+          elem.trigger(_disappearedEvent);
+        }
+      };
+      _handlers.toggle = function(elem) {
+        elem = $(elem);
+        if (elem.hasClass(_transitionClass)) return;
+        if (elem.hasClass(_hiddenClass)) {
+          _handlers.appear(elem);
+        } else {
+          _handlers.disappear(elem);
+        }
+      };
+      var _tamiaze = function(handler, name) {
+        return name + '.tamia';
+      };
+      var _events = $.map(_handlers, _tamiaze).join(' ');
+      _doc.on(_events, function(event) {
+        if (DEBUG) log('Event "%s":', event.type, event.target);
+        _handlers[event.type](event.target);
+      });
+      _doc.click(function(event) {
+        var elem = event.target;
+        var parent = elem.parentNode;
+        if (parent && parent.getAttribute && parent.getAttribute('data-fire')) elem = parent;
+        if (elem.getAttribute('data-fire') && elem.getAttribute('data-target') || elem.getAttribute('data-closest')) {
+          elem = jQuery(elem);
+          var data = elem.data();
+          var target = data.target || elem.closest(data.closest);
+          var attrs = data.attrs;
+          if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
+          jQuery(target).trigger(data.fire, attrs ? attrs.split(/[;, ]/): undefined);
+          event.preventDefault();
         }
       });
-    });
-  };
-
-  tamia.initComponents({
-    password: {
-      tamiaPassword: void 0
+      if (DEBUG) tamia.initComponents({grid: function(elem) {
+          elem = $(elem);
+          elem.addClass('g-row').html(new Array((elem.data('columns') || 12) + 1).join('<b class="g-debug-col" style="height:' + document.documentElement.scrollHeight + 'px"></b>'));
+          ;
+        }});
     }
-  });
-
+  }(window, window.jQuery, window.Modernizr));
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
+var $__tamia_component_js = (function() {
+  "use strict";
+  ;
+  (function(window, $, undefined) {
+    'use strict';
+    var Component = function() {
+      'use strict';
+      var $Component = ($__createClassNoExtends)({
+        constructor: function(elem) {
+          if (!elem || elem.nodeType !== 1) throw new ReferenceError('No DOM node passed to Component constructor.');
+          this.elemNode = elem;
+          this.elem = $(elem);
+          this.initializable = this.isInitializable();
+          if (!this.initializable) {
+            return;
+          }
+          this._fillStates();
+          if (this.isSupported()) {
+            this.handlers = {};
+            this.init();
+            this.addState('ok');
+          } else {
+            this.fallback();
+            this.addState('unsupported');
+          }
+        },
+        init: function() {},
+        isSupported: function() {
+          return true;
+        },
+        isInitializable: function() {
+          return true;
+        },
+        fallback: function() {},
+        find: function(name) {
+          return this.elem.find('.js-' + name).first();
+        },
+        on: function() {
+          var $__4;
+          for (var args = [], $__1 = 0; $__1 < arguments.length; $__1++) args[$__1] = arguments[$__1];
+          ($__4 = this)._toggleEvent.apply($__4, $__spread(['on'], args));
+        },
+        off: function() {
+          var $__4;
+          for (var args = [], $__2 = 0; $__2 < arguments.length; $__2++) args[$__2] = arguments[$__2];
+          ($__4 = this)._toggleEvent.apply($__4, $__spread(['off'], args));
+        },
+        hasState: function(name) {
+          return !!this.states[name];
+        },
+        addState: function(name) {
+          this.toggleState(name, true);
+        },
+        removeState: function(name) {
+          this.toggleState(name, false);
+        },
+        toggleState: function(name) {
+          var value = arguments[1] !== (void 0) ? arguments[1]: !this.states[name];
+          this.states[name] = value;
+          this._updateStates();
+        },
+        isVisible: function() {
+          return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
+        },
+        _toggleEvent: function(action) {
+          var $__4;
+          for (var args = [], $__3 = 1; $__3 < arguments.length; $__3++) args[$__3 - 1] = arguments[$__3];
+          if (typeof args[1] === 'string') {
+            args[1] = '.js-' + args[1];
+          }
+          var funcArg = args.length - 1;
+          var func = args[funcArg];
+          var handler;
+          if (this.handlers[func]) {
+            handler = this.handlers[func];
+          }
+          if (action === 'on') {
+            if (handler) {
+              handler.counter++;
+            } else {
+              this.handlers[func] = handler = {
+                counter: 1,
+                func: func.bind(this)
+              };
+            }
+          }
+          if (!handler) return;
+          args[funcArg] = handler.func;
+          ($__4 = this.elem)[action].apply($__4, $__toObject(args));
+          if (action === 'off') {
+            handler.counter--;
+            if (handler.counter <= 0) {
+              this.handlers[func] = null;
+            }
+          }
+        },
+        _fillStates: function() {
+          var states = {};
+          var classes = this.elemNode.className.split(' ');
+          for (var $clsName in classes) {
+            try {
+              throw undefined;
+            } catch (clsName) {
+              clsName = $clsName;
+              var cls = classes[clsName];
+              var re = /^is-/;
+              if (re.test(cls)) {
+                states[cls.replace(re, '')] = true;
+              }
+            }
+          }
+          this.states = states;
+        },
+        _updateStates: function() {
+          var classes = this.elemNode.className;
+          classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
+          classes = classes.split(/ +/);
+          for (var $name in this.states) {
+            try {
+              throw undefined;
+            } catch (name) {
+              name = $name;
+              if (this.states[name]) {
+                classes.push('is-' + name);
+              }
+            }
+          }
+          this.elemNode.className = classes.join(' ');
+        }
+      }, {});
+      return $Component;
+    }();
+    Component.__tamia_cmpnt__ = true;
+    window.Component = Component;
+  }(window, jQuery));
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
+var $__specs_test_js = (function() {
+  "use strict";
+  ;
+  (function(window, $, undefined) {
+    'use strict';
+    var Hidden = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Hidden = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.addState('pony');
+        },
+        isInitializable: function() {
+          return this.isVisible();
+        }
+      }, {}, $__proto, $__super, false);
+      return $Hidden;
+    }(Component);
+    tamia.initComponents({hidden: Hidden});
+    var Unsupported = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Unsupported = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.addState('pony');
+        },
+        fallback: function() {
+          this.addState('no-pony');
+        },
+        isSupported: function() {
+          return false;
+        }
+      }, {}, $__proto, $__super, false);
+      return $Unsupported;
+    }(Component);
+    tamia.initComponents({unsupported: Unsupported});
+    var Test = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Test = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.reset();
+          this.on('test1', 'elem', this.handler);
+          this.on('test2', 'elem', this.handler);
+        },
+        detachFirstHandler: function() {
+          this.off('test1', 'elem', this.handler);
+        },
+        detachSecondHandler: function() {
+          this.off('test2', 'elem', this.handler);
+        },
+        reset: function() {
+          this.handled = false;
+        },
+        handler: function() {
+          this.handled = true;
+        }
+      }, {}, $__proto, $__super, false);
+      return $Test;
+    }(Component);
+    window.Test = Test;
+  }(window, window.jQuery));
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
+var $__blocks_flippable_script_js = (function() {
+  "use strict";
+  ;
+  (function(window, $, undefined) {
+    'use strict';
+    var Flippable = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Flippable = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          if (this.elem.hasClass('js-flip')) {
+            this.on('click', this.toggle);
+          } else {
+            this.on('click', 'flip', this.toggle);
+          }
+        },
+        toggle: function() {
+          this.toggleState('flipped');
+        }
+      }, {}, $__proto, $__super, false);
+      return $Flippable;
+    }(Component);
+    tamia.initComponents({flippable: Flippable});
+  }(window, window.jQuery));
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
+var $__blocks_password_script_js = (function() {
+  "use strict";
+  ;
+  (function(window, $, undefined) {
+    'use strict';
+    var supported;
+    var Password = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Password = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.types = {
+            locked: 'password',
+            unlocked: 'text'
+          };
+          this.fieldElem = this.find('field');
+          this.toggleElem = this.find('toggle');
+          this.on('mousedown', 'toggle', this.toggle);
+        },
+        isSupported: function() {
+          if (supported !== undefined) return supported;
+          supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
+          return supported;
+        },
+        toggle: function() {
+          var focused = document.activeElement === this.fieldElem[0];
+          var locked = this.hasState('unlocked');
+          var fieldType = this.fieldElem.attr('type');
+          this.toggleState('unlocked');
+          if (fieldType === this.types.locked && !locked) {
+            this.fieldElem.attr('type', this.types.unlocked);
+          } else if (fieldType === this.types.unlocked && locked) {
+            this.fieldElem.attr('type', this.types.locked);
+          }
+          if (focused) {
+            setTimeout((function() {
+              return this.fieldElem.focus();
+            }).bind(this), 0);
+          }
+        }
+      }, {}, $__proto, $__super, false);
+      return $Password;
+    }(Component);
+    tamia.initComponents({password: Password});
+  }(window, jQuery));
+  return Object.preventExtensions(Object.create(null, {}));
+}).call(this);
+var $__blocks_select_script_js = (function() {
+  "use strict";
+  ;
+  (function(window, $, undefined) {
+    'use strict';
+    var Select = function($__super) {
+      'use strict';
+      var $__proto = $__getProtoParent($__super);
+      var $Select = ($__createClass)({
+        constructor: function() {
+          $__superCall(this, $__proto, "constructor", arguments);
+        },
+        init: function() {
+          this.selectElem = this.find('select');
+          this.boxElem = this.find('box');
+          this.on('focus', 'select', this.focus);
+          this.on('blur', 'select', this.blur);
+          this.on('change', 'select', this.change);
+          this.change();
+        },
+        focus: function() {
+          this.addState('focused');
+        },
+        blur: function() {
+          this.removeState('focused');
+        },
+        change: function() {
+          this.boxElem.text(this.selectElem.find(':selected').text());
+        }
+      }, {}, $__proto, $__super, false);
+      return $Select;
+    }(Component);
+    tamia.initComponents({select: Select});
+  }(window, jQuery));
+  return Object.preventExtensions(Object.create(null, {}));
 }).call(this);
 
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
-// Select with custom design
-
-/*global tamia:true*/
-;(function($) {
-	'use strict';
-
-	$.fn.formSelect = function() {
-		return this.each(function() {
-			var container = $(this),
-				select = container.find('select'),
-				box = container.find('.select__box');
-
-				if (!box.length) {
-					box = $('<div class="select__box">');
-					container.append(box);
-				}
-
-				select.focus(function() {
-					container.addClass('is-focused');
-				});
-				select.blur(function() {
-					container.removeClass('is-focused');
-				});
-				select.change(function() {
-					box.text(select.find(':selected').text());
-				});
-
-				select.triggerHandler('change');
-		});
-	};
-
-	// Init component
-	tamia.initComponents({ select: function(elem) {
-		$(elem).formSelect();
-	}});
-
-})(jQuery);
+//@ sourceMappingURL=specs.js.map
