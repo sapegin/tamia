@@ -19,6 +19,7 @@
     "grunt-coffeelint": "0.0.7",
     "marked": "~0.2.9",
     "grunt-casperjs": "~1.1.2",
-    "grunt-traceur-build": "0.0.2"
+    "grunt-traceur-build": "0.0.2",
+    "autoprefixer-stylus": "0.0.2"
   }
 }

@@ -35,16 +35,16 @@ module.exports = (grunt) ->
 				]
 				dest: 'specs/specs.js'
 		stylus:
+			options:
+				paths: ['.']
+				urlfunc: 'embedurl'
+				use: [
+					() -> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8')
+				]
 			specs:
-				options:
-					paths: ['.']
-					urlfunc: 'embedurl'
 				files:
 					'specs/specs.css': 'specs/specs.styl'
 			docs:
-				options:
-					paths: ['.']
-					urlfunc: 'embedurl'
 				files:
 					'docs/styles.css': 'docs_src/docs.styl'
 		casperjs:

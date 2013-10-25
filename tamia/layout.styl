@@ -113,18 +113,9 @@ _grid-float()
 // Layout wrapper.
 layout-row()
 	grid-wrapper()
-	/// Temporary flexbox implementaion that works in IE 10
-	/// Nib implementation is broken
-	display: -ms-flexbox
-	-ms-box-orient: horizontal
-	display: -webkit-flex
-	display: -moz-flex
-	display: -ms-flex
 	display: flex
-	-webkit-flex-flow: row wrap
-	-moz-flex-flow: row wrap
-	-ms-flex-flow: row wrap
 	flex-flow: row wrap
+	// flex-direction: row
 	/// IE8-9
 	.no-flexbox &
 		letter-spacing: -0.31em
