@@ -6,20 +6,17 @@
 .field,
 .button
 	display: block
-	width: 100%
 	vertical-align: middle
 	font-size: 1em
 	line-height: 1
+	transition: opacity .25 ease-out
 
 	&_inline
 		display: inline-block
 		width: auto
 
-	&:disabled,
-	&.is-disabled
-		cursor: default
-		pointer-events: none
-		opacity: .4
+	&:disabled
+		@extend .is-disabled
 
 .field_area
 	resize: vertical
@@ -29,10 +26,6 @@
 	text-decoration: none
 	white-space: nowrap
 	cursor: pointer
-
-	&:disabled,
-	&.is-disabled
-		pointer-events: none
 
 	// Fixing Mozilla's inner paddings
 	// https://github.com/nanoblocks/nanoblocks/blob/gh-pages/blocks/button/button.styl
@@ -46,7 +39,12 @@
 	&_inline .select,
 	&_inline .password
 		display: inline-block
-		width: auto
+
+	&_full .field,
+	&_full .button,
+	&_full .select,
+	&_full .password
+		width: 100%
 
 	&__group
 		space(2)
