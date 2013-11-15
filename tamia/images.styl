@@ -13,6 +13,7 @@ images_relative_root ?= '.'
 
 // Default sprite image file (default: ../build/sprite.png).
 sprite_image ?= '../build/sprite.png';
+sprite_image = sprite_image + '?' + sprite_fingerprint  if sprite_fingerprint
 
 // Sprite step size (default: 20px).
 sprite_step ?= 20px;
