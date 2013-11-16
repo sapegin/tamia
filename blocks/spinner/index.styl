@@ -10,8 +10,9 @@ spinner_fallback_gif ?= false
 	100%
 		transform: rotate(360deg)
 
-.spinner
-	display: block
+.spinner,
+.loader
+	display: inline-block
 	width: .25em
 	height: .25em
 	margin: .5em .2em
@@ -19,10 +20,27 @@ spinner_fallback_gif ?= false
 	border-radius: 50%
 	font-size: 16px
 	box-shadow: 0 -.4em 0 0 rgba(0,0,0,1), -.28em -.28em 0 0 rgba(0,0,0,.75), -.4em 0 0 0 rgba(0,0,0,.5), -.28em .28em 0 0 rgba(0,0,0,.25)
-	animation: .85s spinner-rotate steps(9) infinite
 
 	&_big
 		font-size: 32px
+
+.loader
+	visibility: hidden
+	opacity: 0
+	transition: visibility 0s .3s, opacity .3s ease-out
+
+	.is-loading &
+		visibility: visible
+		opacity: 1
+		transition: opacity .5s ease-out
+
+// Enable animation only when spinner is visible to increase page performance
+.spinner,
+.is-loading .loader
+	animation: .85s spinner-rotate steps(9) infinite
+.spinner.is-hidden,
+.loader.is-hidden
+	animation: none
 
 if spinner_fallback_gif
 	.no-cssanimations .spinner

@@ -7,6 +7,11 @@ Loading indicator (spinner) with animation.
 
 	<div class="spinner"></div>
 
+	<div class="is-loading">
+		<div class="loader"></div>
+	</div>
+
+`.loader` is the same as `.spinner` but it’s hidden by default. It’s visible only when `.is-loading` state is set on ancestor element.
 
 ## Modifiers
 
