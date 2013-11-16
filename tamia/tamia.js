@@ -195,6 +195,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}, _fallbackTimeout);
 		};
 
+		var _enableDisable = function(elem, enable) {
+			var formElementsSelector = 'input,textarea,button';
+			var formElements = elem.find(formElementsSelector).addBack(formElementsSelector);
+			formElements[enable ? 'removeClass' : 'addClass']('is-disabled');
+			formElements.attr('disabled', !enable);
+		};
+
 		var _handlers = {};
 
 		/**
@@ -281,6 +288,20 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			else {
 				_handlers.disappear(elem);
 			}
+		};
+
+		/**
+		 * Disables all descendant form elements.
+		 */
+		_handlers.disable = function(elem) {
+			_enableDisable($(elem), false);
+		};
+
+		/**
+		 * Enables all descendant form elements.
+		 */
+		_handlers.enable = function(elem) {
+			_enableDisable($(elem), true);
 		};
 
 		var _tamiaze = function (handler, name) {
