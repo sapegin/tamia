@@ -1,54 +1,64 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
-// Password field with toggle to show characters
+(function() {
+  'use strict';
+  var $, Password, supported, _ref,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-/*global tamia:false, Component:false*/
-;(function(window, $, undefined) {
-	'use strict';
+  $ = jQuery;
 
-	var supported;
+  supported = void 0;
 
-	class Password extends Component {
-		init() {
-			this.types = {
-				locked: 'password',
-				unlocked: 'text'
-			};
+  Password = (function(_super) {
+    __extends(Password, _super);
 
-			this.fieldElem = this.find('field');
-			this.toggleElem = this.find('toggle');
+    function Password() {
+      _ref = Password.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
 
-			// Mousedown instead of click to catch focused field
-			this.on('mousedown', 'toggle', this.toggle);
-		}
+    Password.prototype.init = function() {
+      this.types = {
+        locked: 'password',
+        unlocked: 'text'
+      };
+      this.fieldElem = this.find('field');
+      this.toggleElem = this.find('toggle');
+      return this.on('mousedown', 'toggle', this.toggle);
+    };
 
-		isSupported() {
-			if (supported !== undefined) return supported;
-			// IE8+
-			supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
-			return supported;
-		}
+    Password.prototype.isSupported = function() {
+      if (supported !== void 0) {
+        return supported;
+      }
+      supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
+      return supported;
+    };
 
-		toggle() {
-			var focused = document.activeElement === this.fieldElem[0];
-			var locked = this.hasState('unlocked');
+    Password.prototype.toggle = function() {
+      var fieldType, focused, locked,
+        _this = this;
+      focused = document.activeElement === this.fieldElem[0];
+      locked = this.hasState('unlocked');
+      fieldType = this.fieldElem.attr('type');
+      this.toggleState('unlocked');
+      if (fieldType === this.types.locked && !locked) {
+        this.fieldElem.attr('type', this.types.unlocked);
+      } else if (fieldType === this.types.unlocked && locked) {
+        this.fieldElem.attr('type', this.types.locked);
+      }
+      if (focused) {
+        return setTimeout((function() {
+          return _this.fieldElem.focus();
+        }), 0);
+      }
+    };
 
-			var fieldType = this.fieldElem.attr('type');
+    return Password;
 
-			this.toggleState('unlocked');
+  })(Component);
 
-			if (fieldType === this.types.locked && !locked) {
-				this.fieldElem.attr('type', this.types.unlocked);
-			}
-			else if (fieldType === this.types.unlocked && locked) {
-				this.fieldElem.attr('type', this.types.locked);
-			}
+  tamia.initComponents({
+    password: Password
+  });
 
-			if (focused) {
-				setTimeout(() => this.fieldElem.focus(), 0);
-			}
-		}
-	}
-
-	tamia.initComponents({password: Password});
-
-}(window, jQuery));
+}).call(this);

@@ -1,74 +1,95 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
+(function() {
+  'use strict';
+  var Hidden, Test, Unsupported, _ref, _ref1, _ref2,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-/*global tamia:false, Component:false*/
-;(function(window, $, undefined) {
-	'use strict';
+  Hidden = (function(_super) {
+    __extends(Hidden, _super);
 
-	/**
-	 * Hidden component
-	 */
-	class Hidden extends Component {
-		init() {
-			this.addState('pony');
-		}
+    function Hidden() {
+      _ref = Hidden.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
 
-		isInitializable() {
-			return this.isVisible();
-		}
-	}
+    Hidden.prototype.init = function() {
+      return this.addState('pony');
+    };
 
-	tamia.initComponents({hidden: Hidden});
+    Hidden.prototype.isInitializable = function() {
+      return this.isVisible();
+    };
 
+    return Hidden;
 
-	/**
-	 * Unsupported component
-	 */
-	class Unsupported extends Component {
-		init() {
-			this.addState('pony');
-		}
+  })(Component);
 
-		fallback() {
-			this.addState('no-pony');
-		}
+  tamia.initComponents({
+    hidden: Hidden
+  });
 
-		isSupported() {
-			return false;
-		}
-	}
+  Unsupported = (function(_super) {
+    __extends(Unsupported, _super);
 
-	tamia.initComponents({unsupported: Unsupported});
+    function Unsupported() {
+      _ref1 = Unsupported.__super__.constructor.apply(this, arguments);
+      return _ref1;
+    }
 
+    Unsupported.prototype.init = function() {
+      return this.addState('pony');
+    };
 
-	/**
-	 * Test component
-	 */
-	class Test extends Component {
-		init() {
-			this.reset();
-			this.on('test1', 'elem', this.handler);
-			this.on('test2', 'elem', this.handler);
-		}
+    Unsupported.prototype.fallback = function() {
+      return this.addState('no-pony');
+    };
 
-		detachFirstHandler() {
-			this.off('test1', 'elem', this.handler);
-		}
+    Unsupported.prototype.isSupported = function() {
+      return false;
+    };
 
-		detachSecondHandler() {
-			this.off('test2', 'elem', this.handler);
-		}
+    return Unsupported;
 
-		reset() {
-			this.handled = false;
-		}
+  })(Component);
 
-		handler() {
-			this.handled = true;
-		}
-	}
+  tamia.initComponents({
+    unsupported: Unsupported
+  });
 
-	window.Test = Test;
+  Test = (function(_super) {
+    __extends(Test, _super);
 
+    function Test() {
+      _ref2 = Test.__super__.constructor.apply(this, arguments);
+      return _ref2;
+    }
 
+    Test.prototype.init = function() {
+      this.reset();
+      this.on('test1', 'elem', this.handler);
+      return this.on('test2', 'elem', this.handler);
+    };
 
-}(window, window.jQuery));
+    Test.prototype.detachFirstHandler = function() {
+      return this.off('test1', 'elem', this.handler);
+    };
+
+    Test.prototype.detachSecondHandler = function() {
+      return this.off('test2', 'elem', this.handler);
+    };
+
+    Test.prototype.reset = function() {
+      return this.handled = false;
+    };
+
+    Test.prototype.handler = function() {
+      return this.handled = true;
+    };
+
+    return Test;
+
+  })(Component);
+
+  window.Test = Test;
+
+}).call(this);

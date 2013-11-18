@@ -11,35 +11,53 @@ module.exports = (grunt) ->
 			options:
 				jshintrc: '.jshintrc'
 			files: [
-				'tamia/*.js',
-				'blocks/*/*.js'
+				'tamia/tamia.js',
 			]
-		concat:
-			docs:
-				src: [
-					'tamia/tamia.js',
-					'blocks/*/*.js'
-				]
-				dest: 'tmp/docs/scripts.js'
-		traceur_build:
+		coffeelint:
 			options:
-				blockBinding: true
-				freeVariableChecker: false
+				no_tabs: level: 'ignore'
+				indentation: level: 'ignore'
+				max_line_length: level: 'ignore'
+				arrow_spacing: level: 'error'
+				no_empty_param_list: level: 'error'
+				no_stand_alone_at: level: 'error'
+			files: [
+				'tamia/*.coffee'
+				'blocks/*/*.coffee'
+				'specs/test.coffee'
+			]
+		coffee:
+			tamia:
+				expand: true
+				src: [
+					'tamia/component.coffee'
+					'specs/test.coffee'
+					'blocks/*/*.coffee'
+				]
+				dest: '.'
+				ext: '.js'
+		concat:
 			specs:
 				src: [
-					'tamia/traceur-rt-light.js',
-					'tamia/tamia.js',
-					'tamia/component.js',
-					'specs/test.js',
+					'tamia/tamia.js'
+					'tamia/component.js'
 					'blocks/*/*.js'
+					'specs/test.js'
 				]
 				dest: 'specs/specs.js'
+			docs:
+				src: [
+					'tamia/tamia.js'
+					'tamia/component.js'
+					'blocks/*/*.js'
+				]
+				dest: 'docs/scripts.js'
 		stylus:
 			options:
 				paths: ['.']
 				urlfunc: 'embedurl'
 				use: [
-					() -> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8')
+					() -> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8', 'ie 9')
 				]
 			specs:
 				files:
@@ -52,16 +70,16 @@ module.exports = (grunt) ->
 		watch:
 			options:
 				livereload: true
-			traceur_build:
-				files: [
-					'<%= traceur_build.specs.src %>'
-					# '<%= concat.docs.dest %>'
-				]
-				tasks: 'traceur_build'
+			coffee:
+				files: '<%= coffee.tamia.src %>'
+				tasks: 'coffee'
+			concat:
+				files: '<%= cocat.specs.src %>'
+				tasks: 'concat'
 			stylus:
 				files: [
-					'tamia/**/*.styl',
-					'blocks/**/*.styl',
+					'tamia/**/*.styl'
+					'blocks/**/*.styl'
 					'specs/specs.styl'
 					'docs_src/docs.styl'
 				]
@@ -216,6 +234,6 @@ module.exports = (grunt) ->
 		"## #{title}\n\n#{text}"
 
 
-	grunt.registerTask 'default', ['jshint', 'traceur_build', 'stylus', 'docs', 'casperjs']
-	grunt.registerTask 'build', ['traceur_build', 'stylus', 'docs']
 	grunt.registerTask 'test', ['casperjs']
+	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat', 'stylus', 'docs', 'test']
+	grunt.registerTask 'build', ['coffee', 'concat', 'stylus', 'docs']

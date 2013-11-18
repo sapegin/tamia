@@ -1,25 +1,37 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
-// Flippable pane
+(function() {
+  'use strict';
+  var $, Flippable, _ref,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-/*global tamia:false, Component:false*/
-;(function(window, $, undefined) {
-	'use strict';
+  $ = jQuery;
 
-	class Flippable extends Component {
-		init() {
-			if (this.elem.hasClass('js-flip')) {
-				this.on('click', this.toggle);
-			}
-			else {
-				this.on('click', 'flip', this.toggle);
-			}
-		}
+  Flippable = (function(_super) {
+    __extends(Flippable, _super);
 
-		toggle() {
-			this.toggleState('flipped');
-		}
-	}
+    function Flippable() {
+      _ref = Flippable.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
 
-	tamia.initComponents({flippable: Flippable});
+    Flippable.prototype.init = function() {
+      if (this.elem.hasClass('js-flip')) {
+        return this.on('click', this.toggle);
+      } else {
+        return this.on('click', 'flip', this.toggle);
+      }
+    };
 
-}(window, window.jQuery));
+    Flippable.prototype.toggle = function() {
+      return this.toggleState('flipped');
+    };
+
+    return Flippable;
+
+  })(Component);
+
+  tamia.initComponents({
+    flippable: Flippable
+  });
+
+}).call(this);

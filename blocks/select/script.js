@@ -1,35 +1,46 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
-// Select with custom design
+(function() {
+  'use strict';
+  var $, Select, _ref,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-/*global tamia:false, Component:false*/
-;(function(window, $, undefined) {
-	'use strict';
+  $ = jQuery;
 
-	class Select extends Component {
-		init() {
-			this.selectElem = this.find('select');
-			this.boxElem = this.find('box');
+  Select = (function(_super) {
+    __extends(Select, _super);
 
-			this.on('focus', 'select', this.focus);
-			this.on('blur', 'select', this.blur);
-			this.on('change', 'select', this.change);
+    function Select() {
+      _ref = Select.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
 
-			this.change();
-		}
+    Select.prototype.init = function() {
+      this.selectElem = this.find('select');
+      this.boxElem = this.find('box');
+      this.on('focus', 'select', this.focus);
+      this.on('blur', 'select', this.blur);
+      this.on('change', 'select', this.change);
+      return this.change();
+    };
 
-		focus() {
-			this.addState('focused');
-		}
+    Select.prototype.focus = function() {
+      return this.addState('focused');
+    };
 
-		blur() {
-			this.removeState('focused');
-		}
+    Select.prototype.blur = function() {
+      return this.removeState('focused');
+    };
 
-		change() {
-			this.boxElem.text(this.selectElem.find(':selected').text());
-		}
-	}
+    Select.prototype.change = function() {
+      return this.boxElem.text(this.selectElem.find(':selected').text());
+    };
 
-	tamia.initComponents({select: Select});
+    return Select;
 
-}(window, jQuery));
+  })(Component);
+
+  tamia.initComponents({
+    select: Select
+  });
+
+}).call(this);
