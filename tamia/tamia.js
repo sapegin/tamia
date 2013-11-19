@@ -51,11 +51,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
+		if (!jQuery.Transitions) warn('jQuery Transition Events plugin (tamia/vendor/transition-events.js) not found.');
 		if (!Modernizr) warn('Modernizr not found.');
 
 		// Check required Modernizr features
 		$.each([
-			'prefixed',
 			'csstransitions',
 			'cssgradients',
 			'flexbox',
@@ -173,26 +173,29 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var _disappearedEvent = 'disappeared.tamia';
 		var _fallbackTimeout = 1000;
 
-		var _transitionEndEvent = Modernizr && {
-			WebkitTransition : 'webkitTransitionEnd',
-			transition : 'transitionend'
-		}[Modernizr.prefixed('transition')];
-
-		var _removeTransitionClass = function(elem, callback) {
-			var called = false;
-			elem.one(_transitionEndEvent, function() {
-				elem.removeClass(_transitionClass);
-				callback();
-				called = true;
+		/**
+		 * Registers Tâmia events (eventname.tamia) on document.
+		 *
+		 * Example:
+		 *
+		 *   // Registers enable.tamia event.
+		 *   tamia.registerEvents({
+		 *      enable: function(elem) {
+		 *      }
+		 *   });
+		 *
+		 * @param  {Object} handlers
+		 */
+		tamia.registerEvents = function(handlers) {
+			var events = $.map(handlers, _tamiaze).join(' ');
+			_doc.on(events, function(event) {
+				if (DEBUG) log('Event "%s":', event.type, event.target);
+				handlers[event.type](event.target);
 			});
+		};
 
-			// Fallback: http://blog.alexmaccaw.com/css-transitions
-			setTimeout(function() {
-				if (!called) {
-					elem.removeClass(_transitionClass);
-					callback();
-				}
-			}, _fallbackTimeout);
+		var _tamiaze = function (handler, name) {
+			return name + '.tamia';
 		};
 
 		var _enableDisable = function(elem, enable) {
@@ -240,7 +243,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				elem.addClass(_transitionClass);
 				setTimeout(function() {
 					elem.removeClass(_hiddenClass);
-					_removeTransitionClass(elem, function() {
+					elem.afterTransition(function() {
+						elem.removeClass(_transitionClass);
 						elem.trigger(_appearedEvent);
 					});
 				}, 0);
@@ -264,7 +268,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				if (elem.hasClass(_transitionClass) && elem.hasClass(_hiddenClass)) return;
 				elem.addClass(_transitionClass);
 				elem.addClass(_hiddenClass);
-				_removeTransitionClass(elem, function() {
+				elem.afterTransition(function() {
+					elem.removeClass(_transitionClass);
 					elem.trigger(_disappearedEvent);
 				});
 			}
@@ -304,15 +309,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			_enableDisable($(elem), true);
 		};
 
-		var _tamiaze = function (handler, name) {
-			return name + '.tamia';
-		};
+		tamia.registerEvents(_handlers);
 
-		var _events = $.map(_handlers, _tamiaze).join(' ');
-		_doc.on(_events, function(event) {
-			if (DEBUG) log('Event "%s":', event.type, event.target);
-			_handlers[event.type](event.target);
-		});
 
 		/**
 		 * Controls.

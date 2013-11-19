@@ -50,8 +50,12 @@ class Component
 			@addState('unsupported')
 
 	# Put all your initialization code in this method.
-	# init: ->
+	init: ->
 		# Should be implemented
+
+	# You can implement this method to do destroy component
+	destroy: ->
+		# Could be implemented
 
 	# Implement this method if you want to check whether browser is good for your component or not.
 	#

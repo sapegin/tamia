@@ -218,6 +218,19 @@ casper.then ->
 		!(jQuery '.js-select-component').hasClass('is-focused')
 	), 'Select: focused state removed'
 
+# Spinner
+casper.thenClick '.js-loading-start', ->
+	@test.assertExists '.js-loaders div.loader-shade div.l-center div.l-center-i div.spinner.spinner_big', 'Spinner: HTML for loader shade and spinner was created'
+	@test.assertEval (-> (jQuery '.js-loaders').hasClass('is-loading')), 'Spinner: .is-loading class has been added to component'
+	@test.assertEval (-> (jQuery '.js-loaders').hasClass('loader-wrapper')), 'Spinner: .loader-wrapper class has been added to component'
+casper.wait 250, ->
+	@test.assertVisible '.js-loaders .loader-shade', 'Spinner: Loader shade is visible after click on a link'
+casper.thenClick '.js-loading-stop', ->
+	@test.assertEval (-> !(jQuery '.js-loaders').hasClass('is-loading')), 'Spinner: .is-loading class has been removed after click on a link'
+casper.wait 250, ->
+	@test.assertNotExists '.js-loaders .loader-shade', 'Spinner: HTML was removed'
+	@test.assertEval (-> !(jQuery '.js-loaders').hasClass('loader-wrapper')), 'Spinner: .loader-wrapper class has been removed after click on a link'
+
 
 casper.run ->
 	@test.renderResults true

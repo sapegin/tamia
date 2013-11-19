@@ -37,21 +37,20 @@ module.exports = (grunt) ->
 				dest: '.'
 				ext: '.js'
 		concat:
-			specs:
-				src: [
-					'tamia/tamia.js'
-					'tamia/component.js'
-					'blocks/*/*.js'
-					'specs/test.js'
-				]
-				dest: 'specs/specs.js'
 			docs:
 				src: [
+					'vendor/transition-events.js'
 					'tamia/tamia.js'
 					'tamia/component.js'
 					'blocks/*/*.js'
 				]
 				dest: 'docs/scripts.js'
+			specs:
+				src: [
+					'<%= concat.docs.dest  %>'
+					'specs/test.js'
+				]
+				dest: 'specs/specs.js'
 		stylus:
 			options:
 				paths: ['.']
@@ -74,7 +73,10 @@ module.exports = (grunt) ->
 				files: '<%= coffee.tamia.src %>'
 				tasks: 'coffee'
 			concat:
-				files: '<%= cocat.specs.src %>'
+				files: [
+					'<%= concat.docs.src %>'
+					'<%= concat.specs.src %>'
+				]
 				tasks: 'concat'
 			stylus:
 				files: [

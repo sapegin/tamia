@@ -30,6 +30,16 @@ You can set any spinner size changing `font-size` property.
 	<div class="spinner spinner_huge"></div>
 
 
+## Component loading indicator
+
+	$('.pony').trigger('loading-start.tamia');  // Show loader
+	$('.pony').trigger('loading-stop.tamia');  // Hide loader
+
+That will blocks all container’s content with a semi transparent layer and shows spinner in the middle.
+
+To change shade layer’s color set `loader_shade_color` variable.
+
+
 ## IE 8—9 callback
 
 Copy `spinner.gif` to your images folder and set `spinner_fallback_gif` variable to its URL.

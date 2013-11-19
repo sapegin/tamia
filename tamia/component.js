@@ -27,6 +27,10 @@
       }
     }
 
+    Component.prototype.init = function() {};
+
+    Component.prototype.destroy = function() {};
+
     Component.prototype.isSupported = function() {
       return true;
     };
@@ -57,11 +61,17 @@
       return !!this.states[name];
     };
 
-    Component.prototype.addState = function(name) {
+    Component.prototype.addState = function(name, callback) {
+      if (callback == null) {
+        callback = void 0;
+      }
       return this.toggleState(name, true);
     };
 
-    Component.prototype.removeState = function(name) {
+    Component.prototype.removeState = function(name, callback) {
+      if (callback == null) {
+        callback = void 0;
+      }
       return this.toggleState(name, false);
     };
 

@@ -101,6 +101,23 @@
 	<span class="button is-disabled" tabindex="0">span</span>
 </div>
 
+<div class="spec spec_narrow">
+	<div class="form form_full js-form">
+		<div class="form__row">
+			<input type="text" class="field" placeholder="Name">
+		</div>
+		<div class="form__row">
+			<input type="email" class="field" placeholder="Email">
+		</div>
+		<div class="form__row">
+			<input type="button" class="button" value="Boom!">
+		</div>
+	</div>
+</div>
+<div class="spec">
+	<p><span class="link js-disable" data-fire="disable.tamia" data-target=".js-form">Disable</span>, <span class="link js-enable" data-fire="enable.tamia" data-target=".js-form">enable</span></p>
+</div>
+
 <h2>Checkbox &amp; radio button</h2>
 
 <div class="spec">
@@ -197,6 +214,26 @@
 <div class="spec">
 	<div class="spinner spinner_big"></div>
 </div>
+<div class="spec spec_narrow">
+	<div class="form form_full js-loaders">
+		<div class="form__row">
+			<p>Some content.</p>
+		</div>
+		<div class="form__row">
+			<input type="text" class="field" placeholder="Name">
+		</div>
+		<div class="form__row">
+			<input type="email" class="field" placeholder="Email">
+		</div>
+		<div class="form__row">
+			<input type="button" class="button" value="Boom!">
+		</div>
+	</div>
+</div>
+<div class="spec">
+	<p><span class="link js-loading-start" data-fire="loading-start.tamia" data-target=".js-loaders">Start loading</span>, <span class="link js-loading-stop" data-fire="loading-stop.tamia" data-target=".js-loaders">stop loading</span></p>
+</div>
+
 
 <h2>Tooltip</h2>
 
@@ -255,7 +292,7 @@ var containerHtml = document.querySelector('.js-container').innerHTML;
 <!-- Unsupported component test -->
 <div class="js-unsupported-component" data-component="unsupported"></div>
 
-<script>DEBUG = false</script>
+<script>//DEBUG = false</script>
 
 <!--[if lt IE 9]>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -266,11 +303,14 @@ var containerHtml = document.querySelector('.js-container').innerHTML;
 <script src="specs.js"></script>
 
 <script>
+// Dynamic initialization
 var container = $('.js-container');
 container.on('click', '.js-reinit', function() {
 	container.html(containerHtml);
 	container.trigger('init.tamia');
 });
+
+// Appear / disappear
 var dialog = $('.js-dialog');
 dialog.on('appeared.tamia', console.log.bind(console, 'Dialog appeared'));
 dialog.on('disappeared.tamia', console.log.bind(console, 'Dialog disappeared'));
