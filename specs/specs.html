@@ -257,7 +257,12 @@ var containerHtml = document.querySelector('.js-container').innerHTML;
 
 <script>DEBUG = false</script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!--<![endif]-->
 <script src="specs.js"></script>
 
 <script>
