@@ -227,6 +227,8 @@ casper.wait 250, ->
 	@test.assertVisible '.js-loaders .loader-shade', 'Spinner: Loader shade is visible after click on a link'
 casper.thenClick '.js-loading-stop', ->
 	@test.assertEval (-> !(jQuery '.js-loaders').hasClass('is-loading')), 'Spinner: .is-loading class has been removed after click on a link'
+casper.wait 50, ->
+	@test.assertExists '.js-loaders .loader-shade', 'Spinner: HTML not removed until transitionend'
 casper.wait 250, ->
 	@test.assertNotExists '.js-loaders .loader-shade', 'Spinner: HTML was removed'
 	@test.assertEval (-> !(jQuery '.js-loaders').hasClass('loader-wrapper')), 'Spinner: .loader-wrapper class has been removed after click on a link'
