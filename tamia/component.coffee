@@ -16,16 +16,13 @@ $ = jQuery
 #
 # Example:
 #
-#   class Pony extends Component {
-#     init() {
+#   class Pony extends Component
+#     init: ->
 #       @on('click', 'toggle', @toggle)
-#     }
-#     toggle() {
+#     toggle: ->
 #       @toggleState('pink')
-#     }
-#   }
 #
-#   tamia.initComponents({pony: Pony})
+#   tamia.initComponents(pony: Pony)
 #
 #   <div class="pink-pony is-pink" data-component="pony">
 #     <button class="pink-pony__button js-toggle">To pink or not to pink?</div>
