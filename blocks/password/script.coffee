@@ -20,7 +20,7 @@ class Password extends Component
 		@on('mousedown', 'toggle', @toggle)
 
 	isSupported: ->
-		return supported  if supported isnt undefined
+		return supported  unless supported is undefined
 
 		# IE8+
 		supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length isnt 1
