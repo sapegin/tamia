@@ -329,19 +329,20 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
 		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
 		 */
-		_doc.click(function(event) {
-			var elem = event.target;
-			var parent = elem.parentNode;
-			if (parent && parent.getAttribute && parent.getAttribute('data-fire')) elem = parent;
-			if (elem.getAttribute('data-fire') && elem.getAttribute('data-target') || elem.getAttribute('data-closest')) {
-				elem = jQuery(elem);
-				var data = elem.data();
-				var target = data.target || elem.closest(data.closest);
-				var attrs = data.attrs;
-				if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
-				jQuery(target).trigger(data.fire, attrs ? attrs.split(/[;, ]/) : undefined);
-				event.preventDefault();
-			}
+		 _doc.on('click', '[data-fire]', function(event) {
+			var elem = jQuery(event.currentTarget);
+
+			var data = elem.data();
+			if (DEBUG) if (!data.target && !data.closest) return log('You should define either data-target or data-closest on', elem[0]);
+
+			var target = data.target && jQuery(data.target) || elem.closest(data.closest);
+			if (DEBUG) if (!target.length) return log('Target element %s not found for', data.target || data.closest, elem[0]);
+
+			var attrs = data.attrs;
+			if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
+			target.trigger(data.fire, attrs ? attrs.split(/[;, ]/) : undefined);
+
+			event.preventDefault();
 		});
 
 		/**
