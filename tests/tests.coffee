@@ -9,7 +9,7 @@ casper.count = (s) ->
 		(document.querySelectorAll s).length
 	), s
 
-casper.test.begin('Tâmia', 60, suite = (test) ->
+casper.test.begin('Tâmia', 72, suite = (test) ->
 
 	casper.start 'specs/specs.html'
 
@@ -232,6 +232,22 @@ casper.test.begin('Tâmia', 60, suite = (test) ->
 	casper.wait 250, ->
 		test.assertNotExists '.js-loaders .loader-shade', 'Spinner: HTML was removed'
 		test.assertEval (-> !(jQuery '.js-loaders').hasClass('loader-wrapper')), 'Spinner: .loader-wrapper class has been removed after click on a link'
+
+	# Form
+	casper.thenClick '.js-disable', ->
+		test.assertEval (-> (jQuery '.js-form .js-field-1').hasClass('is-disabled')), 'Form: First field has class .is-disabled'
+		test.assertEval (-> (jQuery '.js-form .js-field-2').hasClass('is-disabled')), 'Form: Second field has class .is-disabled'
+		test.assertEval (-> (jQuery '.js-form .js-button-1').hasClass('is-disabled')), 'Form: Submit has class .is-disabled'
+		test.assertEval (-> (jQuery '.js-form .js-field-1').prop('disabled')), 'Form: First field has disabled attribute'
+		test.assertEval (-> (jQuery '.js-form .js-field-2').prop('disabled')), 'Form: Second field has disabled attribute'
+		test.assertEval (-> (jQuery '.js-form .js-button-1').prop('disabled')), 'Form: Submit has disabled attribute'
+	casper.thenClick '.js-enable', ->
+		test.assertEval (-> !(jQuery '.js-form .js-field-1').hasClass('is-disabled')), 'Form: First field doesn’t have class .is-disabled'
+		test.assertEval (-> !(jQuery '.js-form .js-field-2').hasClass('is-disabled')), 'Form: Second field doesn’t have class .is-disabled'
+		test.assertEval (-> !(jQuery '.js-form .js-button-1').hasClass('is-disabled')), 'Form: Submit doesn’t have class .is-disabled'
+		test.assertEval (-> !(jQuery '.js-form .js-field-1').prop('disabled')), 'Form: First field doesn’t have disabled attribute'
+		test.assertEval (-> !(jQuery '.js-form .js-field-2').prop('disabled')), 'Form: Second field doesn’t have disabled attribute'
+		test.assertEval (-> !(jQuery '.js-form .js-button-1').prop('disabled')), 'Form: Submit doesn’t have disabled attribute'
 
 	casper.run ->
 		test.done()
