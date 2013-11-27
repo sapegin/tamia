@@ -5,6 +5,30 @@
 
   $ = jQuery;
 
+  /*
+  JS component base class.
+  
+  Elements: any HTML element with class name that follow a pattern `.js-name` where `name` is an element name.
+  
+  States: any class on component root HTML node that follow a pattern `.is-state` where `state` is a state name.
+  After initialization all components will have `ok` state.
+  
+  Example:
+  
+    class Pony extends Component
+      init: ->
+        @on('click', 'toggle', @toggle)
+      toggle: ->
+        @toggleState('pink')
+  
+    tamia.initComponents(pony: Pony)
+  
+    <div class="pink-pony is-pink" data-component="pony">
+      <button class="pink-pony__button js-toggle">To pink or not to pink?</div>
+    </div>
+  */
+
+
   Component = (function() {
     function Component(elem) {
       if (!elem || elem.nodeType !== 1) {
@@ -27,23 +51,76 @@
       }
     }
 
+    /*
+    	Put all your initialization code in this method.
+    */
+
+
     Component.prototype.init = function() {};
 
+    /*
+    	You can implement this method to do destroy component.
+    */
+
+
     Component.prototype.destroy = function() {};
+
+    /*
+    	Implement this method if you want to check whether browser is good for your component or not.
+    
+    	@returns {Boolean}
+    */
+
 
     Component.prototype.isSupported = function() {
       return true;
     };
 
+    /*
+    	Implement this method if you want to check whether component could be initialized.
+    
+    	Example:
+    
+    	  isInitializable: ->
+    	    # Do not initialize component if it's not visible
+    	    @isVisible()
+    
+    	@return {Boolean}
+    */
+
+
     Component.prototype.isInitializable = function() {
       return true;
     };
 
+    /*
+    	You can implement this method to do some fallbacks. It will be called if isSupported() returns false.
+    */
+
+
     Component.prototype.fallback = function() {};
+
+    /*
+    	Finds element.
+    
+    	@param {String} name Element ID.
+    
+    	@return {jQuery} Element with .js-name class.
+    */
+
 
     Component.prototype.find = function(name) {
       return this.elem.find(".js-" + name).first();
     };
+
+    /*
+    	Attaches event handler.
+    
+    	@param {String} events Event names (space separated).
+    	@param {String} [element] Element id.
+    	@param {Function} handler Handler function (scope will automatically sets to this).
+    */
+
 
     Component.prototype.on = function() {
       var args;
@@ -51,29 +128,63 @@
       return this._toggleEvent.apply(this, ['on'].concat(__slice.call(args)));
     };
 
+    /*
+    	Detaches event handler.
+    
+    	@param {String} events Event names (space separated).
+    	@param {String} [element] Element id.
+    	@param {Function} handler Handler function (scope will automatically sets to this).
+    */
+
+
     Component.prototype.off = function() {
       var args;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
       return this._toggleEvent.apply(this, ['off'].concat(__slice.call(args)));
     };
 
+    /*
+    	Returns component state.
+    
+    	@param {String} [name] State name.
+    
+    	@return {Boolean} Sate value.
+    */
+
+
     Component.prototype.hasState = function(name) {
       return !!this.states[name];
     };
 
-    Component.prototype.addState = function(name, callback) {
-      if (callback == null) {
-        callback = void 0;
-      }
+    /*
+    	Sets state to true.
+    
+    	@param {String} [name] State name.
+    */
+
+
+    Component.prototype.addState = function(name) {
       return this.toggleState(name, true);
     };
 
-    Component.prototype.removeState = function(name, callback) {
-      if (callback == null) {
-        callback = void 0;
-      }
+    /*
+    	Sets state to false.
+    
+    	@param {String} [name] State name.
+    */
+
+
+    Component.prototype.removeState = function(name) {
       return this.toggleState(name, false);
     };
+
+    /*
+    	Toggles state value.
+    
+    	@param {String} [name] State name.
+    	@param {Boolean} [value] State value.
+    */
+
 
     Component.prototype.toggleState = function(name, value) {
       if (value == null) {
@@ -82,6 +193,13 @@
       this.states[name] = value;
       return this._updateStates();
     };
+
+    /*
+    	Returns component visibility.
+    
+    	@return {Boolean}
+    */
+
 
     Component.prototype.isVisible = function() {
       return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);

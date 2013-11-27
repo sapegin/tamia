@@ -127,6 +127,11 @@ module.exports = (grunt) ->
 		jscore = docsProcessJs jscore
 		html.push (docsAppendTitle jscore, 'JavaScript Helpers')
 
+		# Component
+		component = grunt.file.read 'tamia/component.coffee'
+		component = docsProcessCoffee component
+		html.push (docsAppendTitle component, 'Base JavaScript Component Class')
+
 		saveHtml 'docs', marked html.join '\n\n'
 
 		# Blocks
@@ -153,17 +158,45 @@ module.exports = (grunt) ->
 			text = (text
 				.replace(/\n\s*\* ?/mg, '\n')  # Clean up
 				.replace(/^\s*/, '')  # Clean up
-				.replace(/@param {(\w+)} ([-\w]+)/g, '* *$1* **$2**')  # Params
-				.replace(/@param ([-\w]+)/g, '* **$1**')  # Params
-				.replace(/^(.*?):$/mg, '##### $1')  # Sections
-				.replace(/^  /mg, '    ')  # Code blocks
-				.replace(/^    (\d+\.)/mg, '$1')  # Ordered lists
-				)
+			)
+
+			text = docsFormatJsDoc text
 
 			title = null
-			m = /function (\w+)/.exec firstLine  # Function
+			m = /(?:function (\w+))|(?:(\w+) \->)/.exec firstLine  # Function
 			if m
-				params = text.match /\* \*\*([a-z]+)(?=\*\*)/g
+				params = text.match /\* \*\*([a-z\[\]]+)(?=\*\*)/g
+				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
+				title = m[1] + '(' + (params.join ', ') + ')'
+			m = /_handlers\.(\w+)/.exec firstLine  # Event
+			if m
+				title = m[1]
+			if title
+				text = "#### #{title}\n\n#{text}"
+			else
+				# The first line is a title
+				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
+				text = "#### #{text}"
+
+			docs.push text
+
+		docs.join '\n\n'
+
+	docsProcessCoffee = (code) ->
+		docs = []
+		blocksRegEx = /###([\S\s]*?)###\n\s*(.*?)\n/mg
+		while true
+			matches = blocksRegEx.exec code
+			break  unless matches
+			text = matches[1]
+			firstLine = matches[2]
+
+			text = docsFormatJsDoc text
+
+			title = null
+			m = /(\w+):[^]* \->/.exec firstLine  # Function
+			if m
+				params = text.match /\* \*\*([a-z\[\]]+)(?=\*\*)/g
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 				title = m[1] + '(' + (params.join ', ') + ')'
 			m = /_handlers\.(\w+)'/.exec firstLine  # Event
@@ -179,6 +212,17 @@ module.exports = (grunt) ->
 			docs.push text
 
 		docs.join '\n\n'
+
+	docsFormatJsDoc = (text) ->
+		text
+			.replace(/^\t*/mg, '')  # Clean up
+			.replace(/@param {(\w+)} ([-\w\[\]]+)/g, '* *$1* **$2**:')  # Params
+			.replace(/@param ([-\w\[\]]+)/g, '* **$1**:')  # Params
+			.replace(/@returns? {(\w+)}(.)/g, 'Returns *$1*:')  # Returns
+			.replace(/@returns? {(\w+)}/g, 'Returns *$1*.')  # Returns
+			.replace(/^(.*?):$/mg, '##### $1')  # Sections
+			.replace(/^  /mg, '    ')  # Code blocks
+			.replace(/^    (\d+\.)/mg, '$1')  # Ordered lists
 
 	docsProcessStylus = (code) ->
 		# Remove header comment

@@ -272,6 +272,10 @@ a:link {
   display: block;
 }
 
+.is-transit.l-center {
+  display: table;
+}
+
 .is-disabled,
 .field:disabled,
 .button:disabled {

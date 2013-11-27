@@ -31,9 +31,7 @@
     Loader.prototype.destroy = function() {
       var _this = this;
       this.removeState('loading');
-      console.log('elem', this.elem.find(loaderShadeSelector));
       return this.elem.find(loaderShadeSelector).afterTransition(function() {
-        console.log('transitionend');
         _this.elem.removeClass(loaderWrapperClass);
         return _this.loader.remove();
       });

@@ -19,10 +19,10 @@
  *         global_defs: {
  *           DEBUG: !!grunt.option('debug')
  *         }
- *      }
- *    },
- *    ...
- *  }
+ *       }
+ *     },
+ *     ...
+ *   }
  *
  * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
  */
@@ -184,7 +184,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *      }
 		 *   });
 		 *
-		 * @param  {Object} handlers
+		 * @param {Object} handlers Handlers list.
 		 */
 		tamia.registerEvents = function(handlers) {
 			var events = $.map(handlers, _tamiaze).join(' ');
@@ -205,6 +205,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			formElements.attr('disabled', !enable);
 		};
 
+		/**
+		 * Events
+		 */
 		var _handlers = {};
 
 		/**
