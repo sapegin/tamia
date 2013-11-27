@@ -43,23 +43,27 @@
 		
 
 		<div class="text">
-			<h2>Requirements</h2>
+			<h2 id="based-on">Based On</h2>
 <ul>
-<li>Stylus and Nib.</li>
-<li>jQuery.</li>
+<li>CoffeeScript.</li>
+<li>Autoprefixer.</li>
 <li>Modernizr.</li>
+<li>jQuery.</li>
+<li>Stylus.</li>
+<li>Grunt.</li>
+<li>Yo.</li>
 </ul>
-<h2>Browser Support</h2>
+<h2 id="browser-support">Browser Support</h2>
 <p>I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).</p>
-<h2>Workflow</h2>
+<h2 id="workflow">Workflow</h2>
 <p>Usually I use <a href="https://github.com/sapegin/generator-tamia">Yeomen generator</a> for scaffolding new projects: create folders and all required files.</p>
 <p>I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.</p>
 <p>For CSS I use kinda <a href="http://bem.info/">BEM</a> light methodology—<a href="http://blog.sapegin.me/all/opor-methodology">OPOR</a> (One Page of Rules).</p>
 <p>And then I use BitBucket and Fabric to deploy website to a server.</p>
-<h2>Why Another Framework</h2>
+<h2 id="why-another-framework">Why Another Framework</h2>
 <p>Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.</p>
 <p>Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.</p>
-<h2>Stylus Bootstap</h2>
+<h2 id="stylus-bootstap">Stylus Bootstap</h2>
 <p>It’s a base CSS rules (like Normalize.css but a quite different) and a lot of useful Stylus mixins:</p>
 <ul>
 <li>Fluid grid.</li>
@@ -69,7 +73,7 @@
 <li>Debug helpers.</li>
 <li>Lot of useful mixins.</li>
 </ul>
-<h2>JavaScript Helpers</h2>
+<h2 id="javascript-helpers">JavaScript Helpers</h2>
 <p>The main purpose of JavaScript helper is components initialization:</p>
 <pre><code class="lang-html">&lt;div data-component=&quot;pony&quot;&gt;&lt;/div&gt;</code></pre>
 <pre><code class="lang-javascript">tamia.initComponents({
@@ -77,13 +81,13 @@
         alert(&#39;I am pink pony! Yay!&#39;);
     }
 });</code></pre>
-<h2>Blocks library</h2>
+<h2 id="blocks-library">Blocks library</h2>
 <p>Block is an independent component with appearance (Stylus) and behavior (JavaScript) which can be used on many websites. Some blocks have only appearance. Some blocks have default skin that you can disable if you want.</p>
-<h2>Tools</h2>
+<h2 id="tools">Tools</h2>
 <p>There’re few other things made specifically for Tâmia: <a href="https://github.com/sapegin/generator-tamia">Yeomen project generator</a> and <a href="https://github.com/sapegin/grunt-tamia-sprite">Grunt task</a> for generating sprites.</p>
-<h2>Documentation</h2>
+<h2 id="documentation">Documentation</h2>
 <p>Not done yet. See comments in code.</p>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <p>The easiest way to install Tâmia is to use Yeomen generator. (Which is under development now, so more information will be available later.)</p>
 <p>You can also install manually:</p>
 <ol>
@@ -94,14 +98,14 @@
 <li><p>Include JavaScript helpers to your page: <code>&lt;script src=&quot;tamia/tamia/tamia.js&quot;&gt;&lt;/script&gt;</code>.</p>
 </li>
 </ol>
-<h2>Getting Started</h2>
-<h3>Configuration</h3>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="configuration">Configuration</h3>
 <p>Stylus bootstrap has a lot of parameters you can change.</p>
 <p>Add all parameters to your main Stylus stylesheet, before <code>tamia/tamia</code> import:</p>
-<pre><code>link-style = &quot;gradient&quot;
-link-color = #c0ffee
+<pre><code>link_style = &quot;gradient&quot;
+link_color = #c0ffee
 ...</code></pre>
-<h3>Using Blocks</h3>
+<h3 id="using-blocks">Using Blocks</h3>
 <p>Any block consists of stylesheet and / or script. You should include both.</p>
 <p>Import block’s stylesheet to your main Stylus stylesheet, after <code>tamia/tamia</code> import:</p>
 <pre><code>import &quot;tamia/tamia&quot;
@@ -110,7 +114,7 @@ import &quot;tamia/blocks/select&quot;</code></pre>
 <pre><code class="lang-html">&lt;script src=&quot;tamia/tamia/tamia.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;tamia/blocks/select/script.js&quot;&gt;&lt;/script&gt;</code></pre>
 <p>Blocks can also have parameters and / or optional default skin.</p>
-<h3>Debug Mode</h3>
+<h3 id="debug-mode">Debug Mode</h3>
 <p><strong>Note:</strong> Available only if you use Yeomen generator to initialize Tâmia and Grunt to build your project.</p>
 <p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
@@ -119,10 +123,10 @@ import &quot;tamia/blocks/select&quot;</code></pre>
 <p>JavaScript:</p>
 <pre><code>if (DEBUG) console.log(&#39;Debug info&#39;);</code></pre>
 <p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
-<h2>The Name</h2>
+<h2 id="the-name">The Name</h2>
 <p>Tâmia is a chipmunk in Portuguese. It refers to <a href="https://github.com/sapegin/squirrelstrap">Squirrelstrap</a>, my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).</p>
 <hr>
-<h2>License</h2>
+<h2 id="license">License</h2>
 <p>The <a href="https://github.com/sapegin/tamia/blob/master/License.md">MIT License</a>.</p>
 
 		</div>

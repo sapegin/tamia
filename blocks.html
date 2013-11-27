@@ -38,9 +38,9 @@
 		
 
 		<div class="text">
-			<h1>Checkbox and radio button</h1>
+			<h1 id="checkbox-and-radio-button">Checkbox and radio button</h1>
 <p>Checkbox and radio button with custom design.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <p>Checkbox:</p>
 <pre><code>&lt;div class=&quot;checkbox&quot;&gt;
     &lt;input class=&quot;checkbox__input&quot; id=&quot;my_checkbox&quot; type=&quot;checkbox&quot; name=&quot;my_checkbox&quot; value=&quot;yes&quot; checked=&quot;checked&quot;&gt;
@@ -57,93 +57,129 @@
         &lt;span class=&quot;radiobutton__text&quot;&gt;My radio button&lt;/span&gt;
     &lt;/label&gt;
 &lt;/div&gt;</code></pre>
-<h2>Skin</h2>
+<h2 id="skin">Skin</h2>
 <p>Set <code>checkbox_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
-<h1>Code blocks</h1>
+<h1 id="code-blocks">Code blocks</h1>
 <p>Nice code examples with highlighting.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;pre class=&quot;code&quot;&gt;&lt;code class=&quot;language-coffescript&quot;&gt;alert &#39;Hello world!&#39;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&quot;text&quot;&gt;
     &lt;pre&gt;&lt;code class=&quot;language-coffescript&quot;&gt;alert &#39;Hello world!&#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;</code></pre>
-<h2>Tools</h2>
+<h2 id="tools">Tools</h2>
 <ul>
 <li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
 <li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
 </ul>
-<h1>Unordered list</h1>
+<h1 id="flippable-pane">Flippable pane</h1>
+<p>Vertical or horizontal flippable pane. With 3D animation.</p>
+<h1 id="markup">Markup</h1>
+<pre><code>&lt;div class=&quot;flippable js-flip&quot; data-component=&quot;flippable&quot;&gt;
+    &lt;div class=&quot;flippable__front&quot;&gt;Front&lt;/div&gt;
+    &lt;div class=&quot;flippable__back&quot;&gt;Back&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 id="modifiers">Modifiers</h2>
+<h3 id="-flippable_vertical">.flippable_vertical</h3>
+<p>Vertical rotation (horizontal by default).</p>
+<h2 id="states">States</h2>
+<h3 id="-flippable-is-flipped">.flippable.is-flipped</h3>
+<p>Back side is visible.</p>
+<h2 id="js-hooks">JS Hooks</h2>
+<h3 id="-js-flip">.js-flip</h3>
+<p>Element that flips pane when clicked.</p>
+<h1 id="form">Form</h1>
+<p>Basic form controls: inputs, textareas, buttons</p>
+<h2 id="markup">Markup</h2>
+<p>Controls:</p>
+<pre><code>&lt;input type=&quot;text&quot; class=&quot;field&quot; name=&quot;name&quot;&gt;
+&lt;textarea type=&quot;text&quot; class=&quot;field field_area&quot; name=&quot;message&quot;&gt;&lt;/textarea&gt;
+&lt;input type=&quot;submit&quot; class=&quot;button&quot; value=&quot;Send!&quot;&gt;</code></pre>
+<h2 id="skin">Skin</h2>
+<p>Set <code>form_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="-form_focus_color-css-color-"><code>form_focus_color</code> (CSS color)</h3>
+<p>Color of focus otline.</p>
+<h1 id="unordered-list">Unordered list</h1>
 <p>Unordered list with dashes (—) as bullets.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;ul class=&quot;list&quot;&gt;
     &lt;li&gt;Dog&lt;/li&gt;
     &lt;li&gt;Cat&lt;/li&gt;
     &lt;li&gt;Mouse&lt;/li&gt;
     &lt;li&gt;Moose&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-<h2>Configuration</h2>
-<h3><code>list-inside</code> (Boolean, default: <code>false</code>)</h3>
+<h2 id="configuration">Configuration</h2>
+<h3 id="-list_inside-boolean-default-false-"><code>list_inside</code> (Boolean, default: <code>false</code>)</h3>
 <p>If <code>true</code> places bullets inside container (by default bullets are outside).</p>
-<h2>Caveats</h2>
+<h2 id="caveats">Caveats</h2>
 <ol>
-<li><p>If <code>list-inside</code> is <code>false</code> (default) automatically places bullets inside container (like <code>list-inside = true</code> does) when window width is less than <code>max-width</code> global variable.</p>
+<li><p>If <code>list_inside</code> is <code>false</code> (default) automatically places bullets inside container (like <code>list_inside = true</code> does) when window width is less than <code>max_width</code> global variable.</p>
 </li>
 <li><p><code>UL</code>s inside <code>.text</code> class are treated as <code>.list</code>.</p>
 </li>
 </ol>
-<h1>Media object</h1>
+<h1 id="media-object">Media object</h1>
 <p>Media object from OOCSS.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;media&quot;&gt;
     &lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img&quot;&gt;
     &lt;p class=&quot;media__body&quot;&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-<h2>Modifiers</h2>
-<h3><code>.media__img_rev</code></h3>
+<h2 id="modifiers">Modifiers</h2>
+<h3 id="-media__img_rev-"><code>.media__img_rev</code></h3>
 <p>Reversed image location (right instead of left).</p>
 <pre><code class="lang-html">&lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img media__img_rev&quot;&gt;</code></pre>
-<h1>Password field</h1>
+<h1 id="password-field">Password field</h1>
 <p>Password field with toggle to show characters.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;password&quot; data-component=&quot;password&quot;&gt;
-    &lt;span class=&quot;password__toggle&quot;&gt;&lt;/span&gt;
-    &lt;input type=&quot;password&quot; class=&quot;password__field field&quot;&gt;
+    &lt;span class=&quot;password__toggle js-toggle&quot;&gt;&lt;/span&gt;
+    &lt;input type=&quot;password&quot; class=&quot;password__field field js-field&quot;&gt;
 &lt;/div&gt;</code></pre>
-<h2>States</h2>
-<h3>.password.is-ok</h3>
+<h2 id="states">States</h2>
+<h3 id="-password-is-ok">.password.is-ok</h3>
 <p>Browser is supported.</p>
-<h3>.password.is-unlocked</h3>
+<h3 id="-password-is-unlocked">.password.is-unlocked</h3>
 <p>Password characters are visible.</p>
-<h2>Caveats</h2>
+<h2 id="caveats">Caveats</h2>
 <p>IE9+.</p>
-<h2>Skin</h2>
+<h2 id="skin">Skin</h2>
 <p>Set <code>password_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
-<h1>Rich typograhy</h1>
+<h1 id="print">Print</h1>
+<p>Print stylesheet.</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="-site_domain-string-"><code>site_domain</code> (String)</h3>
+<p>Site domain (for example, <code>example.com</code>) that will be printed.</p>
+<h2 id="caveats">Caveats</h2>
+<p>Use <code>.no-print</code> class to hide elements in print version and <code>.print</code> to show (hidden on screen).</p>
+<h1 id="rich-typograhy">Rich typograhy</h1>
 <p>Classes and tweaks for better typography.</p>
-<h2>Markup</h2>
-<h3>Abbreviations with spacing</h3>
+<h2 id="markup">Markup</h2>
+<h3 id="abbreviations-with-spacing">Abbreviations with spacing</h3>
 <div class="text">
     <p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
 </div>
 
-<h3>The best ampersand</h3>
+<h3 id="the-best-ampersand">The best ampersand</h3>
 <pre><code>Nuts &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt; Bolts.</code></pre>
-<h3>Hanging punctuation</h3>
+<h3 id="hanging-punctuation">Hanging punctuation</h3>
 <pre><code>Awesome Web Typography with &lt;span class=&quot;slaquo&quot;&gt; &lt;/span&gt; &lt;span class=&quot;hlaquo&quot;&gt;“&lt;/span&gt;Richtypo”&#39;</code></pre>
-<h2>Caveats</h2>
+<h2 id="caveats">Caveats</h2>
 <ul>
 <li>Enables ligatures in headings (h1—h6 inside .text and .alpha—.zeta).</li>
 </ul>
-<h2>Tools</h2>
+<h2 id="tools">Tools</h2>
 <ul>
 <li><a href="https://github.com/sapegin/richtypo.js">richtypo.js</a> for Node.js.</li>
 <li><a href="https://github.com/sapegin/wp-typohelper">wp-typohelper</a> for Wordpress.</li>
 </ul>
-<h1>Select</h1>
+<h1 id="select">Select</h1>
 <p>Select with custom design</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;select&quot; data-component=&quot;select&quot;&gt;
-    &lt;select&gt;
+    &lt;div class=&quot;select__box js-box&quot;&gt;&lt;/div&gt;
+    &lt;select class=&quot;select__select js-select&quot;&gt;
         &lt;option selected&gt;Please select an option&lt;/option&gt;
         &lt;option&gt;Dog&lt;/option&gt;
         &lt;option&gt;Cat&lt;/option&gt;
@@ -151,36 +187,61 @@
         &lt;option&gt;Moose&lt;/option&gt;
     &lt;/select&gt;
 &lt;/div&gt;</code></pre>
-<h2>Skin</h2>
+<h2 id="skin">Skin</h2>
 <p>Set <code>select_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
-<h1>Switcher</h1>
-<p>Nice looking radio buttons group.</p>
-<h2>Markup</h2>
-<pre><code>&lt;div class=&quot;switcher&quot;&gt;
-    &lt;input id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;/&gt;
-    &lt;label for=&quot;type_first&quot;&gt;First&lt;/label&gt;
-    &lt;input id=&quot;type_second&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;second&quot;/&gt;
-    &lt;label for=&quot;type_second&quot;&gt;Second&lt;/label&gt;
-    &lt;input id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;/&gt;
-    &lt;label for=&quot;type_third&quot;&gt;Third&lt;/label&gt;
+<h1 id="spinner">Spinner</h1>
+<p>Loading indicator (spinner) with animation.</p>
+<h2 id="markup">Markup</h2>
+<pre><code>&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;is-loading&quot;&gt;
+    &lt;div class=&quot;loader&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h2>Skin</h2>
+<p><code>.loader</code> is the same as <code>.spinner</code> but it’s hidden by default. It’s visible only when <code>.is-loading</code> state is set on ancestor element.</p>
+<h2 id="modifiers">Modifiers</h2>
+<h3 id="-spinner_big-"><code>spinner_big</code></h3>
+<p>Bigger size.</p>
+<h2 id="more-sizes">More sizes</h2>
+<p>You can set any spinner size changing <code>font-size</code> property.</p>
+<pre><code>.spinner_huge
+    font-size: 64px
+
+&lt;div class=&quot;spinner spinner_huge&quot;&gt;&lt;/div&gt;</code></pre>
+<h2 id="component-loading-indicator">Component loading indicator</h2>
+<pre><code>$(&#39;.pony&#39;).trigger(&#39;loading-start.tamia&#39;);  // Show loader
+$(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code></pre>
+<p>That will blocks all container’s content with a semi transparent layer and shows spinner in the middle.</p>
+<p>To change shade layer’s color set <code>loader_shade_color</code> variable.</p>
+<h2 id="ie-8-9-callback">IE 8—9 callback</h2>
+<p>Copy <code>spinner.gif</code> to your images folder and set <code>spinner_fallback_gif</code> variable to its URL.</p>
+<h1 id="switcher">Switcher</h1>
+<p>Nice looking radio buttons group.</p>
+<h2 id="markup">Markup</h2>
+<pre><code>&lt;div class=&quot;switcher&quot;&gt;
+    &lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;/&gt;
+    &lt;label class=&quot;switcher__label&quot; for=&quot;type_first&quot;&gt;First&lt;/label&gt;
+    &lt;input class=&quot;switcher__input&quot; id=&quot;type_second&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;second&quot;/&gt;
+    &lt;label class=&quot;switcher__label&quot; for=&quot;type_second&quot;&gt;Second&lt;/label&gt;
+    &lt;input class=&quot;switcher__input&quot; id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;/&gt;
+    &lt;label class=&quot;switcher__label&quot; for=&quot;type_third&quot;&gt;Third&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+<h2 id="skin">Skin</h2>
 <p>Set <code>switcher_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
-<h1>Basic text styles</h1>
+<h1 id="basic-text-styles">Basic text styles</h1>
 <p>Headings, paragraphs, etc.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;text&quot;&gt;
     &lt;h1&gt;Down the Rabbit-Hole&lt;/h1&gt;
     &lt;p&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
     &lt;p&gt;So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-<h1>Tooltip</h1>
+<h1 id="tooltip">Tooltip</h1>
 <p>Simple tooltips.</p>
-<h2>Markup</h2>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;tooltip&quot;&gt;I’m tooltip!&lt;/div&gt;
 
 &lt;a href=&quot;#&quot; class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/a&gt;</code></pre>
-<h2>Skin</h2>
+<h2 id="skin">Skin</h2>
 <p>Set <code>tooltip_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 		</div>
