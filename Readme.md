@@ -7,12 +7,15 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 3. Blocks library.
 
 
-## Requirements
+## Based On
 
-* Stylus and Nib.
-* jQuery.
+* CoffeeScript.
+* Autoprefixer.
 * Modernizr.
-
+* jQuery.
+* Stylus.
+* Grunt.
+* Yo.
 
 ## Browser Support
 
