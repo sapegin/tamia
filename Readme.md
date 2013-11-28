@@ -110,7 +110,7 @@ There are few other things made specifically for Tâmia:
 
 ## Documentation
 
-Not done yet. See comments in code.
+See [here](http://sapegin.github.io/tamia/).
 
 
 ## Installation
