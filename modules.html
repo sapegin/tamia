@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Blocks — Tâmia</title>
+	<title>Modules — Tâmia</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<link href="styles.css" rel="stylesheet">
 </head>
@@ -24,8 +24,8 @@
 					</li>
 				
 					<li class="nav__item">
-						<a href="blocks.html" class="nav__link nav__link_active">
-							Blocks
+						<a href="modules.html" class="nav__link nav__link_active">
+							Modules
 						</a>
 					</li>
 				
@@ -58,7 +58,7 @@
     &lt;/label&gt;
 &lt;/div&gt;</code></pre>
 <h2 id="skin">Skin</h2>
-<p>Set <code>checkbox_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<p>Set <code>checkbox_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 <h1 id="code-blocks">Code blocks</h1>
 <p>Nice code examples with highlighting.</p>
 <h2 id="markup">Markup</h2>
@@ -80,11 +80,14 @@
     &lt;div class=&quot;flippable__back&quot;&gt;Back&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <h2 id="modifiers">Modifiers</h2>
-<h3 id="-flippable_vertical">.flippable_vertical</h3>
+<h3 id="-flippable-flippable_vertical">.flippable.flippable_vertical</h3>
 <p>Vertical rotation (horizontal by default).</p>
 <h2 id="states">States</h2>
 <h3 id="-flippable-is-flipped">.flippable.is-flipped</h3>
 <p>Back side is visible.</p>
+<h2 id="events">Events</h2>
+<h3 id="flipped-tamia">flipped.tamia</h3>
+<p>Fires on every flip. Argument will be <code>true</code> if back side is visible.</p>
 <h2 id="js-hooks">JS Hooks</h2>
 <h3 id="-js-flip">.js-flip</h3>
 <p>Element that flips pane when clicked.</p>
@@ -95,10 +98,14 @@
 <pre><code>&lt;input type=&quot;text&quot; class=&quot;field&quot; name=&quot;name&quot;&gt;
 &lt;textarea type=&quot;text&quot; class=&quot;field field_area&quot; name=&quot;message&quot;&gt;&lt;/textarea&gt;
 &lt;input type=&quot;submit&quot; class=&quot;button&quot; value=&quot;Send!&quot;&gt;</code></pre>
+<h2 id="events">Events</h2>
+<h3 id="enable-tamia-disable-tamia">enable.tamia / disable.tamia</h3>
+<p>Enables / disables all descendant form elements.</p>
 <h2 id="skin">Skin</h2>
-<p>Set <code>form_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<p>Set <code>form_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 <h2 id="configuration">Configuration</h2>
-<h3 id="-form_focus_color-css-color-"><code>form_focus_color</code> (CSS color)</h3>
+<h3 id="form_focus_color">form_focus_color</h3>
+<p>Type: CSS color value.</p>
 <p>Color of focus otline.</p>
 <h1 id="unordered-list">Unordered list</h1>
 <p>Unordered list with dashes (—) as bullets.</p>
@@ -110,7 +117,8 @@
     &lt;li&gt;Moose&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 <h2 id="configuration">Configuration</h2>
-<h3 id="-list_inside-boolean-default-false-"><code>list_inside</code> (Boolean, default: <code>false</code>)</h3>
+<h3 id="list_inside">list_inside</h3>
+<p>Type: Boolean, default: <code>false</code>.</p>
 <p>If <code>true</code> places bullets inside container (by default bullets are outside).</p>
 <h2 id="caveats">Caveats</h2>
 <ol>
@@ -127,7 +135,7 @@
     &lt;p class=&quot;media__body&quot;&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
 &lt;/div&gt;</code></pre>
 <h2 id="modifiers">Modifiers</h2>
-<h3 id="-media__img_rev-"><code>.media__img_rev</code></h3>
+<h3 id="-media__img-media__img_rev">.media<strong>img.media</strong>img_rev</h3>
 <p>Reversed image location (right instead of left).</p>
 <pre><code class="lang-html">&lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img media__img_rev&quot;&gt;</code></pre>
 <h1 id="password-field">Password field</h1>
@@ -145,11 +153,12 @@
 <h2 id="caveats">Caveats</h2>
 <p>IE9+.</p>
 <h2 id="skin">Skin</h2>
-<p>Set <code>password_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<p>Set <code>password_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 <h1 id="print">Print</h1>
 <p>Print stylesheet.</p>
 <h2 id="configuration">Configuration</h2>
-<h3 id="-site_domain-string-"><code>site_domain</code> (String)</h3>
+<h3 id="site_domain">site_domain</h3>
+<p>Type: String.</p>
 <p>Site domain (for example, <code>example.com</code>) that will be printed.</p>
 <h2 id="caveats">Caveats</h2>
 <p>Use <code>.no-print</code> class to hide elements in print version and <code>.print</code> to show (hidden on screen).</p>
@@ -188,7 +197,7 @@
     &lt;/select&gt;
 &lt;/div&gt;</code></pre>
 <h2 id="skin">Skin</h2>
-<p>Set <code>select_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<p>Set <code>select_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 <h1 id="spinner">Spinner</h1>
 <p>Loading indicator (spinner) with animation.</p>
 <h2 id="markup">Markup</h2>
@@ -199,7 +208,7 @@
 &lt;/div&gt;</code></pre>
 <p><code>.loader</code> is the same as <code>.spinner</code> but it’s hidden by default. It’s visible only when <code>.is-loading</code> state is set on ancestor element.</p>
 <h2 id="modifiers">Modifiers</h2>
-<h3 id="-spinner_big-"><code>spinner_big</code></h3>
+<h3 id="-spinner-spinner_big">.spinner.spinner_big</h3>
 <p>Bigger size.</p>
 <h2 id="more-sizes">More sizes</h2>
 <p>You can set any spinner size changing <code>font-size</code> property.</p>
@@ -226,7 +235,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_third&quot;&gt;Third&lt;/label&gt;
 &lt;/div&gt;</code></pre>
 <h2 id="skin">Skin</h2>
-<p>Set <code>switcher_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<p>Set <code>switcher_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 <h1 id="basic-text-styles">Basic text styles</h1>
 <p>Headings, paragraphs, etc.</p>
 <h2 id="markup">Markup</h2>
@@ -242,7 +251,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 
 &lt;a href=&quot;#&quot; class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/a&gt;</code></pre>
 <h2 id="skin">Skin</h2>
-<p>Set <code>tooltip_default_skin</code> or <code>blocks_default_skin</code> to <code>true</code> to enable default skin.</p>
+<p>Set <code>tooltip_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 		</div>
 
