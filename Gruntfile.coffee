@@ -23,7 +23,7 @@ module.exports = (grunt) ->
 				no_stand_alone_at: level: 'error'
 			files: [
 				'tamia/*.coffee'
-				'blocks/*/*.coffee'
+				'modules/*/*.coffee'
 				'specs/test.coffee'
 			]
 		coffee:
@@ -32,7 +32,7 @@ module.exports = (grunt) ->
 				src: [
 					'tamia/component.coffee'
 					'specs/test.coffee'
-					'blocks/*/*.coffee'
+					'modules/*/*.coffee'
 				]
 				dest: '.'
 				ext: '.js'
@@ -42,7 +42,7 @@ module.exports = (grunt) ->
 					'vendor/transition-events.js'
 					'tamia/tamia.js'
 					'tamia/component.js'
-					'blocks/*/*.js'
+					'modules/*/*.js'
 				]
 				dest: 'docs/scripts.js'
 			specs:
@@ -81,7 +81,7 @@ module.exports = (grunt) ->
 			stylus:
 				files: [
 					'tamia/**/*.styl'
-					'blocks/**/*.styl'
+					'modules/**/*.styl'
 					'specs/specs.styl'
 					'docs_src/docs.styl'
 				]
@@ -94,7 +94,7 @@ module.exports = (grunt) ->
 
 	docsMenu =
 		docs: 'Documentation'
-		blocks: 'Blocks'
+		modules: 'Modules'
 
 
 	grunt.registerTask 'docs', ->
@@ -134,11 +134,11 @@ module.exports = (grunt) ->
 
 		saveHtml 'docs', marked html.join '\n\n'
 
-		# Blocks
-		readmes = grunt.file.expand 'blocks/*/Readme.md'
+		# Modules
+		readmes = grunt.file.expand 'modules/*/Readme.md'
 		html = _.map readmes, (name) ->
 			return grunt.file.read name
-		saveHtml 'blocks', marked html.join '\n\n'
+		saveHtml 'modules', marked html.join '\n\n'
 
 
 	saveHtml = (name, html) ->

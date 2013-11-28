@@ -28,4 +28,4 @@ Radio button:
 
 ## Skin
 
-Set `checkbox_default_skin` or `blocks_default_skin` to `true` to enable default skin.
+Set `checkbox_default_skin` or `modules_default_skin` to `true` to enable default skin.

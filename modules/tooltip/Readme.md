@@ -12,4 +12,4 @@ Simple tooltips.
 
 ## Skin
 
-Set `tooltip_default_skin` or `blocks_default_skin` to `true` to enable default skin.
+Set `tooltip_default_skin` or `modules_default_skin` to `true` to enable default skin.

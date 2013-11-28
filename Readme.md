@@ -4,7 +4,7 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 
 1. Stylus bootstap.
 2. JavaScript helpers.
-3. Blocks library.
+3. Modules library.
 
 
 ## Based On
@@ -69,9 +69,9 @@ tamia.initComponents({
 ```
 
 
-## Blocks library
+## Modules library
 
-Block is an independent component with appearance (Stylus) and behavior (JavaScript) which can be used on many websites. Some blocks have only appearance. Some blocks have default skin that you can disable if you want.
+Module is an independent component with appearance (Stylus) and behavior (JavaScript) which can be used on many websites. Some modules have only appearance. Some modules have default skin that you can disable if you want.
 
 
 ## Tools
@@ -111,25 +111,25 @@ link_color = #c0ffee
 ...
 ```
 
-### Using Blocks
+### Using Modules
 
-Any block consists of stylesheet and / or script. You should include both.
+Any module consists of stylesheet and / or script. You should include both.
 
-Import block’s stylesheet to your main Stylus stylesheet, after `tamia/tamia` import:
+Import module’s stylesheet to your main Stylus stylesheet, after `tamia/tamia` import:
 
 ```
 import "tamia/tamia"
-import "tamia/blocks/select"
+import "tamia/modules/select"
 ```
 
-Include block’s JavaScript to your page:
+Include module’s JavaScript to your page:
 
 ```html
 <script src="tamia/tamia/tamia.js"></script>
-<script src="tamia/blocks/select/script.js"></script>
+<script src="tamia/modules/select/script.js"></script>
 ```
 
-Blocks can also have parameters and / or optional default skin.
+Modules can also have parameters and / or optional default skin.
 
 ### Debug Mode
 

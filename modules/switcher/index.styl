@@ -40,10 +40,10 @@
 
 // Default skin
 
-blocks_default_skin ?= true
+modules_default_skin ?= true
 switcher_default_skin ?= false
 
-if blocks_default_skin or switcher_default_skin
+if modules_default_skin or switcher_default_skin
 	.switcher
 		&__input:checked + &__label,
 		&__input:not(:checked) + &__label
