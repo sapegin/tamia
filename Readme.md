@@ -1,10 +1,11 @@
 # Tâmia [![Build Status](https://travis-ci.org/sapegin/tamia.png)](https://travis-ci.org/sapegin/tamia)
 
-Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of three parts:
+Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of four parts:
 
 1. Stylus bootstap.
-2. JavaScript helpers.
-3. Modules library.
+2. Component base class.
+3. JavaScript helpers.
+4. Modules library.
 
 
 ## Based On
@@ -17,6 +18,14 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 * Grunt.
 * Yo.
 
+
+## Why Another Framework
+
+Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.
+
+Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.
+
+
 ## Browser Support
 
 I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).
@@ -24,7 +33,7 @@ I love new technologies so I spend as little time on old browsers as possible. T
 
 ## Workflow
 
-Usually I use [Yeomen generator](https://github.com/sapegin/generator-tamia) for scaffolding new projects: create folders and all required files.
+I use [Yeomen generator](https://github.com/sapegin/generator-tamia) for scaffolding new projects: create folders and all required files.
 
 I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
 
@@ -33,11 +42,13 @@ For CSS I use kinda [BEM](http://bem.info/) light methodology—[OPOR](http://bl
 And then I use BitBucket and Fabric to deploy website to a server.
 
 
-## Why Another Framework
+## Definitions: blocks, components, modules
 
-Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.
+**Block** is an independent entity with some appearance (Stylus). You could read more about blocks [on bem.info](http://bem.info/method/definitions/).
 
-Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.
+**Component** is a JavaScript (CoffeeScript) class inherited from `Component` base class. You could mix blocks and components in any same combination.
+
+**Module** is combination of block (appearance) and component (behaviour) that can be used on many websites. Some modules have only blocks, some modules have default skin that you can disable if you want.
 
 
 ## Stylus Bootstap
@@ -52,31 +63,49 @@ It’s a base CSS rules (like Normalize.css but a quite different) and a lot of 
 * Lot of useful mixins.
 
 
-## JavaScript Helpers
+## Component Base Class
 
-The main purpose of JavaScript helper is components initialization:
+Simple example:
+
+```coffee
+class Pony extends Component
+  init: ->
+    @on('click', 'toggle', @toggle)
+  toggle: ->
+    @toggleState('pink')
+
+tamia.initComponents(pony: Pony)
+```
 
 ```html
-<div data-component="pony"></div>
+<div class="pink-pony is-pink" data-component="pony">
+  <button class="pink-pony__button js-toggle">To pink or not to pink?</div>
+</div>
 ```
 
-```javascript
-tamia.initComponents({
-	pony: function(elem) {
-		alert('I am pink pony! Yay!');
-	}
-});
-```
+See documentation [for details](http://sapegin.github.io/tamia/docs.html).
+
+
+## JavaScript Helpers
+
+Useful events and other stuff.
+
+See documentation [for details](http://sapegin.github.io/tamia/docs.html).
 
 
 ## Modules library
 
-Module is an independent component with appearance (Stylus) and behavior (JavaScript) which can be used on many websites. Some modules have only appearance. Some modules have default skin that you can disable if you want.
+Form controls, basic text styles, [etc](https://github.com/sapegin/tamia/tree/master/modules).
+
+All modules are disabled by default. See *Using Modules* below for details.
 
 
 ## Tools
 
-There’re few other things made specifically for Tâmia: [Yeomen project generator](https://github.com/sapegin/generator-tamia) and [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
+There are few other things made specifically for Tâmia:
+
+* [Yeomen project generator](https://github.com/sapegin/generator-tamia);
+* [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
 
 
 ## Documentation
@@ -86,7 +115,14 @@ Not done yet. See comments in code.
 
 ## Installation
 
-The easiest way to install Tâmia is to use Yeomen generator. (Which is under development now, so more information will be available later.)
+The easiest way to install Tâmia is to use Yeomen generator:
+
+```
+$ npm install -g yo, generator-tamia
+$ yo tamia
+```
+
+(You can use `yo tamia:framework` to update Tâmia to the latest version.)
 
 You can also install manually:
 
@@ -113,29 +149,24 @@ link_color = #c0ffee
 
 ### Using Modules
 
-Any module consists of stylesheet and / or script. You should include both.
-
-Import module’s stylesheet to your main Stylus stylesheet, after `tamia/tamia` import:
+To add module to the project:
 
 ```
-import "tamia/tamia"
-import "tamia/modules/select"
+$ yo tamia:module
 ```
 
-Include module’s JavaScript to your page:
+Then select module you want and it’ll be added .
 
-```html
-<script src="tamia/tamia/tamia.js"></script>
-<script src="tamia/modules/select/script.js"></script>
+Default skin is disabled by default. To enable it add to project’s `index.styl`:
+
+```
+modules_default_skin = true;
 ```
 
-Modules can also have parameters and / or optional default skin.
 
 ### Debug Mode
 
-**Note:** Available only if you use Yeomen generator to initialize Tâmia and Grunt to build your project.
-
-Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
+Both Stylus and JavaScript (CoffeeScript) in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
 
 Stylus:
 
