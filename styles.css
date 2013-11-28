@@ -281,13 +281,6 @@ a:link {
   display: table;
 }
 
-.is-disabled {
-  cursor: default;
-  pointer-events: none;
-  opacity: .4;
-  text-shadow: none;
-}
-
 .ir {
   background-color: transparent;
   border: 0;
@@ -417,6 +410,13 @@ a:link {
 .no-cssgradients .link_fake {
   text-decoration: none;
   border-bottom: 1px dotted;
+}
+
+.text {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 
 .text p,

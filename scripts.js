@@ -411,12 +411,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			return name + '.tamia';
 		};
 
-		var _enableDisable = function(elem, enable) {
-			var formElementsSelector = 'input,textarea,button';
-			var formElements = elem.find(formElementsSelector).addBack(formElementsSelector);
-			formElements[enable ? 'removeClass' : 'addClass']('is-disabled');
-			formElements.attr('disabled', !enable);
-		};
 
 		/**
 		 * Events
@@ -502,27 +496,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 */
 		_handlers.toggle = function(elem) {
 			elem = $(elem);
-			if (elem.hasClass(_transitionClass)) return;
 			if (elem.hasClass(_hiddenClass)) {
 				_handlers.appear(elem);
 			}
 			else {
 				_handlers.disappear(elem);
 			}
-		};
-
-		/**
-		 * Disables all descendant form elements.
-		 */
-		_handlers.disable = function(elem) {
-			_enableDisable($(elem), false);
-		};
-
-		/**
-		 * Enables all descendant form elements.
-		 */
-		_handlers.enable = function(elem) {
-			_enableDisable($(elem), true);
 		};
 
 		tamia.registerEvents(_handlers);
@@ -888,7 +867,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
     };
 
     Flippable.prototype.toggle = function() {
-      return this.toggleState('flipped');
+      this.toggleState('flipped');
+      return this.elem.trigger('flipped.tamia', this.hasState('flipped'));
     };
 
     return Flippable;
@@ -897,6 +877,42 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
   tamia.initComponents({
     flippable: Flippable
+  });
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var $, _disabledClass, _enableDisable, _formElementsSelector;
+
+  $ = jQuery;
+
+  _formElementsSelector = '.field,.button,.disablable';
+
+  _disabledClass = 'is-disabled';
+
+  _enableDisable = function(elem, enable) {
+    var formElements;
+    formElements = ($(elem)).find(_formElementsSelector).addBack(_formElementsSelector);
+    formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
+    return formElements.attr('disabled', !enable);
+  };
+
+  tamia.registerEvents({
+    /*
+    	Enables all descendant form elements.
+    */
+
+    enable: function(elem) {
+      return _enableDisable(elem, true);
+    },
+    /*
+    	Disables all descendant form elements.
+    */
+
+    disable: function(elem) {
+      return _enableDisable(elem, false);
+    }
   });
 
 }).call(this);
@@ -1015,17 +1031,17 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 (function() {
   'use strict';
-  var $, Loader, loaderShadeSelector, loaderTmpl, loaderWrapperClass, _ref,
+  var $, Loader, _loaderTmpl, _ref, _shadeSelector, _wrapperClass,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   $ = jQuery;
 
-  loaderWrapperClass = 'loader-wrapper';
+  _wrapperClass = 'loader-wrapper';
 
-  loaderShadeSelector = '.loader-shade';
+  _shadeSelector = '.loader-shade';
 
-  loaderTmpl = '<div class="loader-shade">\n	<div class="l-center">\n		<div class="l-center-i">\n			<div class="spinner spinner_big"></div>\n		</div>\n	</div>\n</div>';
+  _loaderTmpl = '<div class="loader-shade">\n	<div class="l-center">\n		<div class="l-center-i">\n			<div class="spinner spinner_big"></div>\n		</div>\n	</div>\n</div>';
 
   Loader = (function(_super) {
     __extends(Loader, _super);
@@ -1046,15 +1062,15 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
     Loader.prototype.destroy = function() {
       var _this = this;
       this.removeState('loading');
-      return this.elem.find(loaderShadeSelector).afterTransition(function() {
-        _this.elem.removeClass(loaderWrapperClass);
+      return this.elem.find(_shadeSelector).afterTransition(function() {
+        _this.elem.removeClass(_wrapperClass);
         return _this.loader.remove();
       });
     };
 
     Loader.prototype.initHtml = function() {
-      this.elem.addClass(loaderWrapperClass);
-      this.loader = $(loaderTmpl);
+      this.elem.addClass(_wrapperClass);
+      this.loader = $(_loaderTmpl);
       return this.elem.append(this.loader);
     };
 

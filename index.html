@@ -24,8 +24,8 @@
 					</li>
 				
 					<li class="nav__item">
-						<a href="blocks.html" class="nav__link ">
-							Blocks
+						<a href="modules.html" class="nav__link ">
+							Modules
 						</a>
 					</li>
 				
@@ -53,16 +53,20 @@
 <li>Grunt.</li>
 <li>Yo.</li>
 </ul>
-<h2 id="browser-support">Browser Support</h2>
-<p>I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).</p>
-<h2 id="workflow">Workflow</h2>
-<p>Usually I use <a href="https://github.com/sapegin/generator-tamia">Yeomen generator</a> for scaffolding new projects: create folders and all required files.</p>
-<p>I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.</p>
-<p>For CSS I use kinda <a href="http://bem.info/">BEM</a> light methodology—<a href="http://blog.sapegin.me/all/opor-methodology">OPOR</a> (One Page of Rules).</p>
-<p>And then I use BitBucket and Fabric to deploy website to a server.</p>
 <h2 id="why-another-framework">Why Another Framework</h2>
 <p>Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.</p>
 <p>Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.</p>
+<h2 id="browser-support">Browser Support</h2>
+<p>I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).</p>
+<h2 id="workflow">Workflow</h2>
+<p>I use <a href="https://github.com/sapegin/generator-tamia">Yeomen generator</a> for scaffolding new projects: create folders and all required files.</p>
+<p>I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.</p>
+<p>For CSS I use kinda <a href="http://bem.info/">BEM</a> light methodology—<a href="http://blog.sapegin.me/all/opor-methodology">OPOR</a> (One Page of Rules).</p>
+<p>And then I use BitBucket and Fabric to deploy website to a server.</p>
+<h2 id="definitions-blocks-components-modules">Definitions: blocks, components, modules</h2>
+<p><strong>Block</strong> is an independent entity with some appearance (Stylus). You could read more about blocks <a href="http://bem.info/method/definitions/">on bem.info</a>.</p>
+<p><strong>Component</strong> is a JavaScript (CoffeeScript) class inherited from <code>Component</code> base class. You could mix blocks and components in any same combination.</p>
+<p><strong>Module</strong> is combination of block (appearance) and component (behaviour) that can be used on many websites. Some modules have only blocks, some modules have default skin that you can disable if you want.</p>
 <h2 id="stylus-bootstap">Stylus Bootstap</h2>
 <p>It’s a base CSS rules (like Normalize.css but a quite different) and a lot of useful Stylus mixins:</p>
 <ul>
@@ -73,22 +77,38 @@
 <li>Debug helpers.</li>
 <li>Lot of useful mixins.</li>
 </ul>
+<h2 id="component-base-class">Component Base Class</h2>
+<p>Simple example:</p>
+<pre><code class="lang-coffee">class Pony extends Component
+  init: -&gt;
+    @on(&#39;click&#39;, &#39;toggle&#39;, @toggle)
+  toggle: -&gt;
+    @toggleState(&#39;pink&#39;)
+
+tamia.initComponents(pony: Pony)</code></pre>
+<pre><code class="lang-html">&lt;div class=&quot;pink-pony is-pink&quot; data-component=&quot;pony&quot;&gt;
+  &lt;button class=&quot;pink-pony__button js-toggle&quot;&gt;To pink or not to pink?&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
-<p>The main purpose of JavaScript helper is components initialization:</p>
-<pre><code class="lang-html">&lt;div data-component=&quot;pony&quot;&gt;&lt;/div&gt;</code></pre>
-<pre><code class="lang-javascript">tamia.initComponents({
-    pony: function(elem) {
-        alert(&#39;I am pink pony! Yay!&#39;);
-    }
-});</code></pre>
-<h2 id="blocks-library">Blocks library</h2>
-<p>Block is an independent component with appearance (Stylus) and behavior (JavaScript) which can be used on many websites. Some blocks have only appearance. Some blocks have default skin that you can disable if you want.</p>
+<p>Useful events and other stuff.</p>
+<p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
+<h2 id="modules-library">Modules library</h2>
+<p>Form controls, basic text styles, <a href="https://github.com/sapegin/tamia/tree/master/modules">etc</a>.</p>
+<p>All modules are disabled by default. See <em>Using Modules</em> below for details.</p>
 <h2 id="tools">Tools</h2>
-<p>There’re few other things made specifically for Tâmia: <a href="https://github.com/sapegin/generator-tamia">Yeomen project generator</a> and <a href="https://github.com/sapegin/grunt-tamia-sprite">Grunt task</a> for generating sprites.</p>
+<p>There are few other things made specifically for Tâmia:</p>
+<ul>
+<li><a href="https://github.com/sapegin/generator-tamia">Yeomen project generator</a>;</li>
+<li><a href="https://github.com/sapegin/grunt-tamia-sprite">Grunt task</a> for generating sprites.</li>
+</ul>
 <h2 id="documentation">Documentation</h2>
 <p>Not done yet. See comments in code.</p>
 <h2 id="installation">Installation</h2>
-<p>The easiest way to install Tâmia is to use Yeomen generator. (Which is under development now, so more information will be available later.)</p>
+<p>The easiest way to install Tâmia is to use Yeomen generator:</p>
+<pre><code>$ npm install -g yo, generator-tamia
+$ yo tamia</code></pre>
+<p>(You can use <code>yo tamia:framework</code> to update Tâmia to the latest version.)</p>
 <p>You can also install manually:</p>
 <ol>
 <li><p>Download and unzip repository to <code>tamia</code> folder inside your project.</p>
@@ -105,18 +125,14 @@
 <pre><code>link_style = &quot;gradient&quot;
 link_color = #c0ffee
 ...</code></pre>
-<h3 id="using-blocks">Using Blocks</h3>
-<p>Any block consists of stylesheet and / or script. You should include both.</p>
-<p>Import block’s stylesheet to your main Stylus stylesheet, after <code>tamia/tamia</code> import:</p>
-<pre><code>import &quot;tamia/tamia&quot;
-import &quot;tamia/blocks/select&quot;</code></pre>
-<p>Include block’s JavaScript to your page:</p>
-<pre><code class="lang-html">&lt;script src=&quot;tamia/tamia/tamia.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;tamia/blocks/select/script.js&quot;&gt;&lt;/script&gt;</code></pre>
-<p>Blocks can also have parameters and / or optional default skin.</p>
+<h3 id="using-modules">Using Modules</h3>
+<p>To add module to the project:</p>
+<pre><code>$ yo tamia:module</code></pre>
+<p>Then select module you want and it’ll be added .</p>
+<p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
+<pre><code>modules_default_skin = true;</code></pre>
 <h3 id="debug-mode">Debug Mode</h3>
-<p><strong>Note:</strong> Available only if you use Yeomen generator to initialize Tâmia and Grunt to build your project.</p>
-<p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
+<p>Both Stylus and JavaScript (CoffeeScript) in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
 <pre><code>div
     outline: 1px solid #c0ffee if DEBUG</code></pre>
@@ -139,5 +155,7 @@ import &quot;tamia/blocks/select&quot;</code></pre>
 	hljs.tabReplace = '<span class="indent">\t</span>';
 	hljs.initHighlightingOnLoad();
 	</script>
+
+	<!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter6395488 = new Ya.Metrika({id:6395488, webvisor:true, clickmap:true, trackLinks:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/6395488" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
 </html>
