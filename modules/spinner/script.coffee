@@ -6,9 +6,9 @@
 $ = jQuery
 
 
-loaderWrapperClass = 'loader-wrapper'
-loaderShadeSelector = '.loader-shade'
-loaderTmpl = '''
+_wrapperClass = 'loader-wrapper'
+_shadeSelector = '.loader-shade'
+_loaderTmpl = '''
 <div class="loader-shade">
 	<div class="l-center">
 		<div class="l-center-i">
@@ -26,14 +26,14 @@ class Loader extends Component
 
 	destroy: ->
 		@removeState('loading')
-		@elem.find(loaderShadeSelector).afterTransition(=>
-			@elem.removeClass(loaderWrapperClass)
+		@elem.find(_shadeSelector).afterTransition(=>
+			@elem.removeClass(_wrapperClass)
 			@loader.remove()
 		)
 
 	initHtml: ->
-		@elem.addClass(loaderWrapperClass)
-		@loader = $(loaderTmpl)
+		@elem.addClass(_wrapperClass)
+		@loader = $(_loaderTmpl)
 		@elem.append(@loader)
 
 
