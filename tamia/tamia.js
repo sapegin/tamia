@@ -289,7 +289,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 */
 		_handlers.toggle = function(elem) {
 			elem = $(elem);
-			if (elem.hasClass(_transitionClass)) return;
 			if (elem.hasClass(_hiddenClass)) {
 				_handlers.appear(elem);
 			}
