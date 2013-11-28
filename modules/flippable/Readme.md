@@ -13,7 +13,7 @@ Vertical or horizontal flippable pane. With 3D animation.
 
 ## Modifiers
 
-### .flippable_vertical
+### .flippable.flippable_vertical
 
 Vertical rotation (horizontal by default).
 

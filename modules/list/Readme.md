@@ -15,7 +15,9 @@ Unordered list with dashes (—) as bullets.
 
 ## Configuration
 
-### `list_inside` (Boolean, default: `false`)
+### list_inside
+
+Type: Boolean, default: `false`.
 
 If `true` places bullets inside container (by default bullets are outside).
 

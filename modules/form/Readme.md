@@ -14,7 +14,7 @@ Controls:
 
 ## Events
 
-### `enable.tamia` / `disable.tamia`
+### enable.tamia / disable.tamia
 
 Enables / disables all descendant form elements.
 
@@ -26,6 +26,8 @@ Set `form_default_skin` or `modules_default_skin` to `true` to enable default sk
 
 ## Configuration
 
-### `form_focus_color` (CSS color)
+### form_focus_color
+
+Type: CSS color value.
 
 Color of focus otline.

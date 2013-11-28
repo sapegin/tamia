@@ -15,7 +15,6 @@ Nice looking radio buttons group.
 	</div>
 
 
-
 ## Skin
 
 Set `switcher_default_skin` or `modules_default_skin` to `true` to enable default skin.

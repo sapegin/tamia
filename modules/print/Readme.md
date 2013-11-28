@@ -5,7 +5,9 @@ Print stylesheet.
 
 ## Configuration
 
-### `site_domain` (String)
+### site_domain
+
+Type: String.
 
 Site domain (for example, `example.com`) that will be printed.
 

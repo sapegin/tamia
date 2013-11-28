@@ -13,7 +13,7 @@ Media object from OOCSS.
 
 ## Modifiers
 
-### `.media__img_rev`
+### .media__img.media__img_rev
 
 Reversed image location (right instead of left).
 

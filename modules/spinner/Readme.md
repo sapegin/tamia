@@ -15,7 +15,7 @@ Loading indicator (spinner) with animation.
 
 ## Modifiers
 
-### `spinner_big`
+### .spinner.spinner_big
 
 Bigger size.
 
