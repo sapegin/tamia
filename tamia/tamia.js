@@ -198,12 +198,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			return name + '.tamia';
 		};
 
-		var _enableDisable = function(elem, enable) {
-			var formElementsSelector = 'input,textarea,button';
-			var formElements = elem.find(formElementsSelector).addBack(formElementsSelector);
-			formElements[enable ? 'removeClass' : 'addClass']('is-disabled');
-			formElements.attr('disabled', !enable);
-		};
 
 		/**
 		 * Events
@@ -295,20 +289,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			else {
 				_handlers.disappear(elem);
 			}
-		};
-
-		/**
-		 * Disables all descendant form elements.
-		 */
-		_handlers.disable = function(elem) {
-			_enableDisable($(elem), false);
-		};
-
-		/**
-		 * Enables all descendant form elements.
-		 */
-		_handlers.enable = function(elem) {
-			_enableDisable($(elem), true);
 		};
 
 		tamia.registerEvents(_handlers);

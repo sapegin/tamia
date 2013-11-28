@@ -12,6 +12,13 @@ Controls:
 	<input type="submit" class="button" value="Send!">
 
 
+## Events
+
+### `enable.tamia` / `disable.tamia`
+
+Enables / disables all descendant form elements.
+
+
 ## Skin
 
 Set `form_default_skin` or `modules_default_skin` to `true` to enable default skin.
