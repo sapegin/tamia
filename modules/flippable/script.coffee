@@ -14,5 +14,6 @@ class Flippable extends Component
 
 	toggle: ->
 		@toggleState('flipped')
+		@elem.trigger('flipped.tamia', @hasState('flipped'))
 
 tamia.initComponents(flippable: Flippable)

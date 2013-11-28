@@ -23,7 +23,8 @@
     };
 
     Flippable.prototype.toggle = function() {
-      return this.toggleState('flipped');
+      this.toggleState('flipped');
+      return this.elem.trigger('flipped.tamia', this.hasState('flipped'));
     };
 
     return Flippable;

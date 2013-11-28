@@ -25,6 +25,13 @@ Vertical rotation (horizontal by default).
 Back side is visible.
 
 
+## Events
+
+### flipped.tamia
+
+Fires on every flip. Argument will be `true` if back side is visible.
+
+
 ## JS Hooks
 
 ### .js-flip
