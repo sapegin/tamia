@@ -46,12 +46,12 @@ link_pressable ?= true
 // Adds link underline (adds nothing for "underline" and "border" types)
 link-underline(color)
 	if link_style == "gradient"
-		background-image: linear-gradient(left, color, color)
+		background-image: linear-gradient(to right, color, color)
 
 // Adds fake link underline (adds nothing for "underline" type)
 link-fake-underline(color)
 	if link_style != "border"
-		background-image: linear-gradient(left, color, color 50%, transparent 50%)
+		background-image: linear-gradient(to right, color, color 50%, transparent 50%)
 
 
 //
