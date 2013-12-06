@@ -6,7 +6,7 @@
 //
 
 // Enable Retina support (default: false).
-retina ?= false
+retinafy ?= false
 
 // Path to calculate file system image path based on CSS path (default: .).
 images_relative_root ?= '.'
@@ -30,7 +30,7 @@ sprite_step ?= 20px;
 // y - background-position y (default: 0).
 //
 // Retina image file should be named path@2x.png.
-if retina
+if retinafy
 	image(path, x=0, y=0)
 		background: url(path) x y
 		@media (-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)
