@@ -5,7 +5,6 @@
 .is-disabled
 	cursor: default
 	pointer-events: none
-	opacity: .4
 	text-shadow: none
 
 
@@ -23,8 +22,8 @@
 		display: inline-block
 		width: auto
 
-	&:disabled
-		@extend .is-disabled
+	&.is-disabled
+		opacity: .4
 
 .field_area
 	resize: vertical
@@ -118,11 +117,11 @@ if modules_default_skin or form_default_skin
 		&:focus
 			box-shadow: 0 0 .4em rgba(form_focus_color, .75)
 
-		&:not(:disabled):not(.is-disabled):hover
+		&:not(.is-disabled):hover
 			background: linear-gradient(to bottom, #fff, #f0f0f0)
 			color: #333
 
-		&:not(:disabled):not(.is-disabled):active
+		&:not(.is-disabled):active
 			padding-top: .55em
 			padding-bottom: .25em
 			background: #cacaca
@@ -130,7 +129,3 @@ if modules_default_skin or form_default_skin
 			box-shadow: 0 0 .4em rgba(form_focus_color, .75), inset 0 .1em .2em black(.2), 0 .025em .05em black(.05)
 			border-color: form_focus_color
 			border-top-color: #888
-
-		&:disabled,
-		&.is-disabled
-			text-shadow: none
