@@ -33,7 +33,7 @@ sprite_step ?= 20px;
 if retinafy
 	image(path, x=0, y=0)
 		background: url(path) x y
-		@media (-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)
+		+retina()
 			ext = extname(path)
 			hdpath = dirname(path) + '/' + basename(path, ext) + '@2x' + ext
 			background: url(hdpath) x y
