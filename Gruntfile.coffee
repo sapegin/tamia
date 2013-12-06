@@ -67,8 +67,15 @@ module.exports = (grunt) ->
 		casperjs:
 			tests: 'tests/*.coffee'
 		watch:
-			options:
-				livereload: true
+			livereload:
+				options:
+					livereload: true
+				files: [
+					'<%= concat.specs.dest  %>'
+					'<%= concat.docs.dest  %>'
+					'specs/specs.css'
+					'docs/styles.css'
+				]
 			coffee:
 				files: '<%= coffee.tamia.src %>'
 				tasks: 'coffee'
