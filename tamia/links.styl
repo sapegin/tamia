@@ -53,6 +53,35 @@ link-fake-underline(color)
 	if link_style != "border"
 		background-image: linear-gradient(to right, color, color 50%, transparent 50%)
 
+// :hover, :active and :focus states of the link.
+//
+// Example:
+// 	 +link-hovers()
+//	 	color: #bada55
+link-hovers() {
+	&:hover,
+	&:active,
+	&:focus {
+		{block}
+	}
+}
+
+// All states of the link.
+//
+// Example:
+// 	 +link-all-states()
+//	 	color: @color
+link-all-states() {
+	&,
+	&:link,
+	&:visited,
+	&:hover,
+	&:active,
+	&:focus {
+		{block}
+	}
+}
+
 
 //
 // Classes
