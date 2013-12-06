@@ -62,7 +62,10 @@ else
 //   .elem2
 //     sprite(5, 6, 36, 22);
 sprite(img)
-	content: ""
+	if not @content and match(":(before|after)", selector())
+		content: ""
+	if not @display
+		display: inline-block
 	if length(img) > 1
 		image(sprite_image, img[0], img[1])
 		width: img[2]
