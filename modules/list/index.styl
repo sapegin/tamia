@@ -27,8 +27,7 @@ list_inside ?= false
 		@extend .list
 
 if not list_inside and max_width
-	_query = "(max-width:%s)" % max_width
-	@media _query
+	+below(max_width)
 		.list > li,
 		.text ul > li
 			margin-left: 0
