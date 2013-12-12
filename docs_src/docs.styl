@@ -2,10 +2,7 @@ modules_default_skin = true
 content_max_width = 1024px
 
 @import "tamia"
-@import "modules/text"
-@import "modules/list"
-@import "modules/code"
-@import "modules/richtypo"
+import_tree("../modules")
 
 body
 	font: 16px/1.4 "Helvetica Neue", Arial, sans-serif
@@ -63,3 +60,12 @@ body
 
 	&__subtitle
 		font-size: 28px
+
+.example
+	space(1)
+
+.example-code
+	space(3)
+
+	&__link
+		space()

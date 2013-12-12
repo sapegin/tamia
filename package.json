@@ -19,6 +19,10 @@
     "grunt-coffeelint": "0.0.7",
     "marked": "~0.2.10",
     "grunt-casperjs": "~1.4.0",
-    "autoprefixer-stylus": "0.0.3"
+    "autoprefixer-stylus": "0.0.3",
+    "lodash": "~2.4.1",
+    "underscore.string": "~2.3.3",
+    "stylus": "~0.41.2",
+    "stylus-import-tree": "~0.1.10"
   }
 }

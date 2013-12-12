@@ -1,8 +1,11 @@
 # gruntjs.com
 
 module.exports = (grunt) ->
+	fs = require 'fs'
+	path = require 'path'
 	marked = require 'marked'
-	_ = grunt.util._
+	_ = require 'lodash'
+	_.str = require 'underscore.string'
 
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
@@ -43,11 +46,15 @@ module.exports = (grunt) ->
 					'tamia/tamia.js'
 					'tamia/component.js'
 					'modules/*/*.js'
+					'docs_src/fixie.js'
 				]
 				dest: 'docs/scripts.js'
 			specs:
 				src: [
-					'<%= concat.docs.dest  %>'
+					'vendor/transition-events.js'
+					'tamia/tamia.js'
+					'tamia/component.js'
+					'modules/*/*.js'
 					'specs/test.js'
 				]
 				dest: 'specs/specs.js'
@@ -58,6 +65,8 @@ module.exports = (grunt) ->
 				use: [
 					() -> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8', 'ie 9')
 				]
+				define:
+					import_tree: (require 'stylus-import-tree')
 			specs:
 				files:
 					'specs/specs.css': 'specs/specs.styl'
@@ -142,10 +151,42 @@ module.exports = (grunt) ->
 		saveHtml 'docs', marked html.join '\n\n'
 
 		# Modules
-		readmes = grunt.file.expand 'modules/*/Readme.md'
-		html = _.map readmes, (name) ->
-			return grunt.file.read name
-		saveHtml 'modules', marked html.join '\n\n'
+		modules = grunt.file.expand 'modules/*'
+		exampleId = 0
+		html = _.map modules, (module) ->
+			moduleDoc = marked grunt.file.read path.join(module, 'Readme.md')
+			# Examples
+			examplesFile = path.join module, 'example.html'
+			if fs.existsSync examplesFile
+				moduleDoc += "\n\n<h2>Examples</h2>\n\n"
+				examples = grunt.file.read examplesFile
+				examples = examples.split '\n\n'
+				examples = _.map examples, (example) ->
+					exampleId += 1
+					exampleHtml = example
+					exampleCode = (example
+						.replace(/\s?fixie([^>]+>)</g, '$1...<')
+						.replace(/\s?fixie/g, '')
+						.replace(/\s?class=""/g, '')
+						.replace(/http:\/\/placedog.com[^"]+/g, '...')
+						.replace(/\s?style=\"[^\"]*\"/g, '')
+					)
+					exampleCode = _.str.escapeHTML exampleCode
+
+					return """
+						<div class="example">#{exampleHtml}</div>
+						<div class="example-code">
+							<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_#{exampleId}">Show/hide code</span></div>
+							<div class="is-hidden" id="example_#{exampleId}">
+								<pre><code class="html">#{exampleCode}</code></pre>
+							</div>
+						</div>
+					"""
+
+				moduleDoc += examples.join '\n\n'
+
+			return moduleDoc
+		saveHtml 'modules', html.join '\n\n'
 
 
 	saveHtml = (name, html) ->
