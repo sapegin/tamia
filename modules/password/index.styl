@@ -34,6 +34,10 @@
 	&.is-disabled &__toggle
 		opacity: .4
 
+	// Hide IE10 password visibility toggle
+	&::-ms-reveal
+		display: none !important
+
 
 // Default skin
 
