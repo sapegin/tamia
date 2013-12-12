@@ -47,8 +47,12 @@ password_default_skin ?= false
 if modules_default_skin or password_default_skin
 	.password
 		&.is-ok &__toggle
-			width: 20px
+			width: 1.8em
 			&:before
-				content: "a"
+				tweak-inverted-text()
+				content: "abc"
+				font-size: .75em
+				letter-spacing: .1ex
 		&.is-ok.is-unlocked &__toggle:before
-			content: "●"
+			content: "●●●"
+			letter-spacing: 0
