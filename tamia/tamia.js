@@ -40,11 +40,23 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	if (DEBUG) {
 		// Debug logger
+		var addBadge = function(args, name) {
+			// Color console badge
+			// Based on https://github.com/jbail/lumberjack
+			var ua = navigator.userAgent.toLowerCase();
+			if (ua.indexOf('chrome') !== -1 || ua.indexOf('firefox') !== -1) {
+				var format = '%c %s %c ' + args.shift();
+				args.unshift(format, 'background:#aa759f; color:#fff', name, 'background:inherit; color:inherit');
+			}
+			else {
+				args[0] = name + ': ' + args[0];
+			}
+			return args;
+		};
 		var logger = function() {
 			var args = Array.prototype.slice.call(arguments);
 			var func = args.shift();
-			args[0] = 'Tâmia: ' + args[0];
-			console[func].apply(console, args);
+			console[func].apply(console, addBadge(args, 'Tâmia'));
 		};
 		var log = tamia.log = logger.bind(null, 'log');
 		var warn = tamia.warn = logger.bind(null, 'warn');
