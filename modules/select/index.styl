@@ -8,6 +8,7 @@
 	no-select()
 	position: relative
 	display: block
+	overflow: hidden
 	width: 100%
 	font-size: 1em
 
@@ -51,19 +52,28 @@ select_default_skin ?= false
 
 if modules_default_skin or select_default_skin
 	.select
+		border: 1px solid #bbb
+		border-bottom-color: #aaa
+		border-radius: form_border_radius
+		transition: border-color .1s ease-in-out, box-shadow .1s ease-in-out
+
 		&__box
 			height: 2em
 			padding: .5em 1.5em .5em .5em
 			background: #f4f4f4
 			background: linear-gradient(to bottom, #fefefe, #f4f4f4)
-			border: 1px solid #bbb
-			border-bottom-color: #aaa
 			line-height: 1
 			color: #555
-			border-radius: .15em
-			transition: border-color .1s ease-in-out, box-shadow .1s ease-in-out
 
 		&:after
+			top: 50%
+			right: .3em
+			width: .8em
+			height: .7em
+			margin-top: -.3em
+			background: embedurl("arrow.svg") no-repeat
+			background-size: 100% 100%
+		.no-svg &:after
 			content: "▼"
 			padding-right: .2em
 			text-align: center
@@ -71,6 +81,6 @@ if modules_default_skin or select_default_skin
 			font-size: 1em
 			line-height: 2em
 
-		.is-focused &__box
+		&.is-focused
 			border-color: form_focus_color
 			box-shadow: 0 0 .4em rgba(form_focus_color, .75)
