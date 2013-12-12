@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>Modules — Tâmia</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
@@ -59,6 +60,108 @@
 &lt;/div&gt;</code></pre>
 <h2 id="skin">Skin</h2>
 <p>Set <code>checkbox_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="checkbox">
+	<input class="checkbox__input" id="check1" type="checkbox" name="check" value="yes" checked>
+	<label class="checkbox__label" for="check1">
+		<span class="checkbox__button"></span>
+		<span class="checkbox__text fixie"></span>
+	</label>
+</div>
+<div class="checkbox">
+	<input class="checkbox__input" id="check2" type="checkbox" name="check2" value="yes">
+	<label class="checkbox__label" for="check2">
+		<span class="checkbox__button"></span>
+		<span class="checkbox__text fixie"></span>
+	</label>
+</div>
+<div class="checkbox is-disabled">
+	<input class="checkbox__input" id="check3" type="checkbox" name="check3" value="yes" checked disabled>
+	<label class="checkbox__label" for="check3">
+		<span class="checkbox__button"></span>
+		<span class="checkbox__text fixie"></span>
+	</label>
+</div></div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_1">Show/hide code</span></div>
+	<div class="is-hidden" id="example_1">
+		<pre><code class="html">&lt;div class=&quot;checkbox&quot;&gt;
+	&lt;input class=&quot;checkbox__input&quot; id=&quot;check1&quot; type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;yes&quot; checked&gt;
+	&lt;label class=&quot;checkbox__label&quot; for=&quot;check1&quot;&gt;
+		&lt;span class=&quot;checkbox__button&quot;&gt;&lt;/span&gt;
+		&lt;span class=&quot;checkbox__text&quot;&gt;...&lt;/span&gt;
+	&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&quot;checkbox&quot;&gt;
+	&lt;input class=&quot;checkbox__input&quot; id=&quot;check2&quot; type=&quot;checkbox&quot; name=&quot;check2&quot; value=&quot;yes&quot;&gt;
+	&lt;label class=&quot;checkbox__label&quot; for=&quot;check2&quot;&gt;
+		&lt;span class=&quot;checkbox__button&quot;&gt;&lt;/span&gt;
+		&lt;span class=&quot;checkbox__text&quot;&gt;...&lt;/span&gt;
+	&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&quot;checkbox is-disabled&quot;&gt;
+	&lt;input class=&quot;checkbox__input&quot; id=&quot;check3&quot; type=&quot;checkbox&quot; name=&quot;check3&quot; value=&quot;yes&quot; checked disabled&gt;
+	&lt;label class=&quot;checkbox__label&quot; for=&quot;check3&quot;&gt;
+		&lt;span class=&quot;checkbox__button&quot;&gt;&lt;/span&gt;
+		&lt;span class=&quot;checkbox__text&quot;&gt;...&lt;/span&gt;
+	&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+	</div>
+</div>
+
+<div class="example"><div class="radio">
+	<input class="radio__input" id="radio1" type="radio" name="radio" value="dog" checked>
+	<label class="radio__label" for="radio1">
+		<span class="radio__button"></span>
+		<span class="radio__text fixie"></span>
+	</label>
+</div>
+<div class="radio">
+	<input class="radio__input" id="radio2" type="radio" name="radio" value="hamster">
+	<label class="radio__label" for="radio2">
+		<span class="radio__button"></span>
+		<span class="radio__text fixie"></span>
+	</label>
+</div>
+<div class="radio is-disabled">
+	<input class="radio__input" id="radio3" type="radio" name="radio" value="cat" disabled>
+	<label class="radio__label" for="radio3">
+		<span class="radio__button"></span>
+		<span class="radio__text fixie"></span>
+	</label>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_2">Show/hide code</span></div>
+	<div class="is-hidden" id="example_2">
+		<pre><code class="html">&lt;div class=&quot;radio&quot;&gt;
+	&lt;input class=&quot;radio__input&quot; id=&quot;radio1&quot; type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;dog&quot; checked&gt;
+	&lt;label class=&quot;radio__label&quot; for=&quot;radio1&quot;&gt;
+		&lt;span class=&quot;radio__button&quot;&gt;&lt;/span&gt;
+		&lt;span class=&quot;radio__text&quot;&gt;...&lt;/span&gt;
+	&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&quot;radio&quot;&gt;
+	&lt;input class=&quot;radio__input&quot; id=&quot;radio2&quot; type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;hamster&quot;&gt;
+	&lt;label class=&quot;radio__label&quot; for=&quot;radio2&quot;&gt;
+		&lt;span class=&quot;radio__button&quot;&gt;&lt;/span&gt;
+		&lt;span class=&quot;radio__text&quot;&gt;...&lt;/span&gt;
+	&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&quot;radio is-disabled&quot;&gt;
+	&lt;input class=&quot;radio__input&quot; id=&quot;radio3&quot; type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;cat&quot; disabled&gt;
+	&lt;label class=&quot;radio__label&quot; for=&quot;radio3&quot;&gt;
+		&lt;span class=&quot;radio__button&quot;&gt;&lt;/span&gt;
+		&lt;span class=&quot;radio__text&quot;&gt;...&lt;/span&gt;
+	&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="code-blocks">Code blocks</h1>
 <p>Nice code examples with highlighting.</p>
 <h2 id="markup">Markup</h2>
@@ -72,6 +175,40 @@
 <li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
 <li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
 </ul>
+
+
+<h2>Examples</h2>
+
+<div class="example"><pre class="code"><code class="language-javascript">alert('Hello world!');</code></pre>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_3">Show/hide code</span></div>
+	<div class="is-hidden" id="example_3">
+		<pre><code class="html">&lt;pre class=&quot;code&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;alert(&#39;Hello world!&#39;);&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
+	</div>
+</div>
+
+<h1 id="fade">Fade</h1>
+<p>Fading text.</p>
+<h2 id="markup">Markup</h2>
+<pre><code>&lt;div class=&quot;fade&quot; title=&quot;Very long text&quot;&gt;Very long text&lt;/div&gt;</code></pre>
+<h2 id="caveats">Caveats</h2>
+<p>Works best in Webkits (via <code>mask-image</code>). Works acceptable in Firefox (via SVG mask): fade width is fixed. Fades with ellipsis in any IE.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><p class="fade fixie" style="width:300px"></p>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_4">Show/hide code</span></div>
+	<div class="is-hidden" id="example_4">
+		<pre><code class="html">&lt;p class=&quot;fade&quot;&gt;...&lt;/p&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="flippable-pane">Flippable pane</h1>
 <p>Vertical or horizontal flippable pane. With 3D animation.</p>
 <h1 id="markup">Markup</h1>
@@ -91,8 +228,28 @@
 <h2 id="js-hooks">JS Hooks</h2>
 <h3 id="-js-flip">.js-flip</h3>
 <p>Element that flips pane when clicked.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="flippable js-flip" data-component="flippable" style="width:200px; height:200px">
+	<div class="flippable__front fixie" style="padding:20px; background:#c0ffee"></div>
+	<div class="flippable__back fixie" style="padding:20px; background:#bada55"></div>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_5">Show/hide code</span></div>
+	<div class="is-hidden" id="example_5">
+		<pre><code class="html">&lt;div class=&quot;flippable js-flip&quot; data-component=&quot;flippable&quot;&gt;
+	&lt;div class=&quot;flippable__front&quot;&gt;...&lt;/div&gt;
+	&lt;div class=&quot;flippable__back&quot;&gt;...&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="form">Form</h1>
-<p>Basic form controls: inputs, textareas, buttons</p>
+<p>Basic form controls: inputs, textareas, buttons.</p>
 <h2 id="markup">Markup</h2>
 <p>Controls:</p>
 <pre><code>&lt;input type=&quot;text&quot; class=&quot;field&quot; name=&quot;name&quot;&gt;
@@ -107,6 +264,48 @@
 <h3 id="form_focus_color">form_focus_color</h3>
 <p>Type: CSS color value.</p>
 <p>Color of focus otline.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="form form_full">
+	<div class="form__row">
+		<input type="text" class="field" placeholder="Name">
+	</div>
+	<div class="form__row">
+		<button class="button fixie"></button>
+	</div>
+</div></div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_6">Show/hide code</span></div>
+	<div class="is-hidden" id="example_6">
+		<pre><code class="html">&lt;div class=&quot;form form_full&quot;&gt;
+	&lt;div class=&quot;form__row&quot;&gt;
+		&lt;input type=&quot;text&quot; class=&quot;field&quot; placeholder=&quot;Name&quot;&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form__row&quot;&gt;
+		&lt;button class=&quot;button&quot;&gt;...&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+	</div>
+</div>
+
+<div class="example"><div class="form form_inline">
+	<input type="text" class="field" placeholder="Name">
+	<button class="button fixie"></button>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_7">Show/hide code</span></div>
+	<div class="is-hidden" id="example_7">
+		<pre><code class="html">&lt;div class=&quot;form form_inline&quot;&gt;
+	&lt;input type=&quot;text&quot; class=&quot;field&quot; placeholder=&quot;Name&quot;&gt;
+	&lt;button class=&quot;button&quot;&gt;...&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="unordered-list">Unordered list</h1>
 <p>Unordered list with dashes (—) as bullets.</p>
 <h2 id="markup">Markup</h2>
@@ -127,6 +326,30 @@
 <li><p><code>UL</code>s inside <code>.text</code> class are treated as <code>.list</code>.</p>
 </li>
 </ol>
+
+
+<h2>Examples</h2>
+
+<div class="example"><ul class="list">
+	<li class="fixie"></li>
+	<li class="fixie"></li>
+	<li class="fixie"></li>
+	<li class="fixie"></li>
+</ul>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_8">Show/hide code</span></div>
+	<div class="is-hidden" id="example_8">
+		<pre><code class="html">&lt;ul class=&quot;list&quot;&gt;
+	&lt;li&gt;...&lt;/li&gt;
+	&lt;li&gt;...&lt;/li&gt;
+	&lt;li&gt;...&lt;/li&gt;
+	&lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="media-object">Media object</h1>
 <p>Media object from OOCSS.</p>
 <h2 id="markup">Markup</h2>
@@ -138,6 +361,26 @@
 <h3 id="-media__img-media__img_rev">.media<strong>img.media</strong>img_rev</h3>
 <p>Reversed image location (right instead of left).</p>
 <pre><code class="lang-html">&lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img media__img_rev&quot;&gt;</code></pre>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="media">
+	<img class="media__img fixie" src="http://placedog.com/150/100">
+	<p class="media__body fixie"></p>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_9">Show/hide code</span></div>
+	<div class="is-hidden" id="example_9">
+		<pre><code class="html">&lt;div class=&quot;media&quot;&gt;
+	&lt;img class=&quot;media__img&quot; src=&quot;...&quot;&gt;
+	&lt;p class=&quot;media__body&quot;&gt;...&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="password-field">Password field</h1>
 <p>Password field with toggle to show characters.</p>
 <h2 id="markup">Markup</h2>
@@ -154,6 +397,26 @@
 <p>IE9+.</p>
 <h2 id="skin">Skin</h2>
 <p>Set <code>password_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="password password_inline" data-component="password">
+	<span class="password__toggle js-toggle"></span>
+	<input type="password" class="password__field field js-field">
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_10">Show/hide code</span></div>
+	<div class="is-hidden" id="example_10">
+		<pre><code class="html">&lt;div class=&quot;password password_inline&quot; data-component=&quot;password&quot;&gt;
+	&lt;span class=&quot;password__toggle js-toggle&quot;&gt;&lt;/span&gt;
+	&lt;input type=&quot;password&quot; class=&quot;password__field field js-field&quot;&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="print">Print</h1>
 <p>Print stylesheet.</p>
 <h2 id="configuration">Configuration</h2>
@@ -162,6 +425,8 @@
 <p>Site domain (for example, <code>example.com</code>) that will be printed.</p>
 <h2 id="caveats">Caveats</h2>
 <p>Use <code>.no-print</code> class to hide elements in print version and <code>.print</code> to show (hidden on screen).</p>
+
+
 <h1 id="rich-typograhy">Rich typograhy</h1>
 <p>Classes and tweaks for better typography.</p>
 <h2 id="markup">Markup</h2>
@@ -183,6 +448,8 @@
 <li><a href="https://github.com/sapegin/richtypo.js">richtypo.js</a> for Node.js.</li>
 <li><a href="https://github.com/sapegin/wp-typohelper">wp-typohelper</a> for Wordpress.</li>
 </ul>
+
+
 <h1 id="select">Select</h1>
 <p>Select with custom design</p>
 <h2 id="markup">Markup</h2>
@@ -198,6 +465,38 @@
 &lt;/div&gt;</code></pre>
 <h2 id="skin">Skin</h2>
 <p>Set <code>select_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="select select_inline" data-component="select">
+	<div class="select__box js-box"></div>
+	<select class="select__select js-select">
+		<option selected>Please select an option</option>
+		<option class="fixie"></option>
+		<option class="fixie"></option>
+		<option class="fixie"></option>
+		<option class="fixie"></option>
+	</select>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_11">Show/hide code</span></div>
+	<div class="is-hidden" id="example_11">
+		<pre><code class="html">&lt;div class=&quot;select select_inline&quot; data-component=&quot;select&quot;&gt;
+	&lt;div class=&quot;select__box js-box&quot;&gt;&lt;/div&gt;
+	&lt;select class=&quot;select__select js-select&quot;&gt;
+		&lt;option selected&gt;Please select an option&lt;/option&gt;
+		&lt;option&gt;...&lt;/option&gt;
+		&lt;option&gt;...&lt;/option&gt;
+		&lt;option&gt;...&lt;/option&gt;
+		&lt;option&gt;...&lt;/option&gt;
+	&lt;/select&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="spinner">Spinner</h1>
 <p>Loading indicator (spinner) with animation.</p>
 <h2 id="markup">Markup</h2>
@@ -223,19 +522,61 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 <p>To change shade layer’s color set <code>loader_shade_color</code> variable.</p>
 <h2 id="ie-8-9-callback">IE 8—9 callback</h2>
 <p>Copy <code>spinner.gif</code> to your images folder and set <code>spinner_fallback_gif</code> variable to its URL.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="spinner"></div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_12">Show/hide code</span></div>
+	<div class="is-hidden" id="example_12">
+		<pre><code class="html">&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="switcher">Switcher</h1>
 <p>Nice looking radio buttons group.</p>
 <h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;switcher&quot;&gt;
-    &lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;/&gt;
+    &lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;&gt;
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_first&quot;&gt;First&lt;/label&gt;
-    &lt;input class=&quot;switcher__input&quot; id=&quot;type_second&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;second&quot;/&gt;
+    &lt;input class=&quot;switcher__input&quot; id=&quot;type_second&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;second&quot;&gt;
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_second&quot;&gt;Second&lt;/label&gt;
-    &lt;input class=&quot;switcher__input&quot; id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;/&gt;
+    &lt;input class=&quot;switcher__input&quot; id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;&gt;
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_third&quot;&gt;Third&lt;/label&gt;
 &lt;/div&gt;</code></pre>
 <h2 id="skin">Skin</h2>
 <p>Set <code>switcher_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="switcher">
+	<input class="switcher__input" id="type_first" type="radio" name="type" value="first" checked="checked">
+	<label class="switcher__label" for="type_first">Dog</label>
+	<input class="switcher__input" id="type_second" type="radio" name="type" value="second">
+	<label class="switcher__label" for="type_second">Cat</label>
+	<input class="switcher__input" id="type_third" type="radio" name="type" value="third">
+	<label class="switcher__label" for="type_third">Hamster</label>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_13">Show/hide code</span></div>
+	<div class="is-hidden" id="example_13">
+		<pre><code class="html">&lt;div class=&quot;switcher&quot;&gt;
+	&lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;&gt;
+	&lt;label class=&quot;switcher__label&quot; for=&quot;type_first&quot;&gt;Dog&lt;/label&gt;
+	&lt;input class=&quot;switcher__input&quot; id=&quot;type_second&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;second&quot;&gt;
+	&lt;label class=&quot;switcher__label&quot; for=&quot;type_second&quot;&gt;Cat&lt;/label&gt;
+	&lt;input class=&quot;switcher__input&quot; id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;&gt;
+	&lt;label class=&quot;switcher__label&quot; for=&quot;type_third&quot;&gt;Hamster&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="basic-text-styles">Basic text styles</h1>
 <p>Headings, paragraphs, etc.</p>
 <h2 id="markup">Markup</h2>
@@ -244,6 +585,28 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
     &lt;p&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
     &lt;p&gt;So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="text">
+	<h1 class="fixie"></h1>
+	<p class="fixie"></p>
+	<p class="fixie"></p>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_14">Show/hide code</span></div>
+	<div class="is-hidden" id="example_14">
+		<pre><code class="html">&lt;div class=&quot;text&quot;&gt;
+	&lt;h1&gt;...&lt;/h1&gt;
+	&lt;p&gt;...&lt;/p&gt;
+	&lt;p&gt;...&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="tooltip">Tooltip</h1>
 <p>Simple tooltips.</p>
 <h2 id="markup">Markup</h2>
@@ -253,11 +616,30 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 <h2 id="skin">Skin</h2>
 <p>Set <code>tooltip_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
+
+<h2>Examples</h2>
+
+<div class="example"><div class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_15">Show/hide code</span></div>
+	<div class="is-hidden" id="example_15">
+		<pre><code class="html">&lt;div class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
 		</div>
 
 	</div>
 
 
+	<!--[if lt IE 9]>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<![endif]-->
+	<!--[if gte IE 9]><!-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<!--<![endif]-->
+	<script src="scripts.js"></script>
 	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
 	<script>
 	hljs.tabReplace = '<span class="indent">\t</span>';

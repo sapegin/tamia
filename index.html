@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>Tâmia</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
@@ -103,7 +104,7 @@ tamia.initComponents(pony: Pony)</code></pre>
 <li><a href="https://github.com/sapegin/grunt-tamia-sprite">Grunt task</a> for generating sprites.</li>
 </ul>
 <h2 id="documentation">Documentation</h2>
-<p>Not done yet. See comments in code.</p>
+<p>See <a href="http://sapegin.github.io/tamia/">here</a>.</p>
 <h2 id="installation">Installation</h2>
 <p>The easiest way to install Tâmia is to use Yeomen generator:</p>
 <pre><code>$ npm install -g yo, generator-tamia
@@ -150,6 +151,13 @@ link_color = #c0ffee
 	</div>
 
 
+	<!--[if lt IE 9]>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<![endif]-->
+	<!--[if gte IE 9]><!-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<!--<![endif]-->
+	<script src="scripts.js"></script>
 	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
 	<script>
 	hljs.tabReplace = '<span class="indent">\t</span>';
