@@ -202,18 +202,18 @@ casper.test.begin('Tâmia', 72, suite = (test) ->
 
 	# Select
 	casper.thenEvaluate ->
-		(jQuery '.js-select').val('dog').change()
+		(jQuery '.js-select-component .js-select').val('dog').change()
 	casper.then ->
 		test.assertSelectorHasText '.js-select-component', 'Dog', 'Select: text in text box changed'
 	casper.thenEvaluate ->
-		(jQuery '.js-select').focus()
-	casper.then ->
+		(jQuery '.js-select-component .js-select').focus()
+	casper.wait 50, ->
 		test.assertEval (->
 			(jQuery '.js-select-component').hasClass('is-focused')
 		), 'Select: focused state set'
 	casper.thenEvaluate ->
-		(jQuery '.js-select').blur()
-	casper.then ->
+		(jQuery '.js-select-component .js-select').blur()
+	casper.wait 50, ->
 		test.assertEval (->
 			!(jQuery '.js-select-component').hasClass('is-focused')
 		), 'Select: focused state removed'
