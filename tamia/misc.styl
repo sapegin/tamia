@@ -86,6 +86,17 @@ clearfix()
 	&:after
 		clear: both
 
+// Set element width and height.
+//
+// width - Width.
+// [height] - Height (the same as width if not passed).
+size(width, height=null)
+	width: width
+	if height
+		height: height
+	else
+		height: width
+
 // Disables columns.
 no-cols()
 	position: static
