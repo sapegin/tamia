@@ -1,6 +1,6 @@
 # Form
 
-Basic form controls: inputs, textareas, buttons
+Basic form controls: inputs, textareas, buttons.
 
 
 ## Markup
