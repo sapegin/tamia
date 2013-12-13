@@ -25,6 +25,11 @@
 	&.is-disabled
 		opacity: .4
 
+.field
+	// Hide IE10 clear button
+	&::-ms-clear
+		size: 0  // Not display:none because: http://bit.ly/1h3UlAH
+
 .field_area
 	resize: vertical
 
