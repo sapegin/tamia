@@ -16,16 +16,14 @@
 
 	&__select
 		position: absolute
-		top: 0
 		bottom: 0
 		left: 0
-		right: 0
 		width: 100%
 		opacity: 0
 		z-index: 2
 		cursor: default
-		transform: scaleY(5)  // Select height could be smaller than box height
-
+		transform: scaleY(2)  // Select height could be smaller than box height
+		transform-origin: 0 100%  // Fixes dropdown position on Windows
 	&__box
 		display: block
 		vertical-align: middle
