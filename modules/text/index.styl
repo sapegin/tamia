@@ -47,7 +47,7 @@
 	font-size: 1em
 	font-weight: bold
 
-// Collapse margin between headings.
+// Collapse margin between headings and before first heading.
 .text h1 + h2,
 .text h2 + h3,
 .text h3 + h4,
@@ -55,5 +55,14 @@
 .alpha + .beta,
 .beta + .gamma,
 .gamma + .delta,
-.delta + .epsilon
+.delta + .epsilon,
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+.alpha:first-child,
+.beta:first-child,
+.gamma:first-child,
+.delta:first-child
 	margin-top: 0
