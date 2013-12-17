@@ -190,6 +190,10 @@ module.exports = (grunt) ->
 
 
 	saveHtml = (name, html) ->
+		html = (html
+			# Fix BEM style names in headings
+			.replace(/(<h\d[^>]*>)(.*?)(<\/h\d>)/g, (m, open, contents, close) -> open + contents.replace(/<\/?strong>/g, '__') + close)
+		)
 		template = grunt.file.read 'docs_src/template.html'
 		html = grunt.template.process template, data: html: html, page: name, menu: docsMenu
 		grunt.file.write "docs/#{name}.html", html
