@@ -62,7 +62,11 @@ body
 		font-size: 28px
 
 .example
+	_border_size = 5px
 	space(1)
+	margin-left: (-(spacer + _border_size));
+	padding: 5px 0 5px spacer
+	border-left: _border_size solid hsl(92, 28%, 65%);
 
 .example-code
 	space(3)
