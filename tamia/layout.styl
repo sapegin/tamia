@@ -211,9 +211,17 @@ _layout-part(part)
 .l-half
 	_layout-part(2)
 
-// Last column (to use inside .l-row).
-.l-last
-	float: right
+// Flexible columns with left (.l-left) and right (.l-right) text alignment (to use inside .l-row).
+.l-left,
+.l-right
+	flex: 1
+.l-right
+	text-align: right
+.no-flexbox
+	.l-left
+		float: left
+	.l-right
+		float: right
 
 // Centered content (vertically and horizontally).
 //
