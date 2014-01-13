@@ -69,8 +69,8 @@ grid-explode()
 
 // Width of column, in percent.
 //
-// position - Start column number (default: 1).
 // span - Width, in culumns (default: 1).
+// context - Width of parent column (default: null).
 //
 // Returns percent.
 grid-width(span=1, context=null)
@@ -115,7 +115,6 @@ layout-row()
 	grid-wrapper()
 	display: flex
 	flex-flow: row wrap
-	// flex-direction: row
 	/// IE8-9
 	.no-flexbox &
 		letter-spacing: -0.31em
