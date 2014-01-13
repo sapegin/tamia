@@ -182,7 +182,7 @@ module.exports = (grunt) ->
 					return """
 						<div class="example">#{exampleHtml}</div>
 						<div class="example-code">
-							<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_#{exampleId}">Show/hide code</span></div>
+							<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_#{exampleId}">Show/hide code</span></div>
 							<div class="is-hidden" id="example_#{exampleId}">
 								<pre><code class="html">#{exampleCode}</code></pre>
 							</div>
