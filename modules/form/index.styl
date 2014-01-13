@@ -12,15 +12,16 @@
 
 .field,
 .button
-	display: block
+	display: inline-block
 	vertical-align: middle
 	font-size: 1em
 	line-height: 1
 	outline: 0
 	transition: opacity .25 ease-out
 
-	&_inline
-		display: inline-block
+	&_block
+		display: block
+		width: 100%
 
 	&.is-disabled
 		opacity: .4
@@ -46,32 +47,53 @@
 		padding: 0
 		border: none
 
-.form
-	&_inline .field,
-	&_inline .button,
-	&_inline .select,
-	&_inline .password
-		display: inline-block
+.button + .button,
+.field + .field,
+.field + .button,
+.button + .field
+	margin-left: spacer
 
-	&_full .field,
-	&_full .button,
-	&_full .select,
-	&_full .password
-		width: 100%
+.form
+	&_block .field,
+	&_block .button,
+	&_block .select,  // TODO: Move to select
+	&_block .password  // TODO: Move to password
+		display: block
 
 	&__group
 		space(2)
 
 	&__row
+		display: flex
 		space()
 		&:last-child
 			space(0)
 
-	&__left
-		float: left
+	&__label
+		width: 20%
+		min-width: 6em
+		max-width: 20em
+		padding-right: spacer
+		padding-top: .35em
+		text-align: right
 
-	&__right
-		float: right
+	&__widget
+		flex: 1
+		padding-left: spacer
+		text-align: left
+
+
+// Close button
+.close
+	line-height: 1
+	outline: 0
+
+	// Fix <button> appearance: iOS requres <button> or <a href="#">
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none;
 
 
 // Default skin
@@ -134,3 +156,15 @@ if modules_default_skin or form_default_skin
 			box-shadow: 0 0 .4em rgba(form_focus_color, .75), inset 0 .1em .2em black(.2), 0 .025em .05em black(.05)
 			border-color: form_focus_color
 			border-top-color: #888
+
+	.close
+		color: #666
+		font-family: "Helvetica Neue", Arial, sans-serif
+		font-size: 1.2em
+		opacity: .5
+
+		&:before
+			content: "×"
+
+		+link-hovers()
+			opacity: .8
