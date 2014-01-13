@@ -201,8 +201,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		tamia.registerEvents = function(handlers) {
 			var events = $.map(handlers, _tamiaze).join(' ');
 			_doc.on(events, function(event) {
-				if (DEBUG) log('Event "%s":', event.type, event.target);
-				handlers[event.type](event.target);
+				var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
+				if (DEBUG) log('Event "%s":', eventName, event.target);
+				handlers[eventName](event.target);
 			});
 		};
 
