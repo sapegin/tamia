@@ -253,11 +253,23 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	if (DEBUG) {
 		// Debug logger
+		var addBadge = function(args, name) {
+			// Color console badge
+			// Based on https://github.com/jbail/lumberjack
+			var ua = navigator.userAgent.toLowerCase();
+			if (ua.indexOf('chrome') !== -1 || ua.indexOf('firefox') !== -1) {
+				var format = '%c %s %c ' + args.shift();
+				args.unshift(format, 'background:#aa759f; color:#fff', name, 'background:inherit; color:inherit');
+			}
+			else {
+				args[0] = name + ': ' + args[0];
+			}
+			return args;
+		};
 		var logger = function() {
 			var args = Array.prototype.slice.call(arguments);
 			var func = args.shift();
-			args[0] = 'Tâmia: ' + args[0];
-			console[func].apply(console, args);
+			console[func].apply(console, addBadge(args, 'Tâmia'));
 		};
 		var log = tamia.log = logger.bind(null, 'log');
 		var warn = tamia.warn = logger.bind(null, 'warn');
@@ -402,8 +414,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		tamia.registerEvents = function(handlers) {
 			var events = $.map(handlers, _tamiaze).join(' ');
 			_doc.on(events, function(event) {
-				if (DEBUG) log('Event "%s":', event.type, event.target);
-				handlers[event.type](event.target);
+				var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
+				if (DEBUG) log('Event "%s":', eventName, event.target);
+				handlers[eventName](event.target);
 			});
 		};
 
@@ -539,6 +552,39 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			event.preventDefault();
 		});
+
+		/**
+		 * Templates
+		 */
+		var _templates = window.__templates;
+		if (_templates) {
+			/**
+			 * Invokes precompiled template.
+			 *
+			 * Templates should be stored in window.__templates.
+			 *
+			 * @param {String} tmplId Template ID.
+			 * @param {String} data Template context.
+			 * @return {String} HTML.
+			 */
+			tamia.tmpl = function(tmplId, data) {
+				var tmpl = _templates[tmplId];
+				if (DEBUG) if (!tmpl) warn('Template %s not found.', tmplId);
+				return tmpl(data);
+			};
+
+			/**
+			 * Replaces jQuery node’s content with the result of template invocation.
+			 *
+			 * @param {String} tmplId Template ID.
+			 * @param {String} data Template context.
+			 * @return {jQuery}
+			 */
+			jQuery.fn.tmpl = function(tmplId, data) {
+				var html = tamia.tmpl(tmplId, data);
+				return jQuery(this).html(html);
+			};
+		}
 
 		/**
 		 * Grid helper.
@@ -912,6 +958,115 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
     disable: function(elem) {
       return _enableDisable(elem, false);
+    }
+  });
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var $, Modal, _body, _bodyClass, _doc, _ref, _wrapperTmpl,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  $ = jQuery;
+
+  _body = $('body');
+
+  _doc = $(document);
+
+  _bodyClass = 'modal-opened';
+
+  _wrapperTmpl = '<div class="modal-shade is-hidden">\n	<div class="l-center">\n		<div class="l-center-i js-modal"></div>\n	</div>\n</div>';
+
+  Modal = (function(_super) {
+    __extends(Modal, _super);
+
+    function Modal() {
+      _ref = Modal.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    Modal.prototype.init = function() {
+      this.elem.data('modal', this);
+      this.on('click', 'modal-commit', this.commit);
+      this.on('click', 'modal-dismiss', this.dismiss);
+      this.keyup_ = this.keyup.bind(this);
+      if (this.elem.data('modal-open')) {
+        return this.open();
+      }
+    };
+
+    Modal.prototype.initHtml = function() {
+      if (this.wrapper) {
+        return;
+      }
+      this.wrapper = $(_wrapperTmpl);
+      this.wrapper.find('.js-modal').append(this.elem);
+      this.wrapper.on('click', this.shadeClick.bind(this));
+      _body.append(this.wrapper);
+      return this.removeState('hidden');
+    };
+
+    Modal.prototype.open = function() {
+      this.initHtml();
+      _body.addClass(_bodyClass);
+      this.wrapper.trigger('appear.tamia');
+      return _doc.on('keyup', this.keyup_);
+    };
+
+    Modal.prototype.close = function() {
+      this.wrapper.trigger('disappear.tamia');
+      _body.removeClass(_bodyClass);
+      return _doc.off('keyup', this.keyup_);
+    };
+
+    Modal.prototype.commit = function(event) {
+      return this.done(event, 'commit');
+    };
+
+    Modal.prototype.dismiss = function(event) {
+      return this.done(event, 'dismiss');
+    };
+
+    Modal.prototype.done = function(event, type) {
+      var typeEvent;
+      if (event != null) {
+        event.preventDefault();
+      }
+      typeEvent = $.Event(type + '.modal.tamia');
+      this.elem.trigger(typeEvent);
+      if (typeEvent.isDefaultPrevented()) {
+        return;
+      }
+      return this.close();
+    };
+
+    Modal.prototype.keyup = function(event) {
+      if (event.which === 27) {
+        return this.dismiss(event);
+      }
+    };
+
+    Modal.prototype.shadeClick = function(event) {
+      if ($(event.target).hasClass('js-modal')) {
+        return this.dismiss(event);
+      }
+    };
+
+    return Modal;
+
+  })(Component);
+
+  tamia.registerEvents({
+    'open.modal': function(elem) {
+      var container, modal;
+      container = $(elem);
+      modal = container.data('modal');
+      if (!modal) {
+        modal = new Modal(elem);
+      }
+      return modal.open();
     }
   });
 

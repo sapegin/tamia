@@ -86,10 +86,12 @@
   toggle: -&gt;
     @toggleState(&#39;pink&#39;)
 
-tamia.initComponents(pony: Pony)</code></pre>
+tamia.initComponents(pony: Pony)
+</code></pre>
 <pre><code class="lang-html">&lt;div class=&quot;pink-pony is-pink&quot; data-component=&quot;pony&quot;&gt;
   &lt;button class=&quot;pink-pony__button js-toggle&quot;&gt;To pink or not to pink?&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
+</code></pre>
 <p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
 <p>Useful events and other stuff.</p>
@@ -108,8 +110,8 @@ tamia.initComponents(pony: Pony)</code></pre>
 <h2 id="installation">Installation</h2>
 <p>The easiest way to install Tâmia is to use Yeomen generator:</p>
 <pre><code>$ npm install -g yo, generator-tamia
-$ yo tamia</code></pre>
-<p>(You can use <code>yo tamia:framework</code> to update Tâmia to the latest version.)</p>
+$ yo tamia
+</code></pre><p>(You can use <code>yo tamia:framework</code> to update Tâmia to the latest version.)</p>
 <p>You can also install manually:</p>
 <ol>
 <li><p>Download and unzip repository to <code>tamia</code> folder inside your project.</p>
@@ -125,21 +127,21 @@ $ yo tamia</code></pre>
 <p>Add all parameters to your main Stylus stylesheet, before <code>tamia/tamia</code> import:</p>
 <pre><code>link_style = &quot;gradient&quot;
 link_color = #c0ffee
-...</code></pre>
-<h3 id="using-modules">Using Modules</h3>
+...
+</code></pre><h3 id="using-modules">Using Modules</h3>
 <p>To add module to the project:</p>
-<pre><code>$ yo tamia:module</code></pre>
-<p>Then select module you want and it’ll be added .</p>
+<pre><code>$ yo tamia:module
+</code></pre><p>Then select module you want and it’ll be added .</p>
 <p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
-<pre><code>modules_default_skin = true;</code></pre>
-<h3 id="debug-mode">Debug Mode</h3>
+<pre><code>modules_default_skin = true;
+</code></pre><h3 id="debug-mode">Debug Mode</h3>
 <p>Both Stylus and JavaScript (CoffeeScript) in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
 <pre><code>div
-    outline: 1px solid #c0ffee if DEBUG</code></pre>
-<p>JavaScript:</p>
-<pre><code>if (DEBUG) console.log(&#39;Debug info&#39;);</code></pre>
-<p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
+    outline: 1px solid #c0ffee if DEBUG
+</code></pre><p>JavaScript:</p>
+<pre><code>if (DEBUG) console.log(&#39;Debug info&#39;);
+</code></pre><p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
 <h2 id="the-name">The Name</h2>
 <p>Tâmia is a chipmunk in Portuguese. It refers to <a href="https://github.com/sapegin/squirrelstrap">Squirrelstrap</a>, my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).</p>
 <hr>

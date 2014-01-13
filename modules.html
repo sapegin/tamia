@@ -49,16 +49,16 @@
         &lt;span class=&quot;checkbox__button&quot;&gt;&lt;/span&gt;
         &lt;span class=&quot;checkbox__text&quot;&gt;My checkbox&lt;/span&gt;
     &lt;/label&gt;
-&lt;/div&gt;</code></pre>
-<p>Radio button:</p>
+&lt;/div&gt;
+</code></pre><p>Radio button:</p>
 <pre><code>&lt;div class=&quot;radiobutton&quot;&gt;
     &lt;input class=&quot;radiobutton__input&quot; id=&quot;my_radio&quot; type=&quot;checkbox&quot; name=&quot;my_radio&quot; value=&quot;dog&quot; checked=&quot;checked&quot;&gt;
     &lt;label class=&quot;radiobutton__label&quot; for=&quot;my_radio&quot;&gt;
         &lt;span class=&quot;radiobutton__button&quot;&gt;&lt;/span&gt;
         &lt;span class=&quot;radiobutton__text&quot;&gt;My radio button&lt;/span&gt;
     &lt;/label&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="skin">Skin</h2>
+&lt;/div&gt;
+</code></pre><h2 id="skin">Skin</h2>
 <p>Set <code>checkbox_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
@@ -169,8 +169,8 @@
 
 &lt;div class=&quot;text&quot;&gt;
     &lt;pre&gt;&lt;code class=&quot;language-coffescript&quot;&gt;alert &#39;Hello world!&#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="tools">Tools</h2>
+&lt;/div&gt;
+</code></pre><h2 id="tools">Tools</h2>
 <ul>
 <li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
 <li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
@@ -192,8 +192,8 @@
 <h1 id="fade">Fade</h1>
 <p>Fading text.</p>
 <h2 id="markup">Markup</h2>
-<pre><code>&lt;div class=&quot;fade&quot; title=&quot;Very long text&quot;&gt;Very long text&lt;/div&gt;</code></pre>
-<h2 id="caveats">Caveats</h2>
+<pre><code>&lt;div class=&quot;fade&quot; title=&quot;Very long text&quot;&gt;Very long text&lt;/div&gt;
+</code></pre><h2 id="caveats">Caveats</h2>
 <p>Works best in Webkits (via <code>mask-image</code>). Works acceptable in Firefox (via SVG mask): fade width is fixed. Fades with ellipsis in any IE.</p>
 
 
@@ -215,8 +215,8 @@
 <pre><code>&lt;div class=&quot;flippable js-flip&quot; data-component=&quot;flippable&quot;&gt;
     &lt;div class=&quot;flippable__front&quot;&gt;Front&lt;/div&gt;
     &lt;div class=&quot;flippable__back&quot;&gt;Back&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="modifiers">Modifiers</h2>
+&lt;/div&gt;
+</code></pre><h2 id="modifiers">Modifiers</h2>
 <h3 id="-flippable-flippable_vertical">.flippable.flippable_vertical</h3>
 <p>Vertical rotation (horizontal by default).</p>
 <h2 id="states">States</h2>
@@ -233,8 +233,8 @@
 <h2>Examples</h2>
 
 <div class="example"><div class="flippable js-flip" data-component="flippable" style="width:200px; height:200px">
-	<div class="flippable__front fixie" style="padding:20px; background:#c0ffee"></div>
-	<div class="flippable__back fixie" style="padding:20px; background:#bada55"></div>
+	<div class="flippable__front fixie" style="padding:20px; background:#8FA1B3"></div>
+	<div class="flippable__back fixie" style="padding:20px; background:#EBCB8B"></div>
 </div>
 </div>
 <div class="example-code">
@@ -254,8 +254,8 @@
 <p>Controls:</p>
 <pre><code>&lt;input type=&quot;text&quot; class=&quot;field&quot; name=&quot;name&quot;&gt;
 &lt;textarea type=&quot;text&quot; class=&quot;field field_area&quot; name=&quot;message&quot;&gt;&lt;/textarea&gt;
-&lt;input type=&quot;submit&quot; class=&quot;button&quot; value=&quot;Send!&quot;&gt;</code></pre>
-<h2 id="events">Events</h2>
+&lt;input type=&quot;submit&quot; class=&quot;button&quot; value=&quot;Send!&quot;&gt;
+</code></pre><h2 id="events">Events</h2>
 <h3 id="enable-tamia-disable-tamia">enable.tamia / disable.tamia</h3>
 <p>Enables / disables all descendant form elements.</p>
 <h2 id="skin">Skin</h2>
@@ -314,8 +314,8 @@
     &lt;li&gt;Cat&lt;/li&gt;
     &lt;li&gt;Mouse&lt;/li&gt;
     &lt;li&gt;Moose&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-<h2 id="configuration">Configuration</h2>
+&lt;/ul&gt;
+</code></pre><h2 id="configuration">Configuration</h2>
 <h3 id="list_inside">list_inside</h3>
 <p>Type: Boolean, default: <code>false</code>.</p>
 <p>If <code>true</code> places bullets inside container (by default bullets are outside).</p>
@@ -356,11 +356,12 @@
 <pre><code>&lt;div class=&quot;media&quot;&gt;
     &lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img&quot;&gt;
     &lt;p class=&quot;media__body&quot;&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="modifiers">Modifiers</h2>
-<h3 id="-media__img-media__img_rev">.media<strong>img.media</strong>img_rev</h3>
+&lt;/div&gt;
+</code></pre><h2 id="modifiers">Modifiers</h2>
+<h3 id="-media__img-media__img_rev">.media__img.media__img_rev</h3>
 <p>Reversed image location (right instead of left).</p>
-<pre><code class="lang-html">&lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img media__img_rev&quot;&gt;</code></pre>
+<pre><code class="lang-html">&lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img media__img_rev&quot;&gt;
+</code></pre>
 
 
 <h2>Examples</h2>
@@ -381,14 +382,93 @@
 	</div>
 </div>
 
+<h1 id="modal">Modal</h1>
+<p>Modal popup.</p>
+<h2 id="markup">Markup</h2>
+<pre><code>&lt;div class=&quot;modal is-hidden&quot;&gt;
+    &lt;header class=&quot;modal__header&quot;&gt;
+        &lt;h3 class=&quot;modal__title&quot;&gt;Hello world&lt;/h3&gt;
+        &lt;button class=&quot;close js-modal-dismiss&quot;&gt;&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;modal__body&quot;&gt;
+        ...
+    &lt;/div&gt;
+    &lt;footer class=&quot;modal__footer&quot;&gt;
+        &lt;div class=&quot;button js-modal-dismiss&quot;&gt;Cancel&lt;/div&gt;
+        &lt;div class=&quot;button js-modal-commit&quot;&gt;Save&lt;/div&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre><h2 id="how-to-open">How to open</h2>
+<p>Auto open:</p>
+<pre><code>&lt;div class=&quot;modal is-hidden&quot; data-component=&quot;modal&quot; data-modal-open=&quot;yes&quot;&gt;...&lt;/div&gt;
+</code></pre><p>Open via JavaScript:</p>
+<pre><code>&lt;div class=&quot;modal pony is-hidden&quot;&gt;...&lt;/div&gt;
+$(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
+</code></pre><p>Open via link:</p>
+<pre><code>&lt;a href=&quot;#&quot; class=&quot;&quot; data-fire=&quot;open.modal.tamia&quot; data-target=&quot;.js-popup&quot;&gt;Open&lt;/a&gt;
+</code></pre><h2 id="events">Events</h2>
+<h3 id="open-modal-tamia">open.modal.tamia</h3>
+<p>Fire this event on <code>.modal</code> DOM node to open popup.</p>
+<h3 id="commit-modal-tamia">commit.modal.tamia</h3>
+<p>Fires when user clicks Save button.</p>
+<p>You can prevent popup from closing:</p>
+<pre><code>$(&#39;.js-popup&#39;).on(&#39;commit.modal.tamia&#39;, function() {
+    return false;
+});
+</code></pre><h3 id="dismiss-modal-tamia">dismiss.modal.tamia</h3>
+<p>Fires when user click Cancel button</p>
+<h2 id="skin">Skin</h2>
+<p>Set <code>modal_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="modal_shade_color">modal_shade_color</h3>
+<p>Type: CSS color value.</p>
+<p>Color of popup shade layer.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="modal is-hidden">
+	<header class="modal__header">
+		<h3 class="modal__title fixie"></h3>
+		<button class="close js-modal-dismiss"></button>
+	</header>
+	<div class="modal__body">
+		<p class="fixie"></p>
+	</div>
+	<footer class="modal__footer">
+		<div class="button js-modal-dismiss">Cancel</div>
+		<div class="button js-modal-commit">Save</div>
+	</footer>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_10">Show/hide code</span></div>
+	<div class="is-hidden" id="example_10">
+		<pre><code class="html">&lt;div class=&quot;modal is-hidden&quot;&gt;
+	&lt;header class=&quot;modal__header&quot;&gt;
+		&lt;h3 class=&quot;modal__title&quot;&gt;...&lt;/h3&gt;
+		&lt;button class=&quot;close js-modal-dismiss&quot;&gt;&lt;/button&gt;
+	&lt;/header&gt;
+	&lt;div class=&quot;modal__body&quot;&gt;
+		&lt;p&gt;...&lt;/p&gt;
+	&lt;/div&gt;
+	&lt;footer class=&quot;modal__footer&quot;&gt;
+		&lt;div class=&quot;button js-modal-dismiss&quot;&gt;Cancel&lt;/div&gt;
+		&lt;div class=&quot;button js-modal-commit&quot;&gt;Save&lt;/div&gt;
+	&lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="password-field">Password field</h1>
 <p>Password field with toggle to show characters.</p>
 <h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;password&quot; data-component=&quot;password&quot;&gt;
     &lt;span class=&quot;password__toggle js-toggle&quot;&gt;&lt;/span&gt;
     &lt;input type=&quot;password&quot; class=&quot;password__field field js-field&quot;&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="states">States</h2>
+&lt;/div&gt;
+</code></pre><h2 id="states">States</h2>
 <h3 id="-password-is-ok">.password.is-ok</h3>
 <p>Browser is supported.</p>
 <h3 id="-password-is-unlocked">.password.is-unlocked</h3>
@@ -407,8 +487,8 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_10">Show/hide code</span></div>
-	<div class="is-hidden" id="example_10">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_11">Show/hide code</span></div>
+	<div class="is-hidden" id="example_11">
 		<pre><code class="html">&lt;div class=&quot;password password_inline&quot; data-component=&quot;password&quot;&gt;
 	&lt;span class=&quot;password__toggle js-toggle&quot;&gt;&lt;/span&gt;
 	&lt;input type=&quot;password&quot; class=&quot;password__field field js-field&quot;&gt;
@@ -436,10 +516,10 @@
 </div>
 
 <h3 id="the-best-ampersand">The best ampersand</h3>
-<pre><code>Nuts &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt; Bolts.</code></pre>
-<h3 id="hanging-punctuation">Hanging punctuation</h3>
-<pre><code>Awesome Web Typography with &lt;span class=&quot;slaquo&quot;&gt; &lt;/span&gt; &lt;span class=&quot;hlaquo&quot;&gt;“&lt;/span&gt;Richtypo”&#39;</code></pre>
-<h2 id="caveats">Caveats</h2>
+<pre><code>Nuts &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt; Bolts.
+</code></pre><h3 id="hanging-punctuation">Hanging punctuation</h3>
+<pre><code>Awesome Web Typography with &lt;span class=&quot;slaquo&quot;&gt; &lt;/span&gt; &lt;span class=&quot;hlaquo&quot;&gt;“&lt;/span&gt;Richtypo”&#39;
+</code></pre><h2 id="caveats">Caveats</h2>
 <ul>
 <li>Enables ligatures in headings (h1—h6 inside .text and .alpha—.zeta).</li>
 </ul>
@@ -462,8 +542,8 @@
         &lt;option&gt;Mouse&lt;/option&gt;
         &lt;option&gt;Moose&lt;/option&gt;
     &lt;/select&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="skin">Skin</h2>
+&lt;/div&gt;
+</code></pre><h2 id="skin">Skin</h2>
 <p>Set <code>select_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
@@ -481,8 +561,8 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_11">Show/hide code</span></div>
-	<div class="is-hidden" id="example_11">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_12">Show/hide code</span></div>
+	<div class="is-hidden" id="example_12">
 		<pre><code class="html">&lt;div class=&quot;select select_inline&quot; data-component=&quot;select&quot;&gt;
 	&lt;div class=&quot;select__box js-box&quot;&gt;&lt;/div&gt;
 	&lt;select class=&quot;select__select js-select&quot;&gt;
@@ -504,8 +584,8 @@
 
 &lt;div class=&quot;is-loading&quot;&gt;
     &lt;div class=&quot;loader&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-<p><code>.loader</code> is the same as <code>.spinner</code> but it’s hidden by default. It’s visible only when <code>.is-loading</code> state is set on ancestor element.</p>
+&lt;/div&gt;
+</code></pre><p><code>.loader</code> is the same as <code>.spinner</code> but it’s hidden by default. It’s visible only when <code>.is-loading</code> state is set on ancestor element.</p>
 <h2 id="modifiers">Modifiers</h2>
 <h3 id="-spinner-spinner_big">.spinner.spinner_big</h3>
 <p>Bigger size.</p>
@@ -514,11 +594,11 @@
 <pre><code>.spinner_huge
     font-size: 64px
 
-&lt;div class=&quot;spinner spinner_huge&quot;&gt;&lt;/div&gt;</code></pre>
-<h2 id="component-loading-indicator">Component loading indicator</h2>
+&lt;div class=&quot;spinner spinner_huge&quot;&gt;&lt;/div&gt;
+</code></pre><h2 id="component-loading-indicator">Component loading indicator</h2>
 <pre><code>$(&#39;.pony&#39;).trigger(&#39;loading-start.tamia&#39;);  // Show loader
-$(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code></pre>
-<p>That will blocks all container’s content with a semi transparent layer and shows spinner in the middle.</p>
+$(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
+</code></pre><p>That will blocks all container’s content with a semi transparent layer and shows spinner in the middle.</p>
 <p>To change shade layer’s color set <code>loader_shade_color</code> variable.</p>
 <h2 id="ie-8-9-callback">IE 8—9 callback</h2>
 <p>Copy <code>spinner.gif</code> to your images folder and set <code>spinner_fallback_gif</code> variable to its URL.</p>
@@ -529,8 +609,8 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 <div class="example"><div class="spinner"></div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_12">Show/hide code</span></div>
-	<div class="is-hidden" id="example_12">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_13">Show/hide code</span></div>
+	<div class="is-hidden" id="example_13">
 		<pre><code class="html">&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
 </code></pre>
 	</div>
@@ -546,8 +626,8 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_second&quot;&gt;Second&lt;/label&gt;
     &lt;input class=&quot;switcher__input&quot; id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;&gt;
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_third&quot;&gt;Third&lt;/label&gt;
-&lt;/div&gt;</code></pre>
-<h2 id="skin">Skin</h2>
+&lt;/div&gt;
+</code></pre><h2 id="skin">Skin</h2>
 <p>Set <code>switcher_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
@@ -563,8 +643,8 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_13">Show/hide code</span></div>
-	<div class="is-hidden" id="example_13">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_14">Show/hide code</span></div>
+	<div class="is-hidden" id="example_14">
 		<pre><code class="html">&lt;div class=&quot;switcher&quot;&gt;
 	&lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;&gt;
 	&lt;label class=&quot;switcher__label&quot; for=&quot;type_first&quot;&gt;Dog&lt;/label&gt;
@@ -584,8 +664,8 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
     &lt;h1&gt;Down the Rabbit-Hole&lt;/h1&gt;
     &lt;p&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
     &lt;p&gt;So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.&lt;/p&gt;
-&lt;/div&gt;</code></pre>
-
+&lt;/div&gt;
+</code></pre>
 
 <h2>Examples</h2>
 
@@ -593,14 +673,18 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 	<h1 class="fixie"></h1>
 	<p class="fixie"></p>
 	<p class="fixie"></p>
+	<h2 class="fixie"></h2>
+	<p class="fixie"></p>
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_14">Show/hide code</span></div>
-	<div class="is-hidden" id="example_14">
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_15">Show/hide code</span></div>
+	<div class="is-hidden" id="example_15">
 		<pre><code class="html">&lt;div class=&quot;text&quot;&gt;
 	&lt;h1&gt;...&lt;/h1&gt;
 	&lt;p&gt;...&lt;/p&gt;
+	&lt;p&gt;...&lt;/p&gt;
+	&lt;h2&gt;...&lt;/h2&gt;
 	&lt;p&gt;...&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
@@ -612,19 +696,19 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader</code>
 <h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;tooltip&quot;&gt;I’m tooltip!&lt;/div&gt;
 
-&lt;a href=&quot;#&quot; class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/a&gt;</code></pre>
-<h2 id="skin">Skin</h2>
+&lt;a href=&quot;#&quot; class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/a&gt;
+</code></pre><h2 id="skin">Skin</h2>
 <p>Set <code>tooltip_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
 <h2>Examples</h2>
 
-<div class="example"><div class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</div>
+<div class="example"><span class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</span>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_15">Show/hide code</span></div>
-	<div class="is-hidden" id="example_15">
-		<pre><code class="html">&lt;div class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/div&gt;
+	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_16">Show/hide code</span></div>
+	<div class="is-hidden" id="example_16">
+		<pre><code class="html">&lt;span class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/span&gt;
 </code></pre>
 	</div>
 </div>
