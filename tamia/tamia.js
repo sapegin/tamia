@@ -341,6 +341,39 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		});
 
 		/**
+		 * Templates
+		 */
+		var _templates = window.__templates;
+		if (_templates) {
+			/**
+			 * Invokes precompiled template.
+			 *
+			 * Templates should be stored in window.__templates.
+			 *
+			 * @param {String} tmplId Template ID.
+			 * @param {String} data Template context.
+			 * @return {String} HTML.
+			 */
+			tamia.tmpl = function(tmplId, data) {
+				var tmpl = _templates[tmplId];
+				if (DEBUG) if (!tmpl) warn('Template %s not found.', tmplId);
+				return tmpl(data);
+			};
+
+			/**
+			 * Replaces jQuery node’s content with the result of template invocation.
+			 *
+			 * @param {String} tmplId Template ID.
+			 * @param {String} data Template context.
+			 * @return {jQuery}
+			 */
+			jQuery.fn.tmpl = function(tmplId, data) {
+				var html = tamia.tmpl(tmplId, data);
+				return jQuery(this).html(html);
+			};
+		}
+
+		/**
 		 * Grid helper.
 		 *
 		 * Example:
