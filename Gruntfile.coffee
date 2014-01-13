@@ -227,7 +227,7 @@ module.exports = (grunt) ->
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 				title = m[1] + '(' + (params.join ', ') + ')'
 			m = /_handlers\.(\w+)/.exec firstLine  # Event
-			if m
+			if not title and m
 				title = m[1]
 			if title
 				text = "#### #{title}\n\n#{text}"
@@ -258,7 +258,7 @@ module.exports = (grunt) ->
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 				title = m[1] + '(' + (params.join ', ') + ')'
 			m = /_handlers\.(\w+)'/.exec firstLine  # Event
-			if m
+			if not title and m
 				title = m[1]
 			if title
 				text = "#### #{title}\n\n#{text}"
@@ -318,10 +318,10 @@ module.exports = (grunt) ->
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 				title = m[1] + '(' + (params.join ', ') + ')'
 			m = /^\s*([-\w]+) \??=/m.exec firstLine  # Variable
-			if m
+			if not title and m
 				title = m[1]
 			m = /^\s*(\.[-\w]+),?$/m.exec firstLine  # Class
-			if m
+			if not title and m
 				title = m[1]
 			if title
 				text = "#### #{title}\n\n#{text}"
