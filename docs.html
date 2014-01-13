@@ -98,7 +98,7 @@
 <h4 id="grid-explode-">grid-explode()</h4>
 <p>Gutter size negative margin to make column with different background.
 You should adjust padding depending on content.</p>
-<h4 id="context">context</h4>
+<h4 id="grid-width-span-context-">grid-width(span, context)</h4>
 <p>Width of column, in percent.</p>
 <ul>
 <li><strong>span</strong> Width, in culumns (default: 1).</li>
@@ -141,19 +141,19 @@ You should adjust padding depending on content.</p>
 <h4 id="_layout-part-">_layout-part()</h4>
 <p>IE8-9</p>
 <h3 id="classes">Classes</h3>
-<h4 id="-l-row">.l-row</h4>
+<h4 id="layout-row-">layout-row()</h4>
 <p>Column wrapper.</p>
-<h4 id="-l-sixth">.l-sixth</h4>
+<h4 id="_layout-part-">_layout-part()</h4>
 <p>Sixth (to use inside .l-row).</p>
-<h4 id="-l-quarter">.l-quarter</h4>
+<h4 id="_layout-part-">_layout-part()</h4>
 <p>Quarter (to use inside .l-row).</p>
 <h4 id="-l-three-quarters">.l-three-quarters</h4>
 <p>Three quarters (to use inside .l-row).</p>
-<h4 id="-l-third">.l-third</h4>
+<h4 id="_layout-part-">_layout-part()</h4>
 <p>Third (to use inside .l-row).</p>
 <h4 id="-l-two-thirds">.l-two-thirds</h4>
 <p>Two thirds (to use inside .l-row).</p>
-<h4 id="-l-half">.l-half</h4>
+<h4 id="_layout-part-">_layout-part()</h4>
 <p>Half (to use inside .l-row).</p>
 <h4 id="-l-left">.l-left</h4>
 <p>Flexible columns with left (.l-left) and right (.l-right) text alignment (to use inside .l-row).</p>
@@ -169,13 +169,13 @@ You should adjust padding depending on content.</p>
 <ul>
 <li><strong>rows</strong> Number of “rows” (one row = default spacer).</li>
 </ul>
-<h4 id="-l-space">.l-space</h4>
+<h4 id="space-">space()</h4>
 <p>Standard bottom margin.</p>
-<h4 id="-l-double-space">.l-double-space</h4>
+<h4 id="space-">space()</h4>
 <p>Double bottom margin.</p>
-<h4 id="-l-triple-space">.l-triple-space</h4>
+<h4 id="space-">space()</h4>
 <p>Triple bottom margin.</p>
-<h4 id="-l-quad-space">.l-quad-space</h4>
+<h4 id="space-">space()</h4>
 <p>Quadruple bottom margin.</p>
 <h2 id="links">Links</h2>
 <h3 id="configuration">Configuration</h3>
@@ -218,7 +218,7 @@ You should adjust padding depending on content.</p>
 <pre><code> +link-all-states()
      color: @color
 </code></pre><h3 id="classes">Classes</h3>
-<h4 id="-pressable-inset">.pressable-inset</h4>
+<h4 id="no-select-">no-select()</h4>
 <p>Pressable element: pointer cursor + disable text selection.</p>
 <h4 id="-pressable">.pressable</h4>
 <p>Pressable element: shifts down by 1px on click.</p>
@@ -226,7 +226,7 @@ You should adjust padding depending on content.</p>
 <p>Non-pressable element: cancels .pressable.</p>
 <h4 id="-no-underline">.no-underline</h4>
 <p>Remove underline.</p>
-<h4 id="-link">.link</h4>
+<h4 id="link-underline-">link-underline()</h4>
 <p>Link.</p>
 <ul>
 <li><strong>.link_fake</strong> Pseudo link with dashed underline.</li>
@@ -242,7 +242,7 @@ You should adjust padding depending on content.</p>
 <h4 id="sprite_step">sprite_step</h4>
 <p>Sprite step size (default: 20px).</p>
 <h3 id="functions">Functions</h3>
-<h4 id="ext">ext</h4>
+<h4 id="image-path-">image(path)</h4>
 <p>background-image with Retina variant.</p>
 <ul>
 <li><strong>path</strong> Image file path.
@@ -388,7 +388,7 @@ h - sprite height, pixels.</li>
 <p>Element is hidden.</p>
 <h4 id="-is-invisible">.is-invisible</h4>
 <p>Element is invisible (but occupies place on page).</p>
-<h4 id="-group">.group</h4>
+<h4 id="clearfix-">clearfix()</h4>
 <p>Clearfix.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
 <h4 id="debug-mode">Debug mode</h4>
