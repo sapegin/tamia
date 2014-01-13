@@ -86,15 +86,21 @@ module.exports = (grunt) ->
 					'docs/styles.css'
 				]
 			coffee:
+				options:
+					atBegin: true
 				files: '<%= coffee.tamia.src %>'
 				tasks: 'coffee'
 			concat:
+				options:
+					atBegin: true
 				files: [
 					'<%= concat.docs.src %>'
 					'<%= concat.specs.src %>'
 				]
 				tasks: 'concat'
 			stylus:
+				options:
+					atBegin: true
 				files: [
 					'tamia/**/*.styl'
 					'modules/**/*.styl'
