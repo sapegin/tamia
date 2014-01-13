@@ -1909,3 +1909,7 @@ body {
 .example-code__link {
   margin-bottom: 10px;
 }
+
+.button {
+  text-transform: capitalize;
+}

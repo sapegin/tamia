@@ -86,7 +86,7 @@
 	</label>
 </div></div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_1">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_1">Show/hide code</span></div>
 	<div class="is-hidden" id="example_1">
 		<pre><code class="html">&lt;div class=&quot;checkbox&quot;&gt;
 	&lt;input class=&quot;checkbox__input&quot; id=&quot;check1&quot; type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;yes&quot; checked&gt;
@@ -135,7 +135,7 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_2">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_2">Show/hide code</span></div>
 	<div class="is-hidden" id="example_2">
 		<pre><code class="html">&lt;div class=&quot;radio&quot;&gt;
 	&lt;input class=&quot;radio__input&quot; id=&quot;radio1&quot; type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;dog&quot; checked&gt;
@@ -182,7 +182,7 @@
 <div class="example"><pre class="code"><code class="language-javascript">alert('Hello world!');</code></pre>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_3">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_3">Show/hide code</span></div>
 	<div class="is-hidden" id="example_3">
 		<pre><code class="html">&lt;pre class=&quot;code&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;alert(&#39;Hello world!&#39;);&lt;/code&gt;&lt;/pre&gt;
 </code></pre>
@@ -202,7 +202,7 @@
 <div class="example"><p class="fade fixie" style="width:300px"></p>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_4">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_4">Show/hide code</span></div>
 	<div class="is-hidden" id="example_4">
 		<pre><code class="html">&lt;p class=&quot;fade&quot;&gt;...&lt;/p&gt;
 </code></pre>
@@ -238,7 +238,7 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_5">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_5">Show/hide code</span></div>
 	<div class="is-hidden" id="example_5">
 		<pre><code class="html">&lt;div class=&quot;flippable js-flip&quot; data-component=&quot;flippable&quot;&gt;
 	&lt;div class=&quot;flippable__front&quot;&gt;...&lt;/div&gt;
@@ -277,7 +277,7 @@
 	</div>
 </div></div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_6">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_6">Show/hide code</span></div>
 	<div class="is-hidden" id="example_6">
 		<pre><code class="html">&lt;div class=&quot;form form_full&quot;&gt;
 	&lt;div class=&quot;form__row&quot;&gt;
@@ -296,7 +296,7 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_7">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_7">Show/hide code</span></div>
 	<div class="is-hidden" id="example_7">
 		<pre><code class="html">&lt;div class=&quot;form form_inline&quot;&gt;
 	&lt;input type=&quot;text&quot; class=&quot;field&quot; placeholder=&quot;Name&quot;&gt;
@@ -338,7 +338,7 @@
 </ul>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_8">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_8">Show/hide code</span></div>
 	<div class="is-hidden" id="example_8">
 		<pre><code class="html">&lt;ul class=&quot;list&quot;&gt;
 	&lt;li&gt;...&lt;/li&gt;
@@ -372,7 +372,7 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_9">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_9">Show/hide code</span></div>
 	<div class="is-hidden" id="example_9">
 		<pre><code class="html">&lt;div class=&quot;media&quot;&gt;
 	&lt;img class=&quot;media__img&quot; src=&quot;...&quot;&gt;
@@ -427,7 +427,8 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 
 <h2>Examples</h2>
 
-<div class="example"><div class="modal is-hidden">
+<div class="example"><div><span class="link" data-fire="open.modal.tamia" data-target=".js-popup">Open popup</span></div>
+<div class="modal js-popup is-hidden">
 	<header class="modal__header">
 		<h3 class="modal__title fixie"></h3>
 		<button class="close js-modal-dismiss"></button>
@@ -442,9 +443,10 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_10">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_10">Show/hide code</span></div>
 	<div class="is-hidden" id="example_10">
-		<pre><code class="html">&lt;div class=&quot;modal is-hidden&quot;&gt;
+		<pre><code class="html">&lt;div&gt;&lt;span class=&quot;link&quot; data-fire=&quot;open.modal.tamia&quot; data-target=&quot;.js-popup&quot;&gt;Open popup&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;modal js-popup is-hidden&quot;&gt;
 	&lt;header class=&quot;modal__header&quot;&gt;
 		&lt;h3 class=&quot;modal__title&quot;&gt;...&lt;/h3&gt;
 		&lt;button class=&quot;close js-modal-dismiss&quot;&gt;&lt;/button&gt;
@@ -487,7 +489,7 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_11">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_11">Show/hide code</span></div>
 	<div class="is-hidden" id="example_11">
 		<pre><code class="html">&lt;div class=&quot;password password_inline&quot; data-component=&quot;password&quot;&gt;
 	&lt;span class=&quot;password__toggle js-toggle&quot;&gt;&lt;/span&gt;
@@ -561,7 +563,7 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_12">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_12">Show/hide code</span></div>
 	<div class="is-hidden" id="example_12">
 		<pre><code class="html">&lt;div class=&quot;select select_inline&quot; data-component=&quot;select&quot;&gt;
 	&lt;div class=&quot;select__box js-box&quot;&gt;&lt;/div&gt;
@@ -609,7 +611,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 <div class="example"><div class="spinner"></div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_13">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_13">Show/hide code</span></div>
 	<div class="is-hidden" id="example_13">
 		<pre><code class="html">&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
 </code></pre>
@@ -643,7 +645,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_14">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_14">Show/hide code</span></div>
 	<div class="is-hidden" id="example_14">
 		<pre><code class="html">&lt;div class=&quot;switcher&quot;&gt;
 	&lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;&gt;
@@ -678,7 +680,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_15">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_15">Show/hide code</span></div>
 	<div class="is-hidden" id="example_15">
 		<pre><code class="html">&lt;div class=&quot;text&quot;&gt;
 	&lt;h1&gt;...&lt;/h1&gt;
@@ -706,7 +708,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 <div class="example"><span class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</span>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle" data-target="#example_16">Show/hide code</span></div>
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_16">Show/hide code</span></div>
 	<div class="is-hidden" id="example_16">
 		<pre><code class="html">&lt;span class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/span&gt;
 </code></pre>

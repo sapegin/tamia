@@ -415,6 +415,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var events = $.map(handlers, _tamiaze).join(' ');
 			_doc.on(events, function(event) {
 				var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
+				console.log('EEEE', event.type, event.namespace);
+
 				if (DEBUG) log('Event "%s":', eventName, event.target);
 				handlers[eventName](event.target);
 			});
