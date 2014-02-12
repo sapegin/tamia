@@ -2,6 +2,8 @@
 // Basic text styles
 
 .text
+	@extend .responsive-images
+
 	hyphens: auto
 
 	p,
@@ -9,7 +11,7 @@
 	ol,
 	li,
 	pre
-		margin-bottom: 2*spacer
+		space(2)
 
 .alpha,
 .text h1,
