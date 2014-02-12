@@ -111,12 +111,7 @@ link-all-states() {
 
 // Remove underline.
 .no-underline
-	&,
-	&:link,
-	&:visited,
-	&:hover,
-	&:active,
-	&:focus
+	+link-all-states()
 		text-decoration: none
 		border-bottom: 0
 		background-image: none
