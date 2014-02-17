@@ -389,6 +389,30 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			};
 		}
 
+
+		/**
+		 * Google Analytics tracking.
+		 *
+		 * @param data-ga Event name ('link' if empty).
+		 * @param [data-action] Event action ('click' by default).
+		 *
+		 * Examples:
+		 *
+		 *   <a href="http://github.com/" data-ga>GitHub</span>
+		 *   <span class="js-slider-next" data-ga="slider" data-action="next">Next</span>
+		 */
+		if ('ga' in window) _doc.on('click', '[data-ga]', function(event) {
+			var elem = jQuery(event.currentTarget);
+			var eventName = elem.data('ga') || 'link';
+			var eventAction = elem.data('ga-action') || 'click';
+			var url = elem.attr('href');
+			if (url) event.preventDefault();
+			ga('send', 'event', eventName, eventAction, url, {hitCallback: function() {
+				if (url) document.location = url;
+			}});
+		});
+
+
 		/**
 		 * Grid helper.
 		 *
