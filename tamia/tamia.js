@@ -406,9 +406,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var eventName = elem.data('ga') || 'link';
 			var eventAction = elem.data('ga-action') || 'click';
 			var url = elem.attr('href');
-			if (url) event.preventDefault();
+			var link = url && !event.metaKey && !event.ctrlKey;
+			if (link) event.preventDefault();
 			ga('send', 'event', eventName, eventAction, url, {hitCallback: function() {
-				if (url) document.location = url;
+				if (link) document.location = url;
 			}});
 		});
 
