@@ -11,6 +11,7 @@
 }
 
 .no-flexbox .l-row {
+  display: block;
   letter-spacing: -.31em;
 }
 
@@ -141,11 +142,6 @@ sub,
 small,
 code {
   line-height: 0;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
 }
 
 img {
@@ -314,6 +310,12 @@ a:link {
 
 .group:after {
   clear: both;
+}
+
+.responsive-images img,
+.text img {
+  max-width: 100%;
+  height: auto;
 }
 
 .pressable-inset,
@@ -780,7 +782,7 @@ a:link {
   overflow: hidden;
   white-space: nowrap;
   -webkit-mask-image: -webkit-linear-gradient(right,transparent 0,#000 3em);
-  mask: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxtYXNrIG1hc2tDb250ZW50VW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij48bGluZWFyR3JhZGllbnQgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiIG9mZnNldD0iLjciLz48c3RvcCBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNhKSIvPjwvbWFzaz48L3N2Zz4=#fade-mask");
+  mask: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxtYXNrIGlkPSJmYWRlLW1hc2siIG1hc2tDb250ZW50VW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij48bGluZWFyR3JhZGllbnQgaWQ9ImEiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiIG9mZnNldD0iLjciLz48c3RvcCBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNhKSIvPjwvbWFzaz48L3N2Zz4K#fade-mask");
   -ms-text-overflow: ellipsis;
 }
 
@@ -1075,7 +1077,7 @@ a:link {
   margin-bottom: 0;
 }
 
-@media only screen and (max-width: ) {
+@media only screen and (max-width: 1024px) {
   .list > li,
   .text ul > li {
     margin-left: 0;
@@ -1682,6 +1684,64 @@ a:link {
 .switcher__input:focus + .switcher__label {
   border-color: #7abbe6;
   box-shadow: 0 0 .4em rgba(122,187,230,0.75);
+}
+
+.table {
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: .8em;
+  font-size: .8rem;
+}
+
+.table th {
+  text-align: left;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+.table > thead > tr > th:first-child,
+.table > tbody > tr > th:first-child,
+.table > tfoot > tr > th:first-child,
+.table > thead > tr > td:first-child,
+.table > tbody > tr > td:first-child,
+.table > tfoot > tr > td:first-child {
+  padding-left: 0;
+}
+
+.table > thead > tr > th:last-child,
+.table > tbody > tr > th:last-child,
+.table > tfoot > tr > th:last-child,
+.table > thead > tr > td:last-child,
+.table > tbody > tr > td:last-child,
+.table > tfoot > tr > td:last-child {
+  padding-right: 0;
+}
+
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+
+.table > tbody + tbody {
+  border-top: 2px solid #ddd;
 }
 
 .text {

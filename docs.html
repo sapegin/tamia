@@ -344,6 +344,8 @@ h - sprite height, pixels.</li>
 </ul>
 <h4 id="no-select-">no-select()</h4>
 <p>Disables text selection.</p>
+<h4 id="hide-text-">hide-text()</h4>
+<p>Hides text (for image replacement).</p>
 <h3 id="misc-">Misc.</h3>
 <h4 id="clearfix-">clearfix()</h4>
 <p>Clearfix.</p>
@@ -390,6 +392,8 @@ h - sprite height, pixels.</li>
 <p>Element is invisible (but occupies place on page).</p>
 <h4 id="clearfix-">clearfix()</h4>
 <p>Clearfix.</p>
+<h4 id="-responsive-images">.responsive-images</h4>
+<p>Make all images inside responsive.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
 <h4 id="debug-mode">Debug mode</h4>
 <p>You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.</p>
@@ -500,9 +504,18 @@ Returns <em>String</em>:HTML.</li>
 <li><em>String</em> <strong>data</strong>: Template context.
 Returns <em>jQuery</em>.</li>
 </ul>
-<h4 id="grid-helper">Grid helper</h4>
-<h5 id="example">Example</h5>
-<pre><code>&lt;div data-component=&quot;grid&quot;&gt;&lt;/div&gt;
+<h4 id="google-analytics-tracking">Google Analytics tracking</h4>
+<ul>
+<li><strong>data-ga</strong>: Event name (‘link’ if empty).</li>
+<li><strong>[data-action]</strong>: Event action (‘click’ by default).</li>
+</ul>
+<h5 id="examples">Examples</h5>
+<pre><code>&lt;a href=&quot;http://github.com/&quot; data-ga&gt;GitHub&lt;/span&gt;
+&lt;span class=&quot;js-slider-next&quot; data-ga=&quot;slider&quot; data-action=&quot;next&quot;&gt;Next&lt;/span&gt;
+</code></pre><h4 id="grid-debugger">Grid debugger</h4>
+<h5 id="hotkeys">Hotkeys</h5>
+<pre><code>g - Toggle grid.
+o - Toggle layout outlines.
 </code></pre><h2 id="base-javascript-component-class">Base JavaScript Component Class</h2>
 <h4 id="-"> </h4>
 <p>JS component base class</p>
