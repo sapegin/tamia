@@ -22,6 +22,7 @@ grid_columns ?= 12
 grid-row()
 	clearfix()
 	grid-wrapper()
+	content: "tamia__grid-row"  if DEBUG
 
 // Column (grid).
 //
@@ -100,6 +101,7 @@ _grid-column(position=1, span=1, context=null)
 	unit-width = 100% / context
 	width: span * unit-width
 	margin-left: (position - 1) * unit-width
+	content: "tamia__grid-col"  if DEBUG
 
 _grid-float()
 	float: left
@@ -119,6 +121,7 @@ layout-row()
 	.no-flexbox &
 		display: block
 		letter-spacing: -0.31em
+	content: "tamia__layout-row"  if DEBUG
 
 // Column (simple layout).
 //
@@ -166,6 +169,7 @@ _layout-col()
 		display: inline-block
 		vertical-align: top
 		letter-spacing: normal
+	content: "tamia__layout-col"  if DEBUG
 
 _layout-part(part)
 	width: (100% / part)
@@ -276,26 +280,38 @@ space(rows=1)
 ///
 
 if DEBUG
-	.g-debug-col
-		grid-padding()
-		float: left
-		width: grid-width()
+	.tamia__show-layout-outlines
+		.tamia__grid-col,
+		.tamia__layout-col
+			transition: outline .15s ease-in-out
+		.tamia__grid-col
+			outline: 1px solid #fc6
+		.tamia__layout-col
+			outline: 1px solid #6cc
 
-	.g-debug-helper
+	.tamia__grid-debugger
+		side-gutter = (grid_gutter / 2)
+		margin-left: side-gutter
+		margin-right: side-gutter
 		position: absolute
 		left: 0
 		right: 0
-		height: 100%
-		min-height: 3000px
 		z-index: 10000
 		overflow: hidden
 		pointer-events: none
-		*
-			height: 100%
-		[data-component="grid"]
-			grid-wrapper()
-		.g-debug-col:before
+		transition: opacity .15s ease-in-out
+		&.is-hidden
+			opacity: 0
+
+	.tamia__grid-debugger-col
+		grid-padding()
+		float: left
+		width: grid-width()
+		height: inherit
+		&:before
 			content: ""
 			display: block
 			height: inherit
 			background: hsla(220,40%,50%,.25)
+
+

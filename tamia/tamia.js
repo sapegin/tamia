@@ -415,23 +415,75 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 
 		/**
-		 * Grid helper.
+		 * Grid debugger.
 		 *
-		 * Example:
+		 * Hotkeys:
 		 *
-		 *   <div data-component="grid"></div>
+		 *   g - Toggle grid.
+		 *   o - Toggle layout outlines.
 		 */
-		if (DEBUG) tamia.initComponents({
-			grid: function(elem) {
-				elem = $(elem);
-				elem
-					.addClass('g-row')
-					.html(
-						new Array((elem.data('columns') || 12) + 1).join('<b class="g-debug-col" style="height:'+document.documentElement.scrollHeight+'px"></b>')
-					)
-				;
+		if (DEBUG) {
+			var layoutClassesAdded = false;
+			var gridDebugger;
+
+			var toggleGrid = function() {
+				addLayoutClasses();
+				addGrid();
+				gridDebugger.trigger('toggle.tamia');
+			};
+
+			var toggleOutline = function() {
+				addLayoutClasses();
+				jQuery('body').toggleClass('tamia__show-layout-outlines');
+			};
+
+			var addLayoutClasses = function() {
+				if (layoutClassesAdded) return;
+				jQuery('*').each(function() {
+					var elem = $(this);
+					var content = elem.css('content');
+					if (/^tamia__/.test(content)) {
+						elem.addClass(content);
+					}
+				});
+				layoutClassesAdded = true;
 			}
-		});
+
+			var addGrid = function() {
+				var firstRow = jQuery('.tamia__grid-row,.tamia__layout-row').first();
+				if (!firstRow.length) return;
+
+				if (!gridDebugger) {
+					var columns = 12;  // @todo Use real number of columns
+					var height = document.documentElement.scrollHeight;
+					var shift = -firstRow.offset().top;
+					gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
+					gridDebugger.html(new Array((columns) + 1).join('<b class="tamia__grid-debugger-col"></b>'));
+					firstRow.prepend(gridDebugger);
+				}
+
+				gridDebugger.css({
+					'margin-top': shift,
+					'height': height
+				});
+			}
+
+			_doc.on('keydown', function(event) {
+				var activeTag = document.activeElement.tagName;
+				if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+
+				var keycode = event.which;
+				var func = {
+					71: toggleGrid,  // G
+					79: toggleOutline  // O
+				}[keycode];
+				if (!func) return;
+
+				func();
+				event.preventDefault();
+			});
+
+		}
 
 	}
 
