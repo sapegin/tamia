@@ -455,16 +455,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 				if (!gridDebugger) {
 					var columns = 12;  // @todo Use real number of columns
-					var height = document.documentElement.scrollHeight;
-					var shift = -firstRow.offset().top;
 					gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
 					gridDebugger.html(new Array((columns) + 1).join('<b class="tamia__grid-debugger-col"></b>'));
 					firstRow.prepend(gridDebugger);
 				}
 
 				gridDebugger.css({
-					'margin-top': shift,
-					'height': height
+					'margin-top': -(firstRow.offset().top + parseInt(firstRow.css('padding-top') || 0, 10)),
+					'height': $(document).height()
 				});
 			}
 
