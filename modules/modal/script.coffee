@@ -8,6 +8,8 @@ _body = $('body')
 _doc = $(document)
 
 _bodyClass = 'modal-opened'
+_switchingClass = 'is-switching'
+_hiddenClass = 'is-hidden'
 _wrapperTmpl = '''
 <div class="modal-shade is-hidden">
 	<div class="l-center">
@@ -15,6 +17,7 @@ _wrapperTmpl = '''
 	</div>
 </div>
 '''
+_opened = null
 
 
 class Modal extends Component
@@ -34,15 +37,28 @@ class Modal extends Component
 		@removeState('hidden')
 
 	open: ->
+		return  if this is _opened
+		opened = _opened
 		@initHtml()
 		_body.addClass(_bodyClass)
+		if opened
+			opened.close(hide=true)
+			@wrapper.addClass(_switchingClass)
+			@wrapper.on('appeared.tamia', =>
+				@wrapper.removeClass(_switchingClass)
+				opened.wrapper.addClass(_hiddenClass)
+				opened.elem.removeClass(_hiddenClass)
+			)
 		@wrapper.trigger('appear.tamia')
 		_doc.on('keyup', @keyup_)
+		_opened = this
 
-	close: ->
-		@wrapper.trigger('disappear.tamia')
-		_body.removeClass(_bodyClass)
+	close: (hide=false) ->
+		elem = if hide then @elem else @wrapper
+		elem.trigger('disappear.tamia')
+		_body.removeClass(_bodyClass)  unless hide
 		_doc.off('keyup', @keyup_)
+		_opened = null
 
 	commit: (event) ->
 		@done(event, 'commit')

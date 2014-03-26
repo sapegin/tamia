@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var $, Modal, _body, _bodyClass, _doc, _ref, _wrapperTmpl,
+  var $, Modal, _body, _bodyClass, _doc, _hiddenClass, _opened, _ref, _switchingClass, _wrapperTmpl,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -12,7 +12,13 @@
 
   _bodyClass = 'modal-opened';
 
+  _switchingClass = 'is-switching';
+
+  _hiddenClass = 'is-hidden';
+
   _wrapperTmpl = '<div class="modal-shade is-hidden">\n	<div class="l-center">\n		<div class="l-center-i js-modal"></div>\n	</div>\n</div>';
+
+  _opened = null;
 
   Modal = (function(_super) {
     __extends(Modal, _super);
@@ -44,16 +50,40 @@
     };
 
     Modal.prototype.open = function() {
+      var hide, opened,
+        _this = this;
+      if (this === _opened) {
+        return;
+      }
+      opened = _opened;
       this.initHtml();
       _body.addClass(_bodyClass);
+      if (opened) {
+        opened.close(hide = true);
+        this.wrapper.addClass(_switchingClass);
+        this.wrapper.on('appeared.tamia', function() {
+          _this.wrapper.removeClass(_switchingClass);
+          opened.wrapper.addClass(_hiddenClass);
+          return opened.elem.removeClass(_hiddenClass);
+        });
+      }
       this.wrapper.trigger('appear.tamia');
-      return _doc.on('keyup', this.keyup_);
+      _doc.on('keyup', this.keyup_);
+      return _opened = this;
     };
 
-    Modal.prototype.close = function() {
-      this.wrapper.trigger('disappear.tamia');
-      _body.removeClass(_bodyClass);
-      return _doc.off('keyup', this.keyup_);
+    Modal.prototype.close = function(hide) {
+      var elem;
+      if (hide == null) {
+        hide = false;
+      }
+      elem = hide ? this.elem : this.wrapper;
+      elem.trigger('disappear.tamia');
+      if (!hide) {
+        _body.removeClass(_bodyClass);
+      }
+      _doc.off('keyup', this.keyup_);
+      return _opened = null;
     };
 
     Modal.prototype.commit = function(event) {
