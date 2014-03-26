@@ -77,6 +77,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		});
 	}
 
+	// Custom exception
+	tamia.Error = function(message) {
+		if (DEBUG) warn.apply(null, arguments);
+		this.name = 'TamiaError';
+		this.message = message;
+	}
+	tamia.Error.prototype = new Error;
 
 	var _containersCache;
 	var _components = {};

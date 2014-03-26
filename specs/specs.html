@@ -114,7 +114,7 @@
 </div>
 
 <div class="spec spec_narrow">
-	<div class="form form_full js-form">
+	<div class="form form_block js-form">
 		<div class="form__row">
 			<input type="text" class="field js-field-1" placeholder="Name">
 		</div>
@@ -271,7 +271,7 @@
 	<div class="spinner spinner_big"></div>
 </div>
 <div class="spec spec_narrow">
-	<div class="form form_full js-loaders">
+	<div class="form form_block js-loaders">
 		<div class="form__row">
 			<p>Some content.</p>
 		</div>
@@ -323,6 +323,30 @@
 			<div class="button js-modal-dismiss">Cancel</div>
 			<div class="button button_primary js-modal-commit">Save</div>
 		</footer>
+	</div>
+	<div class="modal is-hidden js-popup2">2</div>
+</div>
+
+<h2>Toggle</h2>
+
+<div class="js-toggle-wrapper spec spec_narrow form form_block">
+	<div class="form__row">
+		<input type="email" class="field" placeholder="Email">
+	</div>
+	<div class="form__row toggle-transition-slide" data-states="restore:hidden">
+		<input type="password" class="field" data-states="restore:disabled">
+	</div>
+	<div class="form__row">
+		<button type="submit" class="button">
+			<div data-states="restore:hidden">Log in</div>
+			<div class="is-hidden" data-states="restore:-hidden">Restore</div>
+		</button>
+	</div>
+	<div class="form__row">
+		<div class="link" data-toggle="toggle:restore">
+			<div data-states="restore:hidden">Forgot password?</div>
+			<div class="is-hidden" data-states="restore:-hidden">Log in</div>
+		</div>
 	</div>
 </div>
 
