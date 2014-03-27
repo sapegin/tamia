@@ -43,7 +43,6 @@ class Toggle
 		tags = @wrapper.find('[data-states]')
 		tags.each((index, elem) =>
 			elem = $(elem)
-			console.log 'elem', elem[0].outerHTML
 			elem.addClass('toggle-element')
 
 			elems.push({
@@ -116,13 +115,26 @@ class Toggle
 				toggler = @getToggler(elemState)
 				action = if set is elemStates[elemState] then 'set' else 'clear'
 
-				if elemState is 'hidden'
-					# Crossfade
+				# Crossfade
+				if elemState is 'hidden' and elem.crossfade
 					next = @elems[elemIdx+1]
-					if next and next.states[state][elemState] is not elemStates[elemState]
-						visibleElem = if elem.elem[0].offsetHeight then elem.elem else next.elem
+					if next and next.states[state][elemState] isnt elemStates[elemState]
+						if elem.elem[0].offsetHeight
+							visibleElem = elem.elem
+							hiddenElem = next.elem
+						else
+							visibleElem = next.elem
+							hiddenElem = elem.elem
+
 						position = visibleElem.position()
-						position.width = visibleElem.width()
+
+						# Find width
+						hiddenClone = hiddenElem.clone()
+						hiddenClone.css({position: 'absolute', display: 'block', top: -9999, left: -999})
+						_body.append(hiddenClone)
+						position.width = Math.max(visibleElem.width(), hiddenClone.width())
+						hiddenClone.remove()
+
 						parent = elem.elem.parent()
 						parent.height(parent.height())
 						elem.elem.css(position)

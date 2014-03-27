@@ -53,7 +53,6 @@
       tags.each(function(index, elem) {
         var parent, prev;
         elem = $(elem);
-        console.log('elem', elem[0].outerHTML);
         elem.addClass('toggle-element');
         elems.push({
           elem: elem,
@@ -141,7 +140,7 @@
     };
 
     Toggle.prototype.toggleState = function(state) {
-      var action, elem, elemIdx, elemState, elemStates, next, parent, position, set, toggler, visibleElem, _i, _len, _ref, _results;
+      var action, elem, elemIdx, elemState, elemStates, hiddenClone, hiddenElem, next, parent, position, set, toggler, visibleElem, _i, _len, _ref, _results;
       set = !this.hasStateClass(state);
       this.toggleStateClass(state, set);
       _ref = this.elems;
@@ -158,12 +157,27 @@
           for (elemState in elemStates) {
             toggler = this.getToggler(elemState);
             action = set === elemStates[elemState] ? 'set' : 'clear';
-            if (elemState === 'hidden') {
+            if (elemState === 'hidden' && elem.crossfade) {
               next = this.elems[elemIdx + 1];
-              if (next && next.states[state][elemState] === !elemStates[elemState]) {
-                visibleElem = elem.elem[0].offsetHeight ? elem.elem : next.elem;
+              if (next && next.states[state][elemState] !== elemStates[elemState]) {
+                if (elem.elem[0].offsetHeight) {
+                  visibleElem = elem.elem;
+                  hiddenElem = next.elem;
+                } else {
+                  visibleElem = next.elem;
+                  hiddenElem = elem.elem;
+                }
                 position = visibleElem.position();
-                position.width = visibleElem.width();
+                hiddenClone = hiddenElem.clone();
+                hiddenClone.css({
+                  position: 'absolute',
+                  display: 'block',
+                  top: -9999,
+                  left: -999
+                });
+                _body.append(hiddenClone);
+                position.width = Math.max(visibleElem.width(), hiddenClone.width());
+                hiddenClone.remove();
                 parent = elem.elem.parent();
                 parent.height(parent.height());
                 elem.elem.css(position);
