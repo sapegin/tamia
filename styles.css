@@ -920,13 +920,22 @@ a:link {
 .form_block .select,
 .form_block .password {
   display: block;
+  width: 100%;
+}
+
+.form_block .field.is-hidden,
+.form_block .button.is-hidden,
+.form_block .select.is-hidden,
+.form_block .password.is-hidden {
+  display: none;
 }
 
 .form__group {
   margin-bottom: 20px;
 }
 
-.form__row {
+.form__row,
+.form__row.is-transit {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -934,7 +943,8 @@ a:link {
   margin-bottom: 10px;
 }
 
-.form__row:last-child {
+.form__row:last-child,
+.form__row.is-transit:last-child {
   margin-bottom: 0;
 }
 
@@ -1126,17 +1136,30 @@ a:link {
   padding: 1em;
   background: rgba(0,0,0,0.4);
   z-index: 99999;
+}
+
+.modal-shade.is-switching {
+  background: none;
+}
+
+.modal-shade,
+.modal {
   -webkit-transition: opacity .15s ease-out;
   transition: opacity .15s ease-out;
 }
 
-.modal-shade.is-hidden {
+.modal-shade.is-hidden,
+.modal.is-hidden {
   opacity: 0;
 }
 
 .modal {
   width: 100%;
   max-width: 800px;
+}
+
+.modal_fixed {
+  width: auto;
 }
 
 .l-center .modal {
@@ -1819,6 +1842,42 @@ h5:first-child,
 .gamma:first-child,
 .delta:first-child {
   margin-top: 0;
+}
+
+.toggle-element {
+  -webkit-transition: all .3s cubic-bezier(.645,.045,.355,1);
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+}
+
+.toggle-element.is-hidden {
+  display: none;
+  opacity: 0;
+}
+
+.toggle-element.is-transit {
+  display: block;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.toggle-element.toggle-transition-slide {
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+  -webkit-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.toggle-element.toggle-transition-slide.is-hidden {
+  opacity: 1;
+  -webkit-transform: translateZ(0) rotateX(90deg);
+  -ms-transform: translateZ(0) rotateX(90deg);
+  transform: translateZ(0) rotateX(90deg);
+}
+
+.toggle-crossfade-wrapper > * {
+  position: absolute;
 }
 
 .tooltip,

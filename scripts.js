@@ -290,6 +290,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		});
 	}
 
+	// Custom exception
+	tamia.Error = function(message) {
+		if (DEBUG) warn.apply(null, arguments);
+		this.name = 'TamiaError';
+		this.message = message;
+	}
+	tamia.Error.prototype = new Error;
 
 	var _containersCache;
 	var _components = {};
@@ -668,16 +675,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 				if (!gridDebugger) {
 					var columns = 12;  // @todo Use real number of columns
-					var height = document.documentElement.scrollHeight;
-					var shift = -firstRow.offset().top;
 					gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
 					gridDebugger.html(new Array((columns) + 1).join('<b class="tamia__grid-debugger-col"></b>'));
 					firstRow.prepend(gridDebugger);
 				}
 
 				gridDebugger.css({
-					'margin-top': shift,
-					'height': height
+					'margin-top': -(firstRow.offset().top + parseInt(firstRow.css('padding-top') || 0, 10)),
+					'height': $(document).height()
 				});
 			}
 
@@ -1058,7 +1063,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 (function() {
   'use strict';
-  var $, Modal, _body, _bodyClass, _doc, _ref, _wrapperTmpl,
+  var $, Modal, _body, _bodyClass, _doc, _hiddenClass, _opened, _ref, _switchingClass, _wrapperTmpl,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1070,7 +1075,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
   _bodyClass = 'modal-opened';
 
+  _switchingClass = 'is-switching';
+
+  _hiddenClass = 'is-hidden';
+
   _wrapperTmpl = '<div class="modal-shade is-hidden">\n	<div class="l-center">\n		<div class="l-center-i js-modal"></div>\n	</div>\n</div>';
+
+  _opened = null;
 
   Modal = (function(_super) {
     __extends(Modal, _super);
@@ -1102,16 +1113,40 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
     };
 
     Modal.prototype.open = function() {
+      var hide, opened,
+        _this = this;
+      if (this === _opened) {
+        return;
+      }
+      opened = _opened;
       this.initHtml();
       _body.addClass(_bodyClass);
+      if (opened) {
+        opened.close(hide = true);
+        this.wrapper.addClass(_switchingClass);
+        this.wrapper.on('appeared.tamia', function() {
+          _this.wrapper.removeClass(_switchingClass);
+          opened.wrapper.addClass(_hiddenClass);
+          return opened.elem.removeClass(_hiddenClass);
+        });
+      }
       this.wrapper.trigger('appear.tamia');
-      return _doc.on('keyup', this.keyup_);
+      _doc.on('keyup', this.keyup_);
+      return _opened = this;
     };
 
-    Modal.prototype.close = function() {
-      this.wrapper.trigger('disappear.tamia');
-      _body.removeClass(_bodyClass);
-      return _doc.off('keyup', this.keyup_);
+    Modal.prototype.close = function(hide) {
+      var elem;
+      if (hide == null) {
+        hide = false;
+      }
+      elem = hide ? this.elem : this.wrapper;
+      elem.trigger('disappear.tamia');
+      if (!hide) {
+        _body.removeClass(_bodyClass);
+      }
+      _doc.off('keyup', this.keyup_);
+      return _opened = null;
     };
 
     Modal.prototype.commit = function(event) {
@@ -1345,6 +1380,241 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
       loader.destroy();
       return container.removeData('loader');
     }
+  });
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var $, Toggle, hiddenEvents, togglers, _body, _doc;
+
+  $ = jQuery;
+
+  _body = $('body');
+
+  _doc = $(document);
+
+  togglers = {
+    hidden: {
+      set: function(elem) {
+        return elem.trigger('disappear.tamia');
+      },
+      clear: function(elem) {
+        return elem.trigger('appear.tamia');
+      }
+    },
+    disabled: {
+      set: function(elem) {
+        elem.addClass('is-disabled');
+        return elem.prop('disabled', true);
+      },
+      clear: function(elem) {
+        elem.removeClass('is-disabled');
+        return elem.prop('disabled', false);
+      }
+    },
+    _default: {
+      set: function(elem, name) {
+        return elem.addClass("is-" + name);
+      },
+      clear: function(elem, name) {
+        return elem.removeClass("is-" + name);
+      }
+    }
+  };
+
+  hiddenEvents = 'appeared.tamia disappeared.tamia';
+
+  Toggle = (function() {
+    function Toggle(wrapper) {
+      this.wrapper = wrapper;
+      this.elems = this.findElems();
+    }
+
+    Toggle.prototype.findElems = function() {
+      var elems, tags,
+        _this = this;
+      elems = [];
+      tags = this.wrapper.find('[data-states]');
+      tags.each(function(index, elem) {
+        var parent, prev;
+        elem = $(elem);
+        elem.addClass('toggle-element');
+        elems.push({
+          elem: elem,
+          states: _this.parseState(elem.data('states'))
+        });
+        prev = elems[index - 1];
+        if (prev) {
+          parent = elem.parent();
+          if (parent.children().length === 2 && parent[0] === prev.elem.parent()[0]) {
+            return prev.crossfade = true;
+          }
+        }
+      });
+      return elems;
+    };
+
+    Toggle.prototype.parseState = function(data) {
+      var elemStates, name, set, state, stateData, states, statesData, _i, _j, _len, _len1, _ref;
+      statesData = {};
+      data = data.replace(/\s+/g, '');
+      states = data.split(';');
+      for (_i = 0, _len = states.length; _i < _len; _i++) {
+        stateData = states[_i];
+        _ref = stateData.split(':'), name = _ref[0], elemStates = _ref[1];
+        elemStates = elemStates.split(',');
+        statesData[name] = {};
+        for (_j = 0, _len1 = elemStates.length; _j < _len1; _j++) {
+          state = elemStates[_j];
+          set = true;
+          if (state[0] === '-') {
+            set = false;
+            state = state.slice(1);
+          }
+          statesData[name][state] = set;
+        }
+      }
+      return statesData;
+    };
+
+    Toggle.prototype.toggle = function(link) {
+      var action, actions, func, _results;
+      actions = link.data('toggle');
+      actions = this.parseToggle(actions);
+      _results = [];
+      for (action in actions) {
+        func = "" + action + "States";
+        if (!this[func]) {
+          throw new tamia.Error("Toggle: wrong action " + action + ".", 'Available actions: toggle, set, clear.');
+        }
+        _results.push(this[func](actions[action]));
+      }
+      return _results;
+    };
+
+    Toggle.prototype.parseToggle = function(data) {
+      var action, actions, elemStates, name, toggleData, _i, _len, _ref;
+      toggleData = {};
+      data = data.replace(/\s+/g, '');
+      actions = data.split(';');
+      for (_i = 0, _len = actions.length; _i < _len; _i++) {
+        action = actions[_i];
+        _ref = action.split(':'), name = _ref[0], elemStates = _ref[1];
+        elemStates = elemStates.split(',');
+        toggleData[name] = elemStates;
+      }
+      return toggleData;
+    };
+
+    Toggle.prototype.hasStateClass = function(state) {
+      return this.wrapper.hasClass("state-" + state);
+    };
+
+    Toggle.prototype.toggleStateClass = function(state, set) {
+      return this.wrapper.toggleClass("state-" + state, set);
+    };
+
+    Toggle.prototype.toggleStates = function(states) {
+      var state, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = states.length; _i < _len; _i++) {
+        state = states[_i];
+        _results.push(this.toggleState(state));
+      }
+      return _results;
+    };
+
+    Toggle.prototype.toggleState = function(state) {
+      var action, elem, elemIdx, elemState, elemStates, hiddenClone, hiddenElem, next, parent, position, set, toggler, visibleElem, _i, _len, _ref, _results;
+      set = !this.hasStateClass(state);
+      this.toggleStateClass(state, set);
+      _ref = this.elems;
+      _results = [];
+      for (elemIdx = _i = 0, _len = _ref.length; _i < _len; elemIdx = ++_i) {
+        elem = _ref[elemIdx];
+        elemStates = elem.states[state];
+        if (!elemStates) {
+          continue;
+        }
+        _results.push((function() {
+          var _results1;
+          _results1 = [];
+          for (elemState in elemStates) {
+            toggler = this.getToggler(elemState);
+            action = set === elemStates[elemState] ? 'set' : 'clear';
+            if (elemState === 'hidden' && elem.crossfade) {
+              next = this.elems[elemIdx + 1];
+              if (next && next.states[state][elemState] !== elemStates[elemState]) {
+                if (elem.elem[0].offsetHeight) {
+                  visibleElem = elem.elem;
+                  hiddenElem = next.elem;
+                } else {
+                  visibleElem = next.elem;
+                  hiddenElem = elem.elem;
+                }
+                position = visibleElem.position();
+                hiddenClone = hiddenElem.clone();
+                hiddenClone.css({
+                  position: 'absolute',
+                  display: 'block',
+                  top: -9999,
+                  left: -999
+                });
+                _body.append(hiddenClone);
+                position.width = Math.max(visibleElem.width(), hiddenClone.width());
+                hiddenClone.remove();
+                parent = elem.elem.parent();
+                parent.height(parent.height());
+                elem.elem.css(position);
+                next.elem.css(position);
+                parent.addClass('toggle-crossfade-wrapper');
+                elem.elem.one(hiddenEvents, (function(elem, next, parent) {
+                  elem.elem.off(hiddenEvents);
+                  return setTimeout((function() {
+                    parent.height('');
+                    position = {
+                      left: '',
+                      top: '',
+                      width: ''
+                    };
+                    elem.elem.css(position);
+                    next.elem.css(position);
+                    return parent.removeClass('toggle-crossfade-wrapper');
+                  }), 100);
+                }).bind(this, elem, next, parent));
+              }
+            }
+            _results1.push(toggler[action](elem.elem, elemState));
+          }
+          return _results1;
+        }).call(this));
+      }
+      return _results;
+    };
+
+    Toggle.prototype.getToggler = function(state) {
+      return togglers[state] || togglers._default;
+    };
+
+    return Toggle;
+
+  })();
+
+  _doc.on('click', '[data-toggle]', function(event) {
+    var elem, toggle, wrapper;
+    elem = $(event.currentTarget);
+    wrapper = elem.closest('.js-toggle-wrapper');
+    if (!wrapper.length) {
+      throw new tamia.Error('Toggle: .js-toggle-wrapper not found.', elem);
+    }
+    toggle = wrapper.data('tamia-toggle');
+    if (!toggle) {
+      toggle = new Toggle(wrapper);
+      wrapper.data('tamia-toggle', toggle);
+    }
+    toggle.toggle(elem);
+    return event.preventDefault();
   });
 
 }).call(this);

@@ -775,6 +775,118 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 	</div>
 </div>
 
+<h1 id="toggle-">Toggle ß</h1>
+<p>Magic content toggler.</p>
+<h2 id="markup">Markup</h2>
+<pre><code>&lt;div class=&quot;js-toggle-wrapper form form_block&quot;&gt;
+    &lt;div class=&quot;form__row&quot;&gt;
+        &lt;input type=&quot;email&quot; class=&quot;field&quot; placeholder=&quot;Email&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form__row toggle-transition-slide&quot; data-states=&quot;restore:hidden&quot;&gt;
+        &lt;input type=&quot;password&quot; class=&quot;field&quot; data-states=&quot;restore:disabled&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form__row&quot;&gt;
+        &lt;button type=&quot;submit&quot; class=&quot;button&quot;&gt;
+            &lt;div data-states=&quot;restore:hidden&quot;&gt;Log in&lt;/div&gt;
+            &lt;div class=&quot;is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Restore&lt;/div&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form__row&quot;&gt;
+        &lt;div class=&quot;link&quot; data-toggle=&quot;toggle:restore&quot;&gt;
+            &lt;div data-states=&quot;restore:hidden&quot;&gt;Forgot password?&lt;/div&gt;
+            &lt;div class=&quot;is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Log in&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h2 id="states">States</h2>
+<p>There are two kind of states:</p>
+<ul>
+<li>Wrapper states: define different look of your UI. You can switch wrapper sates with togglers (see below).</li>
+<li>Element states: define look of particular elements (hidden, disabled, etc.) as a reaction for wrapper state switching.</li>
+</ul>
+<p>For every wrapper state you could define which element states should be added or removed.</p>
+<p>For example this element will be hidden at <code>restore</code> state:</p>
+<pre><code>&lt;div data-states=&quot;restore:hidden&quot;&gt;Log in&lt;/div&gt;
+</code></pre><p>But this one will be visible:</p>
+<pre><code>&lt;div class=&quot;is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Restore&lt;/div&gt;
+</code></pre><p>You could react to or change any number of states:</p>
+<pre><code>&lt;input data-states=&quot;restore:hidden,disabled; login:highlighted&quot;&gt;
+</code></pre><p>You should set initial states for wrapper (<code>&lt;div class=&quot;js-toggle-wrapper state-restore&quot;&gt;</code>) and elements (<code>&lt;div class=&quot;is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Restore&lt;/div&gt;</code>) in your markup.</p>
+<p>You can use wrapper state classes (<code>.state-restore</code>) to add custom CSS.</p>
+<h3 id="elements-states">Elements States</h3>
+<p>Basically element state is an <code>.is-statename</code> CSS class. But some states imply additional magic:</p>
+<ul>
+<li><code>hidden</code> will also trigger <code>appear.tamia</code>/<code>disappear.tamia</code> events.</li>
+<li><code>disabled</code> will also add/remove <code>disabled</code> attribute.</li>
+</ul>
+<h2 id="togglers">Togglers</h2>
+<p>You can toggle state with a special link:</p>
+<pre><code>&lt;span class=&quot;link&quot; data-toggle=&quot;toggle:restore&quot;&gt;Toggle&lt;/span&gt;
+</code></pre><p>Or several states at once:</p>
+<pre><code>&lt;span class=&quot;link&quot; data-toggle=&quot;toggle:restore,login&quot;&gt;Toggle&lt;/span&gt;
+</code></pre><h2 id="transitions">Transitions</h2>
+<p>By default element states change with fade transition (crossfade when necessary) but you can use different transition:</p>
+<pre><code>&lt;div class=&quot;form__row toggle-transition-slide&quot; data-states=&quot;restore:hidden&quot;&gt;&lt;/div&gt;
+</code></pre><h3 id="available-transitions">Available Transitions</h3>
+<ul>
+<li><code>toggle-transition-slide</code>: kind of slide transition (unfinished).</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<h3 id="toggle_transition_time">toggle_transition_time</h3>
+<p>Type: CSS duration value.</p>
+<p>Duration of appearing/disappearing animation.</p>
+
+
+<h2>Examples</h2>
+
+<div class="example"><div class="js-toggle-wrapper form form_block">
+	<div class="form__row">
+		<input type="email" class="field" placeholder="Email">
+	</div>
+	<div class="form__row toggle-transition-slide" data-states="restore:hidden">
+		<input type="password" class="field" data-states="restore:disabled">
+	</div>
+	<div class="form__row">
+		<button type="submit" class="button">
+			<div data-states="restore:hidden">Log in</div>
+			<div class="is-hidden" data-states="restore:-hidden">Restore</div>
+		</button>
+	</div>
+	<div class="form__row">
+		<div data-toggle="toggle:restore">
+			<div class="link" data-states="restore:hidden">Forgot password?</div>
+			<div class="link is-hidden" data-states="restore:-hidden">Log in</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_17">Show/hide code</span></div>
+	<div class="is-hidden" id="example_17">
+		<pre><code class="html">&lt;div class=&quot;js-toggle-wrapper form form_block&quot;&gt;
+	&lt;div class=&quot;form__row&quot;&gt;
+		&lt;input type=&quot;email&quot; class=&quot;field&quot; placeholder=&quot;Email&quot;&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form__row toggle-transition-slide&quot; data-states=&quot;restore:hidden&quot;&gt;
+		&lt;input type=&quot;password&quot; class=&quot;field&quot; data-states=&quot;restore:disabled&quot;&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form__row&quot;&gt;
+		&lt;button type=&quot;submit&quot; class=&quot;button&quot;&gt;
+			&lt;div data-states=&quot;restore:hidden&quot;&gt;Log in&lt;/div&gt;
+			&lt;div class=&quot;is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Restore&lt;/div&gt;
+		&lt;/button&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form__row&quot;&gt;
+		&lt;div data-toggle=&quot;toggle:restore&quot;&gt;
+			&lt;div class=&quot;link&quot; data-states=&quot;restore:hidden&quot;&gt;Forgot password?&lt;/div&gt;
+			&lt;div class=&quot;link is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Log in&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+	</div>
+</div>
+
 <h1 id="tooltip">Tooltip</h1>
 <p>Simple tooltips.</p>
 <h2 id="markup">Markup</h2>
@@ -790,8 +902,8 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 <div class="example"><span class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</span>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_17">Show/hide code</span></div>
-	<div class="is-hidden" id="example_17">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_18">Show/hide code</span></div>
+	<div class="is-hidden" id="example_18">
 		<pre><code class="html">&lt;span class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/span&gt;
 </code></pre>
 	</div>
