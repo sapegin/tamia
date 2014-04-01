@@ -28,6 +28,7 @@ module.exports = (grunt) ->
 				'tamia/*.coffee'
 				'modules/*/*.coffee'
 				'specs/test.coffee'
+				'tests/*.coffee'
 			]
 		coffee:
 			tamia:
@@ -74,6 +75,9 @@ module.exports = (grunt) ->
 				files:
 					'docs/styles.css': 'docs_src/docs.styl'
 		casperjs:
+			options:
+				async:
+					parallel: true
 			tests: 'tests/*.coffee'
 		watch:
 			livereload:

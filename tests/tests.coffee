@@ -1,15 +1,18 @@
 # Tâmia tests
 # Requires CasperJS 1.1
+#
+# Debug:
+# casperjs test --verbose --log-level=debug tests/tests.coffee
 
 casper.on 'remote.message', (message) ->
-    console.log 'BROWSER:', message
+	console.log 'BROWSER:', message
 
 casper.count = (s) ->
 	@evaluate ((s) ->
 		(document.querySelectorAll s).length
 	), s
 
-casper.test.begin('Tâmia', 72, suite = (test) ->
+casper.test.begin('Tâmia', 74, suite = (test) ->
 
 	casper.start 'specs/specs.html'
 
@@ -248,6 +251,12 @@ casper.test.begin('Tâmia', 72, suite = (test) ->
 		test.assertEval (-> !(jQuery '.js-form .js-field-1').prop('disabled')), 'Form: First field doesn’t have disabled attribute'
 		test.assertEval (-> !(jQuery '.js-form .js-field-2').prop('disabled')), 'Form: Second field doesn’t have disabled attribute'
 		test.assertEval (-> !(jQuery '.js-form .js-button-1').prop('disabled')), 'Form: Submit doesn’t have disabled attribute'
+
+	# Preload
+	casper.wait 250, ->
+		test.assertEval (-> (window.preload_fired is true)), 'Preload: Image preloaded'
+		test.assertEval (-> (window.preload_err is null)), 'Preload: No errors'
+
 
 	casper.run ->
 		test.done()
