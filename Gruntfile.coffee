@@ -59,7 +59,7 @@ module.exports = (grunt) ->
 				paths: ['.']
 				urlfunc: 'embedurl'
 				use: [
-					() -> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8', 'ie 9')
+					-> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8', 'ie 9')
 				]
 				define:
 					import_tree: (require 'stylus-import-tree')
