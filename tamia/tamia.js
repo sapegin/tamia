@@ -4,7 +4,7 @@
 // jQuery and Modernizr aren’t required but very useful
 
 /*jshint newcap:false*/
-/*global DEBUG:true, Modernizr:false, console:false*/
+/*global DEBUG:true, Modernizr:false, console:false, ga:false*/
 
 /**
  * Debug mode.
@@ -82,8 +82,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		if (DEBUG) warn.apply(null, arguments);
 		this.name = 'TamiaError';
 		this.message = message;
-	}
-	tamia.Error.prototype = new Error;
+	};
+	tamia.Error.prototype = new Error();
 
 	var _containersCache;
 	var _components = {};
@@ -364,7 +364,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			return tmpl.replace(/\{([^\}]+)\}/g, function(m, key) {
 				return data[key] || '';
 			});
-		}
+		};
 
 		var _templates = window.__templates;
 		if (_templates) {
@@ -454,7 +454,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					}
 				});
 				layoutClassesAdded = true;
-			}
+			};
 
 			var addGrid = function() {
 				var firstRow = jQuery('.tamia__grid-row,.tamia__layout-row').first();
@@ -471,7 +471,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					'margin-top': -(firstRow.offset().top + parseInt(firstRow.css('padding-top') || 0, 10)),
 					'height': $(document).height()
 				});
-			}
+			};
 
 			_doc.on('keydown', function(event) {
 				var activeTag = document.activeElement.tagName;
