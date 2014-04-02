@@ -27,4 +27,4 @@ parse = (images) ->
 	return images
 
 
-window.preload = Preload
+window.preload = preload
