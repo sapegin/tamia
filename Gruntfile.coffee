@@ -18,12 +18,7 @@ module.exports = (grunt) ->
 			]
 		coffeelint:
 			options:
-				no_tabs: level: 'ignore'
-				indentation: level: 'ignore'
-				max_line_length: level: 'ignore'
-				arrow_spacing: level: 'error'
-				no_empty_param_list: level: 'error'
-				no_stand_alone_at: level: 'error'
+				configFile: 'coffeelint.json'
 			files: [
 				'tamia/*.coffee'
 				'modules/*/*.coffee'
