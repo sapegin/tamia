@@ -435,7 +435,7 @@ target.on('test.tamia', function(event, one, two) {
 <script>
 var preload_fired = false;
 var preload_err = false;
-preload(
+tamia.preload(
 	'../modules/spinner/spinner.gif',
 	function(err) {
 		preload_fired = true;

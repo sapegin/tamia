@@ -27,4 +27,4 @@ parse = (images) ->
 	return images
 
 
-window.preload = preload
+tamia.preload = preload
