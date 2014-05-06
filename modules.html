@@ -499,6 +499,21 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 	</div>
 </div>
 
+<h1 id="preload">Preload</h1>
+<p>Image preload.</p>
+<h2 id="usage">Usage</h2>
+<pre><code>preload(
+    [
+        &#39;../images/homepage-iphone.png&#39;,
+        &#39;../images/homepage-iphone-screenshot.png&#39;
+    ],
+    function(err) {
+        // `err` contains array of not loaded images or null
+        console.log(&#39;Images preloaded. Errors:&#39;, err);
+    }
+);
+</code></pre>
+
 <h1 id="print">Print</h1>
 <p>Print stylesheet.</p>
 <h2 id="configuration">Configuration</h2>
@@ -513,11 +528,10 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 <p>Classes and tweaks for better typography.</p>
 <h2 id="markup">Markup</h2>
 <h3 id="abbreviations-with-spacing">Abbreviations with spacing</h3>
-<div class="text">
-    <p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
-</div>
-
-<h3 id="the-best-ampersand">The best ampersand</h3>
+<pre><code>&lt;div class=&quot;text&quot;&gt;
+    &lt;p&gt;&lt;abbr&gt;PNG&lt;/abbr&gt;, &lt;abbr&gt;GIF&lt;/abbr&gt; (animated or not) and &lt;abbr&gt;JPEG&lt;/abbr&gt; formats.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre><h3 id="the-best-ampersand">The best ampersand</h3>
 <pre><code>Nuts &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt; Bolts.
 </code></pre><h3 id="hanging-punctuation">Hanging punctuation</h3>
 <pre><code>Awesome Web Typography with &lt;span class=&quot;slaquo&quot;&gt; &lt;/span&gt; &lt;span class=&quot;hlaquo&quot;&gt;“&lt;/span&gt;Richtypo”&#39;

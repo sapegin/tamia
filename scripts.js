@@ -217,7 +217,7 @@
 // jQuery and Modernizr aren’t required but very useful
 
 /*jshint newcap:false*/
-/*global DEBUG:true, Modernizr:false, console:false*/
+/*global DEBUG:true, Modernizr:false, console:false, ga:false*/
 
 /**
  * Debug mode.
@@ -250,6 +250,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	// Namespace
 	var tamia = window.tamia = {};
 
+	// Shortcuts
+	var slice = Array.prototype.slice;
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+
 
 	if (DEBUG) {
 		// Debug logger
@@ -267,7 +271,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			return args;
 		};
 		var logger = function() {
-			var args = Array.prototype.slice.call(arguments);
+			var args = slice.call(arguments);
 			var func = args.shift();
 			console[func].apply(console, addBadge(args, 'Tâmia'));
 		};
@@ -290,13 +294,15 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		});
 	}
 
+
 	// Custom exception
 	tamia.Error = function(message) {
 		if (DEBUG) warn.apply(null, arguments);
 		this.name = 'TamiaError';
 		this.message = message;
-	}
-	tamia.Error.prototype = new Error;
+	};
+	tamia.Error.prototype = new Error();
+
 
 	var _containersCache;
 	var _components = {};
@@ -318,7 +324,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 *   tamia.initComponents({
 	 *     // New style component
-	 *     pony: Pony,  // class Pony extends Component {...}
+	 *     pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -362,7 +368,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			if (!component || container.hasAttribute(_initializedAttribute)) continue;
 
 			var initialized = true;
-			if ('__tamia_cmpnt__' in component) {
+			if (component.prototype && component.prototype.__tamia_cmpnt__) {
 				// New style component
 				initialized = (new component(container)).initializable;
 			}
@@ -395,6 +401,65 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			_components[name] = components[name];
 		}
 	};
+
+
+	/**
+	 * JavaScript inheritance.
+	 *
+	 * Example:
+	 *
+	 *   var Pony = tamia.extend(tamia.Component, {
+	 *     init: function() {
+	 *       // ...
+	 *     }
+	 *   });
+	 */
+	tamia.extend = function(parent, props) {
+		// Adapted from Backbone
+		var child;
+
+		// The constructor function for the new subclass is either defined by you (the "constructor" property
+		// in your `extend` definition), or defaulted by us to simply call the parent's constructor.
+		if (props && hasOwnProperty.call(props, 'constructor')) {
+			child = props.constructor;
+		}
+		else {
+			child = function() { return parent.apply(this, arguments); };
+		}
+
+		// Set the prototype chain to inherit from `parent`, without calling `parent`'s constructor function.
+		var Ctor = function() { this.constructor = child; };
+		Ctor.prototype = parent.prototype;
+		child.prototype = new Ctor();
+
+		// Add prototype properties (instance properties) to the subclass, if supplied.
+		if (props) {
+			for (var prop in props) {
+				child.prototype[prop] = props[prop];
+			}
+		}
+
+		// Set a convenience property in case the parent's prototype is needed later.
+		child.__super__ = parent.prototype;
+
+		return child;
+	};
+
+
+	/**
+	 * Delays a function for the given number of milliseconds, and then calls it with the specified arguments.
+	 *
+	 * @param {Function} func Function to call.
+	 * @param {Object} [context] Function context (default: global).
+	 * @param {Number} [wait] Time to wait, milliseconds (default: 0).
+	 * @param {Mixed} [param1, param2...] Any params to pass to function.
+	 * @return {TimeoutId} Timeout handler.
+	 */
+	tamia.delay = function(func, context, wait) {
+		var args = slice.call(arguments, 3);
+		return setTimeout(function() { return func.apply(context || null, args); }, wait || 0);
+	};
+
 
 	if (jQuery) {
 
@@ -577,7 +642,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			return tmpl.replace(/\{([^\}]+)\}/g, function(m, key) {
 				return data[key] || '';
 			});
-		}
+		};
 
 		var _templates = window.__templates;
 		if (_templates) {
@@ -667,7 +732,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					}
 				});
 				layoutClassesAdded = true;
-			}
+			};
 
 			var addGrid = function() {
 				var firstRow = jQuery('.tamia__grid-row,.tamia__layout-row').first();
@@ -684,7 +749,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					'margin-top': -(firstRow.offset().top + parseInt(firstRow.css('padding-top') || 0, 10)),
 					'height': $(document).height()
 				});
-			}
+			};
 
 			_doc.on('keydown', function(event) {
 				var activeTag = document.activeElement.tagName;
@@ -707,917 +772,819 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 }(window, window.jQuery, window.Modernizr));
 
-(function() {
-  'use strict';
-  var $, Component,
-    __slice = [].slice;
-
-  $ = jQuery;
-
-  /*
-  JS component base class.
-  
-  Elements: any HTML element with class name that follow a pattern `.js-name` where `name` is an element name.
-  
-  States: any class on component root HTML node that follow a pattern `.is-state` where `state` is a state name.
-  After initialization all components will have `ok` state.
-  
-  Example:
-  
-    class Pony extends Component
-      init: ->
-        @on('click', 'toggle', @toggle)
-      toggle: ->
-        @toggleState('pink')
-  
-    tamia.initComponents(pony: Pony)
-  
-    <div class="pink-pony is-pink" data-component="pony">
-      <button class="pink-pony__button js-toggle">To pink or not to pink?</div>
-    </div>
-  */
-
-
-  Component = (function() {
-    function Component(elem) {
-      if (!elem || elem.nodeType !== 1) {
-        throw new ReferenceError('No DOM node passed to Component constructor.');
-      }
-      this.elemNode = elem;
-      this.elem = $(elem);
-      this.initializable = this.isInitializable();
-      if (!this.initializable) {
-        return;
-      }
-      this._fillStates();
-      if (this.isSupported()) {
-        this.handlers = {};
-        this.init();
-        this.addState('ok');
-      } else {
-        this.fallback();
-        this.addState('unsupported');
-      }
-    }
-
-    /*
-    	Put all your initialization code in this method.
-    */
-
-
-    Component.prototype.init = function() {};
-
-    /*
-    	You can implement this method to do destroy component.
-    */
-
-
-    Component.prototype.destroy = function() {};
-
-    /*
-    	Implement this method if you want to check whether browser is good for your component or not.
-    
-    	@returns {Boolean}
-    */
-
-
-    Component.prototype.isSupported = function() {
-      return true;
-    };
-
-    /*
-    	Implement this method if you want to check whether component could be initialized.
-    
-    	Example:
-    
-    	  isInitializable: ->
-    	    # Do not initialize component if it's not visible
-    	    @isVisible()
-    
-    	@return {Boolean}
-    */
-
-
-    Component.prototype.isInitializable = function() {
-      return true;
-    };
-
-    /*
-    	You can implement this method to do some fallbacks. It will be called if isSupported() returns false.
-    */
-
-
-    Component.prototype.fallback = function() {};
-
-    /*
-    	Finds element.
-    
-    	@param {String} name Element ID.
-    
-    	@return {jQuery} Element with .js-name class.
-    */
-
-
-    Component.prototype.find = function(name) {
-      return this.elem.find(".js-" + name).first();
-    };
-
-    /*
-    	Attaches event handler.
-    
-    	@param {String} events Event names (space separated).
-    	@param {String} [element] Element id.
-    	@param {Function} handler Handler function (scope will automatically sets to this).
-    */
-
-
-    Component.prototype.on = function() {
-      var args;
-      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      return this._toggleEvent.apply(this, ['on'].concat(__slice.call(args)));
-    };
-
-    /*
-    	Detaches event handler.
-    
-    	@param {String} events Event names (space separated).
-    	@param {String} [element] Element id.
-    	@param {Function} handler Handler function (scope will automatically sets to this).
-    */
-
-
-    Component.prototype.off = function() {
-      var args;
-      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      return this._toggleEvent.apply(this, ['off'].concat(__slice.call(args)));
-    };
-
-    /*
-    	Returns component state.
-    
-    	@param {String} [name] State name.
-    
-    	@return {Boolean} Sate value.
-    */
-
-
-    Component.prototype.hasState = function(name) {
-      return !!this.states[name];
-    };
-
-    /*
-    	Sets state to true.
-    
-    	@param {String} [name] State name.
-    */
-
-
-    Component.prototype.addState = function(name) {
-      return this.toggleState(name, true);
-    };
-
-    /*
-    	Sets state to false.
-    
-    	@param {String} [name] State name.
-    */
-
-
-    Component.prototype.removeState = function(name) {
-      return this.toggleState(name, false);
-    };
-
-    /*
-    	Toggles state value.
-    
-    	@param {String} [name] State name.
-    	@param {Boolean} [value] State value.
-    */
-
-
-    Component.prototype.toggleState = function(name, value) {
-      if (value == null) {
-        value = !this.states[name];
-      }
-      this.states[name] = value;
-      return this._updateStates();
-    };
-
-    /*
-    	Returns component visibility.
-    
-    	@return {Boolean}
-    */
-
-
-    Component.prototype.isVisible = function() {
-      return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
-    };
-
-    Component.prototype._toggleEvent = function() {
-      var action, args, func, funcArg, handler, _ref;
-      action = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-      if (typeof args[1] === 'string') {
-        args[1] = ".js-" + args[1];
-      }
-      funcArg = args.length - 1;
-      func = args[funcArg];
-      handler;
-      if (this.handlers[func]) {
-        handler = this.handlers[func];
-      }
-      if (action === 'on') {
-        if (handler) {
-          handler.counter++;
-        } else {
-          this.handlers[func] = handler = {
-            counter: 1,
-            func: func.bind(this)
-          };
-        }
-      }
-      if (!handler) {
-        return;
-      }
-      args[funcArg] = handler.func;
-      (_ref = this.elem)[action].apply(_ref, args);
-      if (action === 'off') {
-        handler.counter--;
-        if (handler.counter <= 0) {
-          return this.handlers[func] = null;
-        }
-      }
-    };
-
-    Component.prototype._fillStates = function() {
-      var classes, cls, clsName, re, states;
-      states = {};
-      classes = this.elemNode.className.split(' ');
-      for (clsName in classes) {
-        cls = classes[clsName];
-        re = /^is-/;
-        if (re.test(cls)) {
-          states[cls.replace(re, '')] = true;
-        }
-      }
-      return this.states = states;
-    };
-
-    Component.prototype._updateStates = function() {
-      var classes, name;
-      classes = this.elemNode.className;
-      classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
-      classes = classes.split(/\s+/);
-      for (name in this.states) {
-        if (this.states[name]) {
-          classes.push("is-" + name);
-        }
-      }
-      return this.elemNode.className = classes.join(' ');
-    };
-
-    return Component;
-
-  })();
-
-  Component.__tamia_cmpnt__ = true;
-
-  window.Component = Component;
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, Flippable, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  $ = jQuery;
-
-  Flippable = (function(_super) {
-    __extends(Flippable, _super);
-
-    function Flippable() {
-      _ref = Flippable.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    Flippable.prototype.init = function() {
-      if (this.elem.hasClass('js-flip')) {
-        return this.on('click', this.toggle);
-      } else {
-        return this.on('click', 'flip', this.toggle);
-      }
-    };
-
-    Flippable.prototype.toggle = function() {
-      this.toggleState('flipped');
-      return this.elem.trigger('flipped.tamia', this.hasState('flipped'));
-    };
-
-    return Flippable;
-
-  })(Component);
-
-  tamia.initComponents({
-    flippable: Flippable
-  });
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, _disabledClass, _enableDisable, _formElementsSelector;
-
-  $ = jQuery;
-
-  _formElementsSelector = '.field,.button,.disablable';
-
-  _disabledClass = 'is-disabled';
-
-  _enableDisable = function(elem, enable) {
-    var formElements;
-    formElements = ($(elem)).find(_formElementsSelector).addBack(_formElementsSelector);
-    formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
-    return formElements.attr('disabled', !enable);
-  };
-
-  tamia.registerEvents({
-    /*
-    	Enables all descendant form elements.
-    */
-
-    enable: function(elem) {
-      return _enableDisable(elem, true);
-    },
-    /*
-    	Disables all descendant form elements.
-    */
-
-    disable: function(elem) {
-      return _enableDisable(elem, false);
-    }
-  });
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, Modal, _body, _bodyClass, _doc, _hiddenClass, _opened, _ref, _switchingClass, _wrapperTmpl,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  $ = jQuery;
-
-  _body = $('body');
-
-  _doc = $(document);
-
-  _bodyClass = 'modal-opened';
-
-  _switchingClass = 'is-switching';
-
-  _hiddenClass = 'is-hidden';
-
-  _wrapperTmpl = '<div class="modal-shade is-hidden">\n	<div class="l-center">\n		<div class="l-center-i js-modal"></div>\n	</div>\n</div>';
-
-  _opened = null;
-
-  Modal = (function(_super) {
-    __extends(Modal, _super);
-
-    function Modal() {
-      _ref = Modal.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    Modal.prototype.init = function() {
-      this.elem.data('modal', this);
-      this.on('click', 'modal-commit', this.commit);
-      this.on('click', 'modal-dismiss', this.dismiss);
-      this.keyup_ = this.keyup.bind(this);
-      if (this.elem.data('modal-open')) {
-        return this.open();
-      }
-    };
-
-    Modal.prototype.initHtml = function() {
-      if (this.wrapper) {
-        return;
-      }
-      this.wrapper = $(_wrapperTmpl);
-      this.wrapper.find('.js-modal').append(this.elem);
-      this.wrapper.on('click', this.shadeClick.bind(this));
-      _body.append(this.wrapper);
-      return this.removeState('hidden');
-    };
-
-    Modal.prototype.open = function() {
-      var hide, opened,
-        _this = this;
-      if (this === _opened) {
-        return;
-      }
-      opened = _opened;
-      this.initHtml();
-      _body.addClass(_bodyClass);
-      if (opened) {
-        opened.close(hide = true);
-        this.wrapper.addClass(_switchingClass);
-        this.wrapper.on('appeared.tamia', function() {
-          _this.wrapper.removeClass(_switchingClass);
-          opened.wrapper.addClass(_hiddenClass);
-          return opened.elem.removeClass(_hiddenClass);
-        });
-      }
-      this.wrapper.trigger('appear.tamia');
-      _doc.on('keyup', this.keyup_);
-      return _opened = this;
-    };
-
-    Modal.prototype.close = function(hide) {
-      var elem;
-      if (hide == null) {
-        hide = false;
-      }
-      elem = hide ? this.elem : this.wrapper;
-      elem.trigger('disappear.tamia');
-      if (!hide) {
-        _body.removeClass(_bodyClass);
-      }
-      _doc.off('keyup', this.keyup_);
-      return _opened = null;
-    };
-
-    Modal.prototype.commit = function(event) {
-      return this.done(event, 'commit');
-    };
-
-    Modal.prototype.dismiss = function(event) {
-      return this.done(event, 'dismiss');
-    };
-
-    Modal.prototype.done = function(event, type) {
-      var typeEvent;
-      if (event != null) {
-        event.preventDefault();
-      }
-      typeEvent = $.Event(type + '.modal.tamia');
-      this.elem.trigger(typeEvent);
-      if (typeEvent.isDefaultPrevented()) {
-        return;
-      }
-      return this.close();
-    };
-
-    Modal.prototype.keyup = function(event) {
-      if (event.which === 27) {
-        return this.dismiss(event);
-      }
-    };
-
-    Modal.prototype.shadeClick = function(event) {
-      if ($(event.target).hasClass('js-modal')) {
-        return this.dismiss(event);
-      }
-    };
-
-    return Modal;
-
-  })(Component);
-
-  tamia.registerEvents({
-    'open.modal': function(elem) {
-      var container, modal;
-      container = $(elem);
-      modal = container.data('modal');
-      if (!modal) {
-        modal = new Modal(elem);
-      }
-      return modal.open();
-    }
-  });
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, Password, supported, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  $ = jQuery;
-
-  supported = void 0;
-
-  Password = (function(_super) {
-    __extends(Password, _super);
-
-    function Password() {
-      _ref = Password.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    Password.prototype.init = function() {
-      this.types = {
-        locked: 'password',
-        unlocked: 'text'
-      };
-      this.fieldElem = this.find('field');
-      this.toggleElem = this.find('toggle');
-      return this.on('mousedown', 'toggle', this.toggle);
-    };
-
-    Password.prototype.isSupported = function() {
-      if (supported !== void 0) {
-        return supported;
-      }
-      supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
-      return supported;
-    };
-
-    Password.prototype.toggle = function() {
-      var fieldType, focused, locked,
-        _this = this;
-      focused = document.activeElement === this.fieldElem[0];
-      locked = this.hasState('unlocked');
-      fieldType = this.fieldElem.attr('type');
-      this.toggleState('unlocked');
-      if (fieldType === this.types.locked && !locked) {
-        this.fieldElem.attr('type', this.types.unlocked);
-      } else if (fieldType === this.types.unlocked && locked) {
-        this.fieldElem.attr('type', this.types.locked);
-      }
-      if (focused) {
-        return setTimeout((function() {
-          return _this.fieldElem.focus();
-        }), 0);
-      }
-    };
-
-    return Password;
-
-  })(Component);
-
-  tamia.initComponents({
-    password: Password
-  });
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, Select, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  $ = jQuery;
-
-  Select = (function(_super) {
-    __extends(Select, _super);
-
-    function Select() {
-      _ref = Select.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    Select.prototype.init = function() {
-      this.selectElem = this.find('select');
-      this.boxElem = this.find('box');
-      this.on('focus', 'select', this.focus);
-      this.on('blur', 'select', this.blur);
-      this.on('change', 'select', this.change);
-      return this.change();
-    };
-
-    Select.prototype.focus = function() {
-      return this.addState('focused');
-    };
-
-    Select.prototype.blur = function() {
-      return this.removeState('focused');
-    };
-
-    Select.prototype.change = function() {
-      return this.boxElem.text(this.selectElem.find(':selected').text());
-    };
-
-    return Select;
-
-  })(Component);
-
-  tamia.initComponents({
-    select: Select
-  });
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, Loader, _loaderTmpl, _ref, _shadeSelector, _wrapperClass,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  $ = jQuery;
-
-  _wrapperClass = 'loader-wrapper';
-
-  _shadeSelector = '.loader-shade';
-
-  _loaderTmpl = '<div class="loader-shade">\n	<div class="l-center">\n		<div class="l-center-i">\n			<div class="spinner spinner_big"></div>\n		</div>\n	</div>\n</div>';
-
-  Loader = (function(_super) {
-    __extends(Loader, _super);
-
-    function Loader() {
-      _ref = Loader.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    Loader.prototype.init = function() {
-      var _this = this;
-      this.initHtml();
-      return setTimeout((function() {
-        return _this.addState('loading');
-      }), 0);
-    };
-
-    Loader.prototype.destroy = function() {
-      var _this = this;
-      this.removeState('loading');
-      return this.elem.find(_shadeSelector).afterTransition(function() {
-        _this.elem.removeClass(_wrapperClass);
-        return _this.loader.remove();
-      });
-    };
-
-    Loader.prototype.initHtml = function() {
-      this.elem.addClass(_wrapperClass);
-      this.loader = $(_loaderTmpl);
-      return this.elem.append(this.loader);
-    };
-
-    return Loader;
-
-  })(Component);
-
-  tamia.registerEvents({
-    'loading-start': function(elem) {
-      var container;
-      container = $(elem);
-      if (container.data('loader')) {
-        return;
-      }
-      return container.data('loader', new Loader(elem));
-    },
-    'loading-stop': function(elem) {
-      var container, loader;
-      container = $(elem);
-      loader = container.data('loader');
-      if (!loader) {
-        return;
-      }
-      loader.destroy();
-      return container.removeData('loader');
-    }
-  });
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var $, Toggle, hiddenEvents, togglers, _body, _doc;
-
-  $ = jQuery;
-
-  _body = $('body');
-
-  _doc = $(document);
-
-  togglers = {
-    hidden: {
-      set: function(elem) {
-        return elem.trigger('disappear.tamia');
-      },
-      clear: function(elem) {
-        return elem.trigger('appear.tamia');
-      }
-    },
-    disabled: {
-      set: function(elem) {
-        elem.addClass('is-disabled');
-        return elem.prop('disabled', true);
-      },
-      clear: function(elem) {
-        elem.removeClass('is-disabled');
-        return elem.prop('disabled', false);
-      }
-    },
-    _default: {
-      set: function(elem, name) {
-        return elem.addClass("is-" + name);
-      },
-      clear: function(elem, name) {
-        return elem.removeClass("is-" + name);
-      }
-    }
-  };
-
-  hiddenEvents = 'appeared.tamia disappeared.tamia';
-
-  Toggle = (function() {
-    function Toggle(wrapper) {
-      this.wrapper = wrapper;
-      this.elems = this.findElems();
-    }
-
-    Toggle.prototype.findElems = function() {
-      var elems, tags,
-        _this = this;
-      elems = [];
-      tags = this.wrapper.find('[data-states]');
-      tags.each(function(index, elem) {
-        var parent, prev;
-        elem = $(elem);
-        elem.addClass('toggle-element');
-        elems.push({
-          elem: elem,
-          states: _this.parseState(elem.data('states'))
-        });
-        prev = elems[index - 1];
-        if (prev) {
-          parent = elem.parent();
-          if (parent.children().length === 2 && parent[0] === prev.elem.parent()[0]) {
-            return prev.crossfade = true;
-          }
-        }
-      });
-      return elems;
-    };
-
-    Toggle.prototype.parseState = function(data) {
-      var elemStates, name, set, state, stateData, states, statesData, _i, _j, _len, _len1, _ref;
-      statesData = {};
-      data = data.replace(/\s+/g, '');
-      states = data.split(';');
-      for (_i = 0, _len = states.length; _i < _len; _i++) {
-        stateData = states[_i];
-        _ref = stateData.split(':'), name = _ref[0], elemStates = _ref[1];
-        elemStates = elemStates.split(',');
-        statesData[name] = {};
-        for (_j = 0, _len1 = elemStates.length; _j < _len1; _j++) {
-          state = elemStates[_j];
-          set = true;
-          if (state[0] === '-') {
-            set = false;
-            state = state.slice(1);
-          }
-          statesData[name][state] = set;
-        }
-      }
-      return statesData;
-    };
-
-    Toggle.prototype.toggle = function(link) {
-      var action, actions, func, _results;
-      actions = link.data('toggle');
-      actions = this.parseToggle(actions);
-      _results = [];
-      for (action in actions) {
-        func = "" + action + "States";
-        if (!this[func]) {
-          throw new tamia.Error("Toggle: wrong action " + action + ".", 'Available actions: toggle, set, clear.');
-        }
-        _results.push(this[func](actions[action]));
-      }
-      return _results;
-    };
-
-    Toggle.prototype.parseToggle = function(data) {
-      var action, actions, elemStates, name, toggleData, _i, _len, _ref;
-      toggleData = {};
-      data = data.replace(/\s+/g, '');
-      actions = data.split(';');
-      for (_i = 0, _len = actions.length; _i < _len; _i++) {
-        action = actions[_i];
-        _ref = action.split(':'), name = _ref[0], elemStates = _ref[1];
-        elemStates = elemStates.split(',');
-        toggleData[name] = elemStates;
-      }
-      return toggleData;
-    };
-
-    Toggle.prototype.hasStateClass = function(state) {
-      return this.wrapper.hasClass("state-" + state);
-    };
-
-    Toggle.prototype.toggleStateClass = function(state, set) {
-      return this.wrapper.toggleClass("state-" + state, set);
-    };
-
-    Toggle.prototype.toggleStates = function(states) {
-      var state, _i, _len, _results;
-      _results = [];
-      for (_i = 0, _len = states.length; _i < _len; _i++) {
-        state = states[_i];
-        _results.push(this.toggleState(state));
-      }
-      return _results;
-    };
-
-    Toggle.prototype.toggleState = function(state) {
-      var action, elem, elemIdx, elemState, elemStates, hiddenClone, hiddenElem, next, parent, position, set, toggler, visibleElem, _i, _len, _ref, _results;
-      set = !this.hasStateClass(state);
-      this.toggleStateClass(state, set);
-      _ref = this.elems;
-      _results = [];
-      for (elemIdx = _i = 0, _len = _ref.length; _i < _len; elemIdx = ++_i) {
-        elem = _ref[elemIdx];
-        elemStates = elem.states[state];
-        if (!elemStates) {
-          continue;
-        }
-        _results.push((function() {
-          var _results1;
-          _results1 = [];
-          for (elemState in elemStates) {
-            toggler = this.getToggler(elemState);
-            action = set === elemStates[elemState] ? 'set' : 'clear';
-            if (elemState === 'hidden' && elem.crossfade) {
-              next = this.elems[elemIdx + 1];
-              if (next && next.states[state][elemState] !== elemStates[elemState]) {
-                if (elem.elem[0].offsetHeight) {
-                  visibleElem = elem.elem;
-                  hiddenElem = next.elem;
-                } else {
-                  visibleElem = next.elem;
-                  hiddenElem = elem.elem;
-                }
-                position = visibleElem.position();
-                hiddenClone = hiddenElem.clone();
-                hiddenClone.css({
-                  position: 'absolute',
-                  display: 'block',
-                  top: -9999,
-                  left: -999
-                });
-                _body.append(hiddenClone);
-                position.width = Math.max(visibleElem.width(), hiddenClone.width());
-                hiddenClone.remove();
-                parent = elem.elem.parent();
-                parent.height(parent.height());
-                elem.elem.css(position);
-                next.elem.css(position);
-                parent.addClass('toggle-crossfade-wrapper');
-                elem.elem.one(hiddenEvents, (function(elem, next, parent) {
-                  elem.elem.off(hiddenEvents);
-                  return setTimeout((function() {
-                    parent.height('');
-                    position = {
-                      left: '',
-                      top: '',
-                      width: ''
-                    };
-                    elem.elem.css(position);
-                    next.elem.css(position);
-                    return parent.removeClass('toggle-crossfade-wrapper');
-                  }), 100);
-                }).bind(this, elem, next, parent));
-              }
-            }
-            _results1.push(toggler[action](elem.elem, elemState));
-          }
-          return _results1;
-        }).call(this));
-      }
-      return _results;
-    };
-
-    Toggle.prototype.getToggler = function(state) {
-      return togglers[state] || togglers._default;
-    };
-
-    return Toggle;
-
-  })();
-
-  _doc.on('click', '[data-toggle]', function(event) {
-    var elem, toggle, wrapper;
-    elem = $(event.currentTarget);
-    wrapper = elem.closest('.js-toggle-wrapper');
-    if (!wrapper.length) {
-      throw new tamia.Error('Toggle: .js-toggle-wrapper not found.', elem);
-    }
-    toggle = wrapper.data('tamia-toggle');
-    if (!toggle) {
-      toggle = new Toggle(wrapper);
-      wrapper.data('tamia-toggle', toggle);
-    }
-    toggle.toggle(elem);
-    return event.preventDefault();
-  });
-
-}).call(this);
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// https://github.com/sapegin/tamia
+// JS component base class
+
+/*global DEBUG:false, tamia:false*/
+;(function(window, jQuery, undefined) {
+	'use strict';
+
+	/**
+	 * JS component base class.
+	 *
+	 * Elements: any HTML element with class name that follow a pattern `.js-name` where `name` is an element name.
+	 *
+	 * States: any class on component root HTML node that follow a pattern `.is-state` where `state` is a state name.
+	 * After initialization all components will have `ok` state.
+	 *
+	 * Example:
+	 *
+	 *   var Pony = tamia.extend(tamia.Component, {
+	 *     binded: 'toggle',
+	 *     init: function() {
+	 *       this.elem.on('click', '.js-toggle', this.toggle_);
+	 *     },
+	 *     toggle: function() {
+	 *       this.toggleState('pink');
+	 *     }
+	 *   });
+	 *
+	 *   tamia.initComponents({pony: Pony});
+	 *
+	 *   <div class="pink-pony is-pink" data-component="pony">
+	 *     <button class="pink-pony__button js-toggle">To pink or not to pink?</div>
+	 *   </div>
+	 */
+	function Component(elem) {
+		if (!elem || elem.nodeType !== 1) throw new ReferenceError('No DOM node passed to Component constructor.');
+
+		// Bind methods to `this`
+		if (this.binded) {
+			if (typeof this.binded === 'string') this.binded = this.binded.split(' ');
+			this.bindAll.apply(this, this.binded);
+		}
+
+		this.elemNode = elem;
+		this.elem = $(elem);
+		this.initializable = this.isInitializable();
+		if (!this.initializable) return;
+
+		this._fillStates();
+		if (this.isSupported()) {
+			this.handlers = {};
+			this.init();
+			this.addState('ok');
+		}
+		else {
+			this.fallback();
+			this.addState('unsupported');
+		}
+	}
+
+	Component.prototype = {
+		__tamia_cmpnt__: true,
+
+		/**
+		 * List of methods that should be binded to `this` (see `bindAll` method).
+		 *
+		 * @type {String|Array}
+		 */
+		binded: null,
+
+		/**
+		 * Put all your initialization code in this method.
+		 */
+		init: function() {
+			// Should be implemented
+		},
+
+		/**
+		 * You can implement this method to do destroy component.
+		 */
+		destroy: function() {
+			// Could be implemented
+		},
+
+		/**
+		 * Implement this method if you want to check whether browser is good for your component or not.
+		 *
+		 * @return {Boolean}
+		 */
+		isSupported: function() {
+			return true;
+		},
+
+		/**
+		 * Implement this method if you want to check whether component could be initialized.
+		 *
+		 * Example:
+		 *
+		 *   isInitializable: function() {
+		 *     // Do not initialize component if it's not visible
+		 *     return this.isVisible();
+		 *   }
+		 *
+		 * @return {Boolean}
+		 */
+		isInitializable: function() {
+			return true;
+		},
+
+		/**
+		 * Implement this method to do some fallbacks. It will be called if isSupported() returns false.
+		 */
+		fallback: function() {
+			// Could be implemented
+		},
+
+		/**
+		 * Binds all specified methods to this. Binded method names have `_` at the end.
+		 *
+		 * Example:
+		 *
+		 *   this.bindAll('toggle');
+		 *   this.elem.on('click', this.toggle_);
+		 *
+		 * @param {String} method1, [method2...] Method names
+		 */
+		bindAll: function() {
+			if (arguments.length === 0) throw new tamia.Error('Component.bindAll: no method names passed.');
+			for (var funcIdx = 0; funcIdx < arguments.length; funcIdx++) {
+				var func = arguments[funcIdx];
+				if (DEBUG && !this[func] || !$.isFunction(this[func])) throw new tamia.Error('Component.bindAll: method ' + func + ' not exists or not a function.');
+				this[func + '_'] = this[func].bind(this);
+			}
+		},
+
+		/**
+		 * Returns whether component has specified state.
+		 *
+		 * @param {String} [name] State name.
+		 *
+		 * @return {Boolean}
+		 */
+		hasState: function(name) {
+			return !!this.states[name];
+		},
+
+		/**
+		 * Adds specified state.
+		 *
+		 * @param {String} [name] State name.
+		 */
+		addState: function(name) {
+			this.toggleState(name, true);
+		},
+
+		/**
+		 * Removes specified state.
+		 *
+		 * @param {String} [name] State name.
+		 */
+		removeState: function(name) {
+			this.toggleState(name, false);
+		},
+
+		/**
+		 * Toggles state.
+		 *
+		 * @param {String} [name] State name.
+		 * @param {Boolean} [value] State value.
+		 */
+		toggleState: function(name, value) {
+			if (value === undefined) value = !this.states[name];
+			this.states[name] = value;
+			this._updateStates();
+		},
+
+		/**
+		 * Returns component visibility.
+		 *
+		 * @param {Boolean}
+		 */
+		isVisible: function() {
+			return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
+		},
+
+		_fillStates: function() {
+			var re = /^is-/;
+			var states = {};
+			var classes = this.elemNode.className.split(' ');
+			for (var classIdx = 0; classIdx < classes.length; classIdx++) {
+				var cls = classes[classIdx];
+				if (re.test(cls)) {
+					states[cls.replace(re, '')] = true;
+				}
+			}
+			this.states = states;
+		},
+
+		_updateStates: function() {
+			// @todo classList version
+			// @todo Move to tamia.js
+			var classes = this.elemNode.className;
+			classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
+			classes = classes.split(/\s+/);
+			for (var name in this.states) {
+				if (this.states[name]) {
+					classes.push('is-' + name);
+				}
+			}
+			this.elemNode.className = classes.join(' ');
+		}
+	};
+
+	tamia.Component = Component;
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Flippable pane
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var Flippable = tamia.extend(tamia.Component, {
+		binded: 'toggle',
+
+		init: function() {
+			if (this.elem.hasClass('js-flip')) {
+				this.elem.on('click', this.toggle_);
+			}
+			else {
+				this.elem.on('click', '.js-flip', this.toggle_);
+			}
+		},
+
+		toggle: function() {
+			this.toggleState('flipped');
+			this.elem.trigger('flipped.tamia', this.hasState('flipped'));
+		}
+	});
+
+	tamia.initComponents({flippable: Flippable});
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Basic form controls
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var _formElementsSelector = '.field,.button,.disablable';
+	var _disabledClass = 'is-disabled';
+
+	var _toggle = function(elem, enable) {
+		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
+		formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
+		formElements.attr('disabled', !enable);
+	};
+
+	// Events
+	tamia.registerEvents({
+		/**
+		 * Enables all descendant form elements.
+		 */
+		enable: function(elem) {
+			_toggle(elem, true);
+		},
+
+		/**
+		 * Disables all descendant form elements.
+		 */
+		disable: function(elem) {
+			_toggle(elem, false);
+		}
+	});
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Modal
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var _body = $('body');
+	var _doc = $(document);
+
+	var _bodyClass = 'modal-opened';
+	var _switchingClass = 'is-switching';
+	var _hiddenClass = 'is-hidden';
+	var _wrapperTmpl = '' +
+	'<div class="modal-shade is-hidden">' +
+		'<div class="l-center">' +
+			'<div class="l-center-i js-modal"></div>' +
+		'</div>' +
+	'</div>';
+	var _opened = null;
+
+	var Modal = tamia.extend(tamia.Component, {
+		binded: 'commit dismiss keyup shadeClick',
+
+		init: function() {
+			this.elem.data('modal', this);
+			this.elem.on('click', '.js-modal-commit', this.commit_);
+			this.elem.on('click', '.js-modal-dismiss', this.dismiss_);
+			if (this.elem.data('modal-open')) {
+				this.open();
+			}
+		},
+
+		initHtml: function() {
+			if (this.wrapper) return;
+
+			this.wrapper = $(_wrapperTmpl);
+			this.wrapper.find('.js-modal').append(this.elem);
+			this.wrapper.on('click', this.shadeClick_);
+			_body.append(this.wrapper);
+			this.removeState('hidden');
+		},
+
+		open: function() {
+			if (this === _opened) return;
+
+			var opened = _opened;
+			this.initHtml();
+			_body.addClass(_bodyClass);
+			if (opened) {
+				opened.close({hide: true});
+				this.wrapper.addClass(_switchingClass);
+				this.wrapper.on('appeared.tamia', function() {
+					this.wrapper.removeClass(_switchingClass);
+					opened.wrapper.addClass(_hiddenClass);
+					opened.elem.removeClass(_hiddenClass);
+				}.bind(this));
+			}
+			this.wrapper.trigger('appear.tamia');
+			_doc.on('keyup', this.keyup_);
+			_opened = this;
+		},
+
+		close: function(params) {
+			if (params === undefined) params = {hide: false};
+
+			var elem = params.hide ? this.elem : this.wrapper;
+			elem.trigger('disappear.tamia');
+			if (!params.hide) _body.removeClass(_bodyClass);
+			_doc.off('keyup', this.keyup_);
+			_opened = null;
+		},
+
+		commit: function(event) {
+			this.done(event, 'commit');
+		},
+
+		dismiss: function(event) {
+			this.done(event, 'dismiss');
+		},
+
+		done: function(event, type) {
+			if (event) event.preventDefault();
+
+			var typeEvent = $.Event(type + '.modal.tamia');
+			this.elem.trigger(typeEvent);
+			if (typeEvent.isDefaultPrevented()) return;
+
+			this.close();
+		},
+
+		keyup: function(event) {
+			if (event.which === 27) {  // Escape
+				this.dismiss(event);
+			}
+		},
+
+		shadeClick: function(event) {
+			if ($(event.target).hasClass('js-modal')) {
+				this.dismiss(event);
+			}
+		}
+	});
+
+	// Events
+	tamia.registerEvents({
+		'open.modal': function(elem) {
+			var container = $(elem);
+			var modal = container.data('modal');
+			if (!modal) modal = new Modal(elem);
+			modal.open();
+		}
+	});
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Password field with toggle to show characters
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var supported;
+	var types = {
+		locked: 'password',
+		unlocked: 'text'
+	};
+
+	var Password = tamia.extend(tamia.Component, {
+		binded: 'toggle focus',
+
+		init: function() {
+			this.bindAll('toggle', 'focus');
+
+			this.fieldElem = this.elem.find('.js-field');
+			this.toggleElem = this.elem.find('.js-toggle');
+
+			// Mousedown instead of click to catch focused field
+			this.elem.on('mousedown', '.js-toggle', this.toggle_);
+		},
+
+		isSupported: function() {
+			if (supported !== undefined) return supported;
+
+			// IE8+
+			supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
+			return supported;
+		},
+
+		toggle: function() {
+			var focused = document.activeElement === this.fieldElem[0];
+			var locked = this.hasState('unlocked');
+			var fieldType = this.fieldElem.attr('type');
+
+			this.toggleState('unlocked');
+
+			if (fieldType === types.locked && !locked) {
+				this.fieldElem.attr('type', types.unlocked);
+			}
+			else if (fieldType === types.unlocked && locked) {
+				this.fieldElem.attr('type', types.locked);
+			}
+
+			if (focused) {
+				setTimeout(this.focus_, 0);
+			}
+		},
+
+		focus: function() {
+			this.fieldElem.focus();
+		}
+	});
+
+	tamia.initComponents({password: Password});
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Image preload
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var preload = function (images, callback) {
+		var done = function() {
+			counter--;
+			if (counter === 0) {
+				callback(errors.length ? errors : null);
+			}
+		};
+		var error = function() {
+			errors.push(this.src);
+			done();
+		};
+
+		images = parse(images);
+		var counter = images.length;
+		var errors = [];
+		for (var imageIdx = 0; imageIdx < images.length; imageIdx++) {
+			var img = new Image();
+			img.onload = done;
+			img.onerror = error;
+			img.src = images[imageIdx];
+		}
+	};
+
+	var parse = function(images) {
+		if (!$.isArray(images)) images = [images];
+		// TODO: img.attr('src')
+		return images;
+	};
+
+	tamia.preload = preload;
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Select with custom design
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var Select = tamia.extend(tamia.Component, {
+		binded: 'focus blur change',
+
+		init: function() {
+			this.selectElem = this.elem.find('.js-select');
+			this.boxElem = this.elem.find('.js-box');
+
+			this.elem.on('focus', '.js-select', this.focus_);
+			this.elem.on('blur', '.js-select', this.blur_);
+			this.elem.on('change', '.js-select', this.change_);
+
+			this.change();
+		},
+
+		focus: function() {
+			this.addState('focused');
+		},
+
+		blur: function() {
+			this.removeState('focused');
+		},
+
+		change: function() {
+			this.boxElem.text(this.selectElem.find(':selected').text());
+		}
+	});
+
+	tamia.initComponents({select: Select});
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Spinner
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var _wrapperClass = 'loader-wrapper';
+	var _shadeSelector = '.loader-shade';
+	var _loaderTmpl = '' +
+	'<div class="loader-shade">' +
+		'<div class="l-center">' +
+			'<div class="l-center-i">' +
+				'<div class="spinner spinner_big"></div>' +
+			'</div>' +
+		'</div>' +
+	'</div>';
+
+	var Loader = tamia.extend(tamia.Component, {
+		init: function() {
+			this.initHtml();
+			tamia.delay(this.addState, this, 0, 'loading');
+		},
+
+		destroy: function() {
+			this.removeState('loading');
+			this.elem.find(_shadeSelector).afterTransition(function() {
+				this.elem.removeClass(_wrapperClass);
+				this.loader.remove();
+			}.bind(this));
+		},
+
+		initHtml: function() {
+			this.elem.addClass(_wrapperClass);
+			this.loader = $(_loaderTmpl);
+			this.elem.append(this.loader);
+		}
+	});
+
+	// Events
+	tamia.registerEvents({
+		'loading-start': function(elem) {
+			var container = $(elem);
+			if (container.data('loader')) return;
+			container.data('loader', new Loader(elem));
+		},
+
+		'loading-stop': function(elem) {
+			var container = $(elem);
+			var loader = container.data('loader');
+			if (!loader) return;
+			loader.destroy();
+			container.removeData('loader');
+		},
+	});
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Toggle
+
+// @todo Global events
+// @todo Proper slide transition
+// @todo Real list of available actions
+
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var _body = $('body');
+	var _doc = $(document);
+
+	var togglers = {
+		hidden: {
+			set: function(elem) {
+				elem.trigger('disappear.tamia');
+			},
+			clear: function(elem) {
+				elem.trigger('appear.tamia');
+			}
+		},
+		disabled: {
+			set: function(elem) {
+				elem.addClass('is-disabled');
+				elem.prop('disabled', true);
+			},
+			clear: function(elem) {
+				elem.removeClass('is-disabled');
+				elem.prop('disabled', false);
+			}
+		},
+		_default: {
+			set: function(elem, name) {
+				elem.addClass('is-' + name);
+			},
+			clear: function(elem, name) {
+				elem.removeClass('is-' + name);
+			}
+		}
+	};
+
+	var hiddenEvents = 'appeared.tamia disappeared.tamia';
+
+
+	function Toggle(wrapper) {
+		this.wrapper = wrapper;
+		this.elems = this.findElems();
+	}
+
+	Toggle.prototype = {
+		findElems: function() {
+			var elems = [];
+			var tags = this.wrapper.find('[data-states]');
+			tags.each(function(index, elem) {
+				elem = $(elem);
+				elem.addClass('toggle-element');
+
+				elems.push({
+					elem: elem,
+					states: this.parseState(elem.data('states'))
+				});
+
+				// Detect crossfade
+				var prev = elems[index-1];
+				if (prev) {
+					var parent = elem.parent();
+					// Have the common parent and no other siblings
+					if (parent.children().length === 2 && parent[0] === prev.elem.parent()[0]) {
+						prev.crossfade = true;
+					}
+				}
+			}.bind(this));
+			return elems;
+		},
+
+		parseState: function(data) {
+			var states = data.replace(/\s+/g, '').split(';');
+			var statesData = {};
+			for (var stateIdx = 0; stateIdx < states.length; stateIdx++) {
+				var stateData = states[stateIdx].split(':');
+				var name = stateData[0];
+				var elemStates = stateData[1].split(',');
+				statesData[name] = {};
+				for (var elemStateIdx = 0; elemStateIdx < elemStates.length; elemStateIdx++) {
+					var state = elemStates[elemStateIdx];
+					var set = true;
+					if (state[0] === '-') {  // Negative state: visible:-hidden
+						set = false;
+						state = state.slice(1);
+					}
+					statesData[name][state] = set;
+				}
+			}
+			return statesData;
+		},
+
+		toggle: function(link) {
+			var actions = link.data('toggle');
+			actions = this.parseToggle(actions);
+			for (var action in actions) {
+				var func = action + 'States';
+				if (!this[func]) throw new tamia.Error('Toggle: wrong action ' + action + '.', 'Available actions: toggle, set, clear.');
+				this[func](actions[action]);
+			}
+		},
+
+		parseToggle: function(data) {
+			var actions = data.replace(/\s+/g, '').split(';');
+			var toggleData = {};
+			for (var actionIdx = 0; actionIdx < actions.length; actionIdx++) {
+				var action = actions[actionIdx].split(':');
+				var name = action[0];
+				var elemStates = action[1].split(',');
+				toggleData[name] = elemStates;
+			}
+			return toggleData;
+		},
+
+		hasStateClass: function(state) {
+			return this.wrapper.hasClass('state-' + state);
+		},
+
+		toggleStateClass: function(state, set) {
+			return this.wrapper.toggleClass('state-' + state, set);
+		},
+
+		toggleStates: function(states) {
+			for (var stateIdx = 0; stateIdx < states.length; stateIdx++) {
+				this.toggleState(states[stateIdx]);
+			}
+		},
+
+		toggleState: function(state) {
+			var cleanCrossfade = function(elem, next, parent) {
+				elem.elem.off(hiddenEvents);
+				setTimeout(function() {
+					parent.height('');
+					position = {left: '', top: '', width: ''};
+					elem.elem.css(position);
+					next.elem.css(position);
+					parent.removeClass('toggle-crossfade-wrapper');
+				}, 100);
+			};
+
+			var set = !this.hasStateClass(state);
+			this.toggleStateClass(state, set);
+
+			for (var elemIdx = 0; elemIdx < this.elems.length; elemIdx++) {
+				var elem = this.elems[elemIdx];
+				var elemStates = elem.states[state];
+				if (!elemStates) continue;
+
+				for (var elemState in elemStates) {
+					var toggler = this.getToggler(elemState);
+					var action = set === elemStates[elemState] ? 'set' : 'clear';
+
+					// Crossfade
+					if (elemState === 'hidden' && elem.crossfade) {
+						var next = this.elems[elemIdx+1];
+						if (next && next.states[state][elemState] !== elemStates[elemState]) {
+							var visibleElem, hiddenElem;
+							if (elem.elem[0].offsetHeight) {
+								visibleElem = elem.elem;
+								hiddenElem = next.elem;
+							}
+							else {
+								visibleElem = next.elem;
+								hiddenElem = elem.elem;
+							}
+
+							var position = visibleElem.position();
+
+							// Find width
+							var hiddenClone = hiddenElem.clone();
+							hiddenClone.css({position: 'absolute', display: 'block', top: -9999, left: -999});
+							_body.append(hiddenClone);
+							position.width = Math.max(visibleElem.width(), hiddenClone.width());
+							hiddenClone.remove();
+
+							var parent = elem.elem.parent();
+							parent.height(parent.height());
+							elem.elem.css(position);
+							next.elem.css(position);
+							parent.addClass('toggle-crossfade-wrapper');
+							elem.elem.one(hiddenEvents, cleanCrossfade.bind(this, elem, next, parent));
+						}
+					}
+
+					toggler[action](elem.elem, elemState);
+				}
+			}
+		},
+
+		getToggler: function(state) {
+			return togglers[state] || togglers._default;
+		}
+	};
+
+
+	_doc.on('click', '[data-toggle]', function(event) {
+		var elem = $(event.currentTarget);
+		var wrapper = elem.closest('.js-toggle-wrapper');
+		if (!wrapper.length) throw new tamia.Error('Toggle: .js-toggle-wrapper not found.', elem);
+
+		var toggle = wrapper.data('tamia-toggle');
+		if (!toggle) {
+			toggle = new Toggle(wrapper);
+			wrapper.data('tamia-toggle', toggle);
+		}
+
+		toggle.toggle(elem);
+
+		event.preventDefault();
+	});
+
+}(window, jQuery));
 
 /* 
  * Fixie.js

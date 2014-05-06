@@ -46,7 +46,6 @@
 		<div class="text">
 			<h2 id="based-on">Based On</h2>
 <ul>
-<li>CoffeeScript.</li>
 <li>Autoprefixer.</li>
 <li>Modernizr.</li>
 <li>jQuery.</li>
@@ -66,7 +65,7 @@
 <p>And then I use BitBucket and Fabric to deploy website to a server.</p>
 <h2 id="definitions-blocks-components-modules">Definitions: blocks, components, modules</h2>
 <p><strong>Block</strong> is an independent entity with some appearance (Stylus). You could read more about blocks <a href="http://bem.info/method/definitions/">on bem.info</a>.</p>
-<p><strong>Component</strong> is a JavaScript (CoffeeScript) class inherited from <code>Component</code> base class. You could mix blocks and components in any same combination.</p>
+<p><strong>Component</strong> is a JavaScript “class” inherited from <code>tamia.Component</code> base “class”. You could mix blocks and components in any same combination.</p>
 <p><strong>Module</strong> is combination of block (appearance) and component (behaviour) that can be used on many websites. Some modules have only blocks, some modules have default skin that you can disable if you want.</p>
 <h2 id="stylus-bootstap">Stylus Bootstap</h2>
 <p>It’s a base CSS rules (like Normalize.css but a quite different) and a lot of useful Stylus mixins:</p>
@@ -80,13 +79,17 @@
 </ul>
 <h2 id="component-base-class">Component Base Class</h2>
 <p>Simple example:</p>
-<pre><code class="lang-coffee">class Pony extends Component
-  init: -&gt;
-    @on(&#39;click&#39;, &#39;toggle&#39;, @toggle)
-  toggle: -&gt;
-    @toggleState(&#39;pink&#39;)
+<pre><code class="lang-js">var Pony = tamia.extend(tamia.Component, {
+  binded: &#39;toggle&#39;,
+  init: function() {
+    this.elem.on(&#39;click&#39;, &#39;.js-toggle&#39;, this.toggle_);
+  },
+  toggle: function() {
+    this.toggleState(&#39;pink&#39;);
+  }
+});
 
-tamia.initComponents(pony: Pony)
+tamia.initComponents({pony: Pony});
 </code></pre>
 <pre><code class="lang-html">&lt;div class=&quot;pink-pony is-pink&quot; data-component=&quot;pony&quot;&gt;
   &lt;button class=&quot;pink-pony__button js-toggle&quot;&gt;To pink or not to pink?&lt;/div&gt;
@@ -135,7 +138,7 @@ link_color = #c0ffee
 <p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
 <pre><code>modules_default_skin = true;
 </code></pre><h3 id="debug-mode">Debug Mode</h3>
-<p>Both Stylus and JavaScript (CoffeeScript) in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
+<p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
 <pre><code>div
     outline: 1px solid #c0ffee if DEBUG

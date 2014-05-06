@@ -346,6 +346,8 @@ h - sprite height, pixels.</li>
 </ul>
 <h4 id="no-select-">no-select()</h4>
 <p>Disables text selection.</p>
+<h4 id="enable-select-">enable-select()</h4>
+<p>Enables text selection.</p>
 <h4 id="hide-text-">hide-text()</h4>
 <p>Hides text (for image replacement).</p>
 <h3 id="misc-">Misc.</h3>
@@ -411,7 +413,8 @@ h - sprite height, pixels.</li>
   ...
 }
 </code></pre><p>Then if you run <code>grunt --debug</code> DEBUG variable will be true and false if you run just <code>grunt</code>.</p>
-<h4 id="initialize-components">Initialize components</h4>
+<h4 id="tamia-initcomponents-components-">tamia.initComponents(components)</h4>
+<p>Initialize components.</p>
 <ul>
 <li><em>Object</em> <strong>components</strong>: Initializers for each component.</li>
 </ul>
@@ -420,7 +423,7 @@ h - sprite height, pixels.</li>
 
 tamia.initComponents({
   // New style component
-  pony: Pony,  // class Pony extends Component {...}
+  pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
   // Plain initializer
   pony: function(elem) {
     // $(elem) === &lt;div data-component=&quot;pony&quot;&gt;
@@ -444,7 +447,25 @@ tamia.initComponents({
 <li>No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
  or nodes that was hidden before will be affected.</li>
 </ol>
-<h4 id="registers-t-mia-events-eventname-tamia-on-document">Registers Tâmia events (eventname.tamia) on document</h4>
+<h4 id="tamia-extend-">tamia.extend()</h4>
+<p>JavaScript inheritance.</p>
+<h5 id="example">Example</h5>
+<pre><code>var Pony = tamia.extend(tamia.Component, {
+  init: function() {
+    // ...
+  }
+});
+</code></pre><h4 id="tamia-delay-func-context-wait-">tamia.delay(func, [context], [wait])</h4>
+<p>Delays a function for the given number of milliseconds, and then calls it with the specified arguments.</p>
+<ul>
+<li><em>Function</em> <strong>func</strong>: Function to call.</li>
+<li><em>Object</em> <strong>[context]</strong>: Function context (default: global).</li>
+<li><em>Number</em> <strong>[wait]</strong>: Time to wait, milliseconds (default: 0).</li>
+<li><em>Mixed</em> <strong>[param1</strong>:, param2…] Any params to pass to function.
+Returns <em>TimeoutId</em>:Timeout handler.</li>
+</ul>
+<h4 id="tamia-registerevents-handlers-">tamia.registerEvents(handlers)</h4>
+<p>Registers Tâmia events (eventname.tamia) on document.</p>
 <h5 id="example">Example</h5>
 <pre><code>// Registers enable.tamia event.
 tamia.registerEvents({
@@ -455,12 +476,12 @@ tamia.registerEvents({
 <li><em>Object</em> <strong>handlers</strong>: Handlers list.</li>
 </ul>
 <h4 id="events">Events</h4>
-<h4 id="init">init</h4>
+<h4 id="_handlers-init-">_handlers.init()</h4>
 <p>Init components inside any jQuery node.</p>
 <h5 id="examples">Examples</h5>
 <pre><code>$(document).trigger(&#39;init.tamia&#39;);
 $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
-</code></pre><h4 id="appear">appear</h4>
+</code></pre><h4 id="_handlers-appear-">_handlers.appear()</h4>
 <p>Show element with CSS transition.</p>
 <p>appeared.tamia event will be fired the moment transition ends.</p>
 <h5 id="example">Example</h5>
@@ -473,11 +494,11 @@ $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
 &lt;div class=&quot;dialog is-hidden js-dialog&quot;&gt;...&lt;/div&gt;
 
 $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
-</code></pre><h4 id="disappear">disappear</h4>
+</code></pre><h4 id="_handlers-disappear-">_handlers.disappear()</h4>
 <p>Hide element with CSS transition.</p>
 <p>disappeared.tamia event will be fired the moment transition ends.</p>
 <p>Opposite of <code>appear.tamia</code> event.</p>
-<h4 id="toggle">toggle</h4>
+<h4 id="_handlers-toggle-">_handlers.toggle()</h4>
 <p>Toggles element’s visibility with CSS transition.</p>
 <p>See <code>appear.tamia</code> event for details.</p>
 <h4 id="controls">Controls</h4>
@@ -493,14 +514,16 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <pre><code>&lt;span data-fire=&quot;slider-next&quot; data-target=&quot;.portfolio&quot; data-attrs=&quot;1,2,3&quot;&gt;Next&lt;/span&gt;
 &lt;!-- $(&#39;.portfolio&#39;).trigger(&#39;slider-next&#39;, [1, 2, 3]); --&gt;
 </code></pre><h4 id="templates">Templates</h4>
-<h4 id="invokes-precompiled-template">Invokes precompiled template</h4>
+<h4 id="tamia-tmpl-data-">tamia.tmpl(data)</h4>
+<p>Invokes precompiled template.</p>
 <p>Templates should be stored in window.__templates.</p>
 <ul>
 <li><em>String</em> <strong>tmplId</strong>: Template ID.</li>
 <li><em>String</em> <strong>data</strong>: Template context.
 Returns <em>String</em>:HTML.</li>
 </ul>
-<h4 id="replaces-jquery-node-s-content-with-the-result-of-template-invocation">Replaces jQuery node’s content with the result of template invocation</h4>
+<h4 id="jquery-fn-tmpl-data-">jQuery.fn.tmpl(data)</h4>
+<p>Replaces jQuery node’s content with the result of template invocation.</p>
 <ul>
 <li><em>String</em> <strong>tmplId</strong>: Template ID.</li>
 <li><em>String</em> <strong>data</strong>: Template context.
@@ -519,84 +542,80 @@ Returns <em>jQuery</em>.</li>
 <pre><code>g - Toggle grid.
 o - Toggle layout outlines.
 </code></pre><h2 id="base-javascript-component-class">Base JavaScript Component Class</h2>
-<h4 id="-"> </h4>
-<p>JS component base class</p>
+<h4 id="component">Component</h4>
+<p>JS component base class.</p>
 <p>Elements: any HTML element with class name that follow a pattern <code>.js-name</code> where <code>name</code> is an element name.</p>
 <p>States: any class on component root HTML node that follow a pattern <code>.is-state</code> where <code>state</code> is a state name.
 After initialization all components will have <code>ok</code> state.</p>
 <h5 id="example">Example</h5>
-<pre><code>class Pony extends Component
-  init: -&gt;
-    @on(&#39;click&#39;, &#39;toggle&#39;, @toggle)
-  toggle: -&gt;
-    @toggleState(&#39;pink&#39;)
+<pre><code>var Pony = tamia.extend(tamia.Component, {
+  binded: &#39;toggle&#39;,
+  init: function() {
+    this.elem.on(&#39;click&#39;, &#39;.js-toggle&#39;, this.toggle_);
+  },
+  toggle: function() {
+    this.toggleState(&#39;pink&#39;);
+  }
+});
 
-tamia.initComponents(pony: Pony)
+tamia.initComponents({pony: Pony});
 
 &lt;div class=&quot;pink-pony is-pink&quot; data-component=&quot;pony&quot;&gt;
   &lt;button class=&quot;pink-pony__button js-toggle&quot;&gt;To pink or not to pink?&lt;/div&gt;
 &lt;/div&gt;
-</code></pre><h4 id="init-">init()</h4>
+</code></pre><h4 id="binded">binded</h4>
+<p>List of methods that should be binded to <code>this</code> (see <code>bindAll</code> method).</p>
+<p>@type {String|Array}</p>
+<h4 id="init">init</h4>
 <p>Put all your initialization code in this method.</p>
-<h4 id="destroy-">destroy()</h4>
+<h4 id="destroy">destroy</h4>
 <p>You can implement this method to do destroy component.</p>
-<h4 id="issupported-">isSupported()</h4>
+<h4 id="issupported">isSupported</h4>
 <p>Implement this method if you want to check whether browser is good for your component or not.</p>
 <p>Returns <em>Boolean</em>.</p>
-<h4 id="isinitializable-">isInitializable()</h4>
+<h4 id="isinitializable">isInitializable</h4>
 <p>Implement this method if you want to check whether component could be initialized.</p>
 <h5 id="example">Example</h5>
-<pre><code>isInitializable: -&gt;
-  # Do not initialize component if it&#39;s not visible
-  @isVisible()
+<pre><code>isInitializable: function() {
+  // Do not initialize component if it&#39;s not visible
+  return this.isVisible();
+}
 </code></pre><p>Returns <em>Boolean</em>.</p>
-<h4 id="fallback-">fallback()</h4>
-<p>You can implement this method to do some fallbacks. It will be called if isSupported() returns false.</p>
-<h4 id="find-name-">find(name)</h4>
-<p>Finds element.</p>
-<ul>
-<li><em>String</em> <strong>name</strong>: Element ID.</li>
+<h4 id="fallback">fallback</h4>
+<p>Implement this method to do some fallbacks. It will be called if isSupported() returns false.</p>
+<h4 id="bindall">bindAll</h4>
+<p>Binds all specified methods to this. Binded method names have <code>_</code> at the end.</p>
+<h5 id="example">Example</h5>
+<pre><code>this.bindAll(&#39;toggle&#39;);
+this.elem.on(&#39;click&#39;, this.toggle_);
+</code></pre><ul>
+<li><em>String</em> <strong>method1</strong>:, [method2…] Method names</li>
 </ul>
-<p>Returns <em>jQuery</em>:Element with .js-name class.</p>
-<h4 id="on-events-element-handler-">on(events, [element], handler)</h4>
-<p>Attaches event handler.</p>
-<ul>
-<li><em>String</em> <strong>events</strong>: Event names (space separated).</li>
-<li><em>String</em> <strong>[element]</strong>: Element id.</li>
-<li><em>Function</em> <strong>handler</strong>: Handler function (scope will automatically sets to this).</li>
-</ul>
-<h4 id="off-events-element-handler-">off(events, [element], handler)</h4>
-<p>Detaches event handler.</p>
-<ul>
-<li><em>String</em> <strong>events</strong>: Event names (space separated).</li>
-<li><em>String</em> <strong>[element]</strong>: Element id.</li>
-<li><em>Function</em> <strong>handler</strong>: Handler function (scope will automatically sets to this).</li>
-</ul>
-<h4 id="hasstate-name-">hasState([name])</h4>
-<p>Returns component state.</p>
+<h4 id="hasstate">hasState</h4>
+<p>Returns whether component has specified state.</p>
 <ul>
 <li><em>String</em> <strong>[name]</strong>: State name.</li>
 </ul>
-<p>Returns <em>Boolean</em>:Sate value.</p>
-<h4 id="addstate-name-">addState([name])</h4>
-<p>Sets state to true.</p>
+<p>Returns <em>Boolean</em>.</p>
+<h4 id="addstate">addState</h4>
+<p>Adds specified state.</p>
 <ul>
 <li><em>String</em> <strong>[name]</strong>: State name.</li>
 </ul>
-<h4 id="removestate-name-">removeState([name])</h4>
-<p>Sets state to false.</p>
+<h4 id="removestate">removeState</h4>
+<p>Removes specified state.</p>
 <ul>
 <li><em>String</em> <strong>[name]</strong>: State name.</li>
 </ul>
-<h4 id="togglestate-name-value-">toggleState([name], [value])</h4>
-<p>Toggles state value.</p>
+<h4 id="togglestate">toggleState</h4>
+<p>Toggles state.</p>
 <ul>
 <li><em>String</em> <strong>[name]</strong>: State name.</li>
 <li><em>Boolean</em> <strong>[value]</strong>: State value.</li>
 </ul>
-<h4 id="isvisible-">isVisible()</h4>
+<h4 id="isvisible">isVisible</h4>
 <p>Returns component visibility.</p>
-<p>Returns <em>Boolean</em>.</p>
+<p>@param {Boolean}</p>
 
 		</div>
 
