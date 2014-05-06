@@ -19,11 +19,11 @@
 	var Loader = tamia.extend(tamia.Component, {
 		init: function() {
 			this.initHtml();
-			tamia.delay(this.addState, this, 0, 'loading');
+			tamia.delay(this.elem.addState, this.elem, 0, 'loading');
 		},
 
 		destroy: function() {
-			this.removeState('loading');
+			this.elem.removeState('loading');
 			this.elem.find(_shadeSelector).afterTransition(function() {
 				this.elem.removeClass(_wrapperClass);
 				this.loader.remove();

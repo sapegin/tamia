@@ -18,8 +18,8 @@
 		},
 
 		toggle: function() {
-			this.toggleState('flipped');
-			this.elem.trigger('flipped.tamia', this.hasState('flipped'));
+			this.elem.toggleState('flipped');
+			this.elem.trigger('flipped.tamia', this.elem.hasState('flipped'));
 		}
 	});
 

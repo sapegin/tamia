@@ -9,8 +9,8 @@
 	var _doc = $(document);
 
 	var _bodyClass = 'modal-opened';
-	var _switchingClass = 'is-switching';
-	var _hiddenClass = 'is-hidden';
+	var _switchingState = 'switching';
+	var _hiddenState = 'hidden';
 	var _wrapperTmpl = '' +
 	'<div class="modal-shade is-hidden">' +
 		'<div class="l-center">' +
@@ -38,7 +38,7 @@
 			this.wrapper.find('.js-modal').append(this.elem);
 			this.wrapper.on('click', this.shadeClick_);
 			_body.append(this.wrapper);
-			this.removeState('hidden');
+			this.elem.removeState('hidden');
 		},
 
 		open: function() {
@@ -49,11 +49,11 @@
 			_body.addClass(_bodyClass);
 			if (opened) {
 				opened.close({hide: true});
-				this.wrapper.addClass(_switchingClass);
+				this.wrapper.addState(_switchingState);
 				this.wrapper.on('appeared.tamia', function() {
-					this.wrapper.removeClass(_switchingClass);
-					opened.wrapper.addClass(_hiddenClass);
-					opened.elem.removeClass(_hiddenClass);
+					this.wrapper.removeState(_switchingState);
+					opened.wrapper.addState(_hiddenState);
+					opened.elem.removeState(_hiddenState);
 				}.bind(this));
 			}
 			this.wrapper.trigger('appear.tamia');

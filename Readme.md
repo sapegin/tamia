@@ -73,7 +73,7 @@ var Pony = tamia.extend(tamia.Component, {
     this.elem.on('click', '.js-toggle', this.toggle_);
   },
   toggle: function() {
-    this.toggleState('pink');
+    this.elem.toggleState('pink');
   }
 });
 

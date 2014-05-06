@@ -22,7 +22,7 @@
 	 *       this.elem.on('click', '.js-toggle', this.toggle_);
 	 *     },
 	 *     toggle: function() {
-	 *       this.toggleState('pink');
+	 *       this.elem.toggleState('pink');
 	 *     }
 	 *   });
 	 *
@@ -46,15 +46,14 @@
 		this.initializable = this.isInitializable();
 		if (!this.initializable) return;
 
-		this._fillStates();
 		if (this.isSupported()) {
 			this.handlers = {};
 			this.init();
-			this.addState('ok');
+			this.elem.addState('ok');
 		}
 		else {
 			this.fallback();
-			this.addState('unsupported');
+			this.elem.addState('unsupported');
 		}
 	}
 
@@ -134,80 +133,12 @@
 		},
 
 		/**
-		 * Returns whether component has specified state.
-		 *
-		 * @param {String} [name] State name.
-		 *
-		 * @return {Boolean}
-		 */
-		hasState: function(name) {
-			return !!this.states[name];
-		},
-
-		/**
-		 * Adds specified state.
-		 *
-		 * @param {String} [name] State name.
-		 */
-		addState: function(name) {
-			this.toggleState(name, true);
-		},
-
-		/**
-		 * Removes specified state.
-		 *
-		 * @param {String} [name] State name.
-		 */
-		removeState: function(name) {
-			this.toggleState(name, false);
-		},
-
-		/**
-		 * Toggles state.
-		 *
-		 * @param {String} [name] State name.
-		 * @param {Boolean} [value] State value.
-		 */
-		toggleState: function(name, value) {
-			if (value === undefined) value = !this.states[name];
-			this.states[name] = value;
-			this._updateStates();
-		},
-
-		/**
 		 * Returns component visibility.
 		 *
 		 * @param {Boolean}
 		 */
 		isVisible: function() {
 			return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
-		},
-
-		_fillStates: function() {
-			var re = /^is-/;
-			var states = {};
-			var classes = this.elemNode.className.split(' ');
-			for (var classIdx = 0; classIdx < classes.length; classIdx++) {
-				var cls = classes[classIdx];
-				if (re.test(cls)) {
-					states[cls.replace(re, '')] = true;
-				}
-			}
-			this.states = states;
-		},
-
-		_updateStates: function() {
-			// @todo classList version
-			// @todo Move to tamia.js
-			var classes = this.elemNode.className;
-			classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
-			classes = classes.split(/\s+/);
-			for (var name in this.states) {
-				if (this.states[name]) {
-					classes.push('is-' + name);
-				}
-			}
-			this.elemNode.className = classes.join(' ');
 		}
 	};
 

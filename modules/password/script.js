@@ -34,10 +34,10 @@
 
 		toggle: function() {
 			var focused = document.activeElement === this.fieldElem[0];
-			var locked = this.hasState('unlocked');
+			var locked = this.elem.hasState('unlocked');
 			var fieldType = this.fieldElem.attr('type');
 
-			this.toggleState('unlocked');
+			this.elem.toggleState('unlocked');
 
 			if (fieldType === types.locked && !locked) {
 				this.fieldElem.attr('type', types.unlocked);

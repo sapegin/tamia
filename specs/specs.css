@@ -1204,10 +1204,6 @@ a:link {
   max-width: 800px;
 }
 
-.modal_fixed {
-  width: auto;
-}
-
 .l-center .modal {
   display: inline-block;
 }

@@ -23,20 +23,20 @@
 		},
 		disabled: {
 			set: function(elem) {
-				elem.addClass('is-disabled');
+				elem.addState('disabled');
 				elem.prop('disabled', true);
 			},
 			clear: function(elem) {
-				elem.removeClass('is-disabled');
+				elem.removeState('disabled');
 				elem.prop('disabled', false);
 			}
 		},
 		_default: {
 			set: function(elem, name) {
-				elem.addClass('is-' + name);
+				elem.addState(name);
 			},
 			clear: function(elem, name) {
-				elem.removeClass('is-' + name);
+				elem.removeState(name);
 			}
 		}
 	};

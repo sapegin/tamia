@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 73
+TESTS = 86
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -82,7 +82,7 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 
 
 	# Appear/disappear
-	casper.thenEvaluate ->
+	casper.then ->
 		test.assertNotVisible '.js-dialog', 'Dialog is hidden by default'
 	casper.thenClick '.js-appear', ->
 		test.assertVisible '.js-dialog', 'Dialog is visible after click on Appear link'
@@ -106,6 +106,51 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 	casper.thenClick '.js-control-link', ->
 		test.assertSelectorHasText '.js-control-target',  '1two', 'Event was fired, arguments passed properly'
 
+	# States
+	casper.then ->
+		test.assertEval (->
+			!jQuery('<div class="test is-state1 js-test"></div>').toggleState('state1').hasClass('is-state1')
+		), 'State was removed after toggleState call.'
+		test.assertEval (->
+			jQuery('<div class="test is-state1 js-test"></div>').toggleState('state2').hasClass('is-state2')
+		), 'State was added after toggleState call.'
+		test.assertEval (->
+			jQuery('<div class="test is-state1 js-test"></div>').addState('state2').hasClass('is-state2')
+		), 'State was added after addState call.'
+		test.assertEval (->
+			!jQuery('<div class="test is-state1 js-test"></div>').removeState('state1').hasClass('is-state1')
+		), 'State was removed after removeState call.'
+		test.assertEval (->
+			jQuery('<div class="test is-state1 js-test"></div>').hasState('state1')
+		), 'hasState returns true for existent state.'
+		test.assertEval (->
+			!jQuery('<div class="test is-state1 js-test"></div>').hasState('state2')
+		), 'hasState returns false for non-existent state.'
+		test.assertEval (->
+			!jQuery('<div class="test js-test"></div>').hasState('any-state')
+		), 'Everything is fine when there is no states on an element.'
+		test.assertEval (->
+			!jQuery('<div></div>').hasState('any-state')
+		), 'Everything is fine when there is no classes on an element.'
+	casper.thenEvaluate ->
+		jQuery('.js-states').removeState('state1')
+	casper.then ->
+		test.assertEval (->
+			!jQuery('.js-states').first().data('tamia-states').state1
+		), 'State was removed from first element.'
+		test.assertEval (->
+			!jQuery('.js-states').last().data('tamia-states').state1
+		), 'State was removed from second element.'
+	casper.thenEvaluate ->
+		jQuery('.js-states').addState('state2')
+	casper.then ->
+		test.assertEval (->
+			jQuery('.js-states').first().data('tamia-states').state2
+		), 'State was added to first element.'
+		test.assertEval (->
+			jQuery('.js-states').last().data('tamia-states').state2
+		), 'State was added to second element.'
+
 
 	# Component class
 	casper.thenEvaluate ->
@@ -117,24 +162,24 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		test.assertEval (-> !!cmpnt.elem.jquery), 'Component: elem is jQuery object'
 		test.assertEval (-> cmpnt.elemNode.nodeType is 1), 'Component: elemNode is DOM node'
 		test.assertEval (-> !!cmpnt.initializable), 'Component: component initializable'
-		test.assertEval (-> cmpnt.hasState 'ok'), 'Component: has ok state'
+		test.assertEval (-> cmpnt.elem.hasState 'ok'), 'Component: has ok state'
 		test.assertEval (-> cmpnt.elem.hasClass 'is-ok'), 'Component: has .is-ok class'
-		test.assertEval (-> cmpnt.hasState('one') and cmpnt.hasState('two')), 'Component: states imported from HTML'
+		test.assertEval (-> cmpnt.elem.hasState('one') and cmpnt.elem.hasState('two')), 'Component: states imported from HTML'
 		test.assertEval (-> cmpnt.elemNode.className is 'pony is-one is-two is-ok'), 'Component: all classes exists in HTML'
 	casper.thenEvaluate ->
-		cmpnt.addState 'three'
-		cmpnt.toggleState 'two'
+		cmpnt.elem.addState 'three'
+		cmpnt.elem.toggleState 'two'
 	casper.then ->
-		test.assertEval (-> cmpnt.hasState 'three'), 'Component: new state added'
-		test.assertEval (-> not cmpnt.hasState 'two'), 'Component: state toggled (removed)'
+		test.assertEval (-> cmpnt.elem.hasState 'three'), 'Component: new state added'
+		test.assertEval (-> not cmpnt.elem.hasState 'two'), 'Component: state toggled (removed)'
 		test.assertEval (-> cmpnt.elemNode.className is 'pony is-one is-ok is-three'), 'Component: new state added to HTML'
 	casper.thenEvaluate ->
-		cmpnt.removeState 'one'
-		cmpnt.toggleState 'two'
+		cmpnt.elem.removeState 'one'
+		cmpnt.elem.toggleState 'two'
 	casper.then ->
-		test.assertEval (-> not cmpnt.hasState 'one'), 'Component: state removed'
-		test.assertEval (-> cmpnt.hasState 'two'), 'Component: state toggled (added)'
-		test.assertEval (-> cmpnt.elemNode.className is 'pony is-two is-ok is-three'), 'Component: state removed from HTML'
+		test.assertEval (-> not cmpnt.elem.hasState 'one'), 'Component: state removed'
+		test.assertEval (-> cmpnt.elem.hasState 'two'), 'Component: state toggled (added)'
+		test.assertEval (-> cmpnt.elemNode.className is 'pony is-ok is-three is-two'), 'Component: state removed from HTML'
 	casper.thenEvaluate ->
 		cmpnt.reset()
 		cmpnt.elem.find('.js-elem').trigger 'test1'

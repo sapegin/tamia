@@ -9,7 +9,7 @@
 	 */
 	var Hidden = tamia.extend(tamia.Component, {
 		init: function() {
-			this.addState('pony');
+			this.elem.addState('pony');
 		},
 
 		isInitializable: function() {
@@ -25,11 +25,11 @@
 	 */
 	var Unsupported = tamia.extend(tamia.Component, {
 		init: function() {
-			this.addState('pony');
+			this.elem.addState('pony');
 		},
 
 		fallback: function() {
-			this.addState('no-pony');
+			this.elem.addState('no-pony');
 		},
 
 		isSupported: function() {

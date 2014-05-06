@@ -6,11 +6,11 @@
 	'use strict';
 
 	var _formElementsSelector = '.field,.button,.disablable';
-	var _disabledClass = 'is-disabled';
+	var _disabledState = 'disabled';
 
 	var _toggle = function(elem, enable) {
 		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
-		formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
+		formElements.toggleState(_disabledState, !enable);
 		formElements.attr('disabled', !enable);
 	};
 

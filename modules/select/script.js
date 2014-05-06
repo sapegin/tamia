@@ -33,7 +33,7 @@
 		},
 
 		toggleFocused: function(toggle) {
-			this.toggleState('focused', toggle);
+			this.elem.toggleState('focused', toggle);
 		},
 
 		change: function() {

@@ -464,8 +464,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	if (jQuery) {
 
 		var _doc = jQuery(document);
-		var _hiddenClass = 'is-hidden';
-		var _transitionClass = 'is-transit';
+		var _hiddenState = 'hidden';
+		var _transitionSate = 'transit';
+		var _statePrefix = 'is-';
+		var _statesData = 'tamia-states';
 		var _appearedEvent = 'appeared.tamia';
 		var _disappearedEvent = 'disappeared.tamia';
 		var _fallbackTimeout = 1000;
@@ -534,18 +536,18 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		_handlers.appear = function(elem) {
 			elem = $(elem);
 			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass) && !elem.hasClass(_hiddenClass)) return;
-				elem.addClass(_transitionClass);
+				if (elem.hasState(_transitionSate) && !elem.hasState(_hiddenState)) return;
+				elem.addState(_transitionSate);
 				setTimeout(function() {
-					elem.removeClass(_hiddenClass);
+					elem.removeState(_hiddenState);
 					elem.afterTransition(function() {
-						elem.removeClass(_transitionClass);
+						elem.removeState(_transitionSate);
 						elem.trigger(_appearedEvent);
 					});
 				}, 0);
 			}
 			else {
-				elem.removeClass(_hiddenClass);
+				elem.removeState(_hiddenState);
 				elem.trigger(_appearedEvent);
 			}
 		};
@@ -560,16 +562,16 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		_handlers.disappear = function(elem) {
 			elem = $(elem);
 			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass) && elem.hasClass(_hiddenClass)) return;
-				elem.addClass(_transitionClass);
-				elem.addClass(_hiddenClass);
+				if (elem.hasState(_transitionSate) && elem.hasState(_hiddenState)) return;
+				elem.addState(_transitionSate);
+				elem.addState(_hiddenState);
 				elem.afterTransition(function() {
-					elem.removeClass(_transitionClass);
+					elem.removeState(_transitionSate);
 					elem.trigger(_disappearedEvent);
 				});
 			}
 			else {
-				elem.addClass(_hiddenClass);
+				elem.addState(_hiddenState);
 				elem.trigger(_disappearedEvent);
 			}
 		};
@@ -581,7 +583,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 */
 		_handlers.toggle = function(elem) {
 			elem = $(elem);
-			if (elem.hasClass(_hiddenClass)) {
+			if (elem.hasState(_hiddenState)) {
 				_handlers.appear(elem);
 			}
 			else {
@@ -624,6 +626,78 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			event.preventDefault();
 		});
+
+		/**
+		 * States management
+		 */
+
+		/**
+		 * Toggles specified state on an element.
+		 *
+		 * State is a special CSS class: .is-name.
+		 *
+		 * @param {String} name State name.
+		 * @param {Boolean} [value] Add/remove state.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.toggleState = function(name, value) {
+			return this.each(function() {
+				var elem = $(this);
+				var states = _getStates(elem);
+				if (value === undefined) value = !states[name];
+				else if (value === states[name]) return;
+				states[name] = value;
+				elem.toggleClass(_statePrefix + name, value);
+			});
+		};
+
+		/**
+		 * Adds specified state to an element.
+		 *
+		 * @param {String} name State name.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.addState = function(name) {
+			return this.toggleState(name, true);
+		};
+
+		/**
+		 * Removes specified state from an element.
+		 *
+		 * @param {String} name State name.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.removeState = function(name) {
+			return this.toggleState(name, false);
+		};
+
+		/**
+		 * Returns whether an element has specified state.
+		 *
+		 * @param {String} name State name.
+		 * @return {Boolean}
+		 */
+		jQuery.fn.hasState = function(name) {
+			var states = _getStates(this);
+			return !!states[name];
+		};
+
+		var _getStates = function(elem) {
+			var states = elem.data(_statesData);
+			if (!states) {
+				states = {};
+				var classes = elem[0].classList || elem[0].className.split(' ');
+				for (var classIdx = 0; classIdx < classes.length; classIdx++) {
+					var cls = classes[classIdx];
+					if (cls.slice(0, 3) === _statePrefix) {
+						states[cls.slice(3)] = true;
+					}
+				}
+				elem.data(_statesData, states);
+			}
+			return states;
+		};
+
 
 		/**
 		 * Templates
@@ -796,7 +870,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *       this.elem.on('click', '.js-toggle', this.toggle_);
 	 *     },
 	 *     toggle: function() {
-	 *       this.toggleState('pink');
+	 *       this.elem.toggleState('pink');
 	 *     }
 	 *   });
 	 *
@@ -820,15 +894,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		this.initializable = this.isInitializable();
 		if (!this.initializable) return;
 
-		this._fillStates();
 		if (this.isSupported()) {
 			this.handlers = {};
 			this.init();
-			this.addState('ok');
+			this.elem.addState('ok');
 		}
 		else {
 			this.fallback();
-			this.addState('unsupported');
+			this.elem.addState('unsupported');
 		}
 	}
 
@@ -908,80 +981,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 
 		/**
-		 * Returns whether component has specified state.
-		 *
-		 * @param {String} [name] State name.
-		 *
-		 * @return {Boolean}
-		 */
-		hasState: function(name) {
-			return !!this.states[name];
-		},
-
-		/**
-		 * Adds specified state.
-		 *
-		 * @param {String} [name] State name.
-		 */
-		addState: function(name) {
-			this.toggleState(name, true);
-		},
-
-		/**
-		 * Removes specified state.
-		 *
-		 * @param {String} [name] State name.
-		 */
-		removeState: function(name) {
-			this.toggleState(name, false);
-		},
-
-		/**
-		 * Toggles state.
-		 *
-		 * @param {String} [name] State name.
-		 * @param {Boolean} [value] State value.
-		 */
-		toggleState: function(name, value) {
-			if (value === undefined) value = !this.states[name];
-			this.states[name] = value;
-			this._updateStates();
-		},
-
-		/**
 		 * Returns component visibility.
 		 *
 		 * @param {Boolean}
 		 */
 		isVisible: function() {
 			return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
-		},
-
-		_fillStates: function() {
-			var re = /^is-/;
-			var states = {};
-			var classes = this.elemNode.className.split(' ');
-			for (var classIdx = 0; classIdx < classes.length; classIdx++) {
-				var cls = classes[classIdx];
-				if (re.test(cls)) {
-					states[cls.replace(re, '')] = true;
-				}
-			}
-			this.states = states;
-		},
-
-		_updateStates: function() {
-			// @todo classList version
-			// @todo Move to tamia.js
-			var classes = this.elemNode.className;
-			classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
-			classes = classes.split(/\s+/);
-			for (var name in this.states) {
-				if (this.states[name]) {
-					classes.push('is-' + name);
-				}
-			}
-			this.elemNode.className = classes.join(' ');
 		}
 	};
 
@@ -1009,8 +1014,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 
 		toggle: function() {
-			this.toggleState('flipped');
-			this.elem.trigger('flipped.tamia', this.hasState('flipped'));
+			this.elem.toggleState('flipped');
+			this.elem.trigger('flipped.tamia', this.elem.hasState('flipped'));
 		}
 	});
 
@@ -1026,11 +1031,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	'use strict';
 
 	var _formElementsSelector = '.field,.button,.disablable';
-	var _disabledClass = 'is-disabled';
+	var _disabledState = 'disabled';
 
 	var _toggle = function(elem, enable) {
 		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
-		formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
+		formElements.toggleState(_disabledState, !enable);
 		formElements.attr('disabled', !enable);
 	};
 
@@ -1064,8 +1069,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var _doc = $(document);
 
 	var _bodyClass = 'modal-opened';
-	var _switchingClass = 'is-switching';
-	var _hiddenClass = 'is-hidden';
+	var _switchingState = 'switching';
+	var _hiddenState = 'hidden';
 	var _wrapperTmpl = '' +
 	'<div class="modal-shade is-hidden">' +
 		'<div class="l-center">' +
@@ -1093,7 +1098,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			this.wrapper.find('.js-modal').append(this.elem);
 			this.wrapper.on('click', this.shadeClick_);
 			_body.append(this.wrapper);
-			this.removeState('hidden');
+			this.elem.removeState('hidden');
 		},
 
 		open: function() {
@@ -1104,11 +1109,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			_body.addClass(_bodyClass);
 			if (opened) {
 				opened.close({hide: true});
-				this.wrapper.addClass(_switchingClass);
+				this.wrapper.addState(_switchingState);
 				this.wrapper.on('appeared.tamia', function() {
-					this.wrapper.removeClass(_switchingClass);
-					opened.wrapper.addClass(_hiddenClass);
-					opened.elem.removeClass(_hiddenClass);
+					this.wrapper.removeState(_switchingState);
+					opened.wrapper.addState(_hiddenState);
+					opened.elem.removeState(_hiddenState);
 				}.bind(this));
 			}
 			this.wrapper.trigger('appear.tamia');
@@ -1205,10 +1210,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		toggle: function() {
 			var focused = document.activeElement === this.fieldElem[0];
-			var locked = this.hasState('unlocked');
+			var locked = this.elem.hasState('unlocked');
 			var fieldType = this.fieldElem.attr('type');
 
-			this.toggleState('unlocked');
+			this.elem.toggleState('unlocked');
 
 			if (fieldType === types.locked && !locked) {
 				this.fieldElem.attr('type', types.unlocked);
@@ -1278,26 +1283,35 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
+	var _selectClass = '.js-select';
+	var _boxClass = '.js-box';
+
 	var Select = tamia.extend(tamia.Component, {
 		binded: 'focus blur change',
 
 		init: function() {
-			this.selectElem = this.elem.find('.js-select');
-			this.boxElem = this.elem.find('.js-box');
+			this.selectElem = this.elem.find(_selectClass);
+			this.boxElem = this.elem.find(_boxClass);
 
-			this.elem.on('focus', '.js-select', this.focus_);
-			this.elem.on('blur', '.js-select', this.blur_);
-			this.elem.on('change', '.js-select', this.change_);
+			this.elem.on({
+				focus: this.focus_,
+				blur: this.blur_,
+				change: this.change_
+			}, _selectClass);
 
 			this.change();
 		},
 
 		focus: function() {
-			this.addState('focused');
+			this.toggleFocused(true);
 		},
 
 		blur: function() {
-			this.removeState('focused');
+			this.toggleFocused(false);
+		},
+
+		toggleFocused: function(toggle) {
+			this.elem.toggleState('focused', toggle);
 		},
 
 		change: function() {
@@ -1330,11 +1344,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var Loader = tamia.extend(tamia.Component, {
 		init: function() {
 			this.initHtml();
-			tamia.delay(this.addState, this, 0, 'loading');
+			tamia.delay(this.elem.addState, this.elem, 0, 'loading');
 		},
 
 		destroy: function() {
-			this.removeState('loading');
+			this.elem.removeState('loading');
 			this.elem.find(_shadeSelector).afterTransition(function() {
 				this.elem.removeClass(_wrapperClass);
 				this.loader.remove();
@@ -1392,20 +1406,20 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 		disabled: {
 			set: function(elem) {
-				elem.addClass('is-disabled');
+				elem.addState('disabled');
 				elem.prop('disabled', true);
 			},
 			clear: function(elem) {
-				elem.removeClass('is-disabled');
+				elem.removeState('disabled');
 				elem.prop('disabled', false);
 			}
 		},
 		_default: {
 			set: function(elem, name) {
-				elem.addClass('is-' + name);
+				elem.addState(name);
 			},
 			clear: function(elem, name) {
-				elem.removeClass('is-' + name);
+				elem.removeState(name);
 			}
 		}
 	};
@@ -1597,7 +1611,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 */
 	var Hidden = tamia.extend(tamia.Component, {
 		init: function() {
-			this.addState('pony');
+			this.elem.addState('pony');
 		},
 
 		isInitializable: function() {
@@ -1613,11 +1627,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 */
 	var Unsupported = tamia.extend(tamia.Component, {
 		init: function() {
-			this.addState('pony');
+			this.elem.addState('pony');
 		},
 
 		fallback: function() {
-			this.addState('no-pony');
+			this.elem.addState('no-pony');
 		},
 
 		isSupported: function() {
