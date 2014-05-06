@@ -1,41 +1,39 @@
-(function() {
-  'use strict';
-  var $, parse, preload;
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Image preload
 
-  $ = jQuery;
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
 
-  preload = function(images, callback) {
-    var counter, done, errors, image, imageIdx, img, _i, _len, _results;
-    done = function() {
-      counter--;
-      if (!counter) {
-        return callback(errors.length ? errors : null);
-      }
-    };
-    images = parse(images);
-    counter = images.length;
-    errors = [];
-    _results = [];
-    for (imageIdx = _i = 0, _len = images.length; _i < _len; imageIdx = ++_i) {
-      image = images[imageIdx];
-      img = new Image();
-      img.onload = done;
-      img.onerror = function() {
-        errors.push(this.src);
-        return done();
-      };
-      _results.push(img.src = image);
-    }
-    return _results;
-  };
+	var preload = function (images, callback) {
+		var done = function() {
+			counter--;
+			if (counter === 0) {
+				callback(errors.length ? errors : null);
+			}
+		};
+		var error = function() {
+			errors.push(this.src);
+			done();
+		};
 
-  parse = function(images) {
-    if (!$.isArray(images)) {
-      images = [images];
-    }
-    return images;
-  };
+		images = parse(images);
+		var counter = images.length;
+		var errors = [];
+		for (var imageIdx = 0; imageIdx < images.length; imageIdx++) {
+			var img = new Image();
+			img.onload = done;
+			img.onerror = error;
+			img.src = images[imageIdx];
+		}
+	};
 
-  tamia.preload = preload;
+	var parse = function(images) {
+		if (!$.isArray(images)) images = [images];
+		// TODO: img.attr('src')
+		return images;
+	};
 
-}).call(this);
+	tamia.preload = preload;
+
+}(window, jQuery));

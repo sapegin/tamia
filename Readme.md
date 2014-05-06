@@ -10,7 +10,6 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 
 ## Based On
 
-* CoffeeScript.
 * Autoprefixer.
 * Modernizr.
 * jQuery.
@@ -46,7 +45,7 @@ And then I use BitBucket and Fabric to deploy website to a server.
 
 **Block** is an independent entity with some appearance (Stylus). You could read more about blocks [on bem.info](http://bem.info/method/definitions/).
 
-**Component** is a JavaScript (CoffeeScript) class inherited from `Component` base class. You could mix blocks and components in any same combination.
+**Component** is a JavaScript “class” inherited from `tamia.Component` base “class”. You could mix blocks and components in any same combination.
 
 **Module** is combination of block (appearance) and component (behaviour) that can be used on many websites. Some modules have only blocks, some modules have default skin that you can disable if you want.
 
@@ -67,14 +66,18 @@ It’s a base CSS rules (like Normalize.css but a quite different) and a lot of 
 
 Simple example:
 
-```coffee
-class Pony extends Component
-  init: ->
-    @on('click', 'toggle', @toggle)
-  toggle: ->
-    @toggleState('pink')
+```js
+var Pony = tamia.extend(tamia.Component, {
+  binded: 'toggle',
+  init: function() {
+    this.elem.on('click', '.js-toggle', this.toggle_);
+  },
+  toggle: function() {
+    this.toggleState('pink');
+  }
+});
 
-tamia.initComponents(pony: Pony)
+tamia.initComponents({pony: Pony});
 ```
 
 ```html
@@ -166,7 +169,7 @@ modules_default_skin = true;
 
 ### Debug Mode
 
-Both Stylus and JavaScript (CoffeeScript) in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
+Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
 
 Stylus:
 

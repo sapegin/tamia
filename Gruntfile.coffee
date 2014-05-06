@@ -14,27 +14,15 @@ module.exports = (grunt) ->
 			options:
 				jshintrc: '.jshintrc'
 			files: [
-				'tamia/tamia.js',
+				'tamia/*.js'
+				'modules/*/*.js'
 			]
 		coffeelint:
 			options:
 				configFile: 'coffeelint.json'
 			files: [
-				'tamia/*.coffee'
-				'modules/*/*.coffee'
-				'specs/test.coffee'
 				'tests/*.coffee'
 			]
-		coffee:
-			tamia:
-				expand: true
-				src: [
-					'tamia/component.coffee'
-					'specs/test.coffee'
-					'modules/*/*.coffee'
-				]
-				dest: '.'
-				ext: '.js'
 		concat:
 			docs:
 				src: [
@@ -84,11 +72,6 @@ module.exports = (grunt) ->
 					'specs/specs.css'
 					'docs/styles.css'
 				]
-			coffee:
-				options:
-					atBegin: true
-				files: '<%= coffee.tamia.src %>'
-				tasks: 'coffee'
 			concat:
 				options:
 					atBegin: true
@@ -149,8 +132,8 @@ module.exports = (grunt) ->
 		html.push (docsAppendTitle jscore, 'JavaScript Helpers')
 
 		# Component
-		component = grunt.file.read 'tamia/component.coffee'
-		component = docsProcessCoffee component
+		component = grunt.file.read 'tamia/component.js'
+		component = docsProcessJs component
 		html.push (docsAppendTitle component, 'Base JavaScript Component Class')
 
 		saveHtml 'docs', marked html.join '\n\n'
@@ -220,43 +203,12 @@ module.exports = (grunt) ->
 			text = docsFormatJsDoc text
 
 			title = null
-			m = /(?:function (\w+))|(?:(\w+) \->)/.exec firstLine  # Function
+			m = /(?:function (\w+))|(?:(\w+): )|(?:([\w\.]+) = function)/.exec firstLine  # Function
 			if m
 				params = text.match /\* \*\*([a-z\[\]]+)(?=\*\*)/g
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
-				title = m[1] + '(' + (params.join ', ') + ')'
+				title = m[1]||m[2]||m[3] + '(' + (params.join ', ') + ')'
 			m = /_handlers\.(\w+)/.exec firstLine  # Event
-			if not title and m
-				title = m[1]
-			if title
-				text = "#### #{title}\n\n#{text}"
-			else
-				# The first line is a title
-				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
-				text = "#### #{text}"
-
-			docs.push text
-
-		docs.join '\n\n'
-
-	docsProcessCoffee = (code) ->
-		docs = []
-		blocksRegEx = /###([\S\s]*?)###\n\s*(.*?)\n/mg
-		while true
-			matches = blocksRegEx.exec code
-			break  unless matches
-			text = matches[1]
-			firstLine = matches[2]
-
-			text = docsFormatJsDoc text
-
-			title = null
-			m = /(\w+):[^]* \->/.exec firstLine  # Function
-			if m
-				params = text.match /\* \*\*([a-z\[\]]+)(?=\*\*)/g
-				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
-				title = m[1] + '(' + (params.join ', ') + ')'
-			m = /_handlers\.(\w+)'/.exec firstLine  # Event
 			if not title and m
 				title = m[1]
 			if title
@@ -338,5 +290,5 @@ module.exports = (grunt) ->
 
 
 	grunt.registerTask 'test', ['casperjs']
-	grunt.registerTask 'default', ['jshint', 'coffeelint', 'coffee', 'concat', 'stylus', 'docs', 'test']
-	grunt.registerTask 'build', ['coffee', 'concat', 'stylus', 'docs']
+	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'test']
+	grunt.registerTask 'build', ['concat', 'stylus', 'docs']

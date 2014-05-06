@@ -1,38 +1,28 @@
-(function() {
-  'use strict';
-  var $, Flippable, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Flippable pane
 
-  $ = jQuery;
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
 
-  Flippable = (function(_super) {
-    __extends(Flippable, _super);
+	var Flippable = tamia.extend(tamia.Component, {
+		binded: 'toggle',
 
-    function Flippable() {
-      _ref = Flippable.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
+		init: function() {
+			if (this.elem.hasClass('js-flip')) {
+				this.elem.on('click', this.toggle_);
+			}
+			else {
+				this.elem.on('click', '.js-flip', this.toggle_);
+			}
+		},
 
-    Flippable.prototype.init = function() {
-      if (this.elem.hasClass('js-flip')) {
-        return this.on('click', this.toggle);
-      } else {
-        return this.on('click', 'flip', this.toggle);
-      }
-    };
+		toggle: function() {
+			this.toggleState('flipped');
+			this.elem.trigger('flipped.tamia', this.hasState('flipped'));
+		}
+	});
 
-    Flippable.prototype.toggle = function() {
-      this.toggleState('flipped');
-      return this.elem.trigger('flipped.tamia', this.hasState('flipped'));
-    };
+	tamia.initComponents({flippable: Flippable});
 
-    return Flippable;
-
-  })(Component);
-
-  tamia.initComponents({
-    flippable: Flippable
-  });
-
-}).call(this);
+}(window, jQuery));

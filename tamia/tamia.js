@@ -37,6 +37,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	// Namespace
 	var tamia = window.tamia = {};
 
+	// Shortcuts
+	var slice = Array.prototype.slice;
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+
 
 	if (DEBUG) {
 		// Debug logger
@@ -54,7 +58,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			return args;
 		};
 		var logger = function() {
-			var args = Array.prototype.slice.call(arguments);
+			var args = slice.call(arguments);
 			var func = args.shift();
 			console[func].apply(console, addBadge(args, 'Tâmia'));
 		};
@@ -77,6 +81,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		});
 	}
 
+
 	// Custom exception
 	tamia.Error = function(message) {
 		if (DEBUG) warn.apply(null, arguments);
@@ -84,6 +89,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		this.message = message;
 	};
 	tamia.Error.prototype = new Error();
+
 
 	var _containersCache;
 	var _components = {};
@@ -105,7 +111,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 *   tamia.initComponents({
 	 *     // New style component
-	 *     pony: Pony,  // class Pony extends Component {...}
+	 *     pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -149,7 +155,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			if (!component || container.hasAttribute(_initializedAttribute)) continue;
 
 			var initialized = true;
-			if ('__tamia_cmpnt__' in component) {
+			if (component.prototype && component.prototype.__tamia_cmpnt__) {
 				// New style component
 				initialized = (new component(container)).initializable;
 			}
@@ -182,6 +188,65 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			_components[name] = components[name];
 		}
 	};
+
+
+	/**
+	 * JavaScript inheritance.
+	 *
+	 * Example:
+	 *
+	 *   var Pony = tamia.extend(tamia.Component, {
+	 *     init: function() {
+	 *       // ...
+	 *     }
+	 *   });
+	 */
+	tamia.extend = function(parent, props) {
+		// Adapted from Backbone
+		var child;
+
+		// The constructor function for the new subclass is either defined by you (the "constructor" property
+		// in your `extend` definition), or defaulted by us to simply call the parent's constructor.
+		if (props && hasOwnProperty.call(props, 'constructor')) {
+			child = props.constructor;
+		}
+		else {
+			child = function() { return parent.apply(this, arguments); };
+		}
+
+		// Set the prototype chain to inherit from `parent`, without calling `parent`'s constructor function.
+		var Ctor = function() { this.constructor = child; };
+		Ctor.prototype = parent.prototype;
+		child.prototype = new Ctor();
+
+		// Add prototype properties (instance properties) to the subclass, if supplied.
+		if (props) {
+			for (var prop in props) {
+				child.prototype[prop] = props[prop];
+			}
+		}
+
+		// Set a convenience property in case the parent's prototype is needed later.
+		child.__super__ = parent.prototype;
+
+		return child;
+	};
+
+
+	/**
+	 * Delays a function for the given number of milliseconds, and then calls it with the specified arguments.
+	 *
+	 * @param {Function} func Function to call.
+	 * @param {Object} [context] Function context (default: global).
+	 * @param {Number} [wait] Time to wait, milliseconds (default: 0).
+	 * @param {Mixed} [param1, param2...] Any params to pass to function.
+	 * @return {TimeoutId} Timeout handler.
+	 */
+	tamia.delay = function(func, context, wait) {
+		var args = slice.call(arguments, 3);
+		return setTimeout(function() { return func.apply(context || null, args); }, wait || 0);
+	};
+
 
 	if (jQuery) {
 

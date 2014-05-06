@@ -1,35 +1,34 @@
-(function() {
-  'use strict';
-  var $, _disabledClass, _enableDisable, _formElementsSelector;
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Basic form controls
 
-  $ = jQuery;
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
 
-  _formElementsSelector = '.field,.button,.disablable';
+	var _formElementsSelector = '.field,.button,.disablable';
+	var _disabledClass = 'is-disabled';
 
-  _disabledClass = 'is-disabled';
+	var _toggle = function(elem, enable) {
+		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
+		formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
+		formElements.attr('disabled', !enable);
+	};
 
-  _enableDisable = function(elem, enable) {
-    var formElements;
-    formElements = ($(elem)).find(_formElementsSelector).addBack(_formElementsSelector);
-    formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
-    return formElements.attr('disabled', !enable);
-  };
+	// Events
+	tamia.registerEvents({
+		/**
+		 * Enables all descendant form elements.
+		 */
+		enable: function(elem) {
+			_toggle(elem, true);
+		},
 
-  tamia.registerEvents({
-    /*
-    	Enables all descendant form elements.
-    */
+		/**
+		 * Disables all descendant form elements.
+		 */
+		disable: function(elem) {
+			_toggle(elem, false);
+		}
+	});
 
-    enable: function(elem) {
-      return _enableDisable(elem, true);
-    },
-    /*
-    	Disables all descendant form elements.
-    */
-
-    disable: function(elem) {
-      return _enableDisable(elem, false);
-    }
-  });
-
-}).call(this);
+}(window, jQuery));

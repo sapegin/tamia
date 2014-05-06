@@ -1,138 +1,115 @@
-(function() {
-  'use strict';
-  var $, Modal, _body, _bodyClass, _doc, _hiddenClass, _opened, _ref, _switchingClass, _wrapperTmpl,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// Modal
 
-  $ = jQuery;
+/*global tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
 
-  _body = $('body');
+	var _body = $('body');
+	var _doc = $(document);
 
-  _doc = $(document);
+	var _bodyClass = 'modal-opened';
+	var _switchingClass = 'is-switching';
+	var _hiddenClass = 'is-hidden';
+	var _wrapperTmpl = '' +
+	'<div class="modal-shade is-hidden">' +
+		'<div class="l-center">' +
+			'<div class="l-center-i js-modal"></div>' +
+		'</div>' +
+	'</div>';
+	var _opened = null;
 
-  _bodyClass = 'modal-opened';
+	var Modal = tamia.extend(tamia.Component, {
+		binded: 'commit dismiss keyup shadeClick',
 
-  _switchingClass = 'is-switching';
+		init: function() {
+			this.elem.data('modal', this);
+			this.elem.on('click', '.js-modal-commit', this.commit_);
+			this.elem.on('click', '.js-modal-dismiss', this.dismiss_);
+			if (this.elem.data('modal-open')) {
+				this.open();
+			}
+		},
 
-  _hiddenClass = 'is-hidden';
+		initHtml: function() {
+			if (this.wrapper) return;
 
-  _wrapperTmpl = '<div class="modal-shade is-hidden">\n	<div class="l-center">\n		<div class="l-center-i js-modal"></div>\n	</div>\n</div>';
+			this.wrapper = $(_wrapperTmpl);
+			this.wrapper.find('.js-modal').append(this.elem);
+			this.wrapper.on('click', this.shadeClick_);
+			_body.append(this.wrapper);
+			this.removeState('hidden');
+		},
 
-  _opened = null;
+		open: function() {
+			if (this === _opened) return;
 
-  Modal = (function(_super) {
-    __extends(Modal, _super);
+			var opened = _opened;
+			this.initHtml();
+			_body.addClass(_bodyClass);
+			if (opened) {
+				opened.close({hide: true});
+				this.wrapper.addClass(_switchingClass);
+				this.wrapper.on('appeared.tamia', function() {
+					this.wrapper.removeClass(_switchingClass);
+					opened.wrapper.addClass(_hiddenClass);
+					opened.elem.removeClass(_hiddenClass);
+				}.bind(this));
+			}
+			this.wrapper.trigger('appear.tamia');
+			_doc.on('keyup', this.keyup_);
+			_opened = this;
+		},
 
-    function Modal() {
-      _ref = Modal.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
+		close: function(params) {
+			if (params === undefined) params = {hide: false};
 
-    Modal.prototype.init = function() {
-      this.elem.data('modal', this);
-      this.on('click', 'modal-commit', this.commit);
-      this.on('click', 'modal-dismiss', this.dismiss);
-      this.keyup_ = this.keyup.bind(this);
-      if (this.elem.data('modal-open')) {
-        return this.open();
-      }
-    };
+			var elem = params.hide ? this.elem : this.wrapper;
+			elem.trigger('disappear.tamia');
+			if (!params.hide) _body.removeClass(_bodyClass);
+			_doc.off('keyup', this.keyup_);
+			_opened = null;
+		},
 
-    Modal.prototype.initHtml = function() {
-      if (this.wrapper) {
-        return;
-      }
-      this.wrapper = $(_wrapperTmpl);
-      this.wrapper.find('.js-modal').append(this.elem);
-      this.wrapper.on('click', this.shadeClick.bind(this));
-      _body.append(this.wrapper);
-      return this.removeState('hidden');
-    };
+		commit: function(event) {
+			this.done(event, 'commit');
+		},
 
-    Modal.prototype.open = function() {
-      var hide, opened,
-        _this = this;
-      if (this === _opened) {
-        return;
-      }
-      opened = _opened;
-      this.initHtml();
-      _body.addClass(_bodyClass);
-      if (opened) {
-        opened.close(hide = true);
-        this.wrapper.addClass(_switchingClass);
-        this.wrapper.on('appeared.tamia', function() {
-          _this.wrapper.removeClass(_switchingClass);
-          opened.wrapper.addClass(_hiddenClass);
-          return opened.elem.removeClass(_hiddenClass);
-        });
-      }
-      this.wrapper.trigger('appear.tamia');
-      _doc.on('keyup', this.keyup_);
-      return _opened = this;
-    };
+		dismiss: function(event) {
+			this.done(event, 'dismiss');
+		},
 
-    Modal.prototype.close = function(hide) {
-      var elem;
-      if (hide == null) {
-        hide = false;
-      }
-      elem = hide ? this.elem : this.wrapper;
-      elem.trigger('disappear.tamia');
-      if (!hide) {
-        _body.removeClass(_bodyClass);
-      }
-      _doc.off('keyup', this.keyup_);
-      return _opened = null;
-    };
+		done: function(event, type) {
+			if (event) event.preventDefault();
 
-    Modal.prototype.commit = function(event) {
-      return this.done(event, 'commit');
-    };
+			var typeEvent = $.Event(type + '.modal.tamia');
+			this.elem.trigger(typeEvent);
+			if (typeEvent.isDefaultPrevented()) return;
 
-    Modal.prototype.dismiss = function(event) {
-      return this.done(event, 'dismiss');
-    };
+			this.close();
+		},
 
-    Modal.prototype.done = function(event, type) {
-      var typeEvent;
-      if (event != null) {
-        event.preventDefault();
-      }
-      typeEvent = $.Event(type + '.modal.tamia');
-      this.elem.trigger(typeEvent);
-      if (typeEvent.isDefaultPrevented()) {
-        return;
-      }
-      return this.close();
-    };
+		keyup: function(event) {
+			if (event.which === 27) {  // Escape
+				this.dismiss(event);
+			}
+		},
 
-    Modal.prototype.keyup = function(event) {
-      if (event.which === 27) {
-        return this.dismiss(event);
-      }
-    };
+		shadeClick: function(event) {
+			if ($(event.target).hasClass('js-modal')) {
+				this.dismiss(event);
+			}
+		}
+	});
 
-    Modal.prototype.shadeClick = function(event) {
-      if ($(event.target).hasClass('js-modal')) {
-        return this.dismiss(event);
-      }
-    };
+	// Events
+	tamia.registerEvents({
+		'open.modal': function(elem) {
+			var container = $(elem);
+			var modal = container.data('modal');
+			if (!modal) modal = new Modal(elem);
+			modal.open();
+		}
+	});
 
-    return Modal;
-
-  })(Component);
-
-  tamia.registerEvents({
-    'open.modal': function(elem) {
-      var container, modal;
-      container = $(elem);
-      modal = container.data('modal');
-      if (!modal) {
-        modal = new Modal(elem);
-      }
-      return modal.open();
-    }
-  });
-
-}).call(this);
+}(window, jQuery));

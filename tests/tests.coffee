@@ -4,6 +4,8 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
+TESTS = 73
+
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
 
@@ -12,7 +14,7 @@ casper.count = (s) ->
 		(document.querySelectorAll s).length
 	), s
 
-casper.test.begin('Tâmia', 74, suite = (test) ->
+casper.test.begin('Tâmia', TESTS, suite = (test) ->
 
 	casper.start 'specs/specs.html'
 
@@ -119,7 +121,6 @@ casper.test.begin('Tâmia', 74, suite = (test) ->
 		test.assertEval (-> cmpnt.elem.hasClass 'is-ok'), 'Component: has .is-ok class'
 		test.assertEval (-> cmpnt.hasState('one') and cmpnt.hasState('two')), 'Component: states imported from HTML'
 		test.assertEval (-> cmpnt.elemNode.className is 'pony is-one is-two is-ok'), 'Component: all classes exists in HTML'
-		test.assertEval (-> !!cmpnt.find('elem').jquery), 'Component: elem has found'
 	casper.thenEvaluate ->
 		cmpnt.addState 'three'
 		cmpnt.toggleState 'two'
@@ -136,29 +137,29 @@ casper.test.begin('Tâmia', 74, suite = (test) ->
 		test.assertEval (-> cmpnt.elemNode.className is 'pony is-two is-ok is-three'), 'Component: state removed from HTML'
 	casper.thenEvaluate ->
 		cmpnt.reset()
-		cmpnt.find('elem').trigger 'test1'
+		cmpnt.elem.find('.js-elem').trigger 'test1'
 	casper.then ->
 		test.assertEval (-> cmpnt.handled), 'Component: first event handled'
 	casper.thenEvaluate ->
 		cmpnt.reset()
-		cmpnt.find('elem').trigger 'test2'
+		cmpnt.elem.find('.js-elem').trigger 'test2'
 	casper.then ->
 		test.assertEval (-> cmpnt.handled), 'Component: second event handled'
 	casper.thenEvaluate ->
 		cmpnt.detachFirstHandler()
 		cmpnt.reset()
-		cmpnt.find('elem').trigger 'test1'
+		cmpnt.elem.find('.js-elem').trigger 'test1'
 	casper.then ->
 		test.assertEval (-> not cmpnt.handled), 'Component: first event not handled after off() call'
 	casper.thenEvaluate ->
 		cmpnt.reset()
-		cmpnt.find('elem').trigger 'test2'
+		cmpnt.elem.find('.js-elem').trigger 'test2'
 	casper.then ->
 		test.assertEval (-> cmpnt.handled), 'Component: second event still handled'
 	casper.thenEvaluate ->
 		cmpnt.detachSecondHandler()
 		cmpnt.reset()
-		cmpnt.find('elem').trigger 'test2'
+		cmpnt.elem.find('.js-elem').trigger 'test2'
 	casper.then ->
 		test.assertEval (-> not cmpnt.handled), 'Component: second event not handled after off() call'
 
