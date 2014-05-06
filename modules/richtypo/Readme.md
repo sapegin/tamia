@@ -7,9 +7,9 @@ Classes and tweaks for better typography.
 
 ### Abbreviations with spacing
 
-<div class="text">
-	<p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
-</div>
+	<div class="text">
+		<p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
+	</div>
 
 ### The best ampersand
 
