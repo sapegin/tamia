@@ -5,26 +5,35 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
+	var _selectClass = '.js-select';
+	var _boxClass = '.js-box';
+
 	var Select = tamia.extend(tamia.Component, {
 		binded: 'focus blur change',
 
 		init: function() {
-			this.selectElem = this.elem.find('.js-select');
-			this.boxElem = this.elem.find('.js-box');
+			this.selectElem = this.elem.find(_selectClass);
+			this.boxElem = this.elem.find(_boxClass);
 
-			this.elem.on('focus', '.js-select', this.focus_);
-			this.elem.on('blur', '.js-select', this.blur_);
-			this.elem.on('change', '.js-select', this.change_);
+			this.elem.on({
+				focus: this.focus_,
+				blur: this.blur_,
+				change: this.change_
+			}, _selectClass);
 
 			this.change();
 		},
 
 		focus: function() {
-			this.addState('focused');
+			this.toggleFocused(true);
 		},
 
 		blur: function() {
-			this.removeState('focused');
+			this.toggleFocused(false);
+		},
+
+		toggleFocused: function(toggle) {
+			this.toggleState('focused', toggle);
 		},
 
 		change: function() {
