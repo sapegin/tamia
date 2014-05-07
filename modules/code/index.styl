@@ -39,6 +39,9 @@ code_default_skin ?= false
 			border: 1px solid #ccc
 			border-color: black(.2)
 
+			@media print
+				border: 0
+
 // Enable code in .text blocks
 .text pre
 	@extend .code
