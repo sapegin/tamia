@@ -596,7 +596,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			};
 
 			var addGrid = function() {
-				var firstRow = jQuery('.tamia__grid-row,.tamia__layout-row').first();
+				var firstRow = jQuery('.tamia__grid-row:visible,.tamia__layout-row:visible').first();
 				if (!firstRow.length) return;
 
 				if (!gridDebugger) {
