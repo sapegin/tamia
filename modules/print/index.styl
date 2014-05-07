@@ -46,8 +46,8 @@ site_domain ?= false
 		page-break-inside: avoid
 		page-break-after: avoid
 
-	a:link:after,
-	a:visited:after
+	a[href^="http"]:link:after,
+	a[href^="http"]:visited:after
 		content: " (" attr(href) ")"
 		font-size: .9em
 
@@ -56,11 +56,6 @@ site_domain ?= false
 		a[href^="/"]:visited:after
 			content: (" (http://" + site_domain) attr(href) ")"
 			font-size: .9em
-
-	a[href^="javascript:"]:after,
-	a[href^="#"]:after,
-	.footer a:after
-		content: ""
 
 	.header
 		margin-bottom: 2*spacer
