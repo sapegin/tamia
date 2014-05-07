@@ -49,8 +49,6 @@ module.exports = (grunt) ->
 				use: [
 					-> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8', 'ie 9')
 				]
-				define:
-					import_tree: (require 'stylus-import-tree')
 			specs:
 				files:
 					'specs/specs.css': 'specs/specs.styl'

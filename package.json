@@ -22,7 +22,6 @@
     "marked": "~0.3.0",
     "matchdep": "~0.3.0",
     "stylus": "~0.42.0",
-    "stylus-import-tree": "~0.1.10",
     "underscore.string": "~2.3.3"
   }
 }
