@@ -45,26 +45,6 @@ grid-col(position=1, span=1, context=null)
 	_grid-float()
 	grid-padding()
 
-// Single column at a specified place. Doesn’t need parent element with `grid-row()`.
-//
-// position - Start column number (default: 1).
-// span - Width, in culumns (default: 1).
-// context - Width of parent column (default: null).
-grid-single-col(position=1, span=1, context=null)
-	grid-wrapper()
-	context = grid_columns if not context
-	_side-gutter = grid_gutter / 2;
-	_unit-width = 100% / context
-	padding-left: "calc((100% + %s) / %s * %s + %s)" % (grid_gutter context (position - 1) _side-gutter)
-	padding-right: "calc((100% + %s) / %s * %s + %s)" % (grid_gutter context (grid_columns - position - span + 1) _side-gutter)
-	content: "tamia__grid-col"  if DEBUG
-	.no-csscalc
-		/// Very unprecise but it’s only for IE8 and Safari 5.1
-		margin-left: 0
-		margin-right: 0
-		padding-left: (position - 1) * _unit-width
-		padding-right: (grid_columns - position - span + 1) * _unit-width
-
 // Gutter size negative margin to make column with different background.
 // You should adjust padding depending on content.
 grid-explode()
