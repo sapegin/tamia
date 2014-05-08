@@ -135,15 +135,6 @@ layout-change(part)
 layout-stop()
 	_layout-part(1)
 
-
-// Center element with specified width and hegith.
-center(width, height=null)
-	size(width, height)
-	left: 50%
-	top: 50%
-	margin-left: (-(@width / 2))
-	margin-top: (-(@height / 2))
-
 _layout-col()
 	grid-padding()
 	// IE8-9
@@ -155,6 +146,19 @@ _layout-col()
 
 _layout-part(part)
 	width: (100% / (1 / part))
+
+
+//
+// Misc
+//
+
+// Center element with specified width and hegith.
+center(width, height=null)
+	size(width, height)
+	left: 50%
+	top: 50%
+	margin-left: (-(@width / 2))
+	margin-top: (-(@height / 2))
 
 
 //
