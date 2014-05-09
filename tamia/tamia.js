@@ -257,6 +257,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var _statesData = 'tamia-states';
 		var _appearedEvent = 'appeared.tamia';
 		var _disappearedEvent = 'disappeared.tamia';
+		var _toggledEvent = 'disappeared.tamia';
 		var _fallbackTimeout = 1000;
 
 		/**
@@ -306,7 +307,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Show element with CSS transition.
 		 *
-		 * appeared.tamia event will be fired the moment transition ends.
+		 * appeared.tamia and toggled.tamia events will be fired the moment transition ends.
 		 *
 		 * Example:
 		 *
@@ -330,19 +331,21 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					elem.afterTransition(function() {
 						elem.removeState(_transitionSate);
 						elem.trigger(_appearedEvent);
+						elem.trigger(_toggledEvent, true);
 					});
 				}, 0);
 			}
 			else {
 				elem.removeState(_hiddenState);
 				elem.trigger(_appearedEvent);
+				elem.trigger(_toggledEvent, true);
 			}
 		};
 
 		/**
 		 * Hide element with CSS transition.
 		 *
-		 * disappeared.tamia event will be fired the moment transition ends.
+		 * disappeared.tamia and toggled.tamia events will be fired the moment transition ends.
 		 *
 		 * Opposite of `appear.tamia` event.
 		 */
@@ -355,11 +358,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				elem.afterTransition(function() {
 					elem.removeState(_transitionSate);
 					elem.trigger(_disappearedEvent);
+					elem.trigger(_toggledEvent, false);
 				});
 			}
 			else {
 				elem.addState(_hiddenState);
 				elem.trigger(_disappearedEvent);
+				elem.trigger(_toggledEvent, false);
 			}
 		};
 
