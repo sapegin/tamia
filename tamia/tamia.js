@@ -44,13 +44,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	if (DEBUG) {
 		// Debug logger
-		var addBadge = function(args, name) {
+		var addBadge = function(args, name, bg) {
 			// Color console badge
 			// Based on https://github.com/jbail/lumberjack
 			var ua = navigator.userAgent.toLowerCase();
 			if (ua.indexOf('chrome') !== -1 || ua.indexOf('firefox') !== -1) {
 				var format = '%c %s %c ' + args.shift();
-				args.unshift(format, 'background:#aa759f; color:#fff', name, 'background:inherit; color:inherit');
+				args.unshift(format, 'background:' + bg + '; color:#fff', name, 'background:inherit; color:inherit');
 			}
 			else {
 				args[0] = name + ': ' + args[0];
@@ -60,10 +60,55 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var logger = function() {
 			var args = slice.call(arguments);
 			var func = args.shift();
-			console[func].apply(console, addBadge(args, 'Tâmia'));
+			console[func].apply(console, addBadge(args, 'Tâmia', '#aa759f'));
 		};
 		var log = tamia.log = logger.bind(null, 'log');
 		var warn = tamia.warn = logger.bind(null, 'warn');
+
+		/**
+		 * Traces all object’s method calls and arguments.
+		 *
+		 * @param {Object} object Object.
+		 * @param {String} [name] Object name.
+		 *
+		 * Example:
+		 *
+		 *   init: function() {
+		 *     tamia.trace(this, 'ClassName');
+		 *     ...
+		 *   }
+		 */
+		tamia.trace = function(object, name) {
+			if (name === undefined) name = 'Object';
+			var level = 0;
+
+			var wrap = function(func_name) {
+				var func = object[func_name];
+
+				object[func_name] = function() {
+					pre(func_name, slice.call(arguments));
+					var result = func.apply(this, arguments);
+					post();
+					return result;
+				};
+			};
+
+			var pre = function(func_name, args) {
+				level++;
+				var padding = new Array(level).join('.  ');
+				console.log.apply(console, addBadge([padding + func_name, args || []], name, '#d73737'));
+			};
+
+			var post = function() {
+				level--;
+			};
+
+			for (var func_name in object) {
+				if ($.isFunction(object[func_name])) {
+					wrap(func_name);
+				}
+			}
+		};
 
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
@@ -79,6 +124,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		], function(idx, feature) {
 			if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
 		});
+	}
+	else {
+		tamia.log = tamia.warn = tamia.trace = function() {};
 	}
 
 
@@ -607,7 +655,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				if (!gridDebugger) {
 					var columns = 12;  // @todo Use real number of columns
 					gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
-					gridDebugger.html(new Array((columns) + 1).join('<b class="tamia__grid-debugger-col"></b>'));
+					gridDebugger.html(new Array(columns + 1).join('<b class="tamia__grid-debugger-col"></b>'));
 					firstRow.prepend(gridDebugger);
 				}
 
