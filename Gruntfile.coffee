@@ -21,6 +21,7 @@ module.exports = (grunt) ->
 			options:
 				configFile: 'coffeelint.json'
 			files: [
+				'Gruntfile.coffee'
 				'tests/*.coffee'
 			]
 		concat:
@@ -239,12 +240,12 @@ module.exports = (grunt) ->
 		code = code.replace /^\s*\/\/\/.*?$/mg, ''
 
 		docs = []
-		blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^[^\/]+$)?/mg
+		blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^.*?$)?/mg
 		while true
 			matches = blocksRegEx.exec code
 			break  unless matches
 			text = matches[1]
-			firstLine = matches[2]
+			firstLine = matches[2]?.split('\n')[0]
 
 			# Heading
 			m = text.match /^\s*\/\/\n\/\/\s*([-\. \w]+)\n\/\/\s*/
@@ -255,7 +256,7 @@ module.exports = (grunt) ->
 			text = (text
 				.replace(/^\s*\/\/ ?/mg, '')  # Clean up
 				.replace(/^\s*/, '')  # Clean up
-				.replace(/^([-_\.a-z]+) - ([A-Z0-9])/mg, '* **$1** $2')  # Params
+				.replace(/^([-_\.a-z]+) - (.*?\.)/mg, '* **$1** $2')  # Params
 				.replace(/^(.*?):$/mg, '##### $1')  # Sections
 				.replace(/^  /mg, '    ')  # Code blocks
 				)
@@ -265,7 +266,14 @@ module.exports = (grunt) ->
 			if m
 				params = text.match /\* \*\*([a-z]+)(?=\*\*)/g
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
-				title = m[1] + '(' + (params.join ', ') + ')'
+
+				# Custom titles
+				titles = text.match /^# (.*?)$/mg
+				if titles
+					title = _.map(titles, (title) -> title.replace /^# /, '').join('<br>')
+					text = text.replace /^# .*?$/mg, ''
+				else
+					title = m[1] + '(' + (params.join ', ') + ')'
 			m = /^\s*([-\w]+) \??=/m.exec firstLine  # Variable
 			if not title and m
 				title = m[1]

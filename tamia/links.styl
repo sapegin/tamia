@@ -57,31 +57,30 @@ link-fake-underline(color)
 // :hover, :active and :focus states of the link.
 //
 // Example:
+//
 // 	 +link-hovers()
 //	 	color: #bada55
-link-hovers() {
+link-hovers()
 	&:hover,
 	&:active,
-	&:focus {
+	&:focus
 		{block}
-	}
-}
+
 
 // All states of the link.
 //
 // Example:
+//
 // 	 +link-all-states()
 //	 	color: @color
-link-all-states() {
+link-all-states()
 	&,
 	&:link,
 	&:visited,
 	&:hover,
 	&:active,
-	&:focus {
+	&:focus
 		{block}
-	}
-}
 
 
 //

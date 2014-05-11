@@ -137,7 +137,7 @@ layout-stop()
 
 _layout-col()
 	grid-padding()
-	// IE8-9
+	/// IE8-9
 	.no-flexbox &
 		display: inline-block
 		vertical-align: top
@@ -153,6 +153,14 @@ _layout-part(part)
 //
 
 // Center element with specified width and hegith.
+//
+// width - Width of an element.
+// height - Height of an element (default: null).
+//
+// Example:
+//   .checkbox:before
+//     center(.8em, .65em)
+//     background-image: url("check.svg")
 center(width, height=null)
 	size(width, height)
 	left: 50%
@@ -201,8 +209,9 @@ center(width, height=null)
 .l-half
 	_layout-part(1/2)
 
-// Flexible columns with left (.l-left) and right (.l-right) text alignment (to use inside .l-row).
+// Flexible columns with left text alignment (to use inside .l-row).
 .l-left,
+// Flexible columns with right text alignment (to use inside .l-row).
 .l-right
 	flex: 1
 .l-right
