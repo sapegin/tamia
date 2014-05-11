@@ -11,6 +11,9 @@ retinafy ?= false
 // Path to calculate file system image path based on CSS path (default: .).
 images_relative_root ?= '.'
 
+// Sprite fingerprint, string that will be appended to URL to flush browser cache.
+sprite_fingerprint ?= null
+
 // Default sprite image file (default: ../build/sprite.png).
 sprite_image ?= '../build/sprite.png';
 sprite_image = sprite_image + '?' + sprite_fingerprint  if sprite_fingerprint
