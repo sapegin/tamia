@@ -37,9 +37,9 @@
 
 	<div class="page-content content">
 		
-
-		<div class="text">
-			<h2 id="configuration">Configuration</h2>
+			<div class="l-row js-content-container">
+				<div class="l-three-quarters text js-content">
+					<h2 id="configuration">Configuration</h2>
 <h4 id="spacer">spacer</h4>
 <p>Default spacer (default: 10px).</p>
 <h4 id="max_width">max_width</h4>
@@ -81,21 +81,7 @@
   grid-col(1,2)
 .col2
   grid-col(3,10)
-</code></pre><h4 id="grid-one-position-span-context-">grid-one(position, span, context)</h4>
-<p>Single column.</p>
-<ul>
-<li><strong>position</strong> Start column number (default: 1).</li>
-<li><strong>span</strong> Width, in culumns (default: 1).</li>
-<li><strong>context</strong> Width of parent column (default: null).</li>
-</ul>
-<h4 id="grid-one-container-position-span-context-">grid-one-container(position, span, context)</h4>
-<p>Single column (without padding, wrapper for child columns).</p>
-<ul>
-<li><strong>position</strong> Start column number (default: 1).</li>
-<li><strong>span</strong> Width, in culumns (default: 1).</li>
-<li><strong>context</strong> Width of parent column (default: null).</li>
-</ul>
-<h4 id="grid-explode-">grid-explode()</h4>
+</code></pre><h4 id="grid-explode-">grid-explode()</h4>
 <p>Gutter size negative margin to make column with different background.
 You should adjust padding depending on content.</p>
 <h4 id="grid-width-span-context-">grid-width(span, context)</h4>
@@ -126,7 +112,7 @@ You should adjust padding depending on content.</p>
 .row
   layout-row()
 .col
-  layout-nth(2)  // Half
+  layout-nth(1/2)  // Half
 </code></pre><h4 id="layout-change-part-">layout-change(part)</h4>
 <p>Change number of columns.</p>
 <p>Use it to change number of columns (defined via layout-nth()) inside media queries.</p>
@@ -136,27 +122,36 @@ You should adjust padding depending on content.</p>
 <h4 id="layout-stop-">layout-stop()</h4>
 <p>Disable columns.</p>
 <p>Alias for layout-change(1).</p>
-<h4 id="center-">center()</h4>
+<h3 id="misc">Misc</h3>
+<h4 id="center-width-height-">center(width, height)</h4>
 <p>Center element with specified width and hegith.</p>
-<h4 id="_layout-part-">_layout-part()</h4>
-<p>IE8-9</p>
-<h3 id="classes">Classes</h3>
-<h4 id="layout-row-">layout-row()</h4>
+<ul>
+<li><strong>width</strong> Width of an element.</li>
+<li><strong>height</strong> Height of an element (default: null).</li>
+</ul>
+<h5 id="example">Example</h5>
+<pre><code>.checkbox:before
+  center(.8em, .65em)
+  background-image: url(&quot;check.svg&quot;)
+</code></pre><h3 id="classes">Classes</h3>
+<h4 id="-l-row">.l-row</h4>
 <p>Column wrapper.</p>
-<h4 id="_layout-part-">_layout-part()</h4>
+<h4 id="-l-sixth">.l-sixth</h4>
 <p>Sixth (to use inside .l-row).</p>
-<h4 id="_layout-part-">_layout-part()</h4>
+<h4 id="-l-quarter">.l-quarter</h4>
 <p>Quarter (to use inside .l-row).</p>
 <h4 id="-l-three-quarters">.l-three-quarters</h4>
 <p>Three quarters (to use inside .l-row).</p>
-<h4 id="_layout-part-">_layout-part()</h4>
+<h4 id="-l-third">.l-third</h4>
 <p>Third (to use inside .l-row).</p>
 <h4 id="-l-two-thirds">.l-two-thirds</h4>
 <p>Two thirds (to use inside .l-row).</p>
-<h4 id="_layout-part-">_layout-part()</h4>
+<h4 id="-l-half">.l-half</h4>
 <p>Half (to use inside .l-row).</p>
 <h4 id="-l-left">.l-left</h4>
-<p>Flexible columns with left (.l-left) and right (.l-right) text alignment (to use inside .l-row).</p>
+<p>Flexible columns with left text alignment (to use inside .l-row).</p>
+<h4 id="-l-right">.l-right</h4>
+<p>Flexible columns with right text alignment (to use inside .l-row).</p>
 <h4 id="-l-center">.l-center</h4>
 <p>Centered content (vertically and horizontally).</p>
 <h5 id="example">Example</h5>
@@ -169,13 +164,13 @@ You should adjust padding depending on content.</p>
 <ul>
 <li><strong>rows</strong> Number of “rows” (one row = default spacer).</li>
 </ul>
-<h4 id="space-">space()</h4>
+<h4 id="-l-space">.l-space</h4>
 <p>Standard bottom margin.</p>
-<h4 id="space-">space()</h4>
+<h4 id="-l-double-space">.l-double-space</h4>
 <p>Double bottom margin.</p>
-<h4 id="space-">space()</h4>
+<h4 id="-l-triple-space">.l-triple-space</h4>
 <p>Triple bottom margin.</p>
-<h4 id="space-">space()</h4>
+<h4 id="-l-quad-space">.l-quad-space</h4>
 <p>Quadruple bottom margin.</p>
 <h2 id="links">Links</h2>
 <h3 id="configuration">Configuration</h3>
@@ -209,16 +204,18 @@ You should adjust padding depending on content.</p>
 <p>Adds link underline (adds nothing for “underline” and “border” types)</p>
 <h4 id="link-fake-underline-">link-fake-underline()</h4>
 <p>Adds fake link underline (adds nothing for “underline” type)</p>
-<h4 id="-hover-active-and-focus-states-of-the-link">:hover, :active and :focus states of the link</h4>
+<h4 id="link-hovers-">link-hovers()</h4>
+<p>:hover, :active and :focus states of the link.</p>
 <h5 id="example">Example</h5>
 <pre><code> +link-hovers()
      color: #bada55
-</code></pre><h4 id="all-states-of-the-link">All states of the link</h4>
+</code></pre><h4 id="link-all-states-">link-all-states()</h4>
+<p>All states of the link.</p>
 <h5 id="example">Example</h5>
 <pre><code> +link-all-states()
      color: @color
 </code></pre><h3 id="classes">Classes</h3>
-<h4 id="no-select-">no-select()</h4>
+<h4 id="-pressable-inset">.pressable-inset</h4>
 <p>Pressable element: pointer cursor + disable text selection.</p>
 <h4 id="-pressable">.pressable</h4>
 <p>Pressable element: shifts down by 1px on click.</p>
@@ -226,7 +223,7 @@ You should adjust padding depending on content.</p>
 <p>Non-pressable element: cancels .pressable.</p>
 <h4 id="-no-underline">.no-underline</h4>
 <p>Remove underline.</p>
-<h4 id="link-underline-">link-underline()</h4>
+<h4 id="-link">.link</h4>
 <p>Link.</p>
 <ul>
 <li><strong>.link_fake</strong> Pseudo link with dashed underline.</li>
@@ -238,21 +235,24 @@ You should adjust padding depending on content.</p>
 <p>Enable Retina support (default: false).</p>
 <h4 id="images_relative_root">images_relative_root</h4>
 <p>Path to calculate file system image path based on CSS path (default: .).</p>
-<h4 id="default-sprite-image-file-default-build-sprite-png-">Default sprite image file (default: ../build/sprite.png)</h4>
+<h4 id="sprite_fingerprint">sprite_fingerprint</h4>
+<p>Sprite fingerprint, string that will be appended to URL to flush browser cache.</p>
+<h4 id="sprite_image">sprite_image</h4>
+<p>Default sprite image file (default: ../build/sprite.png).</p>
 <h4 id="sprite_step">sprite_step</h4>
 <p>Sprite step size (default: 20px).</p>
 <h3 id="functions">Functions</h3>
-<h4 id="image-path-">image(path)</h4>
+<h4 id="image-path-x-y-">image(path, x, y)</h4>
 <p>background-image with Retina variant.</p>
 <ul>
-<li><strong>path</strong> Image file path.
-x - background-position x (default: 0).
-y - background-position y (default: 0).</li>
+<li><strong>path</strong> Image file path.</li>
+<li><strong>x</strong> background-position x (default: 0).</li>
+<li><strong>y</strong> background-position y (default: 0).</li>
 </ul>
 <p>Retina image file should be named path@2x.png.</p>
-<h4 id="sprite-img-x-y-w-">sprite(img, x, y, w)</h4>
+<h4 id="sprite-img-br-sprite-x-y-w-h-">sprite(img)<br>sprite(x, y, w, h)</h4>
 <p>Sprite (to use in pseudo element).</p>
-<h5 id="sprite-generated-by-grunt-squirrelsprite">Sprite generated by grunt-squirrelsprite</h5>
+<h5 id="sprite-generated-by-grunt-tamia-sprite">Sprite generated by grunt-tamia-sprite</h5>
 <ul>
 <li><strong>img</strong> Sprite image variable.</li>
 </ul>
@@ -260,8 +260,8 @@ y - background-position y (default: 0).</li>
 <ul>
 <li><strong>x</strong> Horizontal position in sprite grid.</li>
 <li><strong>y</strong> Vertical position in sprite grid.</li>
-<li><strong>w</strong> Sprite width, pixels.
-h - sprite height, pixels.</li>
+<li><strong>w</strong> Sprite width, pixels.</li>
+<li><strong>h</strong> sprite height, pixels.</li>
 </ul>
 <h5 id="example">Example</h5>
 <pre><code>.elem
@@ -281,8 +281,13 @@ h - sprite height, pixels.</li>
 <li><strong>y</strong> Vertical position in sprite grid.</li>
 </ul>
 <p>Returns pixels.</p>
-<h4 id="sprite-pos-x-y-">sprite-pos(x, y)</h4>
+<h4 id="sprite-pos-img-br-sprite-pos-x-y-">sprite-pos(img)<br>sprite-pos(x, y)</h4>
 <p>background-position for sprite.</p>
+<h5 id="sprite-generated-by-grunt-tamia-sprite">Sprite generated by grunt-tamia-sprite</h5>
+<ul>
+<li><strong>img</strong> Sprite image variable.</li>
+</ul>
+<h5 id="manually-created-sprite">Manually created sprite</h5>
 <ul>
 <li><strong>x</strong> Horizontal position in sprite grid.</li>
 <li><strong>y</strong> Vertical position in sprite grid.</li>
@@ -292,7 +297,7 @@ h - sprite height, pixels.</li>
   sprite-bg()
   sprite-pos(5,6)
   sprite-pos(sprite_pony-hover)
-</code></pre><h4 id="sprite-bg-img-x-y-">sprite-bg(img, x, y)</h4>
+</code></pre><h4 id="sprite-bg-img-br-sprite-bg-x-y-">sprite-bg(img)<br>sprite-bg(x, y)</h4>
 <p>background-image for sprite.</p>
 <h5 id="sprite-generated-by-grunt-squirrelsprite">Sprite generated by grunt-squirrelsprite</h5>
 <ul>
@@ -314,8 +319,11 @@ h - sprite height, pixels.</li>
 <h5 id="example">Example</h5>
 <pre><code>.elem
   sprite-size(sprite_pony);
-</code></pre><h4 id="sprite-shift-top-">sprite-shift-top()</h4>
-<p>Shifts element half height to top</p>
+</code></pre><h4 id="sprite-shift-top-img-">sprite-shift-top(img)</h4>
+<p>Shifts element half height to top.</p>
+<ul>
+<li><strong>img</strong> Sprite image variable.</li>
+</ul>
 <h2 id="misc-functions-and-mixins">Misc functions and mixins</h2>
 <h3 id="easings">Easings</h3>
 <h4 id="ease-in-sine">ease-in-sine</h4>
@@ -394,7 +402,7 @@ h - sprite height, pixels.</li>
 <p>Element is hidden.</p>
 <h4 id="-is-invisible">.is-invisible</h4>
 <p>Element is invisible (but occupies place on page).</p>
-<h4 id="clearfix-">clearfix()</h4>
+<h4 id="-group">.group</h4>
 <p>Clearfix.</p>
 <h4 id="-responsive-images">.responsive-images</h4>
 <p>Make all images inside responsive.</p>
@@ -413,7 +421,18 @@ h - sprite height, pixels.</li>
   ...
 }
 </code></pre><p>Then if you run <code>grunt --debug</code> DEBUG variable will be true and false if you run just <code>grunt</code>.</p>
-<h4 id="tamia-initcomponents-components-">tamia.initComponents(components)</h4>
+<h4 id="tamia-trace-object-name-">tamia.trace(object, [name])</h4>
+<p>Traces all object’s method calls and arguments.</p>
+<ul>
+<li><em>Object</em> <strong>object</strong>: Object.</li>
+<li><em>String</em> <strong>[name]</strong>: Object name.</li>
+</ul>
+<h5 id="example">Example</h5>
+<pre><code>init: function() {
+  tamia.trace(this, &#39;ClassName&#39;);
+  ...
+}
+</code></pre><h4 id="tamia-initcomponents-components-">tamia.initComponents(components)</h4>
 <p>Initialize components.</p>
 <ul>
 <li><em>Object</em> <strong>components</strong>: Initializers for each component.</li>
@@ -483,7 +502,7 @@ tamia.registerEvents({
 $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
 </code></pre><h4 id="_handlers-appear-">_handlers.appear()</h4>
 <p>Show element with CSS transition.</p>
-<p>appeared.tamia event will be fired the moment transition ends.</p>
+<p>appeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <h5 id="example">Example</h5>
 <pre><code>.dialog
   transition: opacity .5s ease-in-out
@@ -496,7 +515,7 @@ $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
 $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 </code></pre><h4 id="_handlers-disappear-">_handlers.disappear()</h4>
 <p>Hide element with CSS transition.</p>
-<p>disappeared.tamia event will be fired the moment transition ends.</p>
+<p>disappeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <p>Opposite of <code>appear.tamia</code> event.</p>
 <h4 id="_handlers-toggle-">_handlers.toggle()</h4>
 <p>Toggles element’s visibility with CSS transition.</p>
@@ -513,7 +532,26 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <h5 id="example">Example</h5>
 <pre><code>&lt;span data-fire=&quot;slider-next&quot; data-target=&quot;.portfolio&quot; data-attrs=&quot;1,2,3&quot;&gt;Next&lt;/span&gt;
 &lt;!-- $(&#39;.portfolio&#39;).trigger(&#39;slider-next&#39;, [1, 2, 3]); --&gt;
-</code></pre><h4 id="templates">Templates</h4>
+</code></pre><h4 id="states-management">States management</h4>
+<h4 id="jquery-fn-addstate-name-">jQuery.fn.addState(name)</h4>
+<p>Adds specified state to an element.</p>
+<ul>
+<li><em>String</em> <strong>name</strong>: State name.
+Returns <em>jQuery</em>.</li>
+</ul>
+<h4 id="jquery-fn-removestate-name-">jQuery.fn.removeState(name)</h4>
+<p>Removes specified state from an element.</p>
+<ul>
+<li><em>String</em> <strong>name</strong>: State name.
+Returns <em>jQuery</em>.</li>
+</ul>
+<h4 id="jquery-fn-hasstate-name-">jQuery.fn.hasState(name)</h4>
+<p>Returns whether an element has specified state.</p>
+<ul>
+<li><em>String</em> <strong>name</strong>: State name.
+Returns <em>Boolean</em>.</li>
+</ul>
+<h4 id="templates">Templates</h4>
 <h4 id="tamia-tmpl-data-">tamia.tmpl(data)</h4>
 <p>Invokes precompiled template.</p>
 <p>Templates should be stored in window.__templates.</p>
@@ -554,7 +592,7 @@ After initialization all components will have <code>ok</code> state.</p>
     this.elem.on(&#39;click&#39;, &#39;.js-toggle&#39;, this.toggle_);
   },
   toggle: function() {
-    this.toggleState(&#39;pink&#39;);
+    this.elem.toggleState(&#39;pink&#39;);
   }
 });
 
@@ -591,34 +629,16 @@ this.elem.on(&#39;click&#39;, this.toggle_);
 </code></pre><ul>
 <li><em>String</em> <strong>method1</strong>:, [method2…] Method names</li>
 </ul>
-<h4 id="hasstate">hasState</h4>
-<p>Returns whether component has specified state.</p>
-<ul>
-<li><em>String</em> <strong>[name]</strong>: State name.</li>
-</ul>
-<p>Returns <em>Boolean</em>.</p>
-<h4 id="addstate">addState</h4>
-<p>Adds specified state.</p>
-<ul>
-<li><em>String</em> <strong>[name]</strong>: State name.</li>
-</ul>
-<h4 id="removestate">removeState</h4>
-<p>Removes specified state.</p>
-<ul>
-<li><em>String</em> <strong>[name]</strong>: State name.</li>
-</ul>
-<h4 id="togglestate">toggleState</h4>
-<p>Toggles state.</p>
-<ul>
-<li><em>String</em> <strong>[name]</strong>: State name.</li>
-<li><em>Boolean</em> <strong>[value]</strong>: State value.</li>
-</ul>
 <h4 id="isvisible">isVisible</h4>
 <p>Returns component visibility.</p>
 <p>@param {Boolean}</p>
 
-		</div>
-
+				</div>
+				<div class="toc-holder l-quarter">
+					<div class="toc" data-component="toc" data-page="docs"></div>
+				</div>
+			</div>
+		
 	</div>
 
 

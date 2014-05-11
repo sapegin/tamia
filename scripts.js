@@ -257,13 +257,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	if (DEBUG) {
 		// Debug logger
-		var addBadge = function(args, name) {
+		var addBadge = function(args, name, bg) {
 			// Color console badge
 			// Based on https://github.com/jbail/lumberjack
 			var ua = navigator.userAgent.toLowerCase();
 			if (ua.indexOf('chrome') !== -1 || ua.indexOf('firefox') !== -1) {
 				var format = '%c %s %c ' + args.shift();
-				args.unshift(format, 'background:#aa759f; color:#fff', name, 'background:inherit; color:inherit');
+				args.unshift(format, 'background:' + bg + '; color:#fff', name, 'background:inherit; color:inherit');
 			}
 			else {
 				args[0] = name + ': ' + args[0];
@@ -273,10 +273,55 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var logger = function() {
 			var args = slice.call(arguments);
 			var func = args.shift();
-			console[func].apply(console, addBadge(args, 'Tâmia'));
+			console[func].apply(console, addBadge(args, 'Tâmia', '#aa759f'));
 		};
 		var log = tamia.log = logger.bind(null, 'log');
 		var warn = tamia.warn = logger.bind(null, 'warn');
+
+		/**
+		 * Traces all object’s method calls and arguments.
+		 *
+		 * @param {Object} object Object.
+		 * @param {String} [name] Object name.
+		 *
+		 * Example:
+		 *
+		 *   init: function() {
+		 *     tamia.trace(this, 'ClassName');
+		 *     ...
+		 *   }
+		 */
+		tamia.trace = function(object, name) {
+			if (name === undefined) name = 'Object';
+			var level = 0;
+
+			var wrap = function(func_name) {
+				var func = object[func_name];
+
+				object[func_name] = function() {
+					pre(func_name, slice.call(arguments));
+					var result = func.apply(this, arguments);
+					post();
+					return result;
+				};
+			};
+
+			var pre = function(func_name, args) {
+				level++;
+				var padding = new Array(level).join('.  ');
+				console.log.apply(console, addBadge([padding + func_name, args || []], name, '#d73737'));
+			};
+
+			var post = function() {
+				level--;
+			};
+
+			for (var func_name in object) {
+				if ($.isFunction(object[func_name])) {
+					wrap(func_name);
+				}
+			}
+		};
 
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
@@ -292,6 +337,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		], function(idx, feature) {
 			if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
 		});
+	}
+	else {
+		tamia.log = tamia.warn = tamia.trace = function() {};
 	}
 
 
@@ -464,10 +512,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	if (jQuery) {
 
 		var _doc = jQuery(document);
-		var _hiddenClass = 'is-hidden';
-		var _transitionClass = 'is-transit';
+		var _hiddenState = 'hidden';
+		var _transitionSate = 'transit';
+		var _statePrefix = 'is-';
+		var _statesData = 'tamia-states';
 		var _appearedEvent = 'appeared.tamia';
 		var _disappearedEvent = 'disappeared.tamia';
+		var _toggledEvent = 'disappeared.tamia';
 		var _fallbackTimeout = 1000;
 
 		/**
@@ -517,7 +568,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Show element with CSS transition.
 		 *
-		 * appeared.tamia event will be fired the moment transition ends.
+		 * appeared.tamia and toggled.tamia events will be fired the moment transition ends.
 		 *
 		 * Example:
 		 *
@@ -534,43 +585,47 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		_handlers.appear = function(elem) {
 			elem = $(elem);
 			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass) && !elem.hasClass(_hiddenClass)) return;
-				elem.addClass(_transitionClass);
+				if (elem.hasState(_transitionSate) && !elem.hasState(_hiddenState)) return;
+				elem.addState(_transitionSate);
 				setTimeout(function() {
-					elem.removeClass(_hiddenClass);
+					elem.removeState(_hiddenState);
 					elem.afterTransition(function() {
-						elem.removeClass(_transitionClass);
+						elem.removeState(_transitionSate);
 						elem.trigger(_appearedEvent);
+						elem.trigger(_toggledEvent, true);
 					});
 				}, 0);
 			}
 			else {
-				elem.removeClass(_hiddenClass);
+				elem.removeState(_hiddenState);
 				elem.trigger(_appearedEvent);
+				elem.trigger(_toggledEvent, true);
 			}
 		};
 
 		/**
 		 * Hide element with CSS transition.
 		 *
-		 * disappeared.tamia event will be fired the moment transition ends.
+		 * disappeared.tamia and toggled.tamia events will be fired the moment transition ends.
 		 *
 		 * Opposite of `appear.tamia` event.
 		 */
 		_handlers.disappear = function(elem) {
 			elem = $(elem);
 			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasClass(_transitionClass) && elem.hasClass(_hiddenClass)) return;
-				elem.addClass(_transitionClass);
-				elem.addClass(_hiddenClass);
+				if (elem.hasState(_transitionSate) && elem.hasState(_hiddenState)) return;
+				elem.addState(_transitionSate);
+				elem.addState(_hiddenState);
 				elem.afterTransition(function() {
-					elem.removeClass(_transitionClass);
+					elem.removeState(_transitionSate);
 					elem.trigger(_disappearedEvent);
+					elem.trigger(_toggledEvent, false);
 				});
 			}
 			else {
-				elem.addClass(_hiddenClass);
+				elem.addState(_hiddenState);
 				elem.trigger(_disappearedEvent);
+				elem.trigger(_toggledEvent, false);
 			}
 		};
 
@@ -581,7 +636,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 */
 		_handlers.toggle = function(elem) {
 			elem = $(elem);
-			if (elem.hasClass(_hiddenClass)) {
+			if (elem.hasState(_hiddenState)) {
 				_handlers.appear(elem);
 			}
 			else {
@@ -624,6 +679,78 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			event.preventDefault();
 		});
+
+		/**
+		 * States management
+		 */
+
+		/**
+		 * Toggles specified state on an element.
+		 *
+		 * State is a special CSS class: .is-name.
+		 *
+		 * @param {String} name State name.
+		 * @param {Boolean} [value] Add/remove state.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.toggleState = function(name, value) {
+			return this.each(function() {
+				var elem = $(this);
+				var states = _getStates(elem);
+				if (value === undefined) value = !states[name];
+				else if (value === states[name]) return;
+				states[name] = value;
+				elem.toggleClass(_statePrefix + name, value);
+			});
+		};
+
+		/**
+		 * Adds specified state to an element.
+		 *
+		 * @param {String} name State name.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.addState = function(name) {
+			return this.toggleState(name, true);
+		};
+
+		/**
+		 * Removes specified state from an element.
+		 *
+		 * @param {String} name State name.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.removeState = function(name) {
+			return this.toggleState(name, false);
+		};
+
+		/**
+		 * Returns whether an element has specified state.
+		 *
+		 * @param {String} name State name.
+		 * @return {Boolean}
+		 */
+		jQuery.fn.hasState = function(name) {
+			var states = _getStates(this);
+			return !!states[name];
+		};
+
+		var _getStates = function(elem) {
+			var states = elem.data(_statesData);
+			if (!states) {
+				states = {};
+				var classes = elem[0].classList || elem[0].className.split(' ');
+				for (var classIdx = 0; classIdx < classes.length; classIdx++) {
+					var cls = classes[classIdx];
+					if (cls.slice(0, 3) === _statePrefix) {
+						states[cls.slice(3)] = true;
+					}
+				}
+				elem.data(_statesData, states);
+			}
+			return states;
+		};
+
 
 		/**
 		 * Templates
@@ -735,13 +862,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			};
 
 			var addGrid = function() {
-				var firstRow = jQuery('.tamia__grid-row,.tamia__layout-row').first();
+				var firstRow = jQuery('.tamia__grid-row:visible,.tamia__layout-row:visible').first();
 				if (!firstRow.length) return;
 
 				if (!gridDebugger) {
 					var columns = 12;  // @todo Use real number of columns
 					gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
-					gridDebugger.html(new Array((columns) + 1).join('<b class="tamia__grid-debugger-col"></b>'));
+					gridDebugger.html(new Array(columns + 1).join('<b class="tamia__grid-debugger-col"></b>'));
 					firstRow.prepend(gridDebugger);
 				}
 
@@ -796,7 +923,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *       this.elem.on('click', '.js-toggle', this.toggle_);
 	 *     },
 	 *     toggle: function() {
-	 *       this.toggleState('pink');
+	 *       this.elem.toggleState('pink');
 	 *     }
 	 *   });
 	 *
@@ -820,15 +947,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		this.initializable = this.isInitializable();
 		if (!this.initializable) return;
 
-		this._fillStates();
 		if (this.isSupported()) {
 			this.handlers = {};
 			this.init();
-			this.addState('ok');
+			this.elem.addState('ok');
 		}
 		else {
 			this.fallback();
-			this.addState('unsupported');
+			this.elem.addState('unsupported');
 		}
 	}
 
@@ -908,80 +1034,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 
 		/**
-		 * Returns whether component has specified state.
-		 *
-		 * @param {String} [name] State name.
-		 *
-		 * @return {Boolean}
-		 */
-		hasState: function(name) {
-			return !!this.states[name];
-		},
-
-		/**
-		 * Adds specified state.
-		 *
-		 * @param {String} [name] State name.
-		 */
-		addState: function(name) {
-			this.toggleState(name, true);
-		},
-
-		/**
-		 * Removes specified state.
-		 *
-		 * @param {String} [name] State name.
-		 */
-		removeState: function(name) {
-			this.toggleState(name, false);
-		},
-
-		/**
-		 * Toggles state.
-		 *
-		 * @param {String} [name] State name.
-		 * @param {Boolean} [value] State value.
-		 */
-		toggleState: function(name, value) {
-			if (value === undefined) value = !this.states[name];
-			this.states[name] = value;
-			this._updateStates();
-		},
-
-		/**
 		 * Returns component visibility.
 		 *
 		 * @param {Boolean}
 		 */
 		isVisible: function() {
 			return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
-		},
-
-		_fillStates: function() {
-			var re = /^is-/;
-			var states = {};
-			var classes = this.elemNode.className.split(' ');
-			for (var classIdx = 0; classIdx < classes.length; classIdx++) {
-				var cls = classes[classIdx];
-				if (re.test(cls)) {
-					states[cls.replace(re, '')] = true;
-				}
-			}
-			this.states = states;
-		},
-
-		_updateStates: function() {
-			// @todo classList version
-			// @todo Move to tamia.js
-			var classes = this.elemNode.className;
-			classes = $.trim(classes.replace(/\bis-[-\w]+/g, ''));
-			classes = classes.split(/\s+/);
-			for (var name in this.states) {
-				if (this.states[name]) {
-					classes.push('is-' + name);
-				}
-			}
-			this.elemNode.className = classes.join(' ');
 		}
 	};
 
@@ -1009,8 +1067,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 
 		toggle: function() {
-			this.toggleState('flipped');
-			this.elem.trigger('flipped.tamia', this.hasState('flipped'));
+			this.elem.toggleState('flipped');
+			this.elem.trigger('flipped.tamia', this.elem.hasState('flipped'));
 		}
 	});
 
@@ -1026,11 +1084,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	'use strict';
 
 	var _formElementsSelector = '.field,.button,.disablable';
-	var _disabledClass = 'is-disabled';
+	var _disabledState = 'disabled';
 
 	var _toggle = function(elem, enable) {
 		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
-		formElements[enable ? 'removeClass' : 'addClass'](_disabledClass);
+		formElements.toggleState(_disabledState, !enable);
 		formElements.attr('disabled', !enable);
 	};
 
@@ -1064,8 +1122,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var _doc = $(document);
 
 	var _bodyClass = 'modal-opened';
-	var _switchingClass = 'is-switching';
-	var _hiddenClass = 'is-hidden';
+	var _switchingState = 'switching';
+	var _hiddenState = 'hidden';
 	var _wrapperTmpl = '' +
 	'<div class="modal-shade is-hidden">' +
 		'<div class="l-center">' +
@@ -1093,7 +1151,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			this.wrapper.find('.js-modal').append(this.elem);
 			this.wrapper.on('click', this.shadeClick_);
 			_body.append(this.wrapper);
-			this.removeState('hidden');
+			this.elem.removeState('hidden');
 		},
 
 		open: function() {
@@ -1104,11 +1162,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			_body.addClass(_bodyClass);
 			if (opened) {
 				opened.close({hide: true});
-				this.wrapper.addClass(_switchingClass);
+				this.wrapper.addState(_switchingState);
 				this.wrapper.on('appeared.tamia', function() {
-					this.wrapper.removeClass(_switchingClass);
-					opened.wrapper.addClass(_hiddenClass);
-					opened.elem.removeClass(_hiddenClass);
+					this.wrapper.removeState(_switchingState);
+					opened.wrapper.addState(_hiddenState);
+					opened.elem.removeState(_hiddenState);
 				}.bind(this));
 			}
 			this.wrapper.trigger('appear.tamia');
@@ -1205,10 +1263,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		toggle: function() {
 			var focused = document.activeElement === this.fieldElem[0];
-			var locked = this.hasState('unlocked');
+			var locked = this.elem.hasState('unlocked');
 			var fieldType = this.fieldElem.attr('type');
 
-			this.toggleState('unlocked');
+			this.elem.toggleState('unlocked');
 
 			if (fieldType === types.locked && !locked) {
 				this.fieldElem.attr('type', types.unlocked);
@@ -1278,26 +1336,35 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
+	var _selectClass = '.js-select';
+	var _boxClass = '.js-box';
+
 	var Select = tamia.extend(tamia.Component, {
 		binded: 'focus blur change',
 
 		init: function() {
-			this.selectElem = this.elem.find('.js-select');
-			this.boxElem = this.elem.find('.js-box');
+			this.selectElem = this.elem.find(_selectClass);
+			this.boxElem = this.elem.find(_boxClass);
 
-			this.elem.on('focus', '.js-select', this.focus_);
-			this.elem.on('blur', '.js-select', this.blur_);
-			this.elem.on('change', '.js-select', this.change_);
+			this.elem.on({
+				focus: this.focus_,
+				blur: this.blur_,
+				change: this.change_
+			}, _selectClass);
 
 			this.change();
 		},
 
 		focus: function() {
-			this.addState('focused');
+			this.toggleFocused(true);
 		},
 
 		blur: function() {
-			this.removeState('focused');
+			this.toggleFocused(false);
+		},
+
+		toggleFocused: function(toggle) {
+			this.elem.toggleState('focused', toggle);
 		},
 
 		change: function() {
@@ -1330,11 +1397,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var Loader = tamia.extend(tamia.Component, {
 		init: function() {
 			this.initHtml();
-			tamia.delay(this.addState, this, 0, 'loading');
+			tamia.delay(this.elem.addState, this.elem, 0, 'loading');
 		},
 
 		destroy: function() {
-			this.removeState('loading');
+			this.elem.removeState('loading');
 			this.elem.find(_shadeSelector).afterTransition(function() {
 				this.elem.removeClass(_wrapperClass);
 				this.loader.remove();
@@ -1392,20 +1459,20 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 		disabled: {
 			set: function(elem) {
-				elem.addClass('is-disabled');
+				elem.addState('disabled');
 				elem.prop('disabled', true);
 			},
 			clear: function(elem) {
-				elem.removeClass('is-disabled');
+				elem.removeState('disabled');
 				elem.prop('disabled', false);
 			}
 		},
 		_default: {
 			set: function(elem, name) {
-				elem.addClass('is-' + name);
+				elem.addState(name);
 			},
 			clear: function(elem, name) {
-				elem.removeClass('is-' + name);
+				elem.removeState(name);
 			}
 		}
 	};
@@ -1841,3 +1908,345 @@ function () {
     };
 
 })();
+
+// Generated by CoffeeScript 1.7.1
+
+/**
+@license Sticky-kit v1.0.4 | WTFPL | Leaf Corcoran 2014 | http://leafo.net
+ */
+
+(function() {
+  var $, win;
+
+  $ = this.jQuery;
+
+  win = $(window);
+
+  $.fn.stick_in_parent = function(opts) {
+    var elm, inner_scrolling, offset_top, parent_selector, sticky_class, _fn, _i, _len;
+    if (opts == null) {
+      opts = {};
+    }
+    sticky_class = opts.sticky_class, inner_scrolling = opts.inner_scrolling, parent_selector = opts.parent, offset_top = opts.offset_top;
+    if (offset_top == null) {
+      offset_top = 0;
+    }
+    if (parent_selector == null) {
+      parent_selector = void 0;
+    }
+    if (inner_scrolling == null) {
+      inner_scrolling = true;
+    }
+    if (sticky_class == null) {
+      sticky_class = "is_stuck";
+    }
+    _fn = function(elm, padding_bottom, parent_top, parent_height, top, height, el_float) {
+      var bottomed, detach, fixed, last_pos, offset, parent, recalc, recalc_and_tick, spacer, tick;
+      if (elm.data("sticky_kit")) {
+        return;
+      }
+      elm.data("sticky_kit", true);
+      parent = elm.parent();
+      if (parent_selector != null) {
+        parent = parent.closest(parent_selector);
+      }
+      if (!parent.length) {
+        throw "failed to find stick parent";
+      }
+      fixed = false;
+      bottomed = false;
+      spacer = $("<div />");
+      spacer.css('position', elm.css('position'));
+      recalc = function() {
+        var border_top, padding_top, restore;
+        border_top = parseInt(parent.css("border-top-width"), 10);
+        padding_top = parseInt(parent.css("padding-top"), 10);
+        padding_bottom = parseInt(parent.css("padding-bottom"), 10);
+        parent_top = parent.offset().top + border_top + padding_top;
+        parent_height = parent.height();
+        restore = fixed ? (fixed = false, bottomed = false, elm.insertAfter(spacer).css({
+          position: "",
+          top: "",
+          width: "",
+          bottom: ""
+        }), spacer.detach(), true) : void 0;
+        top = elm.offset().top - parseInt(elm.css("margin-top"), 10) - offset_top;
+        height = elm.outerHeight(true);
+        el_float = elm.css("float");
+        spacer.css({
+          width: elm.outerWidth(true),
+          height: height,
+          display: elm.css("display"),
+          "vertical-align": elm.css("vertical-align"),
+          "float": el_float
+        });
+        if (restore) {
+          return tick();
+        }
+      };
+      recalc();
+      if (height === parent_height) {
+        return;
+      }
+      last_pos = void 0;
+      offset = offset_top;
+      tick = function() {
+        var css, delta, scroll, will_bottom, win_height;
+        scroll = win.scrollTop();
+        if (last_pos != null) {
+          delta = scroll - last_pos;
+        }
+        last_pos = scroll;
+        if (fixed) {
+          will_bottom = scroll + height + offset > parent_height + parent_top;
+          if (bottomed && !will_bottom) {
+            bottomed = false;
+            elm.css({
+              position: "fixed",
+              bottom: "",
+              top: offset
+            }).trigger("sticky_kit:unbottom");
+          }
+          if (scroll < top) {
+            fixed = false;
+            offset = offset_top;
+            if (el_float === "left" || el_float === "right") {
+              elm.insertAfter(spacer);
+            }
+            spacer.detach();
+            css = {
+              position: "",
+              width: "",
+              top: ""
+            };
+            elm.css(css).removeClass(sticky_class).trigger("sticky_kit:unstick");
+          }
+          if (inner_scrolling) {
+            win_height = win.height();
+            if (height > win_height) {
+              if (!bottomed) {
+                offset -= delta;
+                offset = Math.max(win_height - height, offset);
+                offset = Math.min(offset_top, offset);
+                if (fixed) {
+                  elm.css({
+                    top: offset + "px"
+                  });
+                }
+              }
+            }
+          }
+        } else {
+          if (scroll > top) {
+            fixed = true;
+            css = {
+              position: "fixed",
+              top: offset
+            };
+            css.width = elm.css("box-sizing") === "border-box" ? elm.outerWidth() + "px" : elm.width() + "px";
+            elm.css(css).addClass(sticky_class).after(spacer);
+            if (el_float === "left" || el_float === "right") {
+              spacer.append(elm);
+            }
+            elm.trigger("sticky_kit:stick");
+          }
+        }
+        if (fixed) {
+          if (will_bottom == null) {
+            will_bottom = scroll + height + offset > parent_height + parent_top;
+          }
+          if (!bottomed && will_bottom) {
+            bottomed = true;
+            if (parent.css("position") === "static") {
+              parent.css({
+                position: "relative"
+              });
+            }
+            return elm.css({
+              position: "absolute",
+              bottom: padding_bottom,
+              top: "auto"
+            }).trigger("sticky_kit:bottom");
+          }
+        }
+      };
+      recalc_and_tick = function() {
+        recalc();
+        return tick();
+      };
+      detach = function() {
+        win.off("scroll", tick);
+        $(document.body).off("sticky_kit:recalc", recalc_and_tick);
+        elm.off("sticky_kit:detach", detach);
+        elm.removeData("sticky_kit");
+        elm.css({
+          position: "",
+          bottom: "",
+          top: ""
+        });
+        parent.position("position", "");
+        if (fixed) {
+          elm.insertAfter(spacer).removeClass(sticky_class);
+          return spacer.remove();
+        }
+      };
+      win.on("touchmove", tick);
+      win.on("scroll", tick);
+      win.on("resize", recalc_and_tick);
+      $(document.body).on("sticky_kit:recalc", recalc_and_tick);
+      elm.on("sticky_kit:detach", detach);
+      return setTimeout(tick, 0);
+    };
+    for (_i = 0, _len = this.length; _i < _len; _i++) {
+      elm = this[_i];
+      _fn($(elm));
+    }
+    return this;
+  };
+
+}).call(this);
+
+(function($) {
+$.fn.toc = function(options) {
+  var self = this;
+  var opts = $.extend({}, jQuery.fn.toc.defaults, options);
+
+  var container = $(opts.container);
+  var headings = $(opts.selectors, container);
+  var headingOffsets = [];
+  var activeClassName = opts.activeClass(opts.prefix);
+
+  var scrollTo = function(e, callback) {
+    if (opts.smoothScrolling) {
+      e.preventDefault();
+      var elScrollTo = $(e.target).attr('href');
+      var $el = $(elScrollTo);
+
+      $('body,html').animate({ scrollTop: $el.offset().top + opts.scrollToOffset }, 400, 'swing', function() {
+        location.hash = elScrollTo;
+        callback();
+      });
+    }
+    $('li', self).removeClass(activeClassName);
+    $(e.target).parent().addClass(activeClassName);
+  };
+
+  //highlight on scroll
+  var timeout;
+  var highlightOnScroll = function(e) {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(function() {
+      var top = $(window).scrollTop(),
+        highlighted, closest = Number.MAX_VALUE, index = 0;
+
+      for (var i = 0, c = headingOffsets.length; i < c; i++) {
+        var currentClosest = Math.abs(headingOffsets[i] - top);
+        if (currentClosest < closest) {
+          index = i;
+          closest = currentClosest;
+        }
+      }
+
+      $('li', self).removeClass(activeClassName);
+      highlighted = $('li:eq('+ index +')', self).addClass(activeClassName);
+      opts.onHighlight(highlighted);
+    }, 50);
+  };
+  if (opts.highlightOnScroll) {
+    $(window).bind('scroll', highlightOnScroll);
+    highlightOnScroll();
+  }
+
+  return this.each(function() {
+    //build TOC
+    var el = $(this);
+    var ul = $(opts.listType);
+    headings.each(function(i, heading) {
+      var $h = $(heading);
+      headingOffsets.push($h.offset().top - opts.highlightOffset);
+
+      //add anchor
+      var anchor = $('<span/>').attr('id', opts.anchorName(i, heading, opts.prefix)).insertBefore($h);
+
+      //build TOC item
+      var a = $('<a/>')
+        .text(opts.headerText(i, heading, $h))
+        .attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
+        .bind('click', function(e) {
+          $(window).unbind('scroll', highlightOnScroll);
+          scrollTo(e, function() {
+            $(window).bind('scroll', highlightOnScroll);
+          });
+          el.trigger('selected', $(this).attr('href'));
+        });
+
+      var li = $('<li/>')
+        .addClass(opts.itemClass(i, heading, $h, opts.prefix))
+        .append(a);
+
+      ul.append(li);
+    });
+    el.html(ul);
+  });
+};
+
+
+jQuery.fn.toc.defaults = {
+  container: 'body',
+  listType: '<ul/>',
+  selectors: 'h1,h2,h3',
+  smoothScrolling: true,
+  scrollToOffset: 0,
+  prefix: 'toc',
+  onHighlight: function() {},
+  highlightOnScroll: true,
+  highlightOffset: 100,
+  anchorName: function(i, heading, prefix) {
+    return prefix+i;
+  },
+  headerText: function(i, heading, $heading) {
+    return $heading.text();
+  },
+  itemClass: function(i, heading, $heading, prefix) {
+    return prefix + '-' + $heading[0].tagName.toLowerCase();
+  },
+  activeClass: function(prefix) {
+    return prefix + '-active';
+  }
+
+};
+
+})(jQuery);
+
+/* Tâmia © 2014 Artem Sapegin http://sapegin.me */
+
+;(function($) {
+	'use strict';
+
+	tamia.initComponents({
+		toc: function(elem) {
+			var elem = $(elem);
+			var page = elem.data('page');
+			var selectors = {
+				modules: 'h2',
+				_default: 'h2,h3'
+			};
+			elem.toc({
+				selectors: selectors[page] || selectors._default,
+				container: '.js-content',
+				itemClass: function(i, heading, $heading, prefix) {
+					return prefix + '__item ' + prefix + '__item_' + $heading[0].tagName.toLowerCase();
+				},
+				activeClass: function(prefix) {
+					return 'is-active';
+				}
+			});
+			elem.stick_in_parent({
+				parent: '.js-content-container'
+			});
+		}
+	});
+
+}(jQuery));

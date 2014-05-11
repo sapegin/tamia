@@ -37,11 +37,11 @@
 
 	<div class="page-content content">
 		
-
-		<div class="text">
-			<h1 id="checkbox-and-radio-button">Checkbox and radio button</h1>
+			<div class="l-row js-content-container">
+				<div class="l-three-quarters text js-content">
+					<h2 id="checkbox-and-radio-button">Checkbox and radio button</h2>
 <p>Checkbox and radio button with custom design.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <p>Checkbox:</p>
 <pre><code>&lt;div class=&quot;checkbox&quot;&gt;
     &lt;input class=&quot;checkbox__input&quot; id=&quot;my_checkbox&quot; type=&quot;checkbox&quot; name=&quot;my_checkbox&quot; value=&quot;yes&quot; checked=&quot;checked&quot;&gt;
@@ -58,11 +58,11 @@
         &lt;span class=&quot;radiobutton__text&quot;&gt;My radio button&lt;/span&gt;
     &lt;/label&gt;
 &lt;/div&gt;
-</code></pre><h2 id="skin">Skin</h2>
+</code></pre><h3 id="skin">Skin</h3>
 <p>Set <code>checkbox_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="checkbox">
 	<input class="checkbox__input" id="check1" type="checkbox" name="check" value="yes" checked>
@@ -162,22 +162,22 @@
 	</div>
 </div>
 
-<h1 id="code-blocks">Code blocks</h1>
+<h2 id="code-blocks">Code blocks</h2>
 <p>Nice code examples with highlighting.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;pre class=&quot;code&quot;&gt;&lt;code class=&quot;language-coffescript&quot;&gt;alert &#39;Hello world!&#39;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&quot;text&quot;&gt;
     &lt;pre&gt;&lt;code class=&quot;language-coffescript&quot;&gt;alert &#39;Hello world!&#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-</code></pre><h2 id="tools">Tools</h2>
+</code></pre><h3 id="tools">Tools</h3>
 <ul>
 <li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
 <li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
 </ul>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><pre class="code"><code class="language-javascript">alert('Hello world!');</code></pre>
 </div>
@@ -189,15 +189,15 @@
 	</div>
 </div>
 
-<h1 id="fade">Fade</h1>
+<h2 id="fade">Fade</h2>
 <p>Fading text.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;fade&quot; title=&quot;Very long text&quot;&gt;Very long text&lt;/div&gt;
-</code></pre><h2 id="caveats">Caveats</h2>
+</code></pre><h3 id="caveats">Caveats</h3>
 <p>Works best in Webkits (via <code>mask-image</code>). Works acceptable in Firefox (via SVG mask): fade width is fixed. Fades with ellipsis in any IE.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><p class="fade fixie" style="width:300px"></p>
 </div>
@@ -209,28 +209,28 @@
 	</div>
 </div>
 
-<h1 id="flippable-pane">Flippable pane</h1>
+<h2 id="flippable-pane">Flippable pane</h2>
 <p>Vertical or horizontal flippable pane. With 3D animation.</p>
-<h1 id="markup">Markup</h1>
+<h2 id="markup">Markup</h2>
 <pre><code>&lt;div class=&quot;flippable js-flip&quot; data-component=&quot;flippable&quot;&gt;
     &lt;div class=&quot;flippable__front&quot;&gt;Front&lt;/div&gt;
     &lt;div class=&quot;flippable__back&quot;&gt;Back&lt;/div&gt;
 &lt;/div&gt;
-</code></pre><h2 id="modifiers">Modifiers</h2>
-<h3 id="-flippable-flippable_vertical">.flippable.flippable_vertical</h3>
+</code></pre><h3 id="modifiers">Modifiers</h3>
+<h4 id="-flippable-flippable_vertical">.flippable.flippable_vertical</h4>
 <p>Vertical rotation (horizontal by default).</p>
-<h2 id="states">States</h2>
-<h3 id="-flippable-is-flipped">.flippable.is-flipped</h3>
+<h3 id="states">States</h3>
+<h4 id="-flippable-is-flipped">.flippable.is-flipped</h4>
 <p>Back side is visible.</p>
-<h2 id="events">Events</h2>
-<h3 id="flipped-tamia">flipped.tamia</h3>
+<h3 id="events">Events</h3>
+<h4 id="flipped-tamia">flipped.tamia</h4>
 <p>Fires on every flip. Argument will be <code>true</code> if back side is visible.</p>
-<h2 id="js-hooks">JS Hooks</h2>
-<h3 id="-js-flip">.js-flip</h3>
+<h3 id="js-hooks">JS Hooks</h3>
+<h4 id="-js-flip">.js-flip</h4>
 <p>Element that flips pane when clicked.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="flippable js-flip" data-component="flippable" style="width:200px; height:200px">
 	<div class="flippable__front fixie" style="padding:20px; background:#8FA1B3"></div>
@@ -248,25 +248,25 @@
 	</div>
 </div>
 
-<h1 id="form">Form</h1>
+<h2 id="form">Form</h2>
 <p>Basic form controls: inputs, textareas, buttons.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <p>Controls:</p>
 <pre><code>&lt;input type=&quot;text&quot; class=&quot;field&quot; name=&quot;name&quot;&gt;
 &lt;textarea type=&quot;text&quot; class=&quot;field field_area&quot; name=&quot;message&quot;&gt;&lt;/textarea&gt;
 &lt;input type=&quot;submit&quot; class=&quot;button&quot; value=&quot;Send!&quot;&gt;
-</code></pre><h2 id="events">Events</h2>
-<h3 id="enable-tamia-disable-tamia">enable.tamia / disable.tamia</h3>
+</code></pre><h3 id="events">Events</h3>
+<h4 id="enable-tamia-disable-tamia">enable.tamia / disable.tamia</h4>
 <p>Enables / disables all descendant form elements.</p>
-<h2 id="skin">Skin</h2>
+<h3 id="skin">Skin</h3>
 <p>Set <code>form_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
-<h2 id="configuration">Configuration</h2>
-<h3 id="form_focus_color">form_focus_color</h3>
+<h3 id="configuration">Configuration</h3>
+<h4 id="form_focus_color">form_focus_color</h4>
 <p>Type: CSS color value.</p>
 <p>Color of focus otline.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="form form_full">
 	<div class="form__row">
@@ -306,20 +306,20 @@
 	</div>
 </div>
 
-<h1 id="unordered-list">Unordered list</h1>
+<h2 id="unordered-list">Unordered list</h2>
 <p>Unordered list with dashes (—) as bullets.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;ul class=&quot;list&quot;&gt;
     &lt;li&gt;Dog&lt;/li&gt;
     &lt;li&gt;Cat&lt;/li&gt;
     &lt;li&gt;Mouse&lt;/li&gt;
     &lt;li&gt;Moose&lt;/li&gt;
 &lt;/ul&gt;
-</code></pre><h2 id="configuration">Configuration</h2>
-<h3 id="list_inside">list_inside</h3>
+</code></pre><h3 id="configuration">Configuration</h3>
+<h4 id="list_inside">list_inside</h4>
 <p>Type: Boolean, default: <code>false</code>.</p>
 <p>If <code>true</code> places bullets inside container (by default bullets are outside).</p>
-<h2 id="caveats">Caveats</h2>
+<h3 id="caveats">Caveats</h3>
 <ol>
 <li><p>If <code>list_inside</code> is <code>false</code> (default) automatically places bullets inside container (like <code>list_inside = true</code> does) when window width is less than <code>max_width</code> global variable.</p>
 </li>
@@ -328,7 +328,7 @@
 </ol>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><ul class="list">
 	<li class="fixie"></li>
@@ -350,21 +350,21 @@
 	</div>
 </div>
 
-<h1 id="media-object">Media object</h1>
+<h2 id="media-object">Media object</h2>
 <p>Media object from OOCSS.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;media&quot;&gt;
     &lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img&quot;&gt;
     &lt;p class=&quot;media__body&quot;&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
 &lt;/div&gt;
-</code></pre><h2 id="modifiers">Modifiers</h2>
-<h3 id="-media__img-media__img_rev">.media__img.media__img_rev</h3>
+</code></pre><h3 id="modifiers">Modifiers</h3>
+<h4 id="-media__img-media__img_rev">.media__img.media__img_rev</h4>
 <p>Reversed image location (right instead of left).</p>
 <pre><code class="lang-html">&lt;img src=&quot;http://placedog.com/200/200&quot; alt=&quot;&quot; class=&quot;media__img media__img_rev&quot;&gt;
 </code></pre>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="media">
 	<img class="media__img fixie" src="http://placedog.com/150/100">
@@ -382,9 +382,9 @@
 	</div>
 </div>
 
-<h1 id="modal">Modal</h1>
+<h2 id="modal">Modal</h2>
 <p>Modal popup.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;modal is-hidden&quot;&gt;
     &lt;header class=&quot;modal__header&quot;&gt;
         &lt;h3 class=&quot;modal__title&quot;&gt;Hello world&lt;/h3&gt;
@@ -398,7 +398,7 @@
         &lt;div class=&quot;button js-modal-commit&quot;&gt;Save&lt;/div&gt;
     &lt;/footer&gt;
 &lt;/div&gt;
-</code></pre><h2 id="how-to-open">How to open</h2>
+</code></pre><h3 id="how-to-open">How to open</h3>
 <p>Auto open:</p>
 <pre><code>&lt;div class=&quot;modal is-hidden&quot; data-component=&quot;modal&quot; data-modal-open=&quot;yes&quot;&gt;...&lt;/div&gt;
 </code></pre><p>Open via JavaScript:</p>
@@ -406,26 +406,26 @@
 $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 </code></pre><p>Open via link:</p>
 <pre><code>&lt;a href=&quot;#&quot; class=&quot;&quot; data-fire=&quot;open.modal.tamia&quot; data-target=&quot;.js-popup&quot;&gt;Open&lt;/a&gt;
-</code></pre><h2 id="events">Events</h2>
-<h3 id="open-modal-tamia">open.modal.tamia</h3>
+</code></pre><h3 id="events">Events</h3>
+<h4 id="open-modal-tamia">open.modal.tamia</h4>
 <p>Fire this event on <code>.modal</code> DOM node to open popup.</p>
-<h3 id="commit-modal-tamia">commit.modal.tamia</h3>
+<h4 id="commit-modal-tamia">commit.modal.tamia</h4>
 <p>Fires when user clicks Save button.</p>
 <p>You can prevent popup from closing:</p>
 <pre><code>$(&#39;.js-popup&#39;).on(&#39;commit.modal.tamia&#39;, function() {
     return false;
 });
-</code></pre><h3 id="dismiss-modal-tamia">dismiss.modal.tamia</h3>
+</code></pre><h4 id="dismiss-modal-tamia">dismiss.modal.tamia</h4>
 <p>Fires when user click Cancel button</p>
-<h2 id="skin">Skin</h2>
+<h3 id="skin">Skin</h3>
 <p>Set <code>modal_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
-<h2 id="configuration">Configuration</h2>
-<h3 id="modal_shade_color">modal_shade_color</h3>
+<h3 id="configuration">Configuration</h3>
+<h4 id="modal_shade_color">modal_shade_color</h4>
 <p>Type: CSS color value.</p>
 <p>Color of popup shade layer.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div><span class="link" data-fire="open.modal.tamia" data-target=".js-popup">Open popup</span></div>
 <div class="modal js-popup is-hidden">
@@ -463,25 +463,25 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 	</div>
 </div>
 
-<h1 id="password-field">Password field</h1>
+<h2 id="password-field">Password field</h2>
 <p>Password field with toggle to show characters.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;password&quot; data-component=&quot;password&quot;&gt;
     &lt;span class=&quot;password__toggle js-toggle&quot;&gt;&lt;/span&gt;
     &lt;input type=&quot;password&quot; class=&quot;password__field field js-field&quot;&gt;
 &lt;/div&gt;
-</code></pre><h2 id="states">States</h2>
-<h3 id="-password-is-ok">.password.is-ok</h3>
+</code></pre><h3 id="states">States</h3>
+<h4 id="-password-is-ok">.password.is-ok</h4>
 <p>Browser is supported.</p>
-<h3 id="-password-is-unlocked">.password.is-unlocked</h3>
+<h4 id="-password-is-unlocked">.password.is-unlocked</h4>
 <p>Password characters are visible.</p>
-<h2 id="caveats">Caveats</h2>
+<h3 id="caveats">Caveats</h3>
 <p>IE9+.</p>
-<h2 id="skin">Skin</h2>
+<h3 id="skin">Skin</h3>
 <p>Set <code>password_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="password password_inline" data-component="password">
 	<span class="password__toggle js-toggle"></span>
@@ -499,9 +499,9 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 	</div>
 </div>
 
-<h1 id="preload">Preload</h1>
+<h2 id="preload">Preload</h2>
 <p>Image preload.</p>
-<h2 id="usage">Usage</h2>
+<h3 id="usage">Usage</h3>
 <pre><code>preload(
     [
         &#39;../images/homepage-iphone.png&#39;,
@@ -514,41 +514,41 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 );
 </code></pre>
 
-<h1 id="print">Print</h1>
+<h2 id="print">Print</h2>
 <p>Print stylesheet.</p>
-<h2 id="configuration">Configuration</h2>
-<h3 id="site_domain">site_domain</h3>
+<h3 id="configuration">Configuration</h3>
+<h4 id="site_domain">site_domain</h4>
 <p>Type: String.</p>
 <p>Site domain (for example, <code>example.com</code>) that will be printed.</p>
-<h2 id="caveats">Caveats</h2>
+<h3 id="caveats">Caveats</h3>
 <p>Use <code>.no-print</code> class to hide elements in print version and <code>.print</code> to show (hidden on screen).</p>
 
 
-<h1 id="rich-typograhy">Rich typograhy</h1>
+<h2 id="rich-typograhy">Rich typograhy</h2>
 <p>Classes and tweaks for better typography.</p>
-<h2 id="markup">Markup</h2>
-<h3 id="abbreviations-with-spacing">Abbreviations with spacing</h3>
+<h3 id="markup">Markup</h3>
+<h4 id="abbreviations-with-spacing">Abbreviations with spacing</h4>
 <pre><code>&lt;div class=&quot;text&quot;&gt;
     &lt;p&gt;&lt;abbr&gt;PNG&lt;/abbr&gt;, &lt;abbr&gt;GIF&lt;/abbr&gt; (animated or not) and &lt;abbr&gt;JPEG&lt;/abbr&gt; formats.&lt;/p&gt;
 &lt;/div&gt;
-</code></pre><h3 id="the-best-ampersand">The best ampersand</h3>
+</code></pre><h4 id="the-best-ampersand">The best ampersand</h4>
 <pre><code>Nuts &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt; Bolts.
-</code></pre><h3 id="hanging-punctuation">Hanging punctuation</h3>
+</code></pre><h4 id="hanging-punctuation">Hanging punctuation</h4>
 <pre><code>Awesome Web Typography with &lt;span class=&quot;slaquo&quot;&gt; &lt;/span&gt; &lt;span class=&quot;hlaquo&quot;&gt;“&lt;/span&gt;Richtypo”&#39;
-</code></pre><h2 id="caveats">Caveats</h2>
+</code></pre><h3 id="caveats">Caveats</h3>
 <ul>
 <li>Enables ligatures in headings (h1—h6 inside .text and .alpha—.zeta).</li>
 </ul>
-<h2 id="tools">Tools</h2>
+<h3 id="tools">Tools</h3>
 <ul>
 <li><a href="https://github.com/sapegin/richtypo.js">richtypo.js</a> for Node.js.</li>
 <li><a href="https://github.com/sapegin/wp-typohelper">wp-typohelper</a> for Wordpress.</li>
 </ul>
 
 
-<h1 id="select">Select</h1>
+<h2 id="select">Select</h2>
 <p>Select with custom design</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;select&quot; data-component=&quot;select&quot;&gt;
     &lt;div class=&quot;select__box js-box&quot;&gt;&lt;/div&gt;
     &lt;select class=&quot;select__select js-select&quot;&gt;
@@ -559,11 +559,11 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
         &lt;option&gt;Moose&lt;/option&gt;
     &lt;/select&gt;
 &lt;/div&gt;
-</code></pre><h2 id="skin">Skin</h2>
+</code></pre><h3 id="skin">Skin</h3>
 <p>Set <code>select_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="select select_inline" data-component="select">
 	<div class="select__box js-box"></div>
@@ -593,34 +593,34 @@ $(&#39;.pony&#39;).trigger(&#39;open.modal.tamia&#39;);
 	</div>
 </div>
 
-<h1 id="spinner">Spinner</h1>
+<h2 id="spinner">Spinner</h2>
 <p>Loading indicator (spinner) with animation.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;is-loading&quot;&gt;
     &lt;div class=&quot;loader&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre><p><code>.loader</code> is the same as <code>.spinner</code> but it’s hidden by default. It’s visible only when <code>.is-loading</code> state is set on ancestor element.</p>
-<h2 id="modifiers">Modifiers</h2>
-<h3 id="-spinner-spinner_big">.spinner.spinner_big</h3>
+<h3 id="modifiers">Modifiers</h3>
+<h4 id="-spinner-spinner_big">.spinner.spinner_big</h4>
 <p>Bigger size.</p>
-<h2 id="more-sizes">More sizes</h2>
+<h3 id="more-sizes">More sizes</h3>
 <p>You can set any spinner size changing <code>font-size</code> property.</p>
 <pre><code>.spinner_huge
     font-size: 64px
 
 &lt;div class=&quot;spinner spinner_huge&quot;&gt;&lt;/div&gt;
-</code></pre><h2 id="component-loading-indicator">Component loading indicator</h2>
+</code></pre><h3 id="component-loading-indicator">Component loading indicator</h3>
 <pre><code>$(&#39;.pony&#39;).trigger(&#39;loading-start.tamia&#39;);  // Show loader
 $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 </code></pre><p>That will blocks all container’s content with a semi transparent layer and shows spinner in the middle.</p>
 <p>To change shade layer’s color set <code>loader_shade_color</code> variable.</p>
-<h2 id="ie-8-9-callback">IE 8—9 callback</h2>
+<h3 id="ie-8-9-callback">IE 8—9 callback</h3>
 <p>Copy <code>spinner.gif</code> to your images folder and set <code>spinner_fallback_gif</code> variable to its URL.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="spinner"></div>
 </div>
@@ -632,9 +632,9 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 	</div>
 </div>
 
-<h1 id="switcher">Switcher</h1>
+<h2 id="switcher">Switcher</h2>
 <p>Nice looking radio buttons group.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;switcher&quot;&gt;
     &lt;input class=&quot;switcher__input&quot; id=&quot;type_first&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;first&quot; checked=&quot;checked&quot;&gt;
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_first&quot;&gt;First&lt;/label&gt;
@@ -643,11 +643,11 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
     &lt;input class=&quot;switcher__input&quot; id=&quot;type_third&quot; type=&quot;radio&quot; name=&quot;type&quot; value=&quot;third&quot;&gt;
     &lt;label class=&quot;switcher__label&quot; for=&quot;type_third&quot;&gt;Third&lt;/label&gt;
 &lt;/div&gt;
-</code></pre><h2 id="skin">Skin</h2>
+</code></pre><h3 id="skin">Skin</h3>
 <p>Set <code>switcher_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="switcher">
 	<input class="switcher__input" id="type_first" type="radio" name="type" value="first" checked="checked">
@@ -673,9 +673,9 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 	</div>
 </div>
 
-<h1 id="tables">Tables</h1>
+<h2 id="tables">Tables</h2>
 <p>Basic tables styles.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;table class=&quot;table&quot;&gt;
     &lt;thead&gt;
         &lt;tr&gt;
@@ -693,7 +693,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 &lt;/table&gt;
 </code></pre>
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><table class="table">
 	<thead>
@@ -755,9 +755,9 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 	</div>
 </div>
 
-<h1 id="basic-text-styles">Basic text styles</h1>
+<h2 id="basic-text-styles">Basic text styles</h2>
 <p>Headings, paragraphs, etc.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;text&quot;&gt;
     &lt;h1&gt;Down the Rabbit-Hole&lt;/h1&gt;
     &lt;p&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversation?”&lt;/p&gt;
@@ -765,7 +765,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 &lt;/div&gt;
 </code></pre>
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="text">
 	<h1 class="fixie"></h1>
@@ -789,9 +789,9 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 	</div>
 </div>
 
-<h1 id="toggle-">Toggle ß</h1>
+<h2 id="toggle-">Toggle ß</h2>
 <p>Magic content toggler.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;js-toggle-wrapper form form_block&quot;&gt;
     &lt;div class=&quot;form__row&quot;&gt;
         &lt;input type=&quot;email&quot; class=&quot;field&quot; placeholder=&quot;Email&quot;&gt;
@@ -812,7 +812,7 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-</code></pre><h2 id="states">States</h2>
+</code></pre><h3 id="states">States</h3>
 <p>There are two kind of states:</p>
 <ul>
 <li>Wrapper states: define different look of your UI. You can switch wrapper sates with togglers (see below).</li>
@@ -827,31 +827,31 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 <pre><code>&lt;input data-states=&quot;restore:hidden,disabled; login:highlighted&quot;&gt;
 </code></pre><p>You should set initial states for wrapper (<code>&lt;div class=&quot;js-toggle-wrapper state-restore&quot;&gt;</code>) and elements (<code>&lt;div class=&quot;is-hidden&quot; data-states=&quot;restore:-hidden&quot;&gt;Restore&lt;/div&gt;</code>) in your markup.</p>
 <p>You can use wrapper state classes (<code>.state-restore</code>) to add custom CSS.</p>
-<h3 id="elements-states">Elements States</h3>
+<h4 id="elements-states">Elements States</h4>
 <p>Basically element state is an <code>.is-statename</code> CSS class. But some states imply additional magic:</p>
 <ul>
 <li><code>hidden</code> will also trigger <code>appear.tamia</code>/<code>disappear.tamia</code> events.</li>
 <li><code>disabled</code> will also add/remove <code>disabled</code> attribute.</li>
 </ul>
-<h2 id="togglers">Togglers</h2>
+<h3 id="togglers">Togglers</h3>
 <p>You can toggle state with a special link:</p>
 <pre><code>&lt;span class=&quot;link&quot; data-toggle=&quot;toggle:restore&quot;&gt;Toggle&lt;/span&gt;
 </code></pre><p>Or several states at once:</p>
 <pre><code>&lt;span class=&quot;link&quot; data-toggle=&quot;toggle:restore,login&quot;&gt;Toggle&lt;/span&gt;
-</code></pre><h2 id="transitions">Transitions</h2>
+</code></pre><h3 id="transitions">Transitions</h3>
 <p>By default element states change with fade transition (crossfade when necessary) but you can use different transition:</p>
 <pre><code>&lt;div class=&quot;form__row toggle-transition-slide&quot; data-states=&quot;restore:hidden&quot;&gt;&lt;/div&gt;
-</code></pre><h3 id="available-transitions">Available Transitions</h3>
+</code></pre><h4 id="available-transitions">Available Transitions</h4>
 <ul>
 <li><code>toggle-transition-slide</code>: kind of slide transition (unfinished).</li>
 </ul>
-<h2 id="configuration">Configuration</h2>
-<h3 id="toggle_transition_time">toggle_transition_time</h3>
+<h3 id="configuration">Configuration</h3>
+<h4 id="toggle_transition_time">toggle_transition_time</h4>
 <p>Type: CSS duration value.</p>
 <p>Duration of appearing/disappearing animation.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><div class="js-toggle-wrapper form form_block">
 	<div class="form__row">
@@ -901,17 +901,17 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 	</div>
 </div>
 
-<h1 id="tooltip">Tooltip</h1>
+<h2 id="tooltip">Tooltip</h2>
 <p>Simple tooltips.</p>
-<h2 id="markup">Markup</h2>
+<h3 id="markup">Markup</h3>
 <pre><code>&lt;div class=&quot;tooltip&quot;&gt;I’m tooltip!&lt;/div&gt;
 
 &lt;a href=&quot;#&quot; class=&quot;has-tooltip&quot; data-tooltip=&quot;Call us!&quot;&gt;+7 495 212-85-06&lt;/a&gt;
-</code></pre><h2 id="skin">Skin</h2>
+</code></pre><h3 id="skin">Skin</h3>
 <p>Set <code>tooltip_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 
 
-<h2>Examples</h2>
+<h3>Examples</h3>
 
 <div class="example"><span class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</span>
 </div>
@@ -922,8 +922,12 @@ $(&#39;.pony&#39;).trigger(&#39;loading-stop.tamia&#39;);  // Hide loader
 </code></pre>
 	</div>
 </div>
-		</div>
-
+				</div>
+				<div class="toc-holder l-quarter">
+					<div class="toc" data-component="toc" data-page="modules"></div>
+				</div>
+			</div>
+		
 	</div>
 
 
