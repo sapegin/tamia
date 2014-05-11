@@ -76,3 +76,31 @@ body
 
 .button
 	text-transform: capitalize
+
+.toc-holder
+	padding-top: 2*spacer + 3px
+
+.toc
+	margin-top: spacer
+
+	&__item
+		margin-bottom: .3em
+		font-size: 14px
+		list-style-type: none
+
+		&_h3
+			margin-left: 1em
+
+		&_h3 + &_h2
+			margin-top: 1em
+
+		a
+			@extend .link
+
+		&.is-active a
+			+link-all-states()
+				@extend .no-underline
+				font-weight: bold
+				color: base_color
+				cursor: default
+

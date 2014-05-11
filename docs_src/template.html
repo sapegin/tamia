@@ -37,12 +37,19 @@
 				<h1 class="splash__title">Tâmia</h1>
 				<div class="splash__subtitle">Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/" class="link">Artem Sapegin</a>.</div>
 			</div>
+			<div class="text">
+				<%= html %>
+			</div>
+		<% } else { %>
+			<div class="l-row js-content-container">
+				<div class="l-three-quarters text js-content">
+					<%= html %>
+				</div>
+				<div class="toc-holder l-quarter">
+					<div class="toc" data-component="toc" data-page="<%= page %>"></div>
+				</div>
+			</div>
 		<% } %>
-
-		<div class="text">
-			<%= html %>
-		</div>
-
 	</div>
 
 

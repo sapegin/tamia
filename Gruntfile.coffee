@@ -31,7 +31,8 @@ module.exports = (grunt) ->
 					'tamia/tamia.js'
 					'tamia/component.js'
 					'modules/*/*.js'
-					'docs_src/fixie.js'
+					'docs_src/lib/*.js'
+					'docs_src/docs.js'
 				]
 				dest: 'docs/scripts.js'
 			specs:
@@ -141,11 +142,14 @@ module.exports = (grunt) ->
 		modules = grunt.file.expand 'modules/*'
 		exampleId = 0
 		html = _.map modules, (module) ->
-			moduleDoc = marked grunt.file.read path.join(module, 'Readme.md')
+			moduleDoc = grunt.file.read path.join(module, 'Readme.md')
+			moduleDoc = moduleDoc.replace(/^#/gm, '##')  # Increase headings level
+			moduleDoc = marked moduleDoc
+
 			# Examples
 			examplesFile = path.join module, 'example.html'
 			if fs.existsSync examplesFile
-				moduleDoc += "\n\n<h2>Examples</h2>\n\n"
+				moduleDoc += "\n\n<h3>Examples</h3>\n\n"
 				examples = grunt.file.read examplesFile
 				examples = examples.split '\n\n'
 				examples = _.map examples, (example) ->
