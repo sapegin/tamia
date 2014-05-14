@@ -11,22 +11,29 @@
 
 	<header class="header">
 		<div class="content">
-			<div class="logo">
-				<% if (page === 'index') { %>
-					Tâmia
-				<% } else { %>
-					<a href="/tamia/" class="logo__link">Tâmia</a>
-				<% } %>
+			<div class="l-row">
+				<div class="l-left">
+					<div class="logo">
+						<% if (page === 'index') { %>
+							Tâmia
+						<% } else { %>
+							<a href="/tamia/" class="logo__link">Tâmia</a>
+						<% } %>
+					</div>
+					<nav class="nav">
+						<% for (var name in menu) { %>
+							<li class="nav__item">
+								<a href="<%= name %>.html" class="nav__link <% if (name === page) { %>nav__link_active<% } %>">
+									<%= menu[name] %>
+								</a>
+							</li>
+						<% } %>
+					</nav>
+				</div>
+				<div class="l-right">
+					<a href="https://github.com/sapegin/tamia" class="github-link">View on GitHub</a>
+				</div>
 			</div>
-			<nav class="nav">
-				<% for (var name in menu) { %>
-					<li class="nav__item">
-						<a href="<%= name %>.html" class="nav__link <% if (name === page) { %>nav__link_active<% } %>">
-							<%= menu[name] %>
-						</a>
-					</li>
-				<% } %>
-			</nav>
 		</div>
 	</header>
 
