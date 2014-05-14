@@ -190,8 +190,11 @@ module.exports = (grunt) ->
 		grunt.file.write "docs/#{name}.html", html
 
 	docsProcessJs = (code) ->
+		# HACK: Add kinda separators after section titles so blocksRegEx not skip first blocks in every section
+		code = code.replace(/(\/\*\*\n\s*\* ([^\n]*)\n\s*\*\/\n\n)/mg, '$1\n_\n')
+
 		docs = []
-		blocksRegEx = /\/\*\*([\S\s]*?)\*\/\s*(.*?)\n/mg
+		blocksRegEx = /\/\*\*([\S\s]*?)\*\/\s*(.*?)(?=\n)/mg
 		while true
 			matches = blocksRegEx.exec code
 			break  unless matches
@@ -201,25 +204,32 @@ module.exports = (grunt) ->
 			text = (text
 				.replace(/\n\s*\* ?/mg, '\n')  # Clean up
 				.replace(/^\s*/, '')  # Clean up
+				.replace(/^\- (.*?) \-/mg, '- **$1** —')  # Lists
 			)
 
 			text = docsFormatJsDoc text
 
 			title = null
-			m = /(?:function (\w+))|(?:(\w+): )|(?:([\w\.]+) = function)/.exec firstLine  # Function
+			m = /@event ([\w\|]+)/.exec text  # Event
 			if m
-				params = text.match /\* \*\*([a-z\[\]]+)(?=\*\*)/g
-				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
-				title = m[1]||m[2]||m[3] + '(' + (params.join ', ') + ')'
-			m = /_handlers\.(\w+)/.exec firstLine  # Event
-			if not title and m
 				title = m[1]
+				text = text.replace /^@event.*$/mg, ''
+			m = /@type \{[\w\|]+\}/.exec text  # Variable
+			if not title and m
+				m  = /(\w+):/.exec firstLine
+				title = m[1]
+				text = text.replace /^@type.*$/mg, ''
+			m = /(?:function (\w+))|(?:(\w+): )|(?:([\w\.]+) = function)/.exec firstLine  # Function
+			if not title and m
+				params = text.match /\* \*\*([a-z0-9_\[\]\.]+)(?=\*\*)/gi
+				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
+				title = (m[1]||m[2]||m[3]) + '(' + (params.join ', ') + ')'
 			if title
 				text = "#### #{title}\n\n#{text}"
 			else
 				# The first line is a title
 				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
-				text = "#### #{text}"
+				text = "### #{text}"
 
 			docs.push text
 
@@ -228,10 +238,10 @@ module.exports = (grunt) ->
 	docsFormatJsDoc = (text) ->
 		text
 			.replace(/^\t*/mg, '')  # Clean up
-			.replace(/@param {(\w+)} ([-\w\[\]]+)/g, '* *$1* **$2**:')  # Params
+			.replace(/@param {(\w+)} ([-\w\[\]\.]+)/g, '* *$1* **$2**:')  # Params
 			.replace(/@param ([-\w\[\]]+)/g, '* **$1**:')  # Params
-			.replace(/@returns? {(\w+)}(.)/g, 'Returns *$1*:')  # Returns
-			.replace(/@returns? {(\w+)}/g, 'Returns *$1*.')  # Returns
+			.replace(/@returns? {(\w+)}(.)/g, '\n\nReturns *$1*: ')  # Returns
+			.replace(/@returns? {(\w+)}/g, '\n\nReturns *$1*.')  # Returns
 			.replace(/^(.*?):$/mg, '##### $1')  # Sections
 			.replace(/^  /mg, '    ')  # Code blocks
 			.replace(/^    (\d+\.)/mg, '$1')  # Ordered lists
@@ -260,7 +270,7 @@ module.exports = (grunt) ->
 			text = (text
 				.replace(/^\s*\/\/ ?/mg, '')  # Clean up
 				.replace(/^\s*/, '')  # Clean up
-				.replace(/^([-_\.a-z]+) - (.*?\.)/mg, '* **$1** $2')  # Params
+				.replace(/^([-_\.a-z]+) - (.*?\.)/mgi, '* **$1** $2')  # Params
 				.replace(/^(.*?):$/mg, '##### $1')  # Sections
 				.replace(/^  /mg, '    ')  # Code blocks
 				)
@@ -268,7 +278,7 @@ module.exports = (grunt) ->
 			title = null
 			m = /^\s*([-\w]+)\([^)]*\)$/m.exec firstLine  # Function
 			if m
-				params = text.match /\* \*\*([a-z]+)(?=\*\*)/g
+				params = text.match /\* \*\*([a-z]+)(?=\*\*)/gi
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 
 				# Custom titles

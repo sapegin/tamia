@@ -116,12 +116,12 @@
 		/**
 		 * Binds all specified methods to this. Binded method names have `_` at the end.
 		 *
+		 * @param {String} method1... Method names
+		 *
 		 * Example:
 		 *
 		 *   this.bindAll('toggle');
 		 *   this.elem.on('click', this.toggle_);
-		 *
-		 * @param {String} method1, [method2...] Method names
 		 */
 		bindAll: function() {
 			if (arguments.length === 0) throw new tamia.Error('Component.bindAll: no method names passed.');
@@ -135,7 +135,7 @@
 		/**
 		 * Returns component visibility.
 		 *
-		 * @param {Boolean}
+		 * @return {Boolean}
 		 */
 		isVisible: function() {
 			return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);
