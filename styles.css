@@ -1995,6 +1995,11 @@ body {
   text-decoration: none;
 }
 
+.github-link {
+  display: block;
+  padding: 12px .75em 13px;
+}
+
 .splash {
   margin-bottom: 40px;
 }

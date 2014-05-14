@@ -219,26 +219,7 @@
 /*jshint newcap:false*/
 /*global DEBUG:true, Modernizr:false, console:false, ga:false*/
 
-/**
- * Debug mode.
- *
- * You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.
- *
- * To make it work add to your Gruntfile:
- *
- *   uglify: {
- *     options: {
- *       compress: {
- *         global_defs: {
- *           DEBUG: !!grunt.option('debug')
- *         }
- *       }
- *     },
- *     ...
- *   }
- *
- * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
- */
+// Debug mode is ON by default
 if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 ;(function(window, jQuery, Modernizr, undefined) {
@@ -255,6 +236,26 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 
+	/**
+	 * Debugging.
+	 *
+	 * You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.
+	 *
+	 * To make it work add to your Gruntfile:
+	 *
+	 *   uglify: {
+	 *     options: {
+	 *       compress: {
+	 *         global_defs: {
+	 *           DEBUG: !!grunt.option('debug')
+	 *         }
+	 *       }
+	 *     },
+	 *     ...
+	 *   }
+	 *
+	 * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
+	 */
 	if (DEBUG) {
 		// Debug logger
 		var addBadge = function(args, name, bg) {
@@ -362,6 +363,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 
 	/**
+	 * Components management.
+	 */
+
+	/**
 	 * Initialize components.
 	 *
 	 * @param {Object} components Initializers for each component.
@@ -452,7 +457,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 
 	/**
+	 * Common functions
+	 */
+
+	/**
 	 * JavaScript inheritance.
+	 *
+	 * @param {Object} parent Parent object.
+	 * @param {Object} props Child properties.
 	 *
 	 * Example:
 	 *
@@ -500,7 +512,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 * @param {Function} func Function to call.
 	 * @param {Object} [context] Function context (default: global).
 	 * @param {Number} [wait] Time to wait, milliseconds (default: 0).
-	 * @param {Mixed} [param1, param2...] Any params to pass to function.
+	 * @param {Mixed} [param1...] Any params to pass to function.
 	 * @return {TimeoutId} Timeout handler.
 	 */
 	tamia.delay = function(func, context, wait) {
@@ -522,7 +534,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var _fallbackTimeout = 1000;
 
 		/**
+		 * Events management
+		 */
+
+		/**
 		 * Registers Tâmia events (eventname.tamia) on document.
+		 *
+		 * @param {Object} handlers Handlers list.
 		 *
 		 * Example:
 		 *
@@ -531,8 +549,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *      enable: function(elem) {
 		 *      }
 		 *   });
-		 *
-		 * @param {Object} handlers Handlers list.
 		 */
 		tamia.registerEvents = function(handlers) {
 			var events = $.map(handlers, _tamiaze).join(' ');
@@ -556,6 +572,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Init components inside any jQuery node.
 		 *
+		 * @event init.tamia
+		 *
 		 * Examples:
 		 *
 		 *   $(document).trigger('init.tamia');
@@ -567,6 +585,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		/**
 		 * Show element with CSS transition.
+		 *
+		 * @event appear.tamia
 		 *
 		 * appeared.tamia and toggled.tamia events will be fired the moment transition ends.
 		 *
@@ -606,6 +626,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Hide element with CSS transition.
 		 *
+		 * @event disappear.tamia
+		 *
 		 * disappeared.tamia and toggled.tamia events will be fired the moment transition ends.
 		 *
 		 * Opposite of `appear.tamia` event.
@@ -631,6 +653,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		/**
 		 * Toggles element’s visibility with CSS transition.
+		 *
+		 * @event toggle.tamia
 		 *
 		 * See `appear.tamia` event for details.
 		 */
@@ -831,8 +855,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 * Hotkeys:
 		 *
-		 *   g - Toggle grid.
-		 *   o - Toggle layout outlines.
+		 * - g - Toggle grid.
+		 * - o - Toggle layout outlines.
 		 */
 		if (DEBUG) {
 			var layoutClassesAdded = false;
@@ -1017,12 +1041,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Binds all specified methods to this. Binded method names have `_` at the end.
 		 *
+		 * @param {String} method1... Method names
+		 *
 		 * Example:
 		 *
 		 *   this.bindAll('toggle');
 		 *   this.elem.on('click', this.toggle_);
-		 *
-		 * @param {String} method1, [method2...] Method names
 		 */
 		bindAll: function() {
 			if (arguments.length === 0) throw new tamia.Error('Component.bindAll: no method names passed.');
@@ -1036,7 +1060,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Returns component visibility.
 		 *
-		 * @param {Boolean}
+		 * @return {Boolean}
 		 */
 		isVisible: function() {
 			return !!(this.elemNode.offsetWidth || this.elemNode.offsetHeight);

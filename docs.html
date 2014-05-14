@@ -11,26 +11,33 @@
 
 	<header class="header">
 		<div class="content">
-			<div class="logo">
-				
-					<a href="/tamia/" class="logo__link">Tâmia</a>
-				
+			<div class="l-row">
+				<div class="l-left">
+					<div class="logo">
+						
+							<a href="/tamia/" class="logo__link">Tâmia</a>
+						
+					</div>
+					<nav class="nav">
+						
+							<li class="nav__item">
+								<a href="docs.html" class="nav__link nav__link_active">
+									Documentation
+								</a>
+							</li>
+						
+							<li class="nav__item">
+								<a href="modules.html" class="nav__link ">
+									Modules
+								</a>
+							</li>
+						
+					</nav>
+				</div>
+				<div class="l-right">
+					<a href="https://github.com/sapegin/tamia" class="github-link">View on GitHub</a>
+				</div>
 			</div>
-			<nav class="nav">
-				
-					<li class="nav__item">
-						<a href="docs.html" class="nav__link nav__link_active">
-							Documentation
-						</a>
-					</li>
-				
-					<li class="nav__item">
-						<a href="modules.html" class="nav__link ">
-							Modules
-						</a>
-					</li>
-				
-			</nav>
 		</div>
 	</header>
 
@@ -407,7 +414,7 @@ You should adjust padding depending on content.</p>
 <h4 id="-responsive-images">.responsive-images</h4>
 <p>Make all images inside responsive.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
-<h4 id="debug-mode">Debug mode</h4>
+<h3 id="debugging">Debugging</h3>
 <p>You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.</p>
 <h5 id="to-make-it-work-add-to-your-gruntfile">To make it work add to your Gruntfile</h5>
 <pre><code>uglify: {
@@ -432,7 +439,8 @@ You should adjust padding depending on content.</p>
   tamia.trace(this, &#39;ClassName&#39;);
   ...
 }
-</code></pre><h4 id="tamia-initcomponents-components-">tamia.initComponents(components)</h4>
+</code></pre><h3 id="components-management">Components management</h3>
+<h4 id="tamia-initcomponents-components-">tamia.initComponents(components)</h4>
 <p>Initialize components.</p>
 <ul>
 <li><em>Object</em> <strong>components</strong>: Initializers for each component.</li>
@@ -466,41 +474,47 @@ tamia.initComponents({
 <li>No components will be initialized twice. It’s safe to trigger init.tamia event multiple times: only new nodes
  or nodes that was hidden before will be affected.</li>
 </ol>
-<h4 id="tamia-extend-">tamia.extend()</h4>
+<h3 id="common-functions">Common functions</h3>
+<h4 id="tamia-extend-parent-props-">tamia.extend(parent, props)</h4>
 <p>JavaScript inheritance.</p>
+<ul>
+<li><em>Object</em> <strong>parent</strong>: Parent object.</li>
+<li><em>Object</em> <strong>props</strong>: Child properties.</li>
+</ul>
 <h5 id="example">Example</h5>
 <pre><code>var Pony = tamia.extend(tamia.Component, {
   init: function() {
     // ...
   }
 });
-</code></pre><h4 id="tamia-delay-func-context-wait-">tamia.delay(func, [context], [wait])</h4>
+</code></pre><h4 id="tamia-delay-func-context-wait-param1-">tamia.delay(func, [context], [wait], [param1…])</h4>
 <p>Delays a function for the given number of milliseconds, and then calls it with the specified arguments.</p>
 <ul>
 <li><em>Function</em> <strong>func</strong>: Function to call.</li>
 <li><em>Object</em> <strong>[context]</strong>: Function context (default: global).</li>
 <li><em>Number</em> <strong>[wait]</strong>: Time to wait, milliseconds (default: 0).</li>
-<li><em>Mixed</em> <strong>[param1</strong>:, param2…] Any params to pass to function.
-Returns <em>TimeoutId</em>:Timeout handler.</li>
+<li><em>Mixed</em> <strong>[param1…]</strong>: Any params to pass to function.</li>
 </ul>
+<p>Returns <em>TimeoutId</em>: Timeout handler.</p>
+<h3 id="events-management">Events management</h3>
 <h4 id="tamia-registerevents-handlers-">tamia.registerEvents(handlers)</h4>
 <p>Registers Tâmia events (eventname.tamia) on document.</p>
+<ul>
+<li><em>Object</em> <strong>handlers</strong>: Handlers list.</li>
+</ul>
 <h5 id="example">Example</h5>
 <pre><code>// Registers enable.tamia event.
 tamia.registerEvents({
    enable: function(elem) {
    }
 });
-</code></pre><ul>
-<li><em>Object</em> <strong>handlers</strong>: Handlers list.</li>
-</ul>
-<h4 id="events">Events</h4>
-<h4 id="_handlers-init-">_handlers.init()</h4>
+</code></pre><h3 id="events">Events</h3>
+<h4 id="init">init</h4>
 <p>Init components inside any jQuery node.</p>
 <h5 id="examples">Examples</h5>
 <pre><code>$(document).trigger(&#39;init.tamia&#39;);
 $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
-</code></pre><h4 id="_handlers-appear-">_handlers.appear()</h4>
+</code></pre><h4 id="appear">appear</h4>
 <p>Show element with CSS transition.</p>
 <p>appeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <h5 id="example">Example</h5>
@@ -513,14 +527,14 @@ $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
 &lt;div class=&quot;dialog is-hidden js-dialog&quot;&gt;...&lt;/div&gt;
 
 $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
-</code></pre><h4 id="_handlers-disappear-">_handlers.disappear()</h4>
+</code></pre><h4 id="disappear">disappear</h4>
 <p>Hide element with CSS transition.</p>
 <p>disappeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <p>Opposite of <code>appear.tamia</code> event.</p>
-<h4 id="_handlers-toggle-">_handlers.toggle()</h4>
+<h4 id="toggle">toggle</h4>
 <p>Toggles element’s visibility with CSS transition.</p>
 <p>See <code>appear.tamia</code> event for details.</p>
-<h4 id="controls">Controls</h4>
+<h3 id="controls">Controls</h3>
 <p>Fires jQuery event to specified element on click at this element.</p>
 <ul>
 <li><strong>data-fire</strong>: Event name.</li>
@@ -532,42 +546,58 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <h5 id="example">Example</h5>
 <pre><code>&lt;span data-fire=&quot;slider-next&quot; data-target=&quot;.portfolio&quot; data-attrs=&quot;1,2,3&quot;&gt;Next&lt;/span&gt;
 &lt;!-- $(&#39;.portfolio&#39;).trigger(&#39;slider-next&#39;, [1, 2, 3]); --&gt;
-</code></pre><h4 id="states-management">States management</h4>
+</code></pre><h3 id="states-management">States management</h3>
+<h4 id="jquery-fn-togglestate-name-value-">jQuery.fn.toggleState(name, [value])</h4>
+<p>Toggles specified state on an element.</p>
+<p>State is a special CSS class: .is-name.</p>
+<ul>
+<li><em>String</em> <strong>name</strong>: State name.</li>
+<li><em>Boolean</em> <strong>[value]</strong>: Add/remove state.</li>
+</ul>
+<p>Returns <em>jQuery</em>.</p>
 <h4 id="jquery-fn-addstate-name-">jQuery.fn.addState(name)</h4>
 <p>Adds specified state to an element.</p>
 <ul>
-<li><em>String</em> <strong>name</strong>: State name.
-Returns <em>jQuery</em>.</li>
+<li><em>String</em> <strong>name</strong>: State name.</li>
 </ul>
+<p>Returns <em>jQuery</em>.</p>
 <h4 id="jquery-fn-removestate-name-">jQuery.fn.removeState(name)</h4>
 <p>Removes specified state from an element.</p>
 <ul>
-<li><em>String</em> <strong>name</strong>: State name.
-Returns <em>jQuery</em>.</li>
+<li><em>String</em> <strong>name</strong>: State name.</li>
 </ul>
+<p>Returns <em>jQuery</em>.</p>
 <h4 id="jquery-fn-hasstate-name-">jQuery.fn.hasState(name)</h4>
 <p>Returns whether an element has specified state.</p>
 <ul>
-<li><em>String</em> <strong>name</strong>: State name.
-Returns <em>Boolean</em>.</li>
+<li><em>String</em> <strong>name</strong>: State name.</li>
 </ul>
-<h4 id="templates">Templates</h4>
-<h4 id="tamia-tmpl-data-">tamia.tmpl(data)</h4>
+<p>Returns <em>Boolean</em>.</p>
+<h3 id="templates">Templates</h3>
+<h4 id="tamia-stmpl-tmpl-data-">tamia.stmpl(tmpl, data)</h4>
+<p>Simplest template.</p>
+<p>Just replaces {something} with data.something.</p>
+<ul>
+<li><em>String</em> <strong>tmpl</strong>: Template.</li>
+<li><em>String</em> <strong>data</strong>: Template context.</li>
+</ul>
+<p>Returns <em>String</em>: HTML.</p>
+<h4 id="tamia-tmpl-tmplid-data-">tamia.tmpl(tmplId, data)</h4>
 <p>Invokes precompiled template.</p>
 <p>Templates should be stored in window.__templates.</p>
 <ul>
 <li><em>String</em> <strong>tmplId</strong>: Template ID.</li>
-<li><em>String</em> <strong>data</strong>: Template context.
-Returns <em>String</em>:HTML.</li>
+<li><em>String</em> <strong>data</strong>: Template context.</li>
 </ul>
-<h4 id="jquery-fn-tmpl-data-">jQuery.fn.tmpl(data)</h4>
+<p>Returns <em>String</em>: HTML.</p>
+<h4 id="jquery-fn-tmpl-tmplid-data-">jQuery.fn.tmpl(tmplId, data)</h4>
 <p>Replaces jQuery node’s content with the result of template invocation.</p>
 <ul>
 <li><em>String</em> <strong>tmplId</strong>: Template ID.</li>
-<li><em>String</em> <strong>data</strong>: Template context.
-Returns <em>jQuery</em>.</li>
+<li><em>String</em> <strong>data</strong>: Template context.</li>
 </ul>
-<h4 id="google-analytics-tracking">Google Analytics tracking</h4>
+<p>Returns <em>jQuery</em>.</p>
+<h3 id="google-analytics-tracking">Google Analytics tracking</h3>
 <ul>
 <li><strong>data-ga</strong>: Event name (‘link’ if empty).</li>
 <li><strong>[data-action]</strong>: Event action (‘click’ by default).</li>
@@ -575,12 +605,14 @@ Returns <em>jQuery</em>.</li>
 <h5 id="examples">Examples</h5>
 <pre><code>&lt;a href=&quot;http://github.com/&quot; data-ga&gt;GitHub&lt;/span&gt;
 &lt;span class=&quot;js-slider-next&quot; data-ga=&quot;slider&quot; data-action=&quot;next&quot;&gt;Next&lt;/span&gt;
-</code></pre><h4 id="grid-debugger">Grid debugger</h4>
+</code></pre><h3 id="grid-debugger">Grid debugger</h3>
 <h5 id="hotkeys">Hotkeys</h5>
-<pre><code>g - Toggle grid.
-o - Toggle layout outlines.
-</code></pre><h2 id="base-javascript-component-class">Base JavaScript Component Class</h2>
-<h4 id="component">Component</h4>
+<ul>
+<li><strong>g</strong> — Toggle grid.</li>
+<li><strong>o</strong> — Toggle layout outlines.</li>
+</ul>
+<h2 id="base-javascript-component-class">Base JavaScript Component Class</h2>
+<h4 id="component-">Component()</h4>
 <p>JS component base class.</p>
 <p>Elements: any HTML element with class name that follow a pattern <code>.js-name</code> where <code>name</code> is an element name.</p>
 <p>States: any class on component root HTML node that follow a pattern <code>.is-state</code> where <code>state</code> is a state name.
@@ -603,15 +635,14 @@ tamia.initComponents({pony: Pony});
 &lt;/div&gt;
 </code></pre><h4 id="binded">binded</h4>
 <p>List of methods that should be binded to <code>this</code> (see <code>bindAll</code> method).</p>
-<p>@type {String|Array}</p>
-<h4 id="init">init</h4>
+<h4 id="init-">init()</h4>
 <p>Put all your initialization code in this method.</p>
-<h4 id="destroy">destroy</h4>
+<h4 id="destroy-">destroy()</h4>
 <p>You can implement this method to do destroy component.</p>
-<h4 id="issupported">isSupported</h4>
+<h4 id="issupported-">isSupported()</h4>
 <p>Implement this method if you want to check whether browser is good for your component or not.</p>
 <p>Returns <em>Boolean</em>.</p>
-<h4 id="isinitializable">isInitializable</h4>
+<h4 id="isinitializable-">isInitializable()</h4>
 <p>Implement this method if you want to check whether component could be initialized.</p>
 <h5 id="example">Example</h5>
 <pre><code>isInitializable: function() {
@@ -619,19 +650,19 @@ tamia.initComponents({pony: Pony});
   return this.isVisible();
 }
 </code></pre><p>Returns <em>Boolean</em>.</p>
-<h4 id="fallback">fallback</h4>
+<h4 id="fallback-">fallback()</h4>
 <p>Implement this method to do some fallbacks. It will be called if isSupported() returns false.</p>
-<h4 id="bindall">bindAll</h4>
+<h4 id="bindall-method1-">bindAll(method1…)</h4>
 <p>Binds all specified methods to this. Binded method names have <code>_</code> at the end.</p>
+<ul>
+<li><em>String</em> <strong>method1…</strong>: Method names</li>
+</ul>
 <h5 id="example">Example</h5>
 <pre><code>this.bindAll(&#39;toggle&#39;);
 this.elem.on(&#39;click&#39;, this.toggle_);
-</code></pre><ul>
-<li><em>String</em> <strong>method1</strong>:, [method2…] Method names</li>
-</ul>
-<h4 id="isvisible">isVisible</h4>
+</code></pre><h4 id="isvisible-">isVisible()</h4>
 <p>Returns component visibility.</p>
-<p>@param {Boolean}</p>
+<p>Returns <em>Boolean</em>.</p>
 
 				</div>
 				<div class="toc-holder l-quarter">
