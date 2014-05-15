@@ -27,7 +27,7 @@ Tâmia is a new cool name for what I use every day in my own and freelance proje
 
 ## Browser Support
 
-I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).
+I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE8 (and probably not all features will work fine there).
 
 
 ## Workflow
