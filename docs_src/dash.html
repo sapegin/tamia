@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title><% if (page !== 'index') { %><%= menu[page] %> — <% } %>Tâmia</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
+	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+
+	<div class="page-content content">
+		<div class="splash">
+			<h1 class="splash__title">Tâmia</h1>
+			<div class="splash__subtitle">Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/" class="link">Artem Sapegin</a>.</div>
+		</div>
+		<div class="text">
+			<%= html %>
+		</div>
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="scripts.js"></script>
+	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+	<script>
+	hljs.tabReplace = '<span class="indent">\t</span>';
+	hljs.initHighlightingOnLoad();
+	</script>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ module.exports = (grunt) ->
 	fs = require 'fs'
 	path = require 'path'
 	marked = require 'marked'
+	Sequelize = require 'sequelize'
 	_ = require 'lodash'
 	_.str = require 'underscore.string'
 
@@ -57,6 +58,16 @@ module.exports = (grunt) ->
 			docs:
 				files:
 					'docs/styles.css': 'docs_src/docs.styl'
+		copy:
+			favicon:
+				src: 'docs_src/favicon.ico'
+				dest: 'docs/favicon.ico'
+			dash_manifest:
+				src: 'docs_src/Info.plist'
+				dest: 'Tamia.docset/Contents/Info.plist'
+			dash_icon:
+				src: 'docs_src/icon.png'
+				dest: 'Tamia.docset/icon.png'
 		casperjs:
 			options:
 				async:
@@ -100,8 +111,12 @@ module.exports = (grunt) ->
 		docs: 'Documentation'
 		modules: 'Modules'
 
+	dashList = []
+
 
 	grunt.registerTask 'docs', ->
+		done = this.async()
+
 		html = []
 
 		# Index page
@@ -179,15 +194,25 @@ module.exports = (grunt) ->
 			return moduleDoc
 		saveHtml 'modules', html.join '\n\n'
 
+		docsDashIndexDb(done)
+
 
 	saveHtml = (name, html) ->
 		html = (html
 			# Fix BEM style names in headings
 			.replace(/(<h\d[^>]*>)(.*?)(<\/h\d>)/g, (m, open, contents, close) -> open + contents.replace(/<\/?strong>/g, '__') + close)
 		)
+		context = data: html: html, page: name, menu: docsMenu
+
+		# Site
 		template = grunt.file.read 'docs_src/template.html'
-		html = grunt.template.process template, data: html: html, page: name, menu: docsMenu
+		html = grunt.template.process template, context
 		grunt.file.write "docs/#{name}.html", html
+
+		# Dash docset
+		template = grunt.file.read 'docs_src/dash.html'
+		html = grunt.template.process template, context
+		grunt.file.write "Tamia.docset/Contents/Resources/Documents/#{name}.html", html
 
 	docsProcessJs = (code) ->
 		# HACK: Add kinda separators after section titles so blocksRegEx not skip first blocks in every section
@@ -223,7 +248,9 @@ module.exports = (grunt) ->
 			if not title and m
 				params = text.match /\* \*\*([a-z0-9_\[\]\.]+)(?=\*\*)/gi
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
-				title = (m[1]||m[2]||m[3]) + '(' + (params.join ', ') + ')'
+				name = (m[1]||m[2]||m[3])
+				title = name + '(' + (params.join ', ') + ')'
+				dashList.push [name, 'Function', "docs.html##{name}"]
 			if title
 				text = "#### #{title}\n\n#{text}"
 			else
@@ -308,7 +335,44 @@ module.exports = (grunt) ->
 	docsAppendTitle = (text, title) ->
 		"## #{title}\n\n#{text}"
 
+	docsDashIndexDb = (done) ->
+		rows = []
+		dashList.forEach (item) ->
+			rows.push({name: item[0], type: item[1], path: item[2]})
+
+		sequelize = new Sequelize('database', 'username', 'password', {
+			dialect: 'sqlite'
+			storage: 'Tamia.docset/Contents/Resources/docSet.dsidx'
+		})
+
+		SearchIndex = sequelize.define('searchIndex', {
+			id: {
+				type: Sequelize.INTEGER
+				autoIncrement: true
+			}
+			name: {
+				type: Sequelize.STRING
+			}
+			type: {
+				type: Sequelize.STRING
+			}
+			path: {
+				type: Sequelize.STRING
+			}
+		}, {
+			freezeTableName: true
+			timestamps: false
+		})
+
+		sequelize.sync({force: true}).success(->
+			SearchIndex.bulkCreate(rows)
+				.success(done)
+				.error((message)->
+					console.log 'Error when saving Dash index:', message
+					done()
+				)
+		)
 
 	grunt.registerTask 'test', ['casperjs']
-	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'test']
-	grunt.registerTask 'build', ['concat', 'stylus', 'docs']
+	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'copy', 'test']
+	grunt.registerTask 'build', ['concat', 'stylus', 'docs', 'copy']
