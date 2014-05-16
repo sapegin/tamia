@@ -158,6 +158,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 * @param {Object} components Initializers for each component.
 	 *
+	 * @attribute data-component
+	 *
 	 * Examples:
 	 *
 	 *   <div data-component="pony"></div>
@@ -463,6 +465,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 * Fires jQuery event to specified element on click at this element.
 		 *
+		 * @attribute data-fire
+		 *
 		 * @param data-fire Event name.
 		 * @param [data-target] Target element selector.
 		 * @param [data-closest] Target element selector: search only through element ancestors.
@@ -618,6 +622,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 * @param data-ga Event name ('link' if empty).
 		 * @param [data-action] Event action ('click' by default).
+		 *
+		 * @attribute data-ga
 		 *
 		 * Examples:
 		 *

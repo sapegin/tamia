@@ -4,6 +4,7 @@ module.exports = (grunt) ->
 	fs = require 'fs'
 	path = require 'path'
 	marked = require 'marked'
+	hljs = require 'highlight.js'
 	Sequelize = require 'sequelize'
 	_ = require 'lodash'
 	_.str = require 'underscore.string'
@@ -68,6 +69,9 @@ module.exports = (grunt) ->
 			dash_icon:
 				src: 'docs_src/icon.png'
 				dest: 'Tamia.docset/icon.png'
+			dash_css:
+				src: 'docs/styles.css'
+				dest: 'Tamia.docset/Contents/Resources/Documents/styles.css'
 		casperjs:
 			options:
 				async:
@@ -103,8 +107,17 @@ module.exports = (grunt) ->
 				tasks: 'stylus'
 
 
+	hljs.configure({
+		classPrefix: ''
+		tabReplace: '<span class="indent">\t</span>'
+	})
+
 	marked.setOptions
 		smartypants: true
+		highlight: (code) ->
+			html = hljs.highlightAuto(code, ['html', 'css', 'javascript'])
+			console.log html.language
+			return html.value
 
 
 	docsMenu =
@@ -157,7 +170,9 @@ module.exports = (grunt) ->
 		modules = grunt.file.expand 'modules/*'
 		exampleId = 0
 		html = _.map modules, (module) ->
+			name = module.split('/')[1]
 			moduleDoc = grunt.file.read path.join(module, 'Readme.md')
+			moduleDoc = moduleDoc.replace(/^# (.*?)$/gm, (m, title) -> docsMakeTitle(title, name, 2))  # Main heading
 			moduleDoc = moduleDoc.replace(/^#/gm, '##')  # Increase headings level
 			moduleDoc = marked moduleDoc
 
@@ -191,6 +206,8 @@ module.exports = (grunt) ->
 
 				moduleDoc += examples.join '\n\n'
 
+				dashList.push [name, 'Package', "modules.html##{name}"]
+
 			return moduleDoc
 		saveHtml 'modules', html.join '\n\n'
 
@@ -202,17 +219,18 @@ module.exports = (grunt) ->
 			# Fix BEM style names in headings
 			.replace(/(<h\d[^>]*>)(.*?)(<\/h\d>)/g, (m, open, contents, close) -> open + contents.replace(/<\/?strong>/g, '__') + close)
 		)
+
 		context = data: html: html, page: name, menu: docsMenu
 
 		# Site
 		template = grunt.file.read 'docs_src/template.html'
-		html = grunt.template.process template, context
-		grunt.file.write "docs/#{name}.html", html
+		pageHtml = grunt.template.process template, context
+		grunt.file.write "docs/#{name}.html", pageHtml
 
 		# Dash docset
 		template = grunt.file.read 'docs_src/dash.html'
-		html = grunt.template.process template, context
-		grunt.file.write "Tamia.docset/Contents/Resources/Documents/#{name}.html", html
+		pageHtml = grunt.template.process template, context
+		grunt.file.write "Tamia.docset/Contents/Resources/Documents/#{name}.html", pageHtml
 
 	docsProcessJs = (code) ->
 		# HACK: Add kinda separators after section titles so blocksRegEx not skip first blocks in every section
@@ -270,11 +288,18 @@ module.exports = (grunt) ->
 				title = name + '(' + (params.join ', ') + ')'
 				dashList.push [name, type, "docs.html##{name}"]
 			if title
-				text = "#### #{title}\n\n#{text}"
+				text = docsMakeTitle(title, name or title) + "\n\n#{text}"
 			else
 				# The first line is a title
 				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
 				text = "### #{text}"
+
+			# Attribute
+			m = /@attribute ([\w\-]+)/.exec text
+			if m
+				name = name or title
+				dashList.push [m[1], 'Attribute', "docs.html##{name}"]
+				text = text.replace /^@attribute\s+/mg, ''
 
 			docs.push text
 
@@ -320,6 +345,7 @@ module.exports = (grunt) ->
 				.replace(/^  /mg, '    ')  # Code blocks
 				)
 
+			name = null
 			title = null
 			m = /^\s*([-\w]+)\([^)]*\)$/m.exec firstLine  # Function
 			if m
@@ -329,18 +355,23 @@ module.exports = (grunt) ->
 				# Custom titles
 				titles = text.match /^# (.*?)$/mg
 				if titles
+					name = titles[0].replace(/^# ([\w\-]+).*$/, '$1')
 					title = _.map(titles, (title) -> title.replace /^# /, '').join('<br>')
 					text = text.replace /^# .*?$/mg, ''
 				else
-					title = m[1] + '(' + (params.join ', ') + ')'
+					name = m[1]
+					title = name + '(' + (params.join ', ') + ')'
+				dashList.push [name, 'Mixin', "docs.html##{name}"]
 			m = /^\s*([-\w]+) \??=/m.exec firstLine  # Variable
 			if not title and m
 				title = m[1]
+				dashList.push [title, 'Global', "docs.html##{title}"]
 			m = /^\s*(\.[-\w]+),?$/m.exec firstLine  # Class
 			if not title and m
 				title = m[1]
+				dashList.push [title, 'Style', "docs.html##{title}"]
 			if title
-				text = "#### #{title}\n\n#{text}"
+				text = docsMakeTitle(title, name or title) + "\n\n#{text}"
 			else
 				# The first line is a title
 				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
@@ -352,6 +383,10 @@ module.exports = (grunt) ->
 
 	docsAppendTitle = (text, title) ->
 		"## #{title}\n\n#{text}"
+
+	docsMakeTitle = (text, id, level = 4) ->
+		id = id.replace(/\s/g, '-')
+		"<h#{level} id='#{id}'>#{text}</h#{level}>"
 
 	docsDashIndexDb = (done) ->
 		rows = []

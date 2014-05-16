@@ -14,6 +14,9 @@ body
 	padding-top: spacer
 	padding-bottom: spacer
 
+.dash-content
+	padding: spacer 2*spacer
+
 .header
 	tweak-inverted-text()
 	background: #222
@@ -71,11 +74,20 @@ body
 	padding: 5px 0 5px spacer
 	border-left: _border_size solid hsl(92, 28%, 65%);
 
+	.dash-content &
+		display: none
+
 .example-code
 	space(3)
 
 	&__link
 		space()
+
+	.dash-content &
+		display: block !important
+
+	.dash-content &__link
+		display: none
 
 .button
 	text-transform: capitalize
