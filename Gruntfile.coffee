@@ -115,9 +115,7 @@ module.exports = (grunt) ->
 	marked.setOptions
 		smartypants: true
 		highlight: (code) ->
-			html = hljs.highlightAuto(code, ['html', 'css', 'javascript'])
-			console.log html.language
-			return html.value
+			return hljs.highlightAuto(code, ['html', 'css', 'javascript']).value
 
 
 	docsMenu =
@@ -421,7 +419,7 @@ module.exports = (grunt) ->
 		sequelize.sync({force: true}).success(->
 			SearchIndex.bulkCreate(rows)
 				.success(done)
-				.error((message)->
+				.error((message) ->
 					console.log 'Error when saving Dash index:', message
 					done()
 				)
