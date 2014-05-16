@@ -220,6 +220,7 @@ module.exports = (grunt) ->
 
 		docs = []
 		blocksRegEx = /\/\*\*([\S\s]*?)\*\/\s*(.*?)(?=\n)/mg
+		className = null
 		while true
 			matches = blocksRegEx.exec code
 			break  unless matches
@@ -234,23 +235,40 @@ module.exports = (grunt) ->
 
 			text = docsFormatJsDoc text
 
+			# Class
+			isClass = false
+			if /@class\s/.exec text
+				isClass = true
+				text = text.replace /^@class\s+/mg, ''
+
 			title = null
 			m = /@event ([\w\|]+)/.exec text  # Event
 			if m
 				title = m[1]
 				text = text.replace /^@event.*$/mg, ''
+				dashList.push [title, 'Event', "docs.html##{title}"]
 			m = /@type \{[\w\|]+\}/.exec text  # Variable
 			if not title and m
 				m  = /(\w+):/.exec firstLine
-				title = m[1]
+				title = "#{className}.#{m[1]}"
 				text = text.replace /^@type.*$/mg, ''
+				dashList.push [title, 'Property', "docs.html##{title}"]
 			m = /(?:function (\w+))|(?:(\w+): )|(?:([\w\.]+) = function)/.exec firstLine  # Function
 			if not title and m
 				params = text.match /\* \*\*([a-z0-9_\[\]\.]+)(?=\*\*)/gi
 				params = _.map params, (param) -> (param.replace /^[*\s]*/, '')
 				name = (m[1]||m[2]||m[3])
+				type = null
+				if isClass  # Class
+					className = name
+					type = 'Class'
+				else if /\w: function/.exec firstLine  # Method
+					name = "#{className}.#{name}"
+					type = 'Method'
+				else  # Function
+					type = 'Function'
 				title = name + '(' + (params.join ', ') + ')'
-				dashList.push [name, 'Function', "docs.html##{name}"]
+				dashList.push [name, type, "docs.html##{name}"]
 			if title
 				text = "#### #{title}\n\n#{text}"
 			else

@@ -7,7 +7,7 @@
 	'use strict';
 
 	/**
-	 * JS component base class.
+	 * @class JS component base class.
 	 *
 	 * Elements: any HTML element with class name that follow a pattern `.js-name` where `name` is an element name.
 	 *
