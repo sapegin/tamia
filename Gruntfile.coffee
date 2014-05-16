@@ -242,7 +242,7 @@ module.exports = (grunt) ->
 				text = text.replace /^@class\s+/mg, ''
 
 			title = null
-			m = /@event ([\w\|]+)/.exec text  # Event
+			m = /@event ([\w\.]+)/.exec text  # Event
 			if m
 				title = m[1]
 				text = text.replace /^@event.*$/mg, ''
