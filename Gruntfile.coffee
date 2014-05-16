@@ -360,7 +360,8 @@ module.exports = (grunt) ->
 
 		sequelize = new Sequelize('database', 'username', 'password', {
 			dialect: 'sqlite'
-			storage: 'Tamia.docset/Contents/Resources/docSet.dsidx'
+			storage: 'Tamia.docset/Contents/Resources/docSet.dsidx',
+			logging: false
 		})
 
 		SearchIndex = sequelize.define('searchIndex', {
