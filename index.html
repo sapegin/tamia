@@ -63,7 +63,7 @@
 <p>Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.</p>
 <p>Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.</p>
 <h2 id="browser-support">Browser Support</h2>
-<p>I love new technologies so I spend as little time on old browsers as possible. The minimum supported browser is IE8 (and probably not all features will work fine there).</p>
+<p>I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE8 (and probably not all features will work fine there).</p>
 <h2 id="workflow">Workflow</h2>
 <p>I use <a href="https://github.com/sapegin/generator-tamia">Yeomen generator</a> for scaffolding new projects: create folders and all required files.</p>
 <p>I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.</p>
@@ -85,21 +85,21 @@
 </ul>
 <h2 id="component-base-class">Component Base Class</h2>
 <p>Simple example:</p>
-<pre><code class="lang-js">var Pony = tamia.extend(tamia.Component, {
-  binded: &#39;toggle&#39;,
-  init: function() {
-    this.elem.on(&#39;click&#39;, &#39;.js-toggle&#39;, this.toggle_);
+<pre><code class="lang-js"><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
+  binded: <span class="string">'toggle'</span>,
+  init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="string">'.js-toggle'</span>, <span class="keyword">this</span>.toggle_);
   },
-  toggle: function() {
-    this.elem.toggleState(&#39;pink&#39;);
+  toggle: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.elem.toggleState(<span class="string">'pink'</span>);
   }
 });
 
 tamia.initComponents({pony: Pony});
 </code></pre>
-<pre><code class="lang-html">&lt;div class=&quot;pink-pony is-pink&quot; data-component=&quot;pony&quot;&gt;
-  &lt;button class=&quot;pink-pony__button js-toggle&quot;&gt;To pink or not to pink?&lt;/div&gt;
-&lt;/div&gt;
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"pink-pony__button js-toggle"</span>&gt;</span>To pink or not to pink?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
 <p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
@@ -134,22 +134,22 @@ $ yo tamia
 <h3 id="configuration">Configuration</h3>
 <p>Stylus bootstrap has a lot of parameters you can change.</p>
 <p>Add all parameters to your main Stylus stylesheet, before <code>tamia/tamia</code> import:</p>
-<pre><code>link_style = &quot;gradient&quot;
+<pre><code>link_style = <span class="string">"gradient"</span>
 link_color = #c0ffee
 ...
 </code></pre><h3 id="using-modules">Using Modules</h3>
 <p>To add module to the project:</p>
-<pre><code>$ yo tamia:module
+<pre><code>$ <span class="tag">yo</span> <span class="tag">tamia</span><span class="pseudo">:module</span>
 </code></pre><p>Then select module you want and it’ll be added .</p>
 <p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
-<pre><code>modules_default_skin = true;
+<pre><code>modules_default_skin = <span class="literal">true</span>;
 </code></pre><h3 id="debug-mode">Debug Mode</h3>
 <p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
-<pre><code>div
-    outline: 1px solid #c0ffee if DEBUG
+<pre><code><span class="tag">div</span>
+    <span class="tag">outline</span>: 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#c0ffee</span> <span class="tag">if</span> <span class="tag">DEBUG</span>
 </code></pre><p>JavaScript:</p>
-<pre><code>if (DEBUG) console.log(&#39;Debug info&#39;);
+<pre><code><span class="keyword">if</span> (DEBUG) console.log(<span class="string">'Debug info'</span>);
 </code></pre><p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
 <h2 id="the-name">The Name</h2>
 <p>Tâmia is a chipmunk in Portuguese. It refers to <a href="https://github.com/sapegin/squirrelstrap">Squirrelstrap</a>, my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).</p>
@@ -161,7 +161,6 @@ link_color = #c0ffee
 		
 	</div>
 
-
 	<!--[if lt IE 9]>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<![endif]-->
@@ -169,11 +168,6 @@ link_color = #c0ffee
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<!--<![endif]-->
 	<script src="scripts.js"></script>
-	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-	<script>
-	hljs.tabReplace = '<span class="indent">\t</span>';
-	hljs.initHighlightingOnLoad();
-	</script>
 
 	<!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter6395488 = new Ya.Metrika({id:6395488, webvisor:true, clickmap:true, trackLinks:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/6395488" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>

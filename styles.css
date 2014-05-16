@@ -1951,6 +1951,10 @@ body {
   padding-bottom: 10px;
 }
 
+.dash-content {
+  padding: 10px 20px;
+}
+
 .header {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2020,12 +2024,24 @@ body {
   border-left: 5px solid #a4bf8d;
 }
 
+.dash-content .example {
+  display: none;
+}
+
 .example-code {
   margin-bottom: 30px;
 }
 
 .example-code__link {
   margin-bottom: 10px;
+}
+
+.dash-content .example-code {
+  display: block !important;
+}
+
+.dash-content .example-code__link {
+  display: none;
 }
 
 .button {

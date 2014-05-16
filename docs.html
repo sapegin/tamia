@@ -48,32 +48,44 @@
 			<div class="l-row js-content-container">
 				<div class="l-three-quarters text js-content">
 					<h2 id="configuration">Configuration</h2>
-<h4 id="spacer">spacer</h4>
+<h4 id='spacer'>spacer</h4>
+
 <p>Default spacer (default: 10px).</p>
-<h4 id="max_width">max_width</h4>
+<h4 id='max_width'>max_width</h4>
+
 <p>Max page with.</p>
-<h4 id="content_max_width">content_max_width</h4>
+<h4 id='content_max_width'>content_max_width</h4>
+
 <p>Max content block (.content) with.</p>
-<h4 id="sticky_footer_height">sticky_footer_height</h4>
+<h4 id='sticky_footer_height'>sticky_footer_height</h4>
+
 <p>Sticky footer height (default: no sticky footer).</p>
-<h4 id="bg_color">bg_color</h4>
+<h4 id='bg_color'>bg_color</h4>
+
 <p>Background color (default: white).</p>
-<h4 id="base_color">base_color</h4>
+<h4 id='base_color'>base_color</h4>
+
 <p>Base text color (default: #111).</p>
-<h4 id="form_focus_color">form_focus_color</h4>
+<h4 id='form_focus_color'>form_focus_color</h4>
+
 <p>Form focus outline color (default: hsl(204,68%,69%)).</p>
-<h4 id="form_border_radius">form_border_radius</h4>
+<h4 id='form_border_radius'>form_border_radius</h4>
+
 <p>Form border radius (default: .15em).</p>
 <h2 id="grids-and-layouts">Grids and layouts</h2>
 <h3 id="configuration">Configuration</h3>
-<h4 id="grid_gutter">grid_gutter</h4>
+<h4 id='grid_gutter'>grid_gutter</h4>
+
 <p>Grid gutter size, in pixels (default: 2×spacer).</p>
-<h4 id="grid_columns">grid_columns</h4>
+<h4 id='grid_columns'>grid_columns</h4>
+
 <p>Number of columns in grid (default: 12).</p>
 <h3 id="grid">Grid</h3>
-<h4 id="grid-row-">grid-row()</h4>
+<h4 id='grid-row'>grid-row()</h4>
+
 <p>Columns wrapper.</p>
-<h4 id="grid-col-position-span-context-">grid-col(position, span, context)</h4>
+<h4 id='grid-col'>grid-col(position, span, context)</h4>
+
 <p>Column (grid).</p>
 <ul>
 <li><strong>position</strong> Start column number (default: 1).</li>
@@ -89,27 +101,33 @@
   grid-col(1,2)
 .col2
   grid-col(3,10)
-</code></pre><h4 id="grid-explode-">grid-explode()</h4>
+</code></pre><h4 id='grid-explode'>grid-explode()</h4>
+
 <p>Gutter size negative margin to make column with different background.
 You should adjust padding depending on content.</p>
-<h4 id="grid-width-span-context-">grid-width(span, context)</h4>
+<h4 id='grid-width'>grid-width(span, context)</h4>
+
 <p>Width of column, in percent.</p>
 <ul>
 <li><strong>span</strong> Width, in culumns (default: 1).</li>
 <li><strong>context</strong> Width of parent column (default: null).</li>
 </ul>
 <p>Returns percent.</p>
-<h4 id="grid-padding-full-">grid-padding(full)</h4>
+<h4 id='grid-padding'>grid-padding(full)</h4>
+
 <p>Column left/right padding.</p>
 <ul>
 <li><strong>full</strong> Padding on all sides if true, left/right otherwise (default: false).</li>
 </ul>
-<h4 id="grid-wrapper-">grid-wrapper()</h4>
+<h4 id='grid-wrapper'>grid-wrapper()</h4>
+
 <p>Column wrapper left/right negative margin.</p>
 <h3 id="layouts">Layouts</h3>
-<h4 id="layout-row-">layout-row()</h4>
+<h4 id='layout-row'>layout-row()</h4>
+
 <p>Layout wrapper.</p>
-<h4 id="layout-nth-part-">layout-nth(part)</h4>
+<h4 id='layout-nth'>layout-nth(part)</h4>
+
 <p>Column (simple layout).</p>
 <ul>
 <li><strong>part</strong> 1/Nth part of wrapper.</li>
@@ -120,69 +138,89 @@ You should adjust padding depending on content.</p>
 .row
   layout-row()
 .col
-  layout-nth(1/2)  // Half
-</code></pre><h4 id="layout-change-part-">layout-change(part)</h4>
+  layout-nth(<span class="number">1</span>/<span class="number">2</span>)  <span class="comment">// Half</span>
+</code></pre><h4 id='layout-change'>layout-change(part)</h4>
+
 <p>Change number of columns.</p>
 <p>Use it to change number of columns (defined via layout-nth()) inside media queries.</p>
 <ul>
 <li><strong>part</strong> 1/Nth part of wrapper.</li>
 </ul>
-<h4 id="layout-stop-">layout-stop()</h4>
+<h4 id='layout-stop'>layout-stop()</h4>
+
 <p>Disable columns.</p>
 <p>Alias for layout-change(1).</p>
 <h3 id="misc">Misc</h3>
-<h4 id="center-width-height-">center(width, height)</h4>
+<h4 id='center'>center(width, height)</h4>
+
 <p>Center element with specified width and hegith.</p>
 <ul>
 <li><strong>width</strong> Width of an element.</li>
 <li><strong>height</strong> Height of an element (default: null).</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>.checkbox:before
-  center(.8em, .65em)
-  background-image: url(&quot;check.svg&quot;)
+<pre><code><span class="class">.checkbox</span><span class="pseudo">:before</span>
+  <span class="tag">center</span>(<span class="class">.8em</span>, <span class="class">.65em</span>)
+  <span class="tag">background-image</span>: <span class="tag">url</span>("<span class="tag">check</span><span class="class">.svg</span>")
 </code></pre><h3 id="classes">Classes</h3>
-<h4 id="-l-row">.l-row</h4>
+<h4 id='.l-row'>.l-row</h4>
+
 <p>Column wrapper.</p>
-<h4 id="-l-sixth">.l-sixth</h4>
+<h4 id='.l-sixth'>.l-sixth</h4>
+
 <p>Sixth (to use inside .l-row).</p>
-<h4 id="-l-quarter">.l-quarter</h4>
+<h4 id='.l-quarter'>.l-quarter</h4>
+
 <p>Quarter (to use inside .l-row).</p>
-<h4 id="-l-three-quarters">.l-three-quarters</h4>
+<h4 id='.l-three-quarters'>.l-three-quarters</h4>
+
 <p>Three quarters (to use inside .l-row).</p>
-<h4 id="-l-third">.l-third</h4>
+<h4 id='.l-third'>.l-third</h4>
+
 <p>Third (to use inside .l-row).</p>
-<h4 id="-l-two-thirds">.l-two-thirds</h4>
+<h4 id='.l-two-thirds'>.l-two-thirds</h4>
+
 <p>Two thirds (to use inside .l-row).</p>
-<h4 id="-l-half">.l-half</h4>
+<h4 id='.l-half'>.l-half</h4>
+
 <p>Half (to use inside .l-row).</p>
-<h4 id="-l-left">.l-left</h4>
+<h4 id='.l-left'>.l-left</h4>
+
 <p>Flexible columns with left text alignment (to use inside .l-row).</p>
-<h4 id="-l-right">.l-right</h4>
+<h4 id='.l-right'>.l-right</h4>
+
 <p>Flexible columns with right text alignment (to use inside .l-row).</p>
-<h4 id="-l-center">.l-center</h4>
+<h4 id='.l-center'>.l-center</h4>
+
 <p>Centered content (vertically and horizontally).</p>
 <h5 id="example">Example</h5>
 <pre><code>.l-center&gt;.l-center-i&gt;span
-</code></pre><h4 id="-l-centered">.l-centered</h4>
+</code></pre><h4 id='.l-centered'>.l-centered</h4>
+
 <p>Horizontally centered block.</p>
 <h3 id="spacing">Spacing</h3>
-<h4 id="space-rows-">space(rows)</h4>
+<h4 id='space'>space(rows)</h4>
+
 <p>Space after block.</p>
 <ul>
 <li><strong>rows</strong> Number of “rows” (one row = default spacer).</li>
 </ul>
-<h4 id="-l-space">.l-space</h4>
+<h4 id='.l-space'>.l-space</h4>
+
 <p>Standard bottom margin.</p>
-<h4 id="-l-double-space">.l-double-space</h4>
+<h4 id='.l-double-space'>.l-double-space</h4>
+
 <p>Double bottom margin.</p>
-<h4 id="-l-triple-space">.l-triple-space</h4>
+<h4 id='.l-triple-space'>.l-triple-space</h4>
+
 <p>Triple bottom margin.</p>
-<h4 id="-l-quad-space">.l-quad-space</h4>
+<h4 id='.l-quad-space'>.l-quad-space</h4>
+
 <p>Quadruple bottom margin.</p>
 <h2 id="links">Links</h2>
 <h3 id="configuration">Configuration</h3>
-<h4 id="link_style">link_style</h4>
+<h4 id='link_style'>link_style</h4>
+
 <p>Link underline style (default: underline).</p>
 <h5 id="values">Values</h5>
 <ul>
@@ -191,47 +229,64 @@ You should adjust padding depending on content.</p>
 <li>border - border-bottom:1px solid.</li>
 <li>gradient - Uses CSS gradients to position line under text (cannot change line color on hover).</li>
 </ul>
-<h4 id="link_color">link_color</h4>
+<h4 id='link_color'>link_color</h4>
+
 <p>Link color (default: #1978c8).</p>
-<h4 id="visited_color">visited_color</h4>
+<h4 id='visited_color'>visited_color</h4>
+
 <p>Visited link color.</p>
-<h4 id="hover_color">hover_color</h4>
+<h4 id='hover_color'>hover_color</h4>
+
 <p>Hovered link color.</p>
-<h4 id="link_underline_color">link_underline_color</h4>
+<h4 id='link_underline_color'>link_underline_color</h4>
+
 <p>Link underline color.</p>
-<h4 id="visited_underline_color">visited_underline_color</h4>
+<h4 id='visited_underline_color'>visited_underline_color</h4>
+
 <p>Visited link underline color.</p>
-<h4 id="hover_underline_color">hover_underline_color</h4>
+<h4 id='hover_underline_color'>hover_underline_color</h4>
+
 <p>Hovered link underline color.</p>
-<h4 id="link_underline_position">link_underline_position</h4>
+<h4 id='link_underline_position'>link_underline_position</h4>
+
 <p>Link underline position (only when link_style == gradient, default: 80%)</p>
-<h4 id="link_pressable">link_pressable</h4>
+<h4 id='link_pressable'>link_pressable</h4>
+
 <p>Pressable links (shifts down by 1px, default: false).</p>
 <h3 id="mixins">Mixins</h3>
-<h4 id="link-underline-">link-underline()</h4>
+<h4 id='link-underline'>link-underline()</h4>
+
 <p>Adds link underline (adds nothing for “underline” and “border” types)</p>
-<h4 id="link-fake-underline-">link-fake-underline()</h4>
+<h4 id='link-fake-underline'>link-fake-underline()</h4>
+
 <p>Adds fake link underline (adds nothing for “underline” type)</p>
-<h4 id="link-hovers-">link-hovers()</h4>
+<h4 id='link-hovers'>link-hovers()</h4>
+
 <p>:hover, :active and :focus states of the link.</p>
 <h5 id="example">Example</h5>
-<pre><code> +link-hovers()
-     color: #bada55
-</code></pre><h4 id="link-all-states-">link-all-states()</h4>
+<pre><code> +<span class="tag">link-hovers</span>()
+     <span class="tag">color</span>: <span class="id">#bada55</span>
+</code></pre><h4 id='link-all-states'>link-all-states()</h4>
+
 <p>All states of the link.</p>
 <h5 id="example">Example</h5>
-<pre><code> +link-all-states()
-     color: @color
+<pre><code> +<span class="tag">link-all-states</span>()
+     <span class="tag">color</span>: <span class="at_rule">@<span class="keyword">color</span></span>
 </code></pre><h3 id="classes">Classes</h3>
-<h4 id="-pressable-inset">.pressable-inset</h4>
+<h4 id='.pressable-inset'>.pressable-inset</h4>
+
 <p>Pressable element: pointer cursor + disable text selection.</p>
-<h4 id="-pressable">.pressable</h4>
+<h4 id='.pressable'>.pressable</h4>
+
 <p>Pressable element: shifts down by 1px on click.</p>
-<h4 id="-no-pressable">.no-pressable</h4>
+<h4 id='.no-pressable'>.no-pressable</h4>
+
 <p>Non-pressable element: cancels .pressable.</p>
-<h4 id="-no-underline">.no-underline</h4>
+<h4 id='.no-underline'>.no-underline</h4>
+
 <p>Remove underline.</p>
-<h4 id="-link">.link</h4>
+<h4 id='.link'>.link</h4>
+
 <p>Link.</p>
 <ul>
 <li><strong>.link_fake</strong> Pseudo link with dashed underline.</li>
@@ -239,18 +294,24 @@ You should adjust padding depending on content.</p>
 </ul>
 <h2 id="images-sprites-retina-support">Images, sprites, Retina support</h2>
 <h3 id="configuration">Configuration</h3>
-<h4 id="retinafy">retinafy</h4>
+<h4 id='retinafy'>retinafy</h4>
+
 <p>Enable Retina support (default: false).</p>
-<h4 id="images_relative_root">images_relative_root</h4>
+<h4 id='images_relative_root'>images_relative_root</h4>
+
 <p>Path to calculate file system image path based on CSS path (default: .).</p>
-<h4 id="sprite_fingerprint">sprite_fingerprint</h4>
+<h4 id='sprite_fingerprint'>sprite_fingerprint</h4>
+
 <p>Sprite fingerprint, string that will be appended to URL to flush browser cache.</p>
-<h4 id="sprite_image">sprite_image</h4>
+<h4 id='sprite_image'>sprite_image</h4>
+
 <p>Default sprite image file (default: ../build/sprite.png).</p>
-<h4 id="sprite_step">sprite_step</h4>
+<h4 id='sprite_step'>sprite_step</h4>
+
 <p>Sprite step size (default: 20px).</p>
 <h3 id="functions">Functions</h3>
-<h4 id="image-path-x-y-">image(path, x, y)</h4>
+<h4 id='image'>image(path, x, y)</h4>
+
 <p>background-image with Retina variant.</p>
 <ul>
 <li><strong>path</strong> Image file path.</li>
@@ -258,7 +319,8 @@ You should adjust padding depending on content.</p>
 <li><strong>y</strong> background-position y (default: 0).</li>
 </ul>
 <p>Retina image file should be named path@2x.png.</p>
-<h4 id="sprite-img-br-sprite-x-y-w-h-">sprite(img)<br>sprite(x, y, w, h)</h4>
+<h4 id='sprite'>sprite(img)<br>sprite(x, y, w, h)</h4>
+
 <p>Sprite (to use in pseudo element).</p>
 <h5 id="sprite-generated-by-grunt-tamia-sprite">Sprite generated by grunt-tamia-sprite</h5>
 <ul>
@@ -277,19 +339,22 @@ You should adjust padding depending on content.</p>
 
 .elem2
   sprite(5, 6, 36, 22);
-</code></pre><h4 id="sprite-x-x-">sprite-x(x)</h4>
+</code></pre><h4 id='sprite-x'>sprite-x(x)</h4>
+
 <p>Horizontal position of sprite image.</p>
 <ul>
 <li><strong>x</strong> Horizontal position in sprite grid.</li>
 </ul>
 <p>Returns pixels.</p>
-<h4 id="sprite-y-y-">sprite-y(y)</h4>
+<h4 id='sprite-y'>sprite-y(y)</h4>
+
 <p>Vertical position of sprite image.</p>
 <ul>
 <li><strong>y</strong> Vertical position in sprite grid.</li>
 </ul>
 <p>Returns pixels.</p>
-<h4 id="sprite-pos-img-br-sprite-pos-x-y-">sprite-pos(img)<br>sprite-pos(x, y)</h4>
+<h4 id='sprite-pos'>sprite-pos(img)<br>sprite-pos(x, y)</h4>
+
 <p>background-position for sprite.</p>
 <h5 id="sprite-generated-by-grunt-tamia-sprite">Sprite generated by grunt-tamia-sprite</h5>
 <ul>
@@ -305,7 +370,8 @@ You should adjust padding depending on content.</p>
   sprite-bg()
   sprite-pos(5,6)
   sprite-pos(sprite_pony-hover)
-</code></pre><h4 id="sprite-bg-img-br-sprite-bg-x-y-">sprite-bg(img)<br>sprite-bg(x, y)</h4>
+</code></pre><h4 id='sprite-bg'>sprite-bg(img)<br>sprite-bg(x, y)</h4>
+
 <p>background-image for sprite.</p>
 <h5 id="sprite-generated-by-grunt-squirrelsprite">Sprite generated by grunt-squirrelsprite</h5>
 <ul>
@@ -316,155 +382,186 @@ You should adjust padding depending on content.</p>
 <li><strong>x</strong> Horizontal position in sprite grid (default: 0).</li>
 <li><strong>y</strong> Vertical position in sprite grid (default: 0).</li>
 </ul>
-<h4 id="sprite-width-">sprite-width()</h4>
+<h4 id='sprite-width'>sprite-width()</h4>
+
 <p>Element width for sprite.</p>
 <p>Returns pixels</p>
-<h4 id="sprite-height-">sprite-height()</h4>
+<h4 id='sprite-height'>sprite-height()</h4>
+
 <p>Element height for sprite.</p>
 <p>Returns pixels</p>
-<h4 id="sprite-size-">sprite-size()</h4>
+<h4 id='sprite-size'>sprite-size()</h4>
+
 <p>Element width/height for sprite.</p>
 <h5 id="example">Example</h5>
 <pre><code>.elem
   sprite-size(sprite_pony);
-</code></pre><h4 id="sprite-shift-top-img-">sprite-shift-top(img)</h4>
+</code></pre><h4 id='sprite-shift-top'>sprite-shift-top(img)</h4>
+
 <p>Shifts element half height to top.</p>
 <ul>
 <li><strong>img</strong> Sprite image variable.</li>
 </ul>
 <h2 id="misc-functions-and-mixins">Misc functions and mixins</h2>
 <h3 id="easings">Easings</h3>
-<h4 id="ease-in-sine">ease-in-sine</h4>
+<h4 id='ease-in-sine'>ease-in-sine</h4>
+
 <p>Ease in sine.</p>
-<h4 id="ease-out-quint">ease-out-quint</h4>
+<h4 id='ease-out-quint'>ease-out-quint</h4>
+
 <p>Ease out quint.</p>
-<h4 id="ease-out-back">ease-out-back</h4>
+<h4 id='ease-out-back'>ease-out-back</h4>
+
 <p>Ease out back.</p>
-<h4 id="ease-in-out-cubic">ease-in-out-cubic</h4>
+<h4 id='ease-in-out-cubic'>ease-in-out-cubic</h4>
+
 <p>Ease in out cubic.</p>
 <h3 id="typography-and-text">Typography and text</h3>
-<h4 id="ellipsis-">ellipsis()</h4>
+<h4 id='ellipsis'>ellipsis()</h4>
+
 <p>Ellipsis text overflow.</p>
-<h4 id="tweak-inverted-text-">tweak-inverted-text()</h4>
+<h4 id='tweak-inverted-text'>tweak-inverted-text()</h4>
+
 <p>Tweak inverted text (light on dark) for OS X.</p>
-<h4 id="enable-ligatures-">enable-ligatures()</h4>
+<h4 id='enable-ligatures'>enable-ligatures()</h4>
+
 <p>Enables ligatures in text.</p>
-<h4 id="text-selection-color-background-">text-selection(color, background)</h4>
+<h4 id='text-selection'>text-selection(color, background)</h4>
+
 <p>Text selection style.</p>
 <ul>
 <li><strong>color</strong> Text color.</li>
 <li><strong>background</strong> Background color.</li>
 </ul>
-<h4 id="placeholder-color-color-">placeholder-color(color)</h4>
+<h4 id='placeholder-color'>placeholder-color(color)</h4>
+
 <p>Input placeholder color.</p>
 <ul>
 <li><strong>color</strong> Placeholder color.</li>
 </ul>
-<h4 id="no-select-">no-select()</h4>
+<h4 id='no-select'>no-select()</h4>
+
 <p>Disables text selection.</p>
-<h4 id="enable-select-">enable-select()</h4>
+<h4 id='enable-select'>enable-select()</h4>
+
 <p>Enables text selection.</p>
-<h4 id="hide-text-">hide-text()</h4>
+<h4 id='hide-text'>hide-text()</h4>
+
 <p>Hides text (for image replacement).</p>
 <h3 id="misc-">Misc.</h3>
-<h4 id="clearfix-">clearfix()</h4>
+<h4 id='clearfix'>clearfix()</h4>
+
 <p>Clearfix.</p>
-<h4 id="size-width-">size(width)</h4>
+<h4 id='size'>size(width)</h4>
+
 <p>Set element width and height.</p>
 <ul>
 <li><strong>width</strong> Width.
 [height] - Height (the same as width if not passed).</li>
 </ul>
-<h4 id="no-cols-">no-cols()</h4>
+<h4 id='no-cols'>no-cols()</h4>
+
 <p>Disables columns.</p>
-<h4 id="no-transition-imp-">no-transition(imp)</h4>
+<h4 id='no-transition'>no-transition(imp)</h4>
+
 <p>Disables transitions.</p>
 <ul>
 <li><strong>imp</strong> Important? (default: false).</li>
 </ul>
-<h4 id="triangle-direction-size-color-">triangle(direction, size, color)</h4>
+<h4 id='triangle'>triangle(direction, size, color)</h4>
+
 <p>Draws triangle.</p>
 <ul>
 <li><strong>direction</strong> Triangle direction (up, down, left, right).</li>
 <li><strong>size</strong> Size (default: 10px).</li>
 <li><strong>color</strong> Color (default: black).</li>
 </ul>
-<h4 id="debug-">debug()</h4>
+<h4 id='debug'>debug()</h4>
+
 <p>Draws color outline around an element.</p>
 <p>Works only when DEBUG == true.</p>
 <h2 id="functions">Functions</h2>
-<h4 id="white-opacity-">white(opacity)</h4>
+<h4 id='white'>white(opacity)</h4>
+
 <p>White color with transparency.</p>
 <ul>
 <li><strong>opacity</strong> Opacity value (0—1).</li>
 </ul>
 <p>Returns color.</p>
-<h4 id="black-opacity-">black(opacity)</h4>
+<h4 id='black'>black(opacity)</h4>
+
 <p>Black color with transparency.</p>
 <ul>
 <li><strong>opacity</strong> Opacity value (0—1).</li>
 </ul>
 <p>Returns color.</p>
 <h2 id="helper-classes">Helper classes</h2>
-<h4 id="-is-hidden">.is-hidden</h4>
+<h4 id='.is-hidden'>.is-hidden</h4>
+
 <p>Element is hidden.</p>
-<h4 id="-is-invisible">.is-invisible</h4>
+<h4 id='.is-invisible'>.is-invisible</h4>
+
 <p>Element is invisible (but occupies place on page).</p>
-<h4 id="-group">.group</h4>
+<h4 id='.group'>.group</h4>
+
 <p>Clearfix.</p>
-<h4 id="-responsive-images">.responsive-images</h4>
+<h4 id='.responsive-images'>.responsive-images</h4>
+
 <p>Make all images inside responsive.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
 <h3 id="debugging">Debugging</h3>
 <p>You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.</p>
 <h5 id="to-make-it-work-add-to-your-gruntfile">To make it work add to your Gruntfile</h5>
-<pre><code>uglify: {
-  options: {
+<pre><code><span class="tag">uglify</span>: <span class="rules">{
+  <span class="rule"><span class="attribute">options</span>:<span class="value"> {
     compress: {
       global_defs: {
-        DEBUG: !!grunt.option(&#39;debug&#39;)
-      }
+        DEBUG: !!grunt.<span class="function">option(<span class="string">'debug'</span>)</span>
+      </span></span></span>}
     }
   },
   ...
 }
 </code></pre><p>Then if you run <code>grunt --debug</code> DEBUG variable will be true and false if you run just <code>grunt</code>.</p>
-<h4 id="tamia-trace-object-name-">tamia.trace(object, [name])</h4>
+<h4 id='tamia.trace'>tamia.trace(object, [name])</h4>
+
 <p>Traces all object’s method calls and arguments.</p>
 <ul>
 <li><em>Object</em> <strong>object</strong>: Object.</li>
 <li><em>String</em> <strong>[name]</strong>: Object name.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>init: function() {
-  tamia.trace(this, &#39;ClassName&#39;);
+<pre><code>init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  tamia.trace(<span class="keyword">this</span>, <span class="string">'ClassName'</span>);
   ...
 }
 </code></pre><h3 id="components-management">Components management</h3>
-<h4 id="tamia-initcomponents-components-">tamia.initComponents(components)</h4>
+<h4 id='tamia.initComponents'>tamia.initComponents(components)</h4>
+
 <p>Initialize components.</p>
 <ul>
 <li><em>Object</em> <strong>components</strong>: Initializers for each component.</li>
 </ul>
+<p>data-component</p>
 <h5 id="examples">Examples</h5>
-<pre><code>&lt;div data-component=&quot;pony&quot;&gt;&lt;/div&gt;
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 
 tamia.initComponents({
   // New style component
   pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
   // Plain initializer
   pony: function(elem) {
-    // $(elem) === &lt;div data-component=&quot;pony&quot;&gt;
+    // $(elem) === <span class="tag">&lt;<span class="title">div</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
   },
   // Initialize jQuery plugins (plain initializer)
   jquerypony: function(elem) {
-    $(elem).pluginmethod({option1: &#39;val1&#39;, options2: &#39;val2&#39;});
+    $(elem).pluginmethod({option1: 'val1', options2: 'val2'});
     $(elem).pluginmethod2();
   },
   // Initialize jQuery plugins (shortcut)
   jquerypony: {
-    pluginmethod: {option1: &#39;val1&#39;, options2: &#39;val2&#39;},
-    pluginmethod2: [&#39;attr1&#39;, &#39;attr2&#39;, &#39;attr3&#39;],
+    pluginmethod: {option1: 'val1', options2: 'val2'},
+    pluginmethod2: ['attr1', 'attr2', 'attr3'],
     pluginmethod3: null
   }
 }
@@ -476,19 +573,21 @@ tamia.initComponents({
  or nodes that was hidden before will be affected.</li>
 </ol>
 <h3 id="common-functions">Common functions</h3>
-<h4 id="tamia-extend-parent-props-">tamia.extend(parent, props)</h4>
+<h4 id='tamia.extend'>tamia.extend(parent, props)</h4>
+
 <p>JavaScript inheritance.</p>
 <ul>
 <li><em>Object</em> <strong>parent</strong>: Parent object.</li>
 <li><em>Object</em> <strong>props</strong>: Child properties.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>var Pony = tamia.extend(tamia.Component, {
-  init: function() {
-    // ...
+<pre><code><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
+  init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// ...</span>
   }
 });
-</code></pre><h4 id="tamia-delay-func-context-wait-param1-">tamia.delay(func, [context], [wait], [param1…])</h4>
+</code></pre><h4 id='tamia.delay'>tamia.delay(func, [context], [wait], [param1…])</h4>
+
 <p>Delays a function for the given number of milliseconds, and then calls it with the specified arguments.</p>
 <ul>
 <li><em>Function</em> <strong>func</strong>: Function to call.</li>
@@ -498,24 +597,27 @@ tamia.initComponents({
 </ul>
 <p>Returns <em>TimeoutId</em>: Timeout handler.</p>
 <h3 id="events-management">Events management</h3>
-<h4 id="tamia-registerevents-handlers-">tamia.registerEvents(handlers)</h4>
+<h4 id='tamia.registerEvents'>tamia.registerEvents(handlers)</h4>
+
 <p>Registers Tâmia events (eventname.tamia) on document.</p>
 <ul>
 <li><em>Object</em> <strong>handlers</strong>: Handlers list.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>// Registers enable.tamia event.
+<pre><code><span class="comment">// Registers enable.tamia event.</span>
 tamia.registerEvents({
-   enable: function(elem) {
+   enable: <span class="function"><span class="keyword">function</span><span class="params">(elem)</span> {</span>
    }
 });
 </code></pre><h3 id="events">Events</h3>
-<h4 id="init">init</h4>
+<h4 id='tamia.registerEvents'>init.tamia</h4>
+
 <p>Init components inside any jQuery node.</p>
 <h5 id="examples">Examples</h5>
-<pre><code>$(document).trigger(&#39;init.tamia&#39;);
-$(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
-</code></pre><h4 id="appear">appear</h4>
+<pre><code>$(document).trigger(<span class="string">'init.tamia'</span>);
+$(<span class="string">'.js-container'</span>).trigger(<span class="string">'init.tamia'</span>);
+</code></pre><h4 id='tamia.registerEvents'>appear.tamia</h4>
+
 <p>Show element with CSS transition.</p>
 <p>appeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <h5 id="example">Example</h5>
@@ -525,18 +627,21 @@ $(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);
   &amp;.is-hidden
     opacity: 0
 
-&lt;div class=&quot;dialog is-hidden js-dialog&quot;&gt;...&lt;/div&gt;
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"dialog is-hidden js-dialog"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 
-$(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
-</code></pre><h4 id="disappear">disappear</h4>
+$('.js-dialog').trigger('appear.tamia');
+</code></pre><h4 id='tamia.registerEvents'>disappear.tamia</h4>
+
 <p>Hide element with CSS transition.</p>
 <p>disappeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <p>Opposite of <code>appear.tamia</code> event.</p>
-<h4 id="toggle">toggle</h4>
+<h4 id='tamia.registerEvents'>toggle.tamia</h4>
+
 <p>Toggles element’s visibility with CSS transition.</p>
 <p>See <code>appear.tamia</code> event for details.</p>
 <h3 id="controls">Controls</h3>
 <p>Fires jQuery event to specified element on click at this element.</p>
+<p>data-fire</p>
 <ul>
 <li><strong>data-fire</strong>: Event name.</li>
 <li><strong>[data-target]</strong>: Target element selector.</li>
@@ -545,10 +650,11 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 </ul>
 <p>Either of data-target or data-closest is required.</p>
 <h5 id="example">Example</h5>
-<pre><code>&lt;span data-fire=&quot;slider-next&quot; data-target=&quot;.portfolio&quot; data-attrs=&quot;1,2,3&quot;&gt;Next&lt;/span&gt;
-&lt;!-- $(&#39;.portfolio&#39;).trigger(&#39;slider-next&#39;, [1, 2, 3]); --&gt;
+<pre><code><span class="tag">&lt;<span class="title">span</span> <span class="attribute">data-fire</span>=<span class="value">"slider-next"</span> <span class="attribute">data-target</span>=<span class="value">".portfolio"</span> <span class="attribute">data-attrs</span>=<span class="value">"1,2,3"</span>&gt;</span>Next<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="comment">&lt;!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); --&gt;</span>
 </code></pre><h3 id="states-management">States management</h3>
-<h4 id="jquery-fn-togglestate-name-value-">jQuery.fn.toggleState(name, [value])</h4>
+<h4 id='jQuery.fn.toggleState'>jQuery.fn.toggleState(name, [value])</h4>
+
 <p>Toggles specified state on an element.</p>
 <p>State is a special CSS class: .is-name.</p>
 <ul>
@@ -556,26 +662,30 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <li><em>Boolean</em> <strong>[value]</strong>: Add/remove state.</li>
 </ul>
 <p>Returns <em>jQuery</em>.</p>
-<h4 id="jquery-fn-addstate-name-">jQuery.fn.addState(name)</h4>
+<h4 id='jQuery.fn.addState'>jQuery.fn.addState(name)</h4>
+
 <p>Adds specified state to an element.</p>
 <ul>
 <li><em>String</em> <strong>name</strong>: State name.</li>
 </ul>
 <p>Returns <em>jQuery</em>.</p>
-<h4 id="jquery-fn-removestate-name-">jQuery.fn.removeState(name)</h4>
+<h4 id='jQuery.fn.removeState'>jQuery.fn.removeState(name)</h4>
+
 <p>Removes specified state from an element.</p>
 <ul>
 <li><em>String</em> <strong>name</strong>: State name.</li>
 </ul>
 <p>Returns <em>jQuery</em>.</p>
-<h4 id="jquery-fn-hasstate-name-">jQuery.fn.hasState(name)</h4>
+<h4 id='jQuery.fn.hasState'>jQuery.fn.hasState(name)</h4>
+
 <p>Returns whether an element has specified state.</p>
 <ul>
 <li><em>String</em> <strong>name</strong>: State name.</li>
 </ul>
 <p>Returns <em>Boolean</em>.</p>
 <h3 id="templates">Templates</h3>
-<h4 id="tamia-stmpl-tmpl-data-">tamia.stmpl(tmpl, data)</h4>
+<h4 id='tamia.stmpl'>tamia.stmpl(tmpl, data)</h4>
+
 <p>Simplest template.</p>
 <p>Just replaces {something} with data.something.</p>
 <ul>
@@ -583,7 +693,8 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <li><em>String</em> <strong>data</strong>: Template context.</li>
 </ul>
 <p>Returns <em>String</em>: HTML.</p>
-<h4 id="tamia-tmpl-tmplid-data-">tamia.tmpl(tmplId, data)</h4>
+<h4 id='tamia.tmpl'>tamia.tmpl(tmplId, data)</h4>
+
 <p>Invokes precompiled template.</p>
 <p>Templates should be stored in window.__templates.</p>
 <ul>
@@ -591,7 +702,8 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <li><em>String</em> <strong>data</strong>: Template context.</li>
 </ul>
 <p>Returns <em>String</em>: HTML.</p>
-<h4 id="jquery-fn-tmpl-tmplid-data-">jQuery.fn.tmpl(tmplId, data)</h4>
+<h4 id='jQuery.fn.tmpl'>jQuery.fn.tmpl(tmplId, data)</h4>
+
 <p>Replaces jQuery node’s content with the result of template invocation.</p>
 <ul>
 <li><em>String</em> <strong>tmplId</strong>: Template ID.</li>
@@ -603,9 +715,10 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <li><strong>data-ga</strong>: Event name (‘link’ if empty).</li>
 <li><strong>[data-action]</strong>: Event action (‘click’ by default).</li>
 </ul>
+<p>data-ga</p>
 <h5 id="examples">Examples</h5>
-<pre><code>&lt;a href=&quot;http://github.com/&quot; data-ga&gt;GitHub&lt;/span&gt;
-&lt;span class=&quot;js-slider-next&quot; data-ga=&quot;slider&quot; data-action=&quot;next&quot;&gt;Next&lt;/span&gt;
+<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://github.com/"</span> <span class="attribute">data-ga</span>&gt;</span>GitHub<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"js-slider-next"</span> <span class="attribute">data-ga</span>=<span class="value">"slider"</span> <span class="attribute">data-action</span>=<span class="value">"next"</span>&gt;</span>Next<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
 </code></pre><h3 id="grid-debugger">Grid debugger</h3>
 <h5 id="hotkeys">Hotkeys</h5>
 <ul>
@@ -613,55 +726,64 @@ $(&#39;.js-dialog&#39;).trigger(&#39;appear.tamia&#39;);
 <li><strong>o</strong> — Toggle layout outlines.</li>
 </ul>
 <h2 id="base-javascript-component-class">Base JavaScript Component Class</h2>
-<h4 id="component-">Component()</h4>
+<h4 id='Component'>Component()</h4>
+
 <p>JS component base class.</p>
 <p>Elements: any HTML element with class name that follow a pattern <code>.js-name</code> where <code>name</code> is an element name.</p>
 <p>States: any class on component root HTML node that follow a pattern <code>.is-state</code> where <code>state</code> is a state name.
 After initialization all components will have <code>ok</code> state.</p>
 <h5 id="example">Example</h5>
-<pre><code>var Pony = tamia.extend(tamia.Component, {
-  binded: &#39;toggle&#39;,
-  init: function() {
-    this.elem.on(&#39;click&#39;, &#39;.js-toggle&#39;, this.toggle_);
+<pre><code><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
+  binded: <span class="string">'toggle'</span>,
+  init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="string">'.js-toggle'</span>, <span class="keyword">this</span>.toggle_);
   },
-  toggle: function() {
-    this.elem.toggleState(&#39;pink&#39;);
+  toggle: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.elem.toggleState(<span class="string">'pink'</span>);
   }
 });
 
 tamia.initComponents({pony: Pony});
 
-&lt;div class=&quot;pink-pony is-pink&quot; data-component=&quot;pony&quot;&gt;
-  &lt;button class=&quot;pink-pony__button js-toggle&quot;&gt;To pink or not to pink?&lt;/div&gt;
-&lt;/div&gt;
-</code></pre><h4 id="binded">binded</h4>
+<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"pink-pony__button js-toggle"</span>&gt;</span>To pink or not to pink?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span>
+</code></pre><h4 id='Component'>Component.binded</h4>
+
 <p>List of methods that should be binded to <code>this</code> (see <code>bindAll</code> method).</p>
-<h4 id="init-">init()</h4>
+<h4 id='Component.init'>Component.init()</h4>
+
 <p>Put all your initialization code in this method.</p>
-<h4 id="destroy-">destroy()</h4>
+<h4 id='Component.destroy'>Component.destroy()</h4>
+
 <p>You can implement this method to do destroy component.</p>
-<h4 id="issupported-">isSupported()</h4>
+<h4 id='Component.isSupported'>Component.isSupported()</h4>
+
 <p>Implement this method if you want to check whether browser is good for your component or not.</p>
 <p>Returns <em>Boolean</em>.</p>
-<h4 id="isinitializable-">isInitializable()</h4>
+<h4 id='Component.isInitializable'>Component.isInitializable()</h4>
+
 <p>Implement this method if you want to check whether component could be initialized.</p>
 <h5 id="example">Example</h5>
-<pre><code>isInitializable: function() {
-  // Do not initialize component if it&#39;s not visible
-  return this.isVisible();
+<pre><code>isInitializable: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="comment">// Do not initialize component if it's not visible</span>
+  <span class="keyword">return</span> <span class="keyword">this</span>.isVisible();
 }
 </code></pre><p>Returns <em>Boolean</em>.</p>
-<h4 id="fallback-">fallback()</h4>
+<h4 id='Component.fallback'>Component.fallback()</h4>
+
 <p>Implement this method to do some fallbacks. It will be called if isSupported() returns false.</p>
-<h4 id="bindall-method1-">bindAll(method1…)</h4>
+<h4 id='Component.bindAll'>Component.bindAll(method1…)</h4>
+
 <p>Binds all specified methods to this. Binded method names have <code>_</code> at the end.</p>
 <ul>
 <li><em>String</em> <strong>method1…</strong>: Method names</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>this.bindAll(&#39;toggle&#39;);
-this.elem.on(&#39;click&#39;, this.toggle_);
-</code></pre><h4 id="isvisible-">isVisible()</h4>
+<pre><code><span class="keyword">this</span>.bindAll(<span class="string">'toggle'</span>);
+<span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="keyword">this</span>.toggle_);
+</code></pre><h4 id='Component.isVisible'>Component.isVisible()</h4>
+
 <p>Returns component visibility.</p>
 <p>Returns <em>Boolean</em>.</p>
 
@@ -673,7 +795,6 @@ this.elem.on(&#39;click&#39;, this.toggle_);
 		
 	</div>
 
-
 	<!--[if lt IE 9]>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<![endif]-->
@@ -681,11 +802,6 @@ this.elem.on(&#39;click&#39;, this.toggle_);
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<!--<![endif]-->
 	<script src="scripts.js"></script>
-	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-	<script>
-	hljs.tabReplace = '<span class="indent">\t</span>';
-	hljs.initHighlightingOnLoad();
-	</script>
 
 	<!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter6395488 = new Ya.Metrika({id:6395488, webvisor:true, clickmap:true, trackLinks:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/6395488" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
