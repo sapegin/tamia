@@ -259,6 +259,7 @@ module.exports = (grunt) ->
 				text = text.replace /^@class\s+/mg, ''
 
 			title = null
+			name = null
 			m = /@event ([\w\.]+)/.exec text  # Event
 			if m
 				title = m[1]
@@ -292,11 +293,12 @@ module.exports = (grunt) ->
 				# The first line is a title
 				text = text.replace /\.$/m, ''  # Remove point at the end of the first line
 				text = "### #{text}"
+				title2 = text.split(/\n/)[0].replace(/^### /, '').replace(/\s/g, '-').toLowerCase()
 
 			# Attribute
 			m = /@attribute ([\w\-]+)/.exec text
 			if m
-				name = name or title
+				name = name or title2
 				dashList.push [m[1], 'Attribute', "docs.html##{name}"]
 				text = text.replace /^@attribute\s+/mg, ''
 
