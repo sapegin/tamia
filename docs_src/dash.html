@@ -7,14 +7,12 @@
 </head>
 <body>
 
-	<div class="dash-content">
-		<div class="splash">
-			<h1 class="splash__title">Tâmia</h1>
-			<div class="splash__subtitle">Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/" class="link">Artem Sapegin</a>.</div>
-		</div>
-		<div class="text">
-			<%= html %>
-		</div>
+	<div class="dash-content text">
+		<% if (page === 'index') { %>
+			<h1>Tâmia</h1>
+			<p>Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/">Artem Sapegin</a>.</p>
+		<% } %>
+		<%= html %>
 	</div>
 
 </body>
