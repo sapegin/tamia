@@ -115,7 +115,8 @@ module.exports = (grunt) ->
 	marked.setOptions
 		smartypants: true
 		highlight: (code) ->
-			return hljs.highlightAuto(code, ['html', 'css', 'javascript']).value
+			hl = hljs.highlightAuto(code, ['html', 'scss', 'css', 'javascript'])
+			return hl.value
 
 
 	docsMenu =
