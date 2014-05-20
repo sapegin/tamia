@@ -322,6 +322,31 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var _toggledEvent = 'disappeared.tamia';
 		var _fallbackTimeout = 1000;
 
+
+		/**
+		 * Animations management
+		 */
+		var _animations = {};
+
+		/**
+		 * Registers an animation.
+		 *
+		 * @param {Object} animations Animations list.
+		 *
+		 * Example:
+		 *
+		 *   tamia.registerAnimations({
+		 *      slide: function(elem, done) {
+		 *        $(elem).slideDown(done);
+		 *      }
+		 *   });
+		 *   $('.js-elem').trigger('animate.tamia', 'slide');
+		 */
+		tamia.registerAnimations = function(animations) {
+			jQuery.extend(_animations, animations);
+		};
+
+
 		/**
 		 * Events management
 		 */
@@ -459,6 +484,33 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}
 		};
 
+		/**
+		 * Runs animation on an element.
+		 *
+		 * @event animate.tamia
+		 *
+		 * @param {String|Function} animation Animation name, CSS class name or JS function.
+		 * @param {Function} [done] Animation end callback.
+		 *
+		 * Animation name should be registered via `tamia.registerAnimations` function.
+		 */
+		_handlers.animate = function(elem, animation, done) {
+			if (done === undefined) done = function() {};
+			setTimeout(function() {
+				if (_animations[animation]) {
+					_animations[animation](elem, done);
+				}
+				else if (jQuery.isFunction(animation)) {
+					animation(elem, done);
+				}
+				else {
+					elem = $(elem);
+					elem.addClass(animation);
+					elem.afterTransition(done);
+				}
+			}, 0);
+		};
+
 		tamia.registerEvents(_handlers);
 
 
@@ -496,6 +548,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			event.preventDefault();
 		});
+
 
 		/**
 		 * States management

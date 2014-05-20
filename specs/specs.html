@@ -402,6 +402,15 @@ var containerHtml = document.querySelector('.js-container').innerHTML;
 	<p><span class="link js-appear" data-fire="appear.tamia" data-target=".js-dialog">Appear</span> or <span class="link js-toggle" data-fire="toggle.tamia" data-target=".js-dialog">Toggle</span></p>
 </div>
 
+<div class="spec">
+	<div class="c1 js-animatable" style="width:200px; height:80px;">
+		<p>Hello!</p>
+	</div>
+	<p><span class="link js-animate" data-fire="animate.tamia" data-target=".js-animatable" data-attrs="slide">Animate</span></p>
+</div>
+
+
+
 
 <!-- Hidden component test -->
 <div style="display:none">
@@ -439,6 +448,16 @@ container.on('click', '.js-reinit', function() {
 var dialog = $('.js-dialog');
 dialog.on('appeared.tamia', console.log.bind(console, 'Dialog appeared'));
 dialog.on('disappeared.tamia', console.log.bind(console, 'Dialog disappeared'));
+
+// Animations
+tamia.registerAnimations({
+	slide: function(elem, done) {
+		$(elem).slideUp(done);
+	},
+	slideFast: function(elem, done) {
+		$(elem).slideUp(5, done);
+	}
+});
 </script>
 
 <!-- Controls test -->
