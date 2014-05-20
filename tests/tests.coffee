@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 86
+TESTS = 92
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
