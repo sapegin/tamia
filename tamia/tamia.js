@@ -343,8 +343,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var events = $.map(handlers, _tamiaze).join(' ');
 			_doc.on(events, function(event) {
 				var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
-				if (DEBUG) log('Event "%s":', eventName, event.target);
-				handlers[eventName](event.target);
+				var args = slice.call(arguments);
+				args[0] = event.target;
+				if (DEBUG) log('Event "%s":', eventName, args);
+				handlers[eventName].apply(null, args);
 			});
 		};
 
