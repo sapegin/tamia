@@ -504,9 +504,18 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					animation(elem, done);
 				}
 				else {
+					var animationDone = function() {
+						elem.removeClass(animation);
+						done();
+					};
 					elem = $(elem);
 					elem.addClass(animation);
-					elem.afterTransition(done);
+					if (elem.css('animation')) {
+						elem.one('animationend webkitAnimationEnd MSAnimationEnd', animationDone);
+					}
+					else {
+						elem.afterTransition(done);
+					}
 				}
 			}, 0);
 		};
