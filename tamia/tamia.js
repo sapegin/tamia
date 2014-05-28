@@ -712,8 +712,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 * Hotkeys:
 		 *
+		 * - ? - Toggle help.
 		 * - g - Toggle grid.
 		 * - o - Toggle layout outlines.
+		 * - a - Toggle all elements outlines.
 		 */
 		if (DEBUG) {
 			var layoutClassesAdded = false;
@@ -728,6 +730,26 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var toggleOutline = function() {
 				addLayoutClasses();
 				jQuery('body').toggleClass('tamia__show-layout-outlines');
+			};
+
+			var toggleAllOutline = function() {
+				jQuery('body').toggleClass('tamia__show-all-outlines');
+			};
+
+			var toggleHelp = function() {
+				var cls = 'tamia__show-help';
+				var body = jQuery('body');
+				body.toggleClass(cls);
+				if (body.hasClass(cls)) {
+					body.append($('<div class="tamia__help">').html('<ul>' +
+						'<li><kbd>G</kbd> Toggle grid</li>' +
+						'<li><kbd>O</kbd> Toggle columns outlines</li>' +
+						'<li><kbd>A</kbd> Toggle all elements outlines</li>' +
+					'</ul>'));
+				}
+				else {
+					$('.tamia__help').remove();
+				}
 			};
 
 			var addLayoutClasses = function() {
@@ -766,7 +788,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				var keycode = event.which;
 				var func = {
 					71: toggleGrid,  // G
-					79: toggleOutline  // O
+					79: toggleOutline,  // O
+					65: toggleAllOutline,  // A
+					191: toggleHelp  // ?
 				}[keycode];
 				if (!func) return;
 
