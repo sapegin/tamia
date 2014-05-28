@@ -59,6 +59,12 @@
 			this.wrapper.trigger('appear.tamia');
 			_doc.on('keyup', this.keyup_);
 			_opened = this;
+
+			// Set focus to element with autofocus attribute
+			var autofocus = this.elem.find('[autofocus]');
+			if (autofocus.length) {
+				autofocus.focus();
+			}
 		},
 
 		close: function(params) {
