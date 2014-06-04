@@ -83,30 +83,30 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			if (name === undefined) name = 'Object';
 			var level = 0;
 
-			var wrap = function(func_name) {
-				var func = object[func_name];
+			var wrap = function(funcName) {
+				var func = object[funcName];
 
-				object[func_name] = function() {
-					pre(func_name, slice.call(arguments));
+				object[funcName] = function() {
+					pre(funcName, slice.call(arguments));
 					var result = func.apply(this, arguments);
 					post();
 					return result;
 				};
 			};
 
-			var pre = function(func_name, args) {
+			var pre = function(funcName, args) {
 				level++;
 				var padding = new Array(level).join('.  ');
-				console.log.apply(console, addBadge([padding + func_name, args || []], name, '#d73737'));
+				console.log.apply(console, addBadge([padding + funcName, args || []], name, '#d73737'));
 			};
 
 			var post = function() {
 				level--;
 			};
 
-			for (var func_name in object) {
-				if ($.isFunction(object[func_name])) {
-					wrap(func_name);
+			for (var funcName in object) {
+				if ($.isFunction(object[funcName])) {
+					wrap(funcName);
 				}
 			}
 		};
@@ -320,7 +320,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var _appearedEvent = 'appeared.tamia';
 		var _disappearedEvent = 'disappeared.tamia';
 		var _toggledEvent = 'disappeared.tamia';
-		var _fallbackTimeout = 1000;
 
 
 		/**
