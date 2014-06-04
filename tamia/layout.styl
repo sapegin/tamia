@@ -158,6 +158,7 @@ _layout-part(part)
 // height - Height of an element (default: null).
 //
 // Example:
+//
 //   .checkbox:before
 //     center(.8em, .65em)
 //     background-image: url("check.svg")
@@ -174,8 +175,13 @@ center(width, height=null)
 //
 
 // Column wrapper.
+//
+// - l-row_flat - Disable negative left/right margins.
 .l-row
 	layout-row()
+	&_flat
+		margin-left: 0
+		margin-right: 0
 
 .l-sixth,
 .l-quarter,
@@ -210,6 +216,13 @@ center(width, height=null)
 	_layout-part(1/2)
 
 // Flexible columns with left text alignment (to use inside .l-row).
+//
+// Example:
+//
+//   <div class="l-row l-row_flat">
+//     <div class="l-left">Left</div>
+//     <div class="l-right">Left</div>
+//   </div>
 .l-left,
 // Flexible columns with right text alignment (to use inside .l-row).
 .l-right
@@ -226,7 +239,11 @@ center(width, height=null)
 //
 // Example:
 //
-//   .l-center>.l-center-i>span
+//   <div class="l-center">
+//     <div class="l-center-i">
+//       <span>Centered content</span>
+//     </div>
+//   </div>
 .l-center
 	display: table
 	width: 100%
