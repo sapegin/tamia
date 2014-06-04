@@ -4,7 +4,7 @@
 // jQuery and Modernizr aren’t required but very useful
 
 /*jshint newcap:false*/
-/*global DEBUG:true, Modernizr:false, console:false, ga:false*/
+/*global DEBUG:true, console:false, ga:false, mixpanel:false*/
 
 // Debug mode is ON by default
 if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
@@ -682,28 +682,40 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 
 		/**
-		 * Google Analytics tracking.
+		 * Google Analytics or Mixpanel events tracking.
 		 *
-		 * @param data-ga Event name ('link' if empty).
-		 * @param [data-action] Event action ('click' by default).
+		 * @param data-track Event name ('link' if empty).
+		 * @param [data-track-extra] Extra data.
 		 *
-		 * @attribute data-ga
+		 * @attribute data-track
 		 *
 		 * Examples:
 		 *
-		 *   <a href="http://github.com/" data-ga>GitHub</span>
-		 *   <span class="js-slider-next" data-ga="slider" data-action="next">Next</span>
+		 *   <a href="http://github.com/" data-track>GitHub</span>
+		 *   <span class="js-slider-next" data-track="slider" data-track-extra="next">Next</span>
 		 */
-		if ('ga' in window) _doc.on('click', '[data-ga]', function(event) {
+		if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
+			var mp = 'mixpanel' in window;
 			var elem = jQuery(event.currentTarget);
-			var eventName = elem.data('ga') || 'link';
-			var eventAction = elem.data('ga-action') || 'click';
+			var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');
+			var eventExtra = elem.data('track-extra') || (mp ? undefined : 'click');
 			var url = elem.attr('href');
 			var link = url && !event.metaKey && !event.ctrlKey;
-			if (link) event.preventDefault();
-			ga('send', 'event', eventName, eventAction, url, {hitCallback: function() {
-				if (link) document.location = url;
-			}});
+			var callback;
+			if (link) {
+				event.preventDefault();
+				callback = function() {
+					document.location = url;
+				};
+			}
+			if (mp) {
+				var props = {URL: url};
+				if (eventExtra) props.Extra = eventExtra;
+				mixpanel.track(eventName, props, callback);
+			}
+			else {
+				ga('send', 'event', eventName, eventExtra, url, {hitCallback: callback});
+			}
 		});
 
 
