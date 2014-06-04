@@ -143,6 +143,7 @@ module.exports = (grunt) ->
 			'layout',
 			'links',
 			'images',
+			'mediaqueries',
 			'misc',
 			'functions',
 			'classes'
