@@ -93,15 +93,17 @@
 <li><strong>context</strong> Width of parent column (default: null).</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>.row&gt;.col1+.col2
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
 
-.row
-  grid-row()
-.col1
-  grid-col(1,2)
-.col2
-  grid-col(3,10)
-</code></pre><h4 id='grid-explode'>grid-explode()</h4>
+<pre><code class="scss"><span class="class">.row</span>
+  <span class="function">grid-row()</span>
+<span class="class">.col1</span>
+  <span class="function">grid-col(<span class="number">1</span>,<span class="number">2</span>)</span>
+<span class="class">.col2</span>
+  <span class="function">grid-col(<span class="number">3</span>,<span class="number">10</span>)</span></code></pre><h4 id='grid-explode'>grid-explode()</h4>
 
 <p>Gutter size negative margin to make column with different background.
 You should adjust padding depending on content.</p>
@@ -133,13 +135,15 @@ You should adjust padding depending on content.</p>
 <li><strong>part</strong> 1/Nth part of wrapper.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>.row&gt;.col+.col
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
 
-.row
-  layout-row()
-.col
-  layout-nth(<span class="number">1</span>/<span class="number">2</span>)  <span class="comment">// Half</span>
-</code></pre><h4 id='layout-change'>layout-change(part)</h4>
+<pre><code class="scss"><span class="class">.row</span>
+  <span class="function">layout-row()</span>
+<span class="class">.col</span>
+  <span class="function">layout-nth(<span class="number">1</span>/<span class="number">2</span>)</span>  <span class="comment">// Half</span></code></pre><h4 id='layout-change'>layout-change(part)</h4>
 
 <p>Change number of columns.</p>
 <p>Use it to change number of columns (defined via layout-nth()) inside media queries.</p>
@@ -159,13 +163,15 @@ You should adjust padding depending on content.</p>
 <li><strong>height</strong> Height of an element (default: null).</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code><span class="class">.checkbox</span><span class="pseudo">:before</span>
-  <span class="tag">center</span>(<span class="class">.8em</span>, <span class="class">.65em</span>)
-  <span class="tag">background-image</span>: <span class="tag">url</span>("<span class="tag">check</span><span class="class">.svg</span>")
-</code></pre><h3 id="classes">Classes</h3>
+<pre><code class="scss"><span class="class">.checkbox</span><span class="pseudo">:before</span>
+  <span class="function">center(.<span class="number">8</span>em, .<span class="number">65</span>em)</span>
+  <span class="attribute">background-image</span><span class="value">: url(<span class="string">"check.svg"</span>)</span></code></pre><h3 id="classes">Classes</h3>
 <h4 id='.l-row'>.l-row</h4>
 
 <p>Column wrapper.</p>
+<ul>
+<li>l-row_flat - Disable negative left/right margins.</li>
+</ul>
 <h4 id='.l-sixth'>.l-sixth</h4>
 
 <p>Sixth (to use inside .l-row).</p>
@@ -187,15 +193,22 @@ You should adjust padding depending on content.</p>
 <h4 id='.l-left'>.l-left</h4>
 
 <p>Flexible columns with left text alignment (to use inside .l-row).</p>
-<h4 id='.l-right'>.l-right</h4>
+<h5 id="example">Example</h5>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-row l-row_flat"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-right"</span>&gt;</span>Left<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='.l-right'>.l-right</h4>
 
 <p>Flexible columns with right text alignment (to use inside .l-row).</p>
 <h4 id='.l-center'>.l-center</h4>
 
 <p>Centered content (vertically and horizontally).</p>
 <h5 id="example">Example</h5>
-<pre><code>.l-center&gt;.l-center-i&gt;span
-</code></pre><h4 id='.l-centered'>.l-centered</h4>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-center"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-center-i"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">span</span>&gt;</span>Centered content<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='.l-centered'>.l-centered</h4>
 
 <p>Horizontally centered block.</p>
 <h3 id="spacing">Spacing</h3>
@@ -264,15 +277,13 @@ You should adjust padding depending on content.</p>
 
 <p>:hover, :active and :focus states of the link.</p>
 <h5 id="example">Example</h5>
-<pre><code> +<span class="tag">link-hovers</span>()
-     <span class="tag">color</span>: <span class="id">#bada55</span>
-</code></pre><h4 id='link-all-states'>link-all-states()</h4>
+<pre><code class="scss"> +<span class="function">link-hovers()</span>
+     <span class="attribute">color</span><span class="value">: <span class="hexcolor">#bada55</span></span></code></pre><h4 id='link-all-states'>link-all-states()</h4>
 
 <p>All states of the link.</p>
 <h5 id="example">Example</h5>
-<pre><code> +<span class="tag">link-all-states</span>()
-     <span class="tag">color</span>: <span class="at_rule">@<span class="keyword">color</span></span>
-</code></pre><h3 id="classes">Classes</h3>
+<pre><code class="scss"> +<span class="function">link-all-states()</span>
+     <span class="attribute">color</span><span class="value">: @color</span></code></pre><h3 id="classes">Classes</h3>
 <h4 id='.pressable-inset'>.pressable-inset</h4>
 
 <p>Pressable element: pointer cursor + disable text selection.</p>
@@ -334,12 +345,10 @@ You should adjust padding depending on content.</p>
 <li><strong>h</strong> sprite height, pixels.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>.elem
-  sprite(sprite_pony);
-
-.elem2
-  sprite(5, 6, 36, 22);
-</code></pre><h4 id='sprite-x'>sprite-x(x)</h4>
+<pre><code class="scss"><span class="class">.elem</span>
+  <span class="function">sprite(sprite_pony)</span>;
+<span class="class">.elem2</span>
+  <span class="function">sprite(<span class="number">5</span>, <span class="number">6</span>, <span class="number">36</span>, <span class="number">22</span>)</span>;</code></pre><h4 id='sprite-x'>sprite-x(x)</h4>
 
 <p>Horizontal position of sprite image.</p>
 <ul>
@@ -366,11 +375,10 @@ You should adjust padding depending on content.</p>
 <li><strong>y</strong> Vertical position in sprite grid.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>.elem
-  sprite-bg()
-  sprite-pos(5,6)
-  sprite-pos(sprite_pony-hover)
-</code></pre><h4 id='sprite-bg'>sprite-bg(img)<br>sprite-bg(x, y)</h4>
+<pre><code class="scss"><span class="class">.elem</span>
+  <span class="function">sprite-bg()</span>
+  <span class="function">sprite-pos(<span class="number">5</span>,<span class="number">6</span>)</span>
+  <span class="function">sprite-pos(sprite_pony-hover)</span></code></pre><h4 id='sprite-bg'>sprite-bg(img)<br>sprite-bg(x, y)</h4>
 
 <p>background-image for sprite.</p>
 <h5 id="sprite-generated-by-grunt-squirrelsprite">Sprite generated by grunt-squirrelsprite</h5>
@@ -394,14 +402,40 @@ You should adjust padding depending on content.</p>
 
 <p>Element width/height for sprite.</p>
 <h5 id="example">Example</h5>
-<pre><code>.elem
-  sprite-size(sprite_pony);
-</code></pre><h4 id='sprite-shift-top'>sprite-shift-top(img)</h4>
+<pre><code class="scss"><span class="class">.elem</span>
+  <span class="function">sprite-size(sprite_pony)</span>;</code></pre><h4 id='sprite-shift-top'>sprite-shift-top(img)</h4>
 
 <p>Shifts element half height to top.</p>
 <ul>
 <li><strong>img</strong> Sprite image variable.</li>
 </ul>
+<h2 id="media-queries">Media queries</h2>
+<h4 id='above'>above(min)</h4>
+
+<p>Media query shortcut: viewport width is greater than or equal to specified value.</p>
+<h5 id="example">Example</h5>
+<pre><code class="scss"><span class="class">.pony</span>
+  <span class="attribute">color</span><span class="value">: <span class="hexcolor">#c0ffee</span>
+  +above(<span class="number">320</span>px)
+    color: <span class="hexcolor">#bada55</span></span></code></pre><ul>
+<li><strong>min</strong> Min width.</li>
+</ul>
+<h4 id='below'>below(max)</h4>
+
+<p>Media query shortcut: viewport width is less than or equal to specified value.</p>
+<ul>
+<li><strong>max</strong> Max width.</li>
+</ul>
+<h4 id='between'>between(min, max)</h4>
+
+<p>Media query shortcut: viewport width is in between specified values.</p>
+<ul>
+<li><strong>min</strong> Min width.</li>
+<li><strong>max</strong> Max width.</li>
+</ul>
+<h4 id='retina'>retina()</h4>
+
+<p>Media query shortcut: retina screen.</p>
 <h2 id="misc-functions-and-mixins">Misc functions and mixins</h2>
 <h3 id="easings">Easings</h3>
 <h4 id='ease-in-sine'>ease-in-sine</h4>
@@ -512,17 +546,16 @@ You should adjust padding depending on content.</p>
 <h3 id="debugging">Debugging</h3>
 <p>You can use DEBUG global variable in your scripts to hide some code from minified production version of JavaScript.</p>
 <h5 id="to-make-it-work-add-to-your-gruntfile">To make it work add to your Gruntfile</h5>
-<pre><code><span class="tag">uglify</span>: <span class="rules">{
-  <span class="rule"><span class="attribute">options</span>:<span class="value"> {
+<pre><code class="javascript">uglify: {
+  options: {
     compress: {
       global_defs: {
-        DEBUG: !!grunt.<span class="function">option(<span class="string">'debug'</span>)</span>
-      </span></span></span>}
+        DEBUG: !!grunt.option(<span class="string">'debug'</span>)
+      }
     }
   },
-  ...
-}
-</code></pre><p>Then if you run <code>grunt --debug</code> DEBUG variable will be true and false if you run just <code>grunt</code>.</p>
+  <span class="comment">// ...</span>
+}</code></pre><p>Then if you run <code>grunt --debug</code> DEBUG variable will be true and false if you run just <code>grunt</code>.</p>
 <h4 id='tamia.trace'>tamia.trace(object, [name])</h4>
 
 <p>Traces all object’s method calls and arguments.</p>
@@ -531,11 +564,10 @@ You should adjust padding depending on content.</p>
 <li><em>String</em> <strong>[name]</strong>: Object name.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code>init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<pre><code class="javascript">init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
   tamia.trace(<span class="keyword">this</span>, <span class="string">'ClassName'</span>);
-  ...
-}
-</code></pre><h3 id="components-management">Components management</h3>
+  <span class="comment">// ...</span>
+}</code></pre><h3 id="components-management">Components management</h3>
 <h4 id='tamia.initComponents'>tamia.initComponents(components)</h4>
 
 <p>Initialize components.</p>
@@ -544,28 +576,27 @@ You should adjust padding depending on content.</p>
 </ul>
 <p>data-component</p>
 <h5 id="examples">Examples</h5>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
 
-tamia.initComponents({
-  // New style component
-  pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
-  // Plain initializer
-  pony: function(elem) {
-    // $(elem) === <span class="tag">&lt;<span class="title">div</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
+<pre><code class="javascript">tamia.initComponents({
+  <span class="comment">// New style component</span>
+  pony: Pony,  <span class="comment">// var Pony = tamia.extend(tamia.Component, { ... })</span>
+  <span class="comment">// Plain initializer</span>
+  pony: <span class="function"><span class="keyword">function</span><span class="params">(elem)</span> {</span>
+    <span class="comment">// $(elem) === &lt;div data-component="pony"&gt;</span>
   },
-  // Initialize jQuery plugins (plain initializer)
-  jquerypony: function(elem) {
-    $(elem).pluginmethod({option1: 'val1', options2: 'val2'});
+  <span class="comment">// Initialize jQuery plugins (plain initializer)</span>
+  jquerypony: <span class="function"><span class="keyword">function</span><span class="params">(elem)</span> {</span>
+    $(elem).pluginmethod({option1: <span class="string">'val1'</span>, options2: <span class="string">'val2'</span>});
     $(elem).pluginmethod2();
   },
-  // Initialize jQuery plugins (shortcut)
+  <span class="comment">// Initialize jQuery plugins (shortcut)</span>
   jquerypony: {
-    pluginmethod: {option1: 'val1', options2: 'val2'},
-    pluginmethod2: ['attr1', 'attr2', 'attr3'],
-    pluginmethod3: null
+    pluginmethod: {option1: <span class="string">'val1'</span>, options2: <span class="string">'val2'</span>},
+    pluginmethod2: [<span class="string">'attr1'</span>, <span class="string">'attr2'</span>, <span class="string">'attr3'</span>],
+    pluginmethod3: <span class="literal">null</span>
   }
-}
-</code></pre><h5 id="caveats">Caveats</h5>
+}</code></pre><h5 id="caveats">Caveats</h5>
 <ol>
 <li>To initialize components inside container that was hidden or inside dynamically created container use
  init.tamia event: <code>$(&#39;.js-container&#39;).trigger(&#39;init.tamia&#39;);</code></li>
@@ -581,12 +612,11 @@ tamia.initComponents({
 <li><em>Object</em> <strong>props</strong>: Child properties.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
+<pre><code class="javascript"><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
   init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="comment">// ...</span>
   }
-});
-</code></pre><h4 id='tamia.delay'>tamia.delay(func, [context], [wait], [param1…])</h4>
+});</code></pre><h4 id='tamia.delay'>tamia.delay(func, [context], [wait], [param1…])</h4>
 
 <p>Delays a function for the given number of milliseconds, and then calls it with the specified arguments.</p>
 <ul>
@@ -596,7 +626,20 @@ tamia.initComponents({
 <li><em>Mixed</em> <strong>[param1…]</strong>: Any params to pass to function.</li>
 </ul>
 <p>Returns <em>TimeoutId</em>: Timeout handler.</p>
-<h3 id="events-management">Events management</h3>
+<h3 id="animations-management">Animations management</h3>
+<h4 id='tamia.registerAnimations'>tamia.registerAnimations(animations)</h4>
+
+<p>Registers an animation.</p>
+<ul>
+<li><em>Object</em> <strong>animations</strong>: Animations list.</li>
+</ul>
+<h5 id="example">Example</h5>
+<pre><code class="javascript">tamia.registerAnimations({
+   slide: <span class="function"><span class="keyword">function</span><span class="params">(elem, done)</span> {</span>
+     $(elem).slideDown(done);
+   }
+});
+$(<span class="string">'.js-elem'</span>).trigger(<span class="string">'animate.tamia'</span>, <span class="string">'slide'</span>);</code></pre><h3 id="events-management">Events management</h3>
 <h4 id='tamia.registerEvents'>tamia.registerEvents(handlers)</h4>
 
 <p>Registers Tâmia events (eventname.tamia) on document.</p>
@@ -604,41 +647,45 @@ tamia.initComponents({
 <li><em>Object</em> <strong>handlers</strong>: Handlers list.</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code><span class="comment">// Registers enable.tamia event.</span>
+<pre><code class="javascript"><span class="comment">// Registers enable.tamia event.</span>
 tamia.registerEvents({
    enable: <span class="function"><span class="keyword">function</span><span class="params">(elem)</span> {</span>
    }
-});
-</code></pre><h3 id="events">Events</h3>
-<h4 id='tamia.registerEvents'>init.tamia</h4>
+});</code></pre><h3 id="events">Events</h3>
+<h4 id='init.tamia'>init.tamia</h4>
 
 <p>Init components inside any jQuery node.</p>
 <h5 id="examples">Examples</h5>
-<pre><code>$(document).trigger(<span class="string">'init.tamia'</span>);
-$(<span class="string">'.js-container'</span>).trigger(<span class="string">'init.tamia'</span>);
-</code></pre><h4 id='tamia.registerEvents'>appear.tamia</h4>
+<pre><code class="javascript">$(document).trigger(<span class="string">'init.tamia'</span>);
+$(<span class="string">'.js-container'</span>).trigger(<span class="string">'init.tamia'</span>);</code></pre><h4 id='appear.tamia'>appear.tamia</h4>
 
 <p>Show element with CSS transition.</p>
 <p>appeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <h5 id="example">Example</h5>
-<pre><code>.dialog
-  transition: opacity .5s ease-in-out
-  ...
+<pre><code class="scss"><span class="class">.dialog</span>
+  <span class="attribute">transition</span><span class="value">: opacity .<span class="number">5</span>s ease-in-out
   &amp;.is-hidden
-    opacity: 0
+    opacity: <span class="number">0</span></span></code></pre>
 
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"dialog is-hidden js-dialog"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"dialog is-hidden js-dialog"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
 
-$('.js-dialog').trigger('appear.tamia');
-</code></pre><h4 id='tamia.registerEvents'>disappear.tamia</h4>
+<pre><code class="javascript">$(<span class="string">'.js-dialog'</span>).trigger(<span class="string">'appear.tamia'</span>);</code></pre><h4 id='disappear.tamia'>disappear.tamia</h4>
 
 <p>Hide element with CSS transition.</p>
 <p>disappeared.tamia and toggled.tamia events will be fired the moment transition ends.</p>
 <p>Opposite of <code>appear.tamia</code> event.</p>
-<h4 id='tamia.registerEvents'>toggle.tamia</h4>
+<h4 id='toggle.tamia'>toggle.tamia</h4>
 
 <p>Toggles element’s visibility with CSS transition.</p>
 <p>See <code>appear.tamia</code> event for details.</p>
+<h4 id='animate.tamia'>animate.tamia</h4>
+
+<p>Runs animation on an element.</p>
+<p>@param {String|Function} animation Animation name, CSS class name or JS function.</p>
+<ul>
+<li><em>Function</em> <strong>[done]</strong>: Animation end callback.</li>
+</ul>
+<p>Animation name should be registered via <code>tamia.registerAnimations</code> function.</p>
 <h3 id="controls">Controls</h3>
 <p>Fires jQuery event to specified element on click at this element.</p>
 <p>data-fire</p>
@@ -650,9 +697,9 @@ $('.js-dialog').trigger('appear.tamia');
 </ul>
 <p>Either of data-target or data-closest is required.</p>
 <h5 id="example">Example</h5>
-<pre><code><span class="tag">&lt;<span class="title">span</span> <span class="attribute">data-fire</span>=<span class="value">"slider-next"</span> <span class="attribute">data-target</span>=<span class="value">".portfolio"</span> <span class="attribute">data-attrs</span>=<span class="value">"1,2,3"</span>&gt;</span>Next<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="comment">&lt;!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); --&gt;</span>
-</code></pre><h3 id="states-management">States management</h3>
+<pre><code class="html"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">data-fire</span>=<span class="value">"slider-next"</span> <span class="attribute">data-target</span>=<span class="value">".portfolio"</span> <span class="attribute">data-attrs</span>=<span class="value">"1,2,3"</span>&gt;</span>Next<span class="tag">&lt;/<span class="title">span</span>&gt;</span></code></pre>
+
+<pre><code class="javascript">$(<span class="string">'.portfolio'</span>).trigger(<span class="string">'slider-next'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</code></pre><h3 id="states-management">States management</h3>
 <h4 id='jQuery.fn.toggleState'>jQuery.fn.toggleState(name, [value])</h4>
 
 <p>Toggles specified state on an element.</p>
@@ -710,20 +757,21 @@ $('.js-dialog').trigger('appear.tamia');
 <li><em>String</em> <strong>data</strong>: Template context.</li>
 </ul>
 <p>Returns <em>jQuery</em>.</p>
-<h3 id="google-analytics-tracking">Google Analytics tracking</h3>
+<h3 id="google-analytics-or-mixpanel-events-tracking">Google Analytics or Mixpanel events tracking</h3>
 <ul>
-<li><strong>data-ga</strong>: Event name (‘link’ if empty).</li>
-<li><strong>[data-action]</strong>: Event action (‘click’ by default).</li>
+<li><strong>data-track</strong>: Event name (‘link’ if empty).</li>
+<li><strong>[data-track-extra]</strong>: Extra data.</li>
 </ul>
-<p>data-ga</p>
+<p>data-track</p>
 <h5 id="examples">Examples</h5>
-<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://github.com/"</span> <span class="attribute">data-ga</span>&gt;</span>GitHub<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"js-slider-next"</span> <span class="attribute">data-ga</span>=<span class="value">"slider"</span> <span class="attribute">data-action</span>=<span class="value">"next"</span>&gt;</span>Next<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-</code></pre><h3 id="grid-debugger">Grid debugger</h3>
+<pre><code class="html"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://github.com/"</span> <span class="attribute">data-track</span>&gt;</span>GitHub<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"js-slider-next"</span> <span class="attribute">data-track</span>=<span class="value">"slider"</span> <span class="attribute">data-track-extra</span>=<span class="value">"next"</span>&gt;</span>Next<span class="tag">&lt;/<span class="title">span</span>&gt;</span></code></pre><h3 id="grid-debugger">Grid debugger</h3>
 <h5 id="hotkeys">Hotkeys</h5>
 <ul>
+<li><strong>?</strong> — Toggle help.</li>
 <li><strong>g</strong> — Toggle grid.</li>
 <li><strong>o</strong> — Toggle layout outlines.</li>
+<li><strong>a</strong> — Toggle all elements outlines.</li>
 </ul>
 <h2 id="base-javascript-component-class">Base JavaScript Component Class</h2>
 <h4 id='Component'>Component()</h4>
@@ -733,7 +781,7 @@ $('.js-dialog').trigger('appear.tamia');
 <p>States: any class on component root HTML node that follow a pattern <code>.is-state</code> where <code>state</code> is a state name.
 After initialization all components will have <code>ok</code> state.</p>
 <h5 id="example">Example</h5>
-<pre><code><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
+<pre><code class="javascript"><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
   binded: <span class="string">'toggle'</span>,
   init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="string">'.js-toggle'</span>, <span class="keyword">this</span>.toggle_);
@@ -741,14 +789,13 @@ After initialization all components will have <code>ok</code> state.</p>
   toggle: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">this</span>.elem.toggleState(<span class="string">'pink'</span>);
   }
-});
+});</code></pre>
 
-tamia.initComponents({pony: Pony});
+<pre><code class="css"><span class="tag">tamia</span><span class="class">.initComponents</span>(<span class="rules">{<span class="rule"><span class="attribute">pony</span>:<span class="value"> Pony</span></span></span>});</code></pre>
 
-<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
   <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"pink-pony__button js-toggle"</span>&gt;</span>To pink or not to pink?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span>
-</code></pre><h4 id='Component'>Component.binded</h4>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='Component.binded'>Component.binded</h4>
 
 <p>List of methods that should be binded to <code>this</code> (see <code>bindAll</code> method).</p>
 <h4 id='Component.init'>Component.init()</h4>
@@ -765,11 +812,10 @@ tamia.initComponents({pony: Pony});
 
 <p>Implement this method if you want to check whether component could be initialized.</p>
 <h5 id="example">Example</h5>
-<pre><code>isInitializable: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<pre><code class="javascript">isInitializable: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
   <span class="comment">// Do not initialize component if it's not visible</span>
   <span class="keyword">return</span> <span class="keyword">this</span>.isVisible();
-}
-</code></pre><p>Returns <em>Boolean</em>.</p>
+}</code></pre><p>Returns <em>Boolean</em>.</p>
 <h4 id='Component.fallback'>Component.fallback()</h4>
 
 <p>Implement this method to do some fallbacks. It will be called if isSupported() returns false.</p>
@@ -780,9 +826,8 @@ tamia.initComponents({pony: Pony});
 <li><em>String</em> <strong>method1…</strong>: Method names</li>
 </ul>
 <h5 id="example">Example</h5>
-<pre><code><span class="keyword">this</span>.bindAll(<span class="string">'toggle'</span>);
-<span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="keyword">this</span>.toggle_);
-</code></pre><h4 id='Component.isVisible'>Component.isVisible()</h4>
+<pre><code class="javascript"><span class="keyword">this</span>.bindAll(<span class="string">'toggle'</span>);
+<span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="keyword">this</span>.toggle_);</code></pre><h4 id='Component.isVisible'>Component.isVisible()</h4>
 
 <p>Returns component visibility.</p>
 <p>Returns <em>Boolean</em>.</p>

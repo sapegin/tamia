@@ -217,7 +217,7 @@
 // jQuery and Modernizr aren’t required but very useful
 
 /*jshint newcap:false*/
-/*global DEBUG:true, Modernizr:false, console:false, ga:false*/
+/*global DEBUG:true, console:false, ga:false, mixpanel:false*/
 
 // Debug mode is ON by default
 if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
@@ -251,7 +251,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *         }
 	 *       }
 	 *     },
-	 *     ...
+	 *     // ...
 	 *   }
 	 *
 	 * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
@@ -289,37 +289,37 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 *   init: function() {
 		 *     tamia.trace(this, 'ClassName');
-		 *     ...
+		 *     // ...
 		 *   }
 		 */
 		tamia.trace = function(object, name) {
 			if (name === undefined) name = 'Object';
 			var level = 0;
 
-			var wrap = function(func_name) {
-				var func = object[func_name];
+			var wrap = function(funcName) {
+				var func = object[funcName];
 
-				object[func_name] = function() {
-					pre(func_name, slice.call(arguments));
+				object[funcName] = function() {
+					pre(funcName, slice.call(arguments));
 					var result = func.apply(this, arguments);
 					post();
 					return result;
 				};
 			};
 
-			var pre = function(func_name, args) {
+			var pre = function(funcName, args) {
 				level++;
 				var padding = new Array(level).join('.  ');
-				console.log.apply(console, addBadge([padding + func_name, args || []], name, '#d73737'));
+				console.log.apply(console, addBadge([padding + funcName, args || []], name, '#d73737'));
 			};
 
 			var post = function() {
 				level--;
 			};
 
-			for (var func_name in object) {
-				if ($.isFunction(object[func_name])) {
-					wrap(func_name);
+			for (var funcName in object) {
+				if ($.isFunction(object[funcName])) {
+					wrap(funcName);
 				}
 			}
 		};
@@ -379,7 +379,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 *   tamia.initComponents({
 	 *     // New style component
-	 *     pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
+	 *     pony: Pony,  // var Pony = tamia.extend(tamia.Component, { ... })
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -418,36 +418,39 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		// Init components
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
-			var componentName = container.getAttribute('data-component');
-			var component = components[componentName];
-			if (!component || container.hasAttribute(_initializedAttribute)) continue;
+			var componentNames = container.getAttribute('data-component').split(' ');
+			for (var componentIdx = 0; componentIdx < componentNames.length; componentIdx++) {
+				var componentName = componentNames[componentIdx];
+				var component = components[componentName];
+				if (!component || container.hasAttribute(_initializedAttribute)) continue;
 
-			var initialized = true;
-			if (component.prototype && component.prototype.__tamia_cmpnt__) {
-				// New style component
-				initialized = (new component(container)).initializable;
-			}
-			else if (typeof component === 'function') {
-				// Old style component
-				initialized = component(container);
-			}
-			else if (jQuery) {
-				// jQuery plugins shortcut
-				for (var method in component) {
-					var params = component[method];
-					var elem = jQuery(container);
-					if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
-					if (jQuery.isArray(params)) {
-						elem[method].apply(elem, params);
-					}
-					else {
-						elem[method](params);
+				var initialized = true;
+				if (component.prototype && component.prototype.__tamia_cmpnt__) {
+					// New style component
+					initialized = (new component(container)).initializable;
+				}
+				else if (typeof component === 'function') {
+					// Old style component
+					initialized = component(container);
+				}
+				else if (jQuery) {
+					// jQuery plugins shortcut
+					for (var method in component) {
+						var params = component[method];
+						var elem = jQuery(container);
+						if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+						if (jQuery.isArray(params)) {
+							elem[method].apply(elem, params);
+						}
+						else {
+							elem[method](params);
+						}
 					}
 				}
-			}
 
-			if (initialized !== false) {
-				container.setAttribute(_initializedAttribute, 'yes');
+				if (initialized !== false) {
+					container.setAttribute(_initializedAttribute, 'yes');
+				}
 			}
 		}
 
@@ -533,7 +536,31 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		var _appearedEvent = 'appeared.tamia';
 		var _disappearedEvent = 'disappeared.tamia';
 		var _toggledEvent = 'disappeared.tamia';
-		var _fallbackTimeout = 1000;
+
+
+		/**
+		 * Animations management
+		 */
+		var _animations = {};
+
+		/**
+		 * Registers an animation.
+		 *
+		 * @param {Object} animations Animations list.
+		 *
+		 * Example:
+		 *
+		 *   tamia.registerAnimations({
+		 *      slide: function(elem, done) {
+		 *        $(elem).slideDown(done);
+		 *      }
+		 *   });
+		 *   $('.js-elem').trigger('animate.tamia', 'slide');
+		 */
+		tamia.registerAnimations = function(animations) {
+			jQuery.extend(_animations, animations);
+		};
+
 
 		/**
 		 * Events management
@@ -556,8 +583,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var events = $.map(handlers, _tamiaze).join(' ');
 			_doc.on(events, function(event) {
 				var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
-				if (DEBUG) log('Event "%s":', eventName, event.target);
-				handlers[eventName](event.target);
+				var args = slice.call(arguments);
+				args[0] = event.target;
+				if (DEBUG) log('Event "%s":', eventName, args);
+				handlers[eventName].apply(null, args);
 			});
 		};
 
@@ -596,7 +625,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 *   .dialog
 		 *     transition: opacity .5s ease-in-out
-		 *     ...
 		 *     &.is-hidden
 		 *       opacity: 0
 		 *
@@ -670,6 +698,42 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}
 		};
 
+		/**
+		 * Runs animation on an element.
+		 *
+		 * @event animate.tamia
+		 *
+		 * @param {String|Function} animation Animation name, CSS class name or JS function.
+		 * @param {Function} [done] Animation end callback.
+		 *
+		 * Animation name should be registered via `tamia.registerAnimations` function.
+		 */
+		_handlers.animate = function(elem, animation, done) {
+			if (done === undefined) done = function() {};
+			setTimeout(function() {
+				if (_animations[animation]) {
+					_animations[animation](elem, done);
+				}
+				else if (jQuery.isFunction(animation)) {
+					animation(elem, done);
+				}
+				else {
+					var animationDone = function() {
+						elem.removeClass(animation);
+						done();
+					};
+					elem = $(elem);
+					elem.addClass(animation);
+					if (elem.css('animation')) {
+						elem.one('animationend webkitAnimationEnd MSAnimationEnd', animationDone);
+					}
+					else {
+						elem.afterTransition(done);
+					}
+				}
+			}, 0);
+		};
+
 		tamia.registerEvents(_handlers);
 
 
@@ -690,7 +754,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 * Example:
 		 *
 		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
-		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
+		 *
+		 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
 		 */
 		 _doc.on('click', '[data-fire]', function(event) {
 			var elem = jQuery(event.currentTarget);
@@ -707,6 +772,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			event.preventDefault();
 		});
+
 
 		/**
 		 * States management
@@ -831,28 +897,40 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 
 		/**
-		 * Google Analytics tracking.
+		 * Google Analytics or Mixpanel events tracking.
 		 *
-		 * @param data-ga Event name ('link' if empty).
-		 * @param [data-action] Event action ('click' by default).
+		 * @param data-track Event name ('link' if empty).
+		 * @param [data-track-extra] Extra data.
 		 *
-		 * @attribute data-ga
+		 * @attribute data-track
 		 *
 		 * Examples:
 		 *
-		 *   <a href="http://github.com/" data-ga>GitHub</span>
-		 *   <span class="js-slider-next" data-ga="slider" data-action="next">Next</span>
+		 *   <a href="http://github.com/" data-track>GitHub</span>
+		 *   <span class="js-slider-next" data-track="slider" data-track-extra="next">Next</span>
 		 */
-		if ('ga' in window) _doc.on('click', '[data-ga]', function(event) {
+		if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
+			var mp = 'mixpanel' in window;
 			var elem = jQuery(event.currentTarget);
-			var eventName = elem.data('ga') || 'link';
-			var eventAction = elem.data('ga-action') || 'click';
+			var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');
+			var eventExtra = elem.data('track-extra') || (mp ? undefined : 'click');
 			var url = elem.attr('href');
 			var link = url && !event.metaKey && !event.ctrlKey;
-			if (link) event.preventDefault();
-			ga('send', 'event', eventName, eventAction, url, {hitCallback: function() {
-				if (link) document.location = url;
-			}});
+			var callback;
+			if (link) {
+				event.preventDefault();
+				callback = function() {
+					document.location = url;
+				};
+			}
+			if (mp) {
+				var props = {URL: url};
+				if (eventExtra) props.Extra = eventExtra;
+				mixpanel.track(eventName, props, callback);
+			}
+			else {
+				ga('send', 'event', eventName, eventExtra, url, {hitCallback: callback});
+			}
 		});
 
 
@@ -861,8 +939,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 * Hotkeys:
 		 *
+		 * - ? - Toggle help.
 		 * - g - Toggle grid.
 		 * - o - Toggle layout outlines.
+		 * - a - Toggle all elements outlines.
 		 */
 		if (DEBUG) {
 			var layoutClassesAdded = false;
@@ -877,6 +957,26 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var toggleOutline = function() {
 				addLayoutClasses();
 				jQuery('body').toggleClass('tamia__show-layout-outlines');
+			};
+
+			var toggleAllOutline = function() {
+				jQuery('body').toggleClass('tamia__show-all-outlines');
+			};
+
+			var toggleHelp = function() {
+				var cls = 'tamia__show-help';
+				var body = jQuery('body');
+				body.toggleClass(cls);
+				if (body.hasClass(cls)) {
+					body.append($('<div class="tamia__help">').html('<ul>' +
+						'<li><kbd>G</kbd> Toggle grid</li>' +
+						'<li><kbd>O</kbd> Toggle columns outlines</li>' +
+						'<li><kbd>A</kbd> Toggle all elements outlines</li>' +
+					'</ul>'));
+				}
+				else {
+					$('.tamia__help').remove();
+				}
 			};
 
 			var addLayoutClasses = function() {
@@ -915,7 +1015,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				var keycode = event.which;
 				var func = {
 					71: toggleGrid,  // G
-					79: toggleOutline  // O
+					79: toggleOutline,  // O
+					65: toggleAllOutline,  // A
+					191: toggleHelp  // ?
 				}[keycode];
 				if (!func) return;
 
@@ -1202,6 +1304,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			this.wrapper.trigger('appear.tamia');
 			_doc.on('keyup', this.keyup_);
 			_opened = this;
+
+			// Set focus to element with autofocus attribute
+			var autofocus = this.elem.find('[autofocus]');
+			if (autofocus.length) {
+				autofocus.focus();
+			}
 		},
 
 		close: function(params) {

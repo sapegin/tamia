@@ -85,7 +85,7 @@
 </ul>
 <h2 id="component-base-class">Component Base Class</h2>
 <p>Simple example:</p>
-<pre><code class="lang-js"><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
+<pre><code class="javascript"><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
   binded: <span class="string">'toggle'</span>,
   init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="string">'.js-toggle'</span>, <span class="keyword">this</span>.toggle_);
@@ -93,15 +93,11 @@
   toggle: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">this</span>.elem.toggleState(<span class="string">'pink'</span>);
   }
-});
+});</code></pre>
 
-tamia.initComponents({pony: Pony});
-</code></pre>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
+<pre><code class="css"><span class="tag">tamia</span><span class="class">.initComponents</span>(<span class="rules">{<span class="rule"><span class="attribute">pony</span>:<span class="value"> Pony</span></span></span>});</code></pre><pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
   <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"pink-pony__button js-toggle"</span>&gt;</span>To pink or not to pink?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
 <h2 id="javascript-helpers">JavaScript Helpers</h2>
 <p>Useful events and other stuff.</p>
 <p>See documentation <a href="http://sapegin.github.io/tamia/docs.html">for details</a>.</p>
@@ -118,9 +114,8 @@ tamia.initComponents({pony: Pony});
 <p>See <a href="http://sapegin.github.io/tamia/">here</a>.</p>
 <h2 id="installation">Installation</h2>
 <p>The easiest way to install Tâmia is to use Yeomen generator:</p>
-<pre><code>$ npm install -g yo, generator-tamia
-$ yo tamia
-</code></pre><p>(You can use <code>yo tamia:framework</code> to update Tâmia to the latest version.)</p>
+<pre><code class="undefined">$ npm install -g yo, generator-tamia
+$ yo tamia</code></pre><p>(You can use <code>yo tamia:framework</code> to update Tâmia to the latest version.)</p>
 <p>You can also install manually:</p>
 <ol>
 <li><p>Download and unzip repository to <code>tamia</code> folder inside your project.</p>
@@ -134,23 +129,18 @@ $ yo tamia
 <h3 id="configuration">Configuration</h3>
 <p>Stylus bootstrap has a lot of parameters you can change.</p>
 <p>Add all parameters to your main Stylus stylesheet, before <code>tamia/tamia</code> import:</p>
-<pre><code>link_style = <span class="string">"gradient"</span>
+<pre><code class="javascript">link_style = <span class="string">"gradient"</span>
 link_color = #c0ffee
-...
-</code></pre><h3 id="using-modules">Using Modules</h3>
+...</code></pre><h3 id="using-modules">Using Modules</h3>
 <p>To add module to the project:</p>
-<pre><code>$ <span class="tag">yo</span> <span class="tag">tamia</span><span class="pseudo">:module</span>
-</code></pre><p>Then select module you want and it’ll be added .</p>
+<pre><code class="css">$ <span class="tag">yo</span> <span class="tag">tamia</span><span class="pseudo">:module</span></code></pre><p>Then select module you want and it’ll be added .</p>
 <p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
-<pre><code>modules_default_skin = <span class="literal">true</span>;
-</code></pre><h3 id="debug-mode">Debug Mode</h3>
+<pre><code class="javascript">modules_default_skin = <span class="literal">true</span>;</code></pre><h3 id="debug-mode">Debug Mode</h3>
 <p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
-<pre><code><span class="tag">div</span>
-    <span class="tag">outline</span>: 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#c0ffee</span> <span class="tag">if</span> <span class="tag">DEBUG</span>
-</code></pre><p>JavaScript:</p>
-<pre><code><span class="keyword">if</span> (DEBUG) console.log(<span class="string">'Debug info'</span>);
-</code></pre><p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
+<pre><code class="scss"><span class="tag">div</span>
+    <span class="attribute">outline</span><span class="value">: <span class="number">1</span>px solid <span class="hexcolor">#c0ffee</span> if DEBUG</span></code></pre><p>JavaScript:</p>
+<pre><code class="javascript"><span class="keyword">if</span> (DEBUG) console.log(<span class="string">'Debug info'</span>);</code></pre><p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
 <h2 id="the-name">The Name</h2>
 <p>Tâmia is a chipmunk in Portuguese. It refers to <a href="https://github.com/sapegin/squirrelstrap">Squirrelstrap</a>, my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).</p>
 <hr>
