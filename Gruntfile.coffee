@@ -9,7 +9,7 @@ module.exports = (grunt) ->
 	_ = require 'lodash'
 	_.str = require 'underscore.string'
 
-	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+	require('load-grunt-tasks')(grunt)
 
 	grunt.initConfig
 		jshint:
