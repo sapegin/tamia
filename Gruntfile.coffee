@@ -3,7 +3,7 @@
 module.exports = (grunt) ->
 	fs = require 'fs'
 	path = require 'path'
-	marked = require 'marked'
+	marked_lib = require 'marked'
 	hljs = require 'highlight.js'
 	Sequelize = require 'sequelize'
 	_ = require 'lodash'
@@ -107,14 +107,28 @@ module.exports = (grunt) ->
 				tasks: 'stylus'
 
 
+	# Hightlight.js
+
 	hljs.configure({
 		classPrefix: ''
 		tabReplace: '<span class="indent">\t</span>'
 	})
 
-	marked.setOptions
+
+	# Marked
+
+	marked_lib.setOptions({
 		smartypants: true
-		highlight: highlightCode
+	})
+
+	renderer = new marked_lib.Renderer()
+	renderer.code = (text, language) ->
+		blocks = text.split('\n\n')
+		blocks = _.map(blocks, highlightCode)
+		return blocks.join('\n\n')
+
+	marked = (text) ->
+		return marked_lib(text, {renderer: renderer})
 
 
 	docsMenu =
@@ -197,7 +211,7 @@ module.exports = (grunt) ->
 						<div class="example-code">
 							<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_#{exampleId}">Show/hide code</span></div>
 							<div class="is-hidden" id="example_#{exampleId}">
-								<pre><code class="html">#{exampleCode}</code></pre>
+								#{exampleCode}
 							</div>
 						</div>
 					"""
@@ -214,7 +228,7 @@ module.exports = (grunt) ->
 
 	highlightCode = (code) ->
 		hl = hljs.highlightAuto(code, ['html', 'scss', 'css', 'javascript'])
-		return hl.value
+		return """<pre><code class="#{hl.language}">#{hl.value}</code></pre>"""
 
 	saveHtml = (name, html) ->
 		html = (html

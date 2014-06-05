@@ -38,7 +38,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *         }
 	 *       }
 	 *     },
-	 *     ...
+	 *     // ...
 	 *   }
 	 *
 	 * Then if you run `grunt --debug` DEBUG variable will be true and false if you run just `grunt`.
@@ -76,7 +76,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 *   init: function() {
 		 *     tamia.trace(this, 'ClassName');
-		 *     ...
+		 *     // ...
 		 *   }
 		 */
 		tamia.trace = function(object, name) {
@@ -166,7 +166,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 *   tamia.initComponents({
 	 *     // New style component
-	 *     pony: Pony,  // var Pony = tamia.extend(tamia.Component, {...})
+	 *     pony: Pony,  // var Pony = tamia.extend(tamia.Component, { ... })
 	 *     // Plain initializer
 	 *     pony: function(elem) {
 	 *       // $(elem) === <div data-component="pony">
@@ -412,7 +412,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *
 		 *   .dialog
 		 *     transition: opacity .5s ease-in-out
-		 *     ...
 		 *     &.is-hidden
 		 *       opacity: 0
 		 *
@@ -542,7 +541,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 * Example:
 		 *
 		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
-		 *   <!-- $('.portfolio').trigger('slider-next', [1, 2, 3]); -->
+		 *
+		 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
 		 */
 		 _doc.on('click', '[data-fire]', function(event) {
 			var elem = jQuery(event.currentTarget);
