@@ -205,36 +205,39 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		// Init components
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
-			var componentName = container.getAttribute('data-component');
-			var component = components[componentName];
-			if (!component || container.hasAttribute(_initializedAttribute)) continue;
+			var componentNames = container.getAttribute('data-component').split(' ');
+			for (var componentIdx = 0; componentIdx < componentNames.length; componentIdx++) {
+				var componentName = componentNames[componentIdx];
+				var component = components[componentName];
+				if (!component || container.hasAttribute(_initializedAttribute)) continue;
 
-			var initialized = true;
-			if (component.prototype && component.prototype.__tamia_cmpnt__) {
-				// New style component
-				initialized = (new component(container)).initializable;
-			}
-			else if (typeof component === 'function') {
-				// Old style component
-				initialized = component(container);
-			}
-			else if (jQuery) {
-				// jQuery plugins shortcut
-				for (var method in component) {
-					var params = component[method];
-					var elem = jQuery(container);
-					if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
-					if (jQuery.isArray(params)) {
-						elem[method].apply(elem, params);
-					}
-					else {
-						elem[method](params);
+				var initialized = true;
+				if (component.prototype && component.prototype.__tamia_cmpnt__) {
+					// New style component
+					initialized = (new component(container)).initializable;
+				}
+				else if (typeof component === 'function') {
+					// Old style component
+					initialized = component(container);
+				}
+				else if (jQuery) {
+					// jQuery plugins shortcut
+					for (var method in component) {
+						var params = component[method];
+						var elem = jQuery(container);
+						if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+						if (jQuery.isArray(params)) {
+							elem[method].apply(elem, params);
+						}
+						else {
+							elem[method](params);
+						}
 					}
 				}
-			}
 
-			if (initialized !== false) {
-				container.setAttribute(_initializedAttribute, 'yes');
+				if (initialized !== false) {
+					container.setAttribute(_initializedAttribute, 'yes');
+				}
 			}
 		}
 
