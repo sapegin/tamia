@@ -114,9 +114,7 @@ module.exports = (grunt) ->
 
 	marked.setOptions
 		smartypants: true
-		highlight: (code) ->
-			hl = hljs.highlightAuto(code, ['html', 'scss', 'css', 'javascript'])
-			return hl.value
+		highlight: highlightCode
 
 
 	docsMenu =
@@ -192,7 +190,7 @@ module.exports = (grunt) ->
 						.replace(/http:\/\/placedog.com[^"]+/g, '...')
 						.replace(/\s?style=\"[^\"]*\"/g, '')
 					)
-					exampleCode = _.str.escapeHTML exampleCode
+					exampleCode = highlightCode exampleCode
 
 					return """
 						<div class="example">#{exampleHtml}</div>
@@ -213,6 +211,10 @@ module.exports = (grunt) ->
 
 		docsDashIndexDb(done)
 
+
+	highlightCode = (code) ->
+		hl = hljs.highlightAuto(code, ['html', 'scss', 'css', 'javascript'])
+		return hl.value
 
 	saveHtml = (name, html) ->
 		html = (html
