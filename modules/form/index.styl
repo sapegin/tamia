@@ -89,6 +89,14 @@
 		padding-left: spacer
 		text-align: left
 
+	.form__success,
+	.form__error
+		display: none
+	&.is-success .form__success
+		display: block
+	&.is-error .form__error
+		display: block
+
 
 // Close button
 .close
