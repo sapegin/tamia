@@ -164,6 +164,7 @@ if modules_default_skin or form_default_skin
 			border-color: form_focus_color
 			border-top-color: #888
 
+	// Close button
 	.close
 		color: #666
 		font-family: "Helvetica Neue", Arial, sans-serif
@@ -175,3 +176,16 @@ if modules_default_skin or form_default_skin
 
 		+link-hovers()
 			opacity: .8
+
+	// Alerts
+	// Colors from Bootstrap
+	.alert
+		space(2);
+		padding: spacer
+		font-size: 14px
+		background: #dff0d8
+
+		&_warning
+			background: #fcf8e3
+		&_error
+			background: #f2dede
