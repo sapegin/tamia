@@ -205,11 +205,15 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		// Init components
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
+			var $container = jQuery(container);
 			var componentNames = container.getAttribute('data-component').split(' ');
 			for (var componentIdx = 0; componentIdx < componentNames.length; componentIdx++) {
 				var componentName = componentNames[componentIdx];
 				var component = components[componentName];
-				if (!component || container.hasAttribute(_initializedAttribute)) continue;
+				var initializedNames = $container.data(_initializedAttribute) || {};
+				// console.log(componentName, initializedNames);
+
+				if (!component || initializedNames[componentName]) continue;
 
 				var initialized = true;
 				if (component.prototype && component.prototype.__tamia_cmpnt__) {
@@ -236,7 +240,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				}
 
 				if (initialized !== false) {
-					container.setAttribute(_initializedAttribute, 'yes');
+					initializedNames[componentName] = true;
+					$container.data(_initializedAttribute, initializedNames);
 				}
 			}
 		}
