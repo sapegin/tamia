@@ -59,16 +59,19 @@ text-selection(color, background)
 		background: background
 		text-shadow: none
 
-// Input placeholder color.
+// Input placeholder style.
 //
-// color - Placeholder color.
-placeholder-color(color)
+// Example:
+//
+// +placeholder()
+//   color: red
+placeholder()
 	&::-webkit-input-placeholder
-		color: color
+		{block}
 	&::-moz-placeholder
-		color: color
+		{block}
 	&:-ms-input-placeholder
-		color: color
+		{block}
 
 // Disables text selection.
 no-select()
