@@ -89,7 +89,7 @@
 			});
 			return fields;
 		}
- 	});
+	});
 
 	tamia.initComponents({form: Form});
 

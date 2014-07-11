@@ -9,5 +9,8 @@
 	"undef": true,
 	"trailing": true,
 	"jquery": true,
-	"esnext": true
+	"esnext": true,
+	"globals": {
+		"DEBUG": true
+	}
 }
