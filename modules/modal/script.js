@@ -102,7 +102,7 @@
 		},
 
 		shadeClick: function(event) {
-			if ($(event.target).hasClass('js-modal')) {
+			if ($(event.target).hasClass('js-modal') && this.elem.data('modal-close-on-shade') !== 'no') {
 				this.dismiss(event);
 			}
 		}
