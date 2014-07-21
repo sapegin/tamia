@@ -115,6 +115,12 @@
 			var modal = container.data('modal');
 			if (!modal) modal = new Modal(elem);
 			modal.open();
+		},
+		'close.modal': function(elem) {
+			var container = $(elem);
+			var modal = container.data('modal');
+			if (!modal) return;
+			modal.close();
 		}
 	});
 

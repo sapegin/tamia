@@ -42,6 +42,10 @@ Open via link:
 
 Fire this event on `.modal` DOM node to open popup.
 
+### close.modal.tamia
+
+Fire this event on `.modal` DOM node to close popup.
+
 ### commit.modal.tamia
 
 Fires when user clicks Save button.
