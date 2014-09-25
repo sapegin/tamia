@@ -287,6 +287,7 @@ center(width, height=null)
 //   <div class="l-center">
 //     <div class="l-center-i">
 //       <span>Centered content</span>
+//       <!--div class="l-center__wrap">Centered content</span-->
 //     </div>
 //   </div>
 .l-center
@@ -297,6 +298,8 @@ center(width, height=null)
 		display: table-cell
 		text-align: center
 		vertical-align: middle
+	&__wrap
+		display: inline-block
 
 // Horizontally centered block.
 .l-centered
