@@ -15,7 +15,7 @@
 		binded: 'submit success error',
 
 		init: function() {
-			tamia.trace(this, 'Form');
+			//tamia.trace(this, 'Form');
 
 			this.method = this.elem.data('method') || 'post';
 			this.dataType = this.elem.data('form-type') || 'json';
