@@ -113,7 +113,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		// Check optional dependencies
 		if (!jQuery) warn('jQuery not found.');
-		if (!jQuery.Transitions) warn('jQuery Transition Events plugin (tamia/vendor/transition-events.js) not found.');
+		if (jQuery && !jQuery.Transitions) warn('jQuery Transition Events plugin (tamia/vendor/transition-events.js) not found.');
 		if (!Modernizr) warn('Modernizr not found.');
 
 		// Check required Modernizr features
