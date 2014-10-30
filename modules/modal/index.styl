@@ -54,14 +54,17 @@ if modules_default_skin or modal_default_skin
 		&__header,
 		&__body,
 		&__footer
-			padding: 2*spacer
+			padding: 3*spacer 2*spacer
 			border: 0 solid #ddd
 
 		&__header
+			position: relative
 			padding-top: 1.5*spacer
 			padding-bottom: @padding-top
-			position: relative
 			border-bottom-width: 1px
+
+		&__body
+			position: relative
 
 		&__footer
 			text-align: right
@@ -74,7 +77,7 @@ if modules_default_skin or modal_default_skin
 			font-weight: normal
 			font-size: 20px
 
-		.close
+		&__close
 			position: absolute
 			top: 1.5*spacer - 2px
 			right: 2*spacer
