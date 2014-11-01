@@ -128,7 +128,7 @@ window.onerror = function(msg, url, line) {
 <div class="spec form form_inline">
 	<input type="text" class="field" placeholder="Name">
 	<input type="email" class="field" placeholder="Email">
-	<input type="button" class="button" value="Boom!">
+	<input type="submit" class="button" value="Boom!">
 </div>
 
 <div class="spec form form_inline">
@@ -141,7 +141,7 @@ window.onerror = function(msg, url, line) {
 </div>
 
 <div class="spec spec_narrow">
-	<div class="form form_block js-form">
+	<form class="form form_block js-form" data-component="autolock" onsubmit="event.preventDefault()">
 		<div class="form__row">
 			<input type="text" class="field js-field-1" placeholder="Name">
 		</div>
@@ -149,12 +149,13 @@ window.onerror = function(msg, url, line) {
 			<input type="email" class="field js-field-2" placeholder="Email">
 		</div>
 		<div class="form__row">
-			<input type="button" class="button js-button-1" value="Boom!">
+			<input type="submit" class="button js-button-1" value="Boom!">
 		</div>
-	</div>
+	</form>
 </div>
 <div class="spec">
-	<p><span class="link js-disable" data-fire="disable.tamia" data-target=".js-form">Disable</span>, <span class="link js-enable" data-fire="enable.tamia" data-target=".js-form">enable</span></p>
+	<p><span class="link js-disable" data-fire="disable.form.tamia" data-target=".js-form">Disable</span>, <span class="link js-enable" data-fire="enable.form.tamia" data-target=".js-form">enable</span></p>
+	<p><span class="link js-lock" data-fire="lock.form.tamia" data-target=".js-form">Lock submit</span>, <span class="link js-unlock" data-fire="unlock.form.tamia" data-target=".js-form">unlock submit</span></p>
 </div>
 
 <h2>Checkbox &amp; radio button</h2>
@@ -309,7 +310,7 @@ window.onerror = function(msg, url, line) {
 			<input type="email" class="field" placeholder="Email">
 		</div>
 		<div class="form__row">
-			<input type="button" class="button" value="Boom!">
+			<input type="submit" class="button" value="Boom!">
 		</div>
 	</div>
 </div>

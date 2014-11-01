@@ -14,9 +14,13 @@ Controls:
 
 ## Events
 
-### enable.tamia / disable.tamia
+### enable.form.tamia / disable.form.tamia
 
 Enables / disables all descendant form elements.
+
+### lock.form.tamia / unlock.form.tamia
+
+Disables / enables submit button of a form.
 
 
 ## Skin

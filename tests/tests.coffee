@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 91
+TESTS = 93
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -320,6 +320,10 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		test.assertEval (-> !(jQuery '.js-form .js-button-1').hasClass('is-disabled')), 'Form: Submit doesn’t have class .is-disabled'
 		test.assertEval (-> !(jQuery '.js-form .js-field-1').prop('disabled')), 'Form: First field doesn’t have disabled attribute'
 		test.assertEval (-> !(jQuery '.js-form .js-field-2').prop('disabled')), 'Form: Second field doesn’t have disabled attribute'
+		test.assertEval (-> !(jQuery '.js-form .js-button-1').prop('disabled')), 'Form: Submit doesn’t have disabled attribute'
+	casper.thenClick '.js-lock', ->
+		test.assertEval (-> (jQuery '.js-form .js-button-1').prop('disabled')), 'Form: Submit has disabled attribute'
+	casper.thenClick '.js-unlock', ->
 		test.assertEval (-> !(jQuery '.js-form .js-button-1').prop('disabled')), 'Form: Submit doesn’t have disabled attribute'
 
 	# Preload

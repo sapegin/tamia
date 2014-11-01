@@ -20,9 +20,7 @@
 			this.method = this.elem.data('method') || 'post';
 			this.dataType = this.elem.data('form-type') || 'json';
 			this.url = this.elem.data('form-action');
-			if (DEBUG && !this.url) throw tamia.Error('Form: data-action not defined.');
-
-			this.submitElem = this.elem.find('[type="submit"]');
+			if (DEBUG && !this.url) throw tamia.Error('Form: data-form-action not defined.');
 
 			this.successElem = this.elem.find('.js-form-success');
 			if (this.successElem.length) this.defaultMessage = this.successElem.html();
@@ -43,7 +41,7 @@
 			this.elem.removeState('success');
 			this.elem.removeState('error');
 			this.elem.addState('sending');
-			this.submitElem.trigger('disable.tamia');
+			this.elem.trigger('lock.form.tamia');
 
 			$.ajax({
 				method: this.method,
@@ -78,7 +76,7 @@
 		done: function(state) {
 			this.elem.addState(state);
 			this.elem.removeState('sending');
-			this.submitElem.trigger('enable.tamia');
+			this.elem.trigger('unlock.form.tamia');
 		},
 
 		serialize: function() {
@@ -94,10 +92,40 @@
 	tamia.initComponents({form: Form});
 
 
-	var _toggle = function(elem, enable) {
+	/**
+	 * Disable submit button on submit
+	 */
+	var AutoLock = tamia.extend(tamia.Component, {
+		binded: 'submit',
+
+		init: function() {
+			// tamia.trace(this, 'AutoLock');
+			this.elem.on('submit', this.submit_);
+		},
+
+		submit: function(event) {
+			this.elem.trigger('lock.form.tamia');
+		}
+	});
+
+	tamia.initComponents({autolock: AutoLock});
+
+
+	var _toggle_fields = function(elem, enable) {
 		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
-		formElements.toggleState(_disabledState, !enable);
-		formElements.attr('disabled', !enable);
+		_toggle(formElements, enable);
+	};
+
+	var _toggle_submit = function(form, enable) {
+		var submitButton = $(form).find('[type="submit"]');
+		_toggle(submitButton, enable);
+	};
+
+	var _toggle = function(elem, enable) {
+		$(elem)
+			.toggleState(_disabledState, !enable)
+			.attr('disabled', !enable)
+		;
 	};
 
 	// Events
@@ -105,15 +133,29 @@
 		/**
 		 * Enables all descendant form elements.
 		 */
-		enable: function(elem) {
-			_toggle(elem, true);
+		'enable.form': function(elem) {
+			_toggle_fields(elem, true);
 		},
 
 		/**
 		 * Disables all descendant form elements.
 		 */
-		disable: function(elem) {
-			_toggle(elem, false);
+		'disable.form': function(elem) {
+			_toggle_fields(elem, false);
+		},
+
+		/**
+		 * Enables submit button of a form.
+		 */
+		'unlock.form': function(elem) {
+			_toggle_submit(elem, true);
+		},
+
+		/**
+		 * Disables submit button of a form.
+		 */
+		'lock.form': function(elem) {
+			_toggle_submit(elem, false);
 		}
 	});
 
