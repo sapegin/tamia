@@ -19,6 +19,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var tamia = window.tamia = {};
 
 	// Shortcuts
+	var $ = jQuery;
 	var slice = Array.prototype.slice;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -205,13 +206,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		// Init components
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
-			var $container = jQuery(container);
+			var $container = $(container);
 			var componentNames = container.getAttribute('data-component').split(' ');
 			for (var componentIdx = 0; componentIdx < componentNames.length; componentIdx++) {
 				var componentName = componentNames[componentIdx];
 				var component = components[componentName];
 				var initializedNames = $container.data(_initializedAttribute) || {};
-				// console.log(componentName, initializedNames);
 
 				if (!component || initializedNames[componentName]) continue;
 
@@ -228,9 +228,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					// jQuery plugins shortcut
 					for (var method in component) {
 						var params = component[method];
-						var elem = jQuery(container);
-						if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
-						if (jQuery.isArray(params)) {
+						var elem = $(container);
+						if (DEBUG && !$.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+						if ($.isArray(params)) {
 							elem[method].apply(elem, params);
 						}
 						else {
@@ -320,7 +320,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	if (jQuery) {
 
-		var _doc = jQuery(document);
+		var _doc = $(document);
 		var _hiddenState = 'hidden';
 		var _transitionSate = 'transit';
 		var _statePrefix = 'is-';
@@ -350,7 +350,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *   $('.js-elem').trigger('animate.tamia', 'slide');
 		 */
 		tamia.registerAnimations = function(animations) {
-			jQuery.extend(_animations, animations);
+			$.extend(_animations, animations);
 		};
 
 
@@ -506,7 +506,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				if (_animations[animation]) {
 					_animations[animation](elem, done);
 				}
-				else if (jQuery.isFunction(animation)) {
+				else if ($.isFunction(animation)) {
 					animation(elem, done);
 				}
 				else {
@@ -550,12 +550,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
 		 */
 		 _doc.on('click', '[data-fire]', function(event) {
-			var elem = jQuery(event.currentTarget);
+			var elem = $(event.currentTarget);
 
 			var data = elem.data();
 			if (DEBUG) if (!data.target && !data.closest) return log('You should define either data-target or data-closest on', elem[0]);
 
-			var target = data.target && jQuery(data.target) || elem.closest(data.closest);
+			var target = data.target && $(data.target) || elem.closest(data.closest);
 			if (DEBUG) if (!target.length) return log('Target element %s not found for', data.target || data.closest, elem[0]);
 
 			var attrs = data.attrs;
@@ -683,7 +683,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			 */
 			jQuery.fn.tmpl = function(tmplId, data) {
 				var html = tamia.tmpl(tmplId, data);
-				return jQuery(this).html(html);
+				return $(this).html(html);
 			};
 		}
 
@@ -703,7 +703,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 */
 		if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
 			var mp = 'mixpanel' in window;
-			var elem = jQuery(event.currentTarget);
+			var elem = $(event.currentTarget);
 			var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');
 			var eventExtra = elem.data('track-extra') || (mp ? undefined : 'click');
 			var url = elem.attr('href');
@@ -748,16 +748,16 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			var toggleOutline = function() {
 				addLayoutClasses();
-				jQuery('body').toggleClass('tamia__show-layout-outlines');
+				$('body').toggleClass('tamia__show-layout-outlines');
 			};
 
 			var toggleAllOutline = function() {
-				jQuery('body').toggleClass('tamia__show-all-outlines');
+				$('body').toggleClass('tamia__show-all-outlines');
 			};
 
 			var toggleHelp = function() {
 				var cls = 'tamia__show-help';
-				var body = jQuery('body');
+				var body = $('body');
 				body.toggleClass(cls);
 				if (body.hasClass(cls)) {
 					body.append($('<div class="tamia__help">').html('<ul>' +
@@ -773,7 +773,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			var addLayoutClasses = function() {
 				if (layoutClassesAdded) return;
-				jQuery('*').each(function() {
+				$('*').each(function() {
 					var elem = $(this);
 					var content = elem.css('content');
 					if (/^tamia__/.test(content)) {
@@ -784,7 +784,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			};
 
 			var addGrid = function() {
-				var firstRow = jQuery('.tamia__grid-row:visible,.tamia__layout-row:visible').first();
+				var firstRow = $('.tamia__grid-row:visible,.tamia__layout-row:visible').first();
 				if (!firstRow.length) return;
 
 				if (!gridDebugger) {
