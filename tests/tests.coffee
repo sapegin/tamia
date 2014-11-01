@@ -9,11 +9,6 @@ TESTS = 93
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
 
-casper.count = (s) ->
-	@evaluate ((s) ->
-		(document.querySelectorAll s).length
-	), s
-
 casper.test.begin('Tâmia', TESTS, suite = (test) ->
 
 	casper.start 'specs/specs.html'
