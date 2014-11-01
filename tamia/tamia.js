@@ -118,14 +118,16 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		if (!Modernizr) warn('Modernizr not found.');
 
 		// Check required Modernizr features
-		$.each([
+		var modernizrFeatures = [
 			'csstransitions',
 			'cssgradients',
 			'flexbox',
 			'touch',
-		], function(idx, feature) {
+		];
+		if (Modernizr) for (var modernizrIdx in modernizrFeatures) {
+			var feature = modernizrFeatures[modernizrIdx];
 			if (!(feature in Modernizr)) warn('Modernizr should be built with "' + feature + '" feautre.');
-		});
+		}
 	}
 	else {
 		tamia.log = tamia.warn = tamia.trace = function() {};
