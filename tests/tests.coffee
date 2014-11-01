@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 92
+TESTS = 91
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -27,13 +27,6 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 	# JS core #
 	###########
 
-	# All components initialized
-	casper.then ->
-		all = @count '[data-component]'
-		test.assert all > 0, 'There are some components'
-		test.assertEquals (all-1), (@count '[_tamia-yep="yes"]'), 'All visible components initialized'
-
-
 	# Hidden components (Component.isInitializable())
 	casper.then ->
 		test.assertNotVisible '.js-hidden-component', 'Hidden component is hidden by default'
@@ -52,14 +45,18 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 	# Dynamic initialization
 	casper.thenEvaluate ->
 		container = (jQuery '.js-container')
-		container.html container.html().replace /_tamia-yep="yes"/g, '',
+		container.html container.html().replace /is-ok/g, '',
 	casper.then ->
 		test.assertExists '.js-container [data-component]', 'There are some new components'
-		test.assertNotExists '.js-container [_tamia-yep]', 'All new components not initialized'
+		test.assertNotExists '.js-container .is-ok', 'All new components not initialized'
 	casper.thenEvaluate ->
+		window.allBefore = (jQuery '.is-ok').length
 		(jQuery '.js-container').trigger 'init.tamia'
+		window.allAfter = (jQuery '.is-ok').length
 	casper.then ->
-		test.assertEquals (@count '[data-component]'), (@count '[_tamia-yep="yes"]'), 'All new components initialized'
+		test.assertEval (->
+				window.allAfter == window.allBefore+1
+			), 'New component initialized'
 
 
 	# Unsupported components (Component.isSupported())
@@ -330,6 +327,8 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		test.assertEval (-> (window.preload_fired is true)), 'Preload: Image preloaded'
 		test.assertEval (-> (window.preload_err is null)), 'Preload: No errors'
 
+	casper.then ->
+		test.assertEvalEquals (-> return window.ERRORS.length), 0, 'No JavaScript errors'
 
 	casper.run ->
 		test.done()

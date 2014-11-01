@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<script>
+var ERRORS = [];
+window.onerror = function(msg, url, line) {
+	ERRORS.push([msg, url, line]);
+};
+</script>
+
 <h2>Layout</h2>
 
 <h3>Columns (1/N)</h3>
