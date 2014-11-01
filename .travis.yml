@@ -4,10 +4,7 @@ node_js:
 before_install:
   - npm install -g grunt-cli
   - git clone git://github.com/n1k0/casperjs.git ~/casperjs
-  - cd ~/casperjs
-  - git checkout tags/1.1-beta2
-  - export PATH=$PATH:`pwd`/bin
-  - cd -
+  - export PATH=$PATH:~/casperjs/bin
 before_script:
   - phantomjs --version
   - casperjs --version
