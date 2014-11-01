@@ -73,10 +73,7 @@ module.exports = (grunt) ->
 				src: 'docs/styles.css'
 				dest: 'Tamia.docset/Contents/Resources/Documents/styles.css'
 		casperjs:
-			options:
-				async:
-					parallel: true
-			tests: 'tests/*.coffee'
+			tests: 'tests/tests.coffee'
 		watch:
 			livereload:
 				options:
