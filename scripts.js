@@ -214,7 +214,7 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // https://github.com/sapegin/tamia
 // JS core
-// jQuery and Modernizr aren’t required but very useful
+// jQuery is required. Modernizr and jQuery.Transitions aren’t required.
 
 /*jshint newcap:false*/
 /*global DEBUG:true, console:false, ga:false, mixpanel:false*/
@@ -232,8 +232,17 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var tamia = window.tamia = {};
 
 	// Shortcuts
+	var $ = jQuery;
 	var slice = Array.prototype.slice;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+	// Custom exception
+	tamia.Error = function(message) {
+		if (DEBUG) warn.apply(null, arguments);
+		this.name = 'TamiaError';
+		this.message = message;
+	};
+	tamia.Error.prototype = new Error();
 
 
 	/**
@@ -324,13 +333,15 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}
 		};
 
+		// Check dependencies
+		if (!jQuery) throw tamia.Error('jQuery not found.');
+
 		// Check optional dependencies
-		if (!jQuery) warn('jQuery not found.');
-		if (!jQuery.Transitions) warn('jQuery Transition Events plugin (tamia/vendor/transition-events.js) not found.');
+		if (jQuery && !jQuery.Transitions) warn('jQuery Transition Events plugin (tamia/vendor/transition-events.js) not found.');
 		if (!Modernizr) warn('Modernizr not found.');
 
 		// Check required Modernizr features
-		$.each([
+		if (Modernizr) $.each([
 			'csstransitions',
 			'cssgradients',
 			'flexbox',
@@ -342,15 +353,6 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	else {
 		tamia.log = tamia.warn = tamia.trace = function() {};
 	}
-
-
-	// Custom exception
-	tamia.Error = function(message) {
-		if (DEBUG) warn.apply(null, arguments);
-		this.name = 'TamiaError';
-		this.message = message;
-	};
-	tamia.Error.prototype = new Error();
 
 
 	var _containersCache;
@@ -418,11 +420,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		// Init components
 		for (var containerIdx = 0, containerCnt = containers.length; containerIdx < containerCnt; containerIdx++) {
 			var container = containers[containerIdx];
+			var $container = $(container);
 			var componentNames = container.getAttribute('data-component').split(' ');
 			for (var componentIdx = 0; componentIdx < componentNames.length; componentIdx++) {
 				var componentName = componentNames[componentIdx];
 				var component = components[componentName];
-				if (!component || container.hasAttribute(_initializedAttribute)) continue;
+				var initializedNames = $container.data(_initializedAttribute) || {};
+
+				if (!component || initializedNames[componentName]) continue;
 
 				var initialized = true;
 				if (component.prototype && component.prototype.__tamia_cmpnt__) {
@@ -437,9 +442,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 					// jQuery plugins shortcut
 					for (var method in component) {
 						var params = component[method];
-						var elem = jQuery(container);
-						if (DEBUG && !jQuery.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
-						if (jQuery.isArray(params)) {
+						var elem = $(container);
+						if (DEBUG && !$.isFunction(elem[method])) warn('jQuery method "%s" not found (used in "%s" component).', method, componentName);
+						if ($.isArray(params)) {
 							elem[method].apply(elem, params);
 						}
 						else {
@@ -449,7 +454,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				}
 
 				if (initialized !== false) {
-					container.setAttribute(_initializedAttribute, 'yes');
+					initializedNames[componentName] = true;
+					$container.data(_initializedAttribute, initializedNames);
 				}
 			}
 		}
@@ -526,506 +532,502 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	};
 
 
-	if (jQuery) {
-
-		var _doc = jQuery(document);
-		var _hiddenState = 'hidden';
-		var _transitionSate = 'transit';
-		var _statePrefix = 'is-';
-		var _statesData = 'tamia-states';
-		var _appearedEvent = 'appeared.tamia';
-		var _disappearedEvent = 'disappeared.tamia';
-		var _toggledEvent = 'disappeared.tamia';
+	var _doc = $(document);
+	var _hiddenState = 'hidden';
+	var _transitionSate = 'transit';
+	var _statePrefix = 'is-';
+	var _statesData = 'tamia-states';
+	var _appearedEvent = 'appeared.tamia';
+	var _disappearedEvent = 'disappeared.tamia';
+	var _toggledEvent = 'disappeared.tamia';
 
 
-		/**
-		 * Animations management
-		 */
-		var _animations = {};
+	/**
+	 * Animations management
+	 */
+	var _animations = {};
 
-		/**
-		 * Registers an animation.
-		 *
-		 * @param {Object} animations Animations list.
-		 *
-		 * Example:
-		 *
-		 *   tamia.registerAnimations({
-		 *      slide: function(elem, done) {
-		 *        $(elem).slideDown(done);
-		 *      }
-		 *   });
-		 *   $('.js-elem').trigger('animate.tamia', 'slide');
-		 */
-		tamia.registerAnimations = function(animations) {
-			jQuery.extend(_animations, animations);
-		};
-
-
-		/**
-		 * Events management
-		 */
-
-		/**
-		 * Registers Tâmia events (eventname.tamia) on document.
-		 *
-		 * @param {Object} handlers Handlers list.
-		 *
-		 * Example:
-		 *
-		 *   // Registers enable.tamia event.
-		 *   tamia.registerEvents({
-		 *      enable: function(elem) {
-		 *      }
-		 *   });
-		 */
-		tamia.registerEvents = function(handlers) {
-			var events = $.map(handlers, _tamiaze).join(' ');
-			_doc.on(events, function(event) {
-				var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
-				var args = slice.call(arguments);
-				args[0] = event.target;
-				if (DEBUG) log('Event "%s":', eventName, args);
-				handlers[eventName].apply(null, args);
-			});
-		};
-
-		var _tamiaze = function (handler, name) {
-			return name + '.tamia';
-		};
+	/**
+	 * Registers an animation.
+	 *
+	 * @param {Object} animations Animations list.
+	 *
+	 * Example:
+	 *
+	 *   tamia.registerAnimations({
+	 *      slide: function(elem, done) {
+	 *        $(elem).slideDown(done);
+	 *      }
+	 *   });
+	 *   $('.js-elem').trigger('animate.tamia', 'slide');
+	 */
+	tamia.registerAnimations = function(animations) {
+		$.extend(_animations, animations);
+	};
 
 
-		/**
-		 * Events
-		 */
-		var _handlers = {};
+	/**
+	 * Events management
+	 */
 
-		/**
-		 * Init components inside any jQuery node.
-		 *
-		 * @event init.tamia
-		 *
-		 * Examples:
-		 *
-		 *   $(document).trigger('init.tamia');
-		 *   $('.js-container').trigger('init.tamia');
-		 */
-		_handlers.init = function(elem) {
-			tamia.initComponents(undefined, elem);
-		};
+	/**
+	 * Registers Tâmia events (eventname.tamia) on document.
+	 *
+	 * @param {Object} handlers Handlers list.
+	 *
+	 * Example:
+	 *
+	 *   // Registers enable.tamia event.
+	 *   tamia.registerEvents({
+	 *      enable: function(elem) {
+	 *      }
+	 *   });
+	 */
+	tamia.registerEvents = function(handlers) {
+		var events = $.map(handlers, _tamiaze).join(' ');
+		_doc.on(events, function(event) {
+			var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
+			var args = slice.call(arguments);
+			args[0] = event.target;
+			if (DEBUG) log('Event "%s":', eventName, args);
+			handlers[eventName].apply(null, args);
+		});
+	};
 
-		/**
-		 * Show element with CSS transition.
-		 *
-		 * @event appear.tamia
-		 *
-		 * appeared.tamia and toggled.tamia events will be fired the moment transition ends.
-		 *
-		 * Example:
-		 *
-		 *   .dialog
-		 *     transition: opacity .5s ease-in-out
-		 *     &.is-hidden
-		 *       opacity: 0
-		 *
-		 *   <div class="dialog is-hidden js-dialog">...</div>
-		 *
-		 *   $('.js-dialog').trigger('appear.tamia');
-		 */
-		_handlers.appear = function(elem) {
-			elem = $(elem);
-			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasState(_transitionSate) && !elem.hasState(_hiddenState)) return;
-				elem.addState(_transitionSate);
-				setTimeout(function() {
-					elem.removeState(_hiddenState);
-					elem.afterTransition(function() {
-						elem.removeState(_transitionSate);
-						elem.trigger(_appearedEvent);
-						elem.trigger(_toggledEvent, true);
-					});
-				}, 0);
-			}
-			else {
+	var _tamiaze = function (handler, name) {
+		return name + '.tamia';
+	};
+
+
+	/**
+	 * Events
+	 */
+	var _handlers = {};
+
+	/**
+	 * Init components inside any jQuery node.
+	 *
+	 * @event init.tamia
+	 *
+	 * Examples:
+	 *
+	 *   $(document).trigger('init.tamia');
+	 *   $('.js-container').trigger('init.tamia');
+	 */
+	_handlers.init = function(elem) {
+		tamia.initComponents(undefined, elem);
+	};
+
+	/**
+	 * Show element with CSS transition.
+	 *
+	 * @event appear.tamia
+	 *
+	 * appeared.tamia and toggled.tamia events will be fired the moment transition ends.
+	 *
+	 * Example:
+	 *
+	 *   .dialog
+	 *     transition: opacity .5s ease-in-out
+	 *     &.is-hidden
+	 *       opacity: 0
+	 *
+	 *   <div class="dialog is-hidden js-dialog">...</div>
+	 *
+	 *   $('.js-dialog').trigger('appear.tamia');
+	 */
+	_handlers.appear = function(elem) {
+		elem = $(elem);
+		if (Modernizr && Modernizr.csstransitions) {
+			if (elem.hasState(_transitionSate) && !elem.hasState(_hiddenState)) return;
+			elem.addState(_transitionSate);
+			setTimeout(function() {
 				elem.removeState(_hiddenState);
-				elem.trigger(_appearedEvent);
-				elem.trigger(_toggledEvent, true);
-			}
-		};
-
-		/**
-		 * Hide element with CSS transition.
-		 *
-		 * @event disappear.tamia
-		 *
-		 * disappeared.tamia and toggled.tamia events will be fired the moment transition ends.
-		 *
-		 * Opposite of `appear.tamia` event.
-		 */
-		_handlers.disappear = function(elem) {
-			elem = $(elem);
-			if (Modernizr && Modernizr.csstransitions) {
-				if (elem.hasState(_transitionSate) && elem.hasState(_hiddenState)) return;
-				elem.addState(_transitionSate);
-				elem.addState(_hiddenState);
 				elem.afterTransition(function() {
 					elem.removeState(_transitionSate);
-					elem.trigger(_disappearedEvent);
-					elem.trigger(_toggledEvent, false);
+					elem.trigger(_appearedEvent);
+					elem.trigger(_toggledEvent, true);
 				});
-			}
-			else {
-				elem.addState(_hiddenState);
+			}, 0);
+		}
+		else {
+			elem.removeState(_hiddenState);
+			elem.trigger(_appearedEvent);
+			elem.trigger(_toggledEvent, true);
+		}
+	};
+
+	/**
+	 * Hide element with CSS transition.
+	 *
+	 * @event disappear.tamia
+	 *
+	 * disappeared.tamia and toggled.tamia events will be fired the moment transition ends.
+	 *
+	 * Opposite of `appear.tamia` event.
+	 */
+	_handlers.disappear = function(elem) {
+		elem = $(elem);
+		if (Modernizr && Modernizr.csstransitions) {
+			if (elem.hasState(_transitionSate) && elem.hasState(_hiddenState)) return;
+			elem.addState(_transitionSate);
+			elem.addState(_hiddenState);
+			elem.afterTransition(function() {
+				elem.removeState(_transitionSate);
 				elem.trigger(_disappearedEvent);
 				elem.trigger(_toggledEvent, false);
-			}
-		};
+			});
+		}
+		else {
+			elem.addState(_hiddenState);
+			elem.trigger(_disappearedEvent);
+			elem.trigger(_toggledEvent, false);
+		}
+	};
 
-		/**
-		 * Toggles element’s visibility with CSS transition.
-		 *
-		 * @event toggle.tamia
-		 *
-		 * See `appear.tamia` event for details.
-		 */
-		_handlers.toggle = function(elem) {
-			elem = $(elem);
-			if (elem.hasState(_hiddenState)) {
-				_handlers.appear(elem);
+	/**
+	 * Toggles element’s visibility with CSS transition.
+	 *
+	 * @event toggle.tamia
+	 *
+	 * See `appear.tamia` event for details.
+	 */
+	_handlers.toggle = function(elem) {
+		elem = $(elem);
+		if (elem.hasState(_hiddenState)) {
+			_handlers.appear(elem);
+		}
+		else {
+			_handlers.disappear(elem);
+		}
+	};
+
+	/**
+	 * Runs animation on an element.
+	 *
+	 * @event animate.tamia
+	 *
+	 * @param {String|Function} animation Animation name, CSS class name or JS function.
+	 * @param {Function} [done] Animation end callback.
+	 *
+	 * Animation name should be registered via `tamia.registerAnimations` function.
+	 */
+	_handlers.animate = function(elem, animation, done) {
+		if (done === undefined) done = function() {};
+		setTimeout(function() {
+			if (_animations[animation]) {
+				_animations[animation](elem, done);
+			}
+			else if ($.isFunction(animation)) {
+				animation(elem, done);
 			}
 			else {
-				_handlers.disappear(elem);
-			}
-		};
-
-		/**
-		 * Runs animation on an element.
-		 *
-		 * @event animate.tamia
-		 *
-		 * @param {String|Function} animation Animation name, CSS class name or JS function.
-		 * @param {Function} [done] Animation end callback.
-		 *
-		 * Animation name should be registered via `tamia.registerAnimations` function.
-		 */
-		_handlers.animate = function(elem, animation, done) {
-			if (done === undefined) done = function() {};
-			setTimeout(function() {
-				if (_animations[animation]) {
-					_animations[animation](elem, done);
-				}
-				else if (jQuery.isFunction(animation)) {
-					animation(elem, done);
+				var animationDone = function() {
+					elem.removeClass(animation);
+					done();
+				};
+				elem = $(elem);
+				elem.addClass(animation);
+				if (elem.css('animation')) {
+					elem.one('animationend webkitAnimationEnd MSAnimationEnd', animationDone);
 				}
 				else {
-					var animationDone = function() {
-						elem.removeClass(animation);
-						done();
-					};
-					elem = $(elem);
-					elem.addClass(animation);
-					if (elem.css('animation')) {
-						elem.one('animationend webkitAnimationEnd MSAnimationEnd', animationDone);
-					}
-					else {
-						elem.afterTransition(done);
-					}
+					elem.afterTransition(done);
 				}
-			}, 0);
-		};
-
-		tamia.registerEvents(_handlers);
-
-
-		/**
-		 * Controls.
-		 *
-		 * Fires jQuery event to specified element on click at this element.
-		 *
-		 * @attribute data-fire
-		 *
-		 * @param data-fire Event name.
-		 * @param [data-target] Target element selector.
-		 * @param [data-closest] Target element selector: search only through element ancestors.
-		 * @param [data-attrs] Comma separated attributes list.
-		 *
-		 * Either of data-target or data-closest is required.
-		 *
-		 * Example:
-		 *
-		 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
-		 *
-		 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
-		 */
-		 _doc.on('click', '[data-fire]', function(event) {
-			var elem = jQuery(event.currentTarget);
-
-			var data = elem.data();
-			if (DEBUG) if (!data.target && !data.closest) return log('You should define either data-target or data-closest on', elem[0]);
-
-			var target = data.target && jQuery(data.target) || elem.closest(data.closest);
-			if (DEBUG) if (!target.length) return log('Target element %s not found for', data.target || data.closest, elem[0]);
-
-			var attrs = data.attrs;
-			if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
-			target.trigger(data.fire, attrs ? attrs.split(/[;, ]/) : undefined);
-
-			event.preventDefault();
-		});
-
-
-		/**
-		 * States management
-		 */
-
-		/**
-		 * Toggles specified state on an element.
-		 *
-		 * State is a special CSS class: .is-name.
-		 *
-		 * @param {String} name State name.
-		 * @param {Boolean} [value] Add/remove state.
-		 * @return {jQuery}
-		 */
-		jQuery.fn.toggleState = function(name, value) {
-			return this.each(function() {
-				var elem = $(this);
-				var states = _getStates(elem);
-				if (value === undefined) value = !states[name];
-				else if (value === states[name]) return;
-				states[name] = value;
-				elem.toggleClass(_statePrefix + name, value);
-			});
-		};
-
-		/**
-		 * Adds specified state to an element.
-		 *
-		 * @param {String} name State name.
-		 * @return {jQuery}
-		 */
-		jQuery.fn.addState = function(name) {
-			return this.toggleState(name, true);
-		};
-
-		/**
-		 * Removes specified state from an element.
-		 *
-		 * @param {String} name State name.
-		 * @return {jQuery}
-		 */
-		jQuery.fn.removeState = function(name) {
-			return this.toggleState(name, false);
-		};
-
-		/**
-		 * Returns whether an element has specified state.
-		 *
-		 * @param {String} name State name.
-		 * @return {Boolean}
-		 */
-		jQuery.fn.hasState = function(name) {
-			var states = _getStates(this);
-			return !!states[name];
-		};
-
-		var _getStates = function(elem) {
-			var states = elem.data(_statesData);
-			if (!states) {
-				states = {};
-				var classes = elem[0].classList || elem[0].className.split(' ');
-				for (var classIdx = 0; classIdx < classes.length; classIdx++) {
-					var cls = classes[classIdx];
-					if (cls.slice(0, 3) === _statePrefix) {
-						states[cls.slice(3)] = true;
-					}
-				}
-				elem.data(_statesData, states);
 			}
-			return states;
-		};
+		}, 0);
+	};
+
+	tamia.registerEvents(_handlers);
 
 
+	/**
+	 * Controls.
+	 *
+	 * Fires jQuery event to specified element on click at this element.
+	 *
+	 * @attribute data-fire
+	 *
+	 * @param data-fire Event name.
+	 * @param [data-target] Target element selector.
+	 * @param [data-closest] Target element selector: search only through element ancestors.
+	 * @param [data-attrs] Comma separated attributes list.
+	 *
+	 * Either of data-target or data-closest is required.
+	 *
+	 * Example:
+	 *
+	 *   <span data-fire="slider-next" data-target=".portfolio" data-attrs="1,2,3">Next</span>
+	 *
+	 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
+	 */
+	 _doc.on('click', '[data-fire]', function(event) {
+		var elem = $(event.currentTarget);
+
+		var data = elem.data();
+		if (DEBUG) if (!data.target && !data.closest) return log('You should define either data-target or data-closest on', elem[0]);
+
+		var target = data.target && $(data.target) || elem.closest(data.closest);
+		if (DEBUG) if (!target.length) return log('Target element %s not found for', data.target || data.closest, elem[0]);
+
+		var attrs = data.attrs;
+		if (DEBUG) log('Fire "%s" with attrs [%s] on', data.fire, attrs || '', target);
+		target.trigger(data.fire, attrs ? attrs.split(/[;, ]/) : undefined);
+
+		event.preventDefault();
+	});
+
+
+	/**
+	 * States management
+	 */
+
+	/**
+	 * Toggles specified state on an element.
+	 *
+	 * State is a special CSS class: .is-name.
+	 *
+	 * @param {String} name State name.
+	 * @param {Boolean} [value] Add/remove state.
+	 * @return {jQuery}
+	 */
+	jQuery.fn.toggleState = function(name, value) {
+		return this.each(function() {
+			var elem = $(this);
+			var states = _getStates(elem);
+			if (value === undefined) value = !states[name];
+			else if (value === states[name]) return;
+			states[name] = value;
+			elem.toggleClass(_statePrefix + name, value);
+		});
+	};
+
+	/**
+	 * Adds specified state to an element.
+	 *
+	 * @param {String} name State name.
+	 * @return {jQuery}
+	 */
+	jQuery.fn.addState = function(name) {
+		return this.toggleState(name, true);
+	};
+
+	/**
+	 * Removes specified state from an element.
+	 *
+	 * @param {String} name State name.
+	 * @return {jQuery}
+	 */
+	jQuery.fn.removeState = function(name) {
+		return this.toggleState(name, false);
+	};
+
+	/**
+	 * Returns whether an element has specified state.
+	 *
+	 * @param {String} name State name.
+	 * @return {Boolean}
+	 */
+	jQuery.fn.hasState = function(name) {
+		var states = _getStates(this);
+		return !!states[name];
+	};
+
+	var _getStates = function(elem) {
+		var states = elem.data(_statesData);
+		if (!states) {
+			states = {};
+			var classes = elem[0].classList || elem[0].className.split(' ');
+			for (var classIdx = 0; classIdx < classes.length; classIdx++) {
+				var cls = classes[classIdx];
+				if (cls.slice(0, 3) === _statePrefix) {
+					states[cls.slice(3)] = true;
+				}
+			}
+			elem.data(_statesData, states);
+		}
+		return states;
+	};
+
+
+	/**
+	 * Templates
+	 */
+
+	/**
+	 * Simplest template.
+	 *
+	 * Just replaces {something} with data.something.
+	 *
+	 * @param {String} tmpl Template.
+	 * @param {String} data Template context.
+	 * @return {String} HTML.
+	 */
+	tamia.stmpl = function(tmpl, data) {
+		return tmpl.replace(/\{([^\}]+)\}/g, function(m, key) {
+			return data[key] || '';
+		});
+	};
+
+	var _templates = window.__templates;
+	if (_templates) {
 		/**
-		 * Templates
-		 */
-
-		/**
-		 * Simplest template.
+		 * Invokes precompiled template.
 		 *
-		 * Just replaces {something} with data.something.
+		 * Templates should be stored in window.__templates.
 		 *
-		 * @param {String} tmpl Template.
+		 * @param {String} tmplId Template ID.
 		 * @param {String} data Template context.
 		 * @return {String} HTML.
 		 */
-		tamia.stmpl = function(tmpl, data) {
-			return tmpl.replace(/\{([^\}]+)\}/g, function(m, key) {
-				return data[key] || '';
+		tamia.tmpl = function(tmplId, data) {
+			var tmpl = _templates[tmplId];
+			if (DEBUG) if (!tmpl) warn('Template %s not found.', tmplId);
+			return tmpl(data);
+		};
+
+		/**
+		 * Replaces jQuery node’s content with the result of template invocation.
+		 *
+		 * @param {String} tmplId Template ID.
+		 * @param {String} data Template context.
+		 * @return {jQuery}
+		 */
+		jQuery.fn.tmpl = function(tmplId, data) {
+			var html = tamia.tmpl(tmplId, data);
+			return $(this).html(html);
+		};
+	}
+
+
+	/**
+	 * Google Analytics or Mixpanel events tracking.
+	 *
+	 * @param data-track Event name ('link' if empty).
+	 * @param [data-track-extra] Extra data.
+	 *
+	 * @attribute data-track
+	 *
+	 * Examples:
+	 *
+	 *   <a href="http://github.com/" data-track>GitHub</span>
+	 *   <span class="js-slider-next" data-track="slider" data-track-extra="next">Next</span>
+	 */
+	if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
+		var mp = 'mixpanel' in window;
+		var elem = $(event.currentTarget);
+		var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');
+		var eventExtra = elem.data('track-extra') || (mp ? undefined : 'click');
+		var url = elem.attr('href');
+		var link = url && !event.metaKey && !event.ctrlKey;
+		var callback;
+		if (link) {
+			event.preventDefault();
+			callback = function() {
+				document.location = url;
+			};
+		}
+		if (mp) {
+			var props = {URL: url};
+			if (eventExtra) props.Extra = eventExtra;
+			mixpanel.track(eventName, props, callback);
+		}
+		else {
+			ga('send', 'event', eventName, eventExtra, url, {hitCallback: callback});
+		}
+	});
+
+
+	/**
+	 * Grid debugger.
+	 *
+	 * Hotkeys:
+	 *
+	 * - ? - Toggle help.
+	 * - g - Toggle grid.
+	 * - o - Toggle layout outlines.
+	 * - a - Toggle all elements outlines.
+	 */
+	if (DEBUG) {
+		var layoutClassesAdded = false;
+		var gridDebugger;
+
+		var toggleGrid = function() {
+			addLayoutClasses();
+			addGrid();
+			gridDebugger.trigger('toggle.tamia');
+		};
+
+		var toggleOutline = function() {
+			addLayoutClasses();
+			$('body').toggleClass('tamia__show-layout-outlines');
+		};
+
+		var toggleAllOutline = function() {
+			$('body').toggleClass('tamia__show-all-outlines');
+		};
+
+		var toggleHelp = function() {
+			var cls = 'tamia__show-help';
+			var body = $('body');
+			body.toggleClass(cls);
+			if (body.hasClass(cls)) {
+				body.append($('<div class="tamia__help">').html('<ul>' +
+					'<li><kbd>G</kbd> Toggle grid</li>' +
+					'<li><kbd>O</kbd> Toggle columns outlines</li>' +
+					'<li><kbd>A</kbd> Toggle all elements outlines</li>' +
+				'</ul>'));
+			}
+			else {
+				$('.tamia__help').remove();
+			}
+		};
+
+		var addLayoutClasses = function() {
+			if (layoutClassesAdded) return;
+			$('*').each(function() {
+				var elem = $(this);
+				var content = elem.css('content');
+				if (/^tamia__/.test(content)) {
+					elem.addClass(content);
+				}
+			});
+			layoutClassesAdded = true;
+		};
+
+		var addGrid = function() {
+			var firstRow = $('.tamia__grid-row:visible,.tamia__layout-row:visible').first();
+			if (!firstRow.length) return;
+
+			if (!gridDebugger) {
+				var columns = 12;  // @todo Use real number of columns
+				gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
+				gridDebugger.html(new Array(columns + 1).join('<b class="tamia__grid-debugger-col"></b>'));
+				firstRow.prepend(gridDebugger);
+			}
+
+			gridDebugger.css({
+				'margin-top': -(firstRow.offset().top + parseInt(firstRow.css('padding-top') || 0, 10)),
+				'height': $(document).height()
 			});
 		};
 
-		var _templates = window.__templates;
-		if (_templates) {
-			/**
-			 * Invokes precompiled template.
-			 *
-			 * Templates should be stored in window.__templates.
-			 *
-			 * @param {String} tmplId Template ID.
-			 * @param {String} data Template context.
-			 * @return {String} HTML.
-			 */
-			tamia.tmpl = function(tmplId, data) {
-				var tmpl = _templates[tmplId];
-				if (DEBUG) if (!tmpl) warn('Template %s not found.', tmplId);
-				return tmpl(data);
-			};
+		_doc.on('keydown', function(event) {
+			var activeTag = document.activeElement.tagName;
+			if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
 
-			/**
-			 * Replaces jQuery node’s content with the result of template invocation.
-			 *
-			 * @param {String} tmplId Template ID.
-			 * @param {String} data Template context.
-			 * @return {jQuery}
-			 */
-			jQuery.fn.tmpl = function(tmplId, data) {
-				var html = tamia.tmpl(tmplId, data);
-				return jQuery(this).html(html);
-			};
-		}
+			var keycode = event.which;
+			var func = {
+				71: toggleGrid,  // G
+				79: toggleOutline,  // O
+				65: toggleAllOutline,  // A
+				191: toggleHelp  // ?
+			}[keycode];
+			if (!func) return;
 
-
-		/**
-		 * Google Analytics or Mixpanel events tracking.
-		 *
-		 * @param data-track Event name ('link' if empty).
-		 * @param [data-track-extra] Extra data.
-		 *
-		 * @attribute data-track
-		 *
-		 * Examples:
-		 *
-		 *   <a href="http://github.com/" data-track>GitHub</span>
-		 *   <span class="js-slider-next" data-track="slider" data-track-extra="next">Next</span>
-		 */
-		if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
-			var mp = 'mixpanel' in window;
-			var elem = jQuery(event.currentTarget);
-			var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');
-			var eventExtra = elem.data('track-extra') || (mp ? undefined : 'click');
-			var url = elem.attr('href');
-			var link = url && !event.metaKey && !event.ctrlKey;
-			var callback;
-			if (link) {
-				event.preventDefault();
-				callback = function() {
-					document.location = url;
-				};
-			}
-			if (mp) {
-				var props = {URL: url};
-				if (eventExtra) props.Extra = eventExtra;
-				mixpanel.track(eventName, props, callback);
-			}
-			else {
-				ga('send', 'event', eventName, eventExtra, url, {hitCallback: callback});
-			}
+			func();
+			event.preventDefault();
 		});
-
-
-		/**
-		 * Grid debugger.
-		 *
-		 * Hotkeys:
-		 *
-		 * - ? - Toggle help.
-		 * - g - Toggle grid.
-		 * - o - Toggle layout outlines.
-		 * - a - Toggle all elements outlines.
-		 */
-		if (DEBUG) {
-			var layoutClassesAdded = false;
-			var gridDebugger;
-
-			var toggleGrid = function() {
-				addLayoutClasses();
-				addGrid();
-				gridDebugger.trigger('toggle.tamia');
-			};
-
-			var toggleOutline = function() {
-				addLayoutClasses();
-				jQuery('body').toggleClass('tamia__show-layout-outlines');
-			};
-
-			var toggleAllOutline = function() {
-				jQuery('body').toggleClass('tamia__show-all-outlines');
-			};
-
-			var toggleHelp = function() {
-				var cls = 'tamia__show-help';
-				var body = jQuery('body');
-				body.toggleClass(cls);
-				if (body.hasClass(cls)) {
-					body.append($('<div class="tamia__help">').html('<ul>' +
-						'<li><kbd>G</kbd> Toggle grid</li>' +
-						'<li><kbd>O</kbd> Toggle columns outlines</li>' +
-						'<li><kbd>A</kbd> Toggle all elements outlines</li>' +
-					'</ul>'));
-				}
-				else {
-					$('.tamia__help').remove();
-				}
-			};
-
-			var addLayoutClasses = function() {
-				if (layoutClassesAdded) return;
-				jQuery('*').each(function() {
-					var elem = $(this);
-					var content = elem.css('content');
-					if (/^tamia__/.test(content)) {
-						elem.addClass(content);
-					}
-				});
-				layoutClassesAdded = true;
-			};
-
-			var addGrid = function() {
-				var firstRow = jQuery('.tamia__grid-row:visible,.tamia__layout-row:visible').first();
-				if (!firstRow.length) return;
-
-				if (!gridDebugger) {
-					var columns = 12;  // @todo Use real number of columns
-					gridDebugger = $('<div>', {'class': 'tamia__grid-debugger is-hidden'});
-					gridDebugger.html(new Array(columns + 1).join('<b class="tamia__grid-debugger-col"></b>'));
-					firstRow.prepend(gridDebugger);
-				}
-
-				gridDebugger.css({
-					'margin-top': -(firstRow.offset().top + parseInt(firstRow.css('padding-top') || 0, 10)),
-					'height': $(document).height()
-				});
-			};
-
-			_doc.on('keydown', function(event) {
-				var activeTag = document.activeElement.tagName;
-				if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
-
-				var keycode = event.which;
-				var func = {
-					71: toggleGrid,  // G
-					79: toggleOutline,  // O
-					65: toggleAllOutline,  // A
-					191: toggleHelp  // ?
-				}[keycode];
-				if (!func) return;
-
-				func();
-				event.preventDefault();
-			});
-
-		}
 
 	}
 
@@ -1218,10 +1220,124 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var _formElementsSelector = '.field,.button,.disablable';
 	var _disabledState = 'disabled';
 
-	var _toggle = function(elem, enable) {
+	/**
+	 * Ajax form
+	 */
+	var Form = tamia.extend(tamia.Component, {
+		binded: 'submit success error',
+
+		init: function() {
+			//tamia.trace(this, 'Form');
+
+			this.method = this.elem.data('method') || 'post';
+			this.dataType = this.elem.data('form-type') || 'json';
+			this.url = this.elem.data('form-action');
+			if (DEBUG && !this.url) throw tamia.Error('Form: data-form-action not defined.');
+
+			this.successElem = this.elem.find('.js-form-success');
+			if (this.successElem.length) this.defaultMessage = this.successElem.html();
+
+			this.errorElem = this.elem.find('.js-form-error');
+			if (this.errorElem.length) this.defaultError = this.errorElem.html();
+
+			this.elem.on('submit', this.submit_);
+		},
+
+		submit: function(event) {
+			var fields = this.serialize();
+
+			var sendEvent = $.Event('send.form.tamia', fields);
+			this.elem.trigger(sendEvent);
+			if (sendEvent.isDefaultPrevented()) return;
+
+			this.elem.removeState('success');
+			this.elem.removeState('error');
+			this.elem.addState('sending');
+			this.elem.trigger('lock.form.tamia');
+
+			$.ajax({
+				method: this.method,
+				url: this.url,
+				data: fields,
+				dataType: this.dataType,
+				success: this.success_,
+				error: this.error_
+			});
+
+			event.preventDefault();
+		},
+
+		success: function(data) {
+			if (data.result === 'success') {
+				this.done('success');
+				var message = this.elem.triggerHandler('success.form.tamia', data || {});
+				if (this.successElem.length) this.successElem.html(message || this.defaultMessage);
+				this.elem[0].reset();
+			}
+			else {
+				this.error(data);
+			}
+		},
+
+		error: function(data) {
+			this.done('error');
+			var message = this.elem.triggerHandler('error.form.tamia', data || {});
+			if (this.errorElem.length) this.errorElem.html(message || this.defaultError);
+		},
+
+		done: function(state) {
+			this.elem.addState(state);
+			this.elem.removeState('sending');
+			this.elem.trigger('unlock.form.tamia');
+		},
+
+		serialize: function() {
+			var fields = {};
+			var array = this.elem.serializeArray();
+			$.each(array, function(index, field) {
+				fields[field.name] = field.value;
+			});
+			return fields;
+		}
+	});
+
+	tamia.initComponents({form: Form});
+
+
+	/**
+	 * Disable submit button on submit
+	 */
+	var AutoLock = tamia.extend(tamia.Component, {
+		binded: 'submit',
+
+		init: function() {
+			// tamia.trace(this, 'AutoLock');
+			this.elem.on('submit', this.submit_);
+		},
+
+		submit: function(event) {
+			this.elem.trigger('lock.form.tamia');
+		}
+	});
+
+	tamia.initComponents({autolock: AutoLock});
+
+
+	var _toggle_fields = function(elem, enable) {
 		var formElements = $(elem).find(_formElementsSelector).addBack(_formElementsSelector);
-		formElements.toggleState(_disabledState, !enable);
-		formElements.attr('disabled', !enable);
+		_toggle(formElements, enable);
+	};
+
+	var _toggle_submit = function(form, enable) {
+		var submitButton = $(form).find('[type="submit"]');
+		_toggle(submitButton, enable);
+	};
+
+	var _toggle = function(elem, enable) {
+		$(elem)
+			.toggleState(_disabledState, !enable)
+			.attr('disabled', !enable)
+		;
 	};
 
 	// Events
@@ -1229,15 +1345,29 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		/**
 		 * Enables all descendant form elements.
 		 */
-		enable: function(elem) {
-			_toggle(elem, true);
+		'enable.form': function(elem) {
+			_toggle_fields(elem, true);
 		},
 
 		/**
 		 * Disables all descendant form elements.
 		 */
-		disable: function(elem) {
-			_toggle(elem, false);
+		'disable.form': function(elem) {
+			_toggle_fields(elem, false);
+		},
+
+		/**
+		 * Enables submit button of a form.
+		 */
+		'unlock.form': function(elem) {
+			_toggle_submit(elem, true);
+		},
+
+		/**
+		 * Disables submit button of a form.
+		 */
+		'lock.form': function(elem) {
+			_toggle_submit(elem, false);
 		}
 	});
 
@@ -1347,7 +1477,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 
 		shadeClick: function(event) {
-			if ($(event.target).hasClass('js-modal')) {
+			if ($(event.target).hasClass('js-modal') && this.elem.data('modal-close-on-shade') !== 'no') {
 				this.dismiss(event);
 			}
 		}
@@ -1360,6 +1490,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			var modal = container.data('modal');
 			if (!modal) modal = new Modal(elem);
 			modal.open();
+		},
+		'close.modal': function(elem) {
+			var container = $(elem);
+			var modal = container.data('modal');
+			if (!modal) return;
+			modal.close();
 		}
 	});
 

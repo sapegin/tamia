@@ -103,10 +103,34 @@
 <span class="class">.col1</span>
   <span class="function">grid-col(<span class="number">1</span>,<span class="number">2</span>)</span>
 <span class="class">.col2</span>
-  <span class="function">grid-col(<span class="number">3</span>,<span class="number">10</span>)</span></code></pre><h4 id='grid-explode'>grid-explode()</h4>
+  <span class="function">grid-col(<span class="number">3</span>,<span class="number">10</span>)</span></code></pre><h4 id='grid-col-row'>grid-col-row(position, span, context)</h4>
 
-<p>Gutter size negative margin to make column with different background.
-You should adjust padding depending on content.</p>
+<p>Column and wrapper for nested columns (grid).</p>
+<ul>
+<li><strong>position</strong> Start column number (default: 1).</li>
+<li><strong>span</strong> Width, in culumns (default: 1).</li>
+<li><strong>context</strong> Width of parent column (default: null).</li>
+</ul>
+<h5 id="example">Example</h5>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col1"</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col3"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col4"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+   <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+
+<pre><code class="scss"><span class="class">.row</span>
+  <span class="function">grid-row()</span>
+<span class="class">.col1</span>
+  <span class="function">grid-col-row(<span class="number">1</span>,<span class="number">8</span>)</span>
+<span class="class">.col2</span>, <span class="class">.col3</span>, <span class="class">.col4</span>
+  <span class="function">grid-col(...)</span></code></pre><h4 id='grid-explode'>grid-explode(full)</h4>
+
+<p>Gutter size negative margin to make column with different background.</p>
+<ul>
+<li><strong>full</strong> Explode to all sides if true, left/right otherwise (default: false).</li>
+</ul>
 <h4 id='grid-width'>grid-width(span, context)</h4>
 
 <p>Width of column, in percent.</p>
@@ -200,6 +224,12 @@ You should adjust padding depending on content.</p>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='.l-right'>.l-right</h4>
 
 <p>Flexible columns with right text alignment (to use inside .l-row).</p>
+<h4 id='.l-pull-left'>.l-pull-left</h4>
+
+<p>Pull left (float: left).</p>
+<h4 id='.l-pull-right'>.l-pull-right</h4>
+
+<p>Pull right (float: right).</p>
 <h4 id='.l-center'>.l-center</h4>
 
 <p>Centered content (vertically and horizontally).</p>
@@ -207,6 +237,7 @@ You should adjust padding depending on content.</p>
 <pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-center"</span>&gt;</span>
   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-center-i"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">span</span>&gt;</span>Centered content<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="comment">&lt;!--div class="l-center__wrap"&gt;Centered content&lt;/span--&gt;</span>
   <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='.l-centered'>.l-centered</h4>
 
@@ -466,12 +497,6 @@ You should adjust padding depending on content.</p>
 <ul>
 <li><strong>color</strong> Text color.</li>
 <li><strong>background</strong> Background color.</li>
-</ul>
-<h4 id='placeholder-color'>placeholder-color(color)</h4>
-
-<p>Input placeholder color.</p>
-<ul>
-<li><strong>color</strong> Placeholder color.</li>
 </ul>
 <h4 id='no-select'>no-select()</h4>
 

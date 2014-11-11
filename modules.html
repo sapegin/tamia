@@ -258,25 +258,80 @@
 
 <h2 id='form'>Form</h2>
 
-<p>Basic form controls: inputs, textareas, buttons.</p>
+<p>Basic form controls: inputs, textareas, buttons, form layouts and helpers.</p>
 <h3 id="markup">Markup</h3>
 <p>Controls:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field"</span> <span class="attribute">name</span>=<span class="value">"name"</span>&gt;</span>
 <span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field field_area"</span> <span class="attribute">name</span>=<span class="value">"message"</span>&gt;</span><span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
-<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">class</span>=<span class="value">"button"</span> <span class="attribute">value</span>=<span class="value">"Send!"</span>&gt;</span></code></pre><h3 id="events">Events</h3>
-<h4 id="enable-tamia-disable-tamia">enable.tamia / disable.tamia</h4>
-<p>Enables / disables all descendant form elements.</p>
-<h3 id="skin">Skin</h3>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">class</span>=<span class="value">"button"</span> <span class="attribute">value</span>=<span class="value">"Send!"</span>&gt;</span></code></pre><p>Block controls:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field field_block"</span> <span class="attribute">name</span>=<span class="value">"name"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">class</span>=<span class="value">"button button_block"</span> <span class="attribute">value</span>=<span class="value">"Send!"</span>&gt;</span></code></pre><p>Field with unit:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"field-with-unit field-with-unit_left"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"summ"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">pattern</span>=<span class="value">"\d*"</span> <span class="attribute">class</span>=<span class="value">"field field-with-unit__field"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"summ"</span> <span class="attribute">class</span>=<span class="value">"field-with-unit__unit"</span>&gt;</span>€<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><p>Layout:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">class</span>=<span class="value">"form form_block"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__group"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__row"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"field1"</span> <span class="attribute">class</span>=<span class="value">"form__label"</span>&gt;</span>Name<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__widget"</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"field1"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__row"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"field2"</span> <span class="attribute">class</span>=<span class="value">"form__label"</span>&gt;</span>Email<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__widget"</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"field2"</span> <span class="attribute">type</span>=<span class="value">"email"</span> <span class="attribute">class</span>=<span class="value">"field"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__row"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">class</span>=<span class="value">"button js-button-1"</span> <span class="attribute">value</span>=<span class="value">"Boom!"</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre><p>Messages:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"alert"</span>&gt;</span>Thank you!<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"alert alert_warning"</span>&gt;</span>Are you sure?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"alert alert_error"</span>&gt;</span>Not enough cheese<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="states">States</h3>
+<h4 id="-is-disabled">.is-disabled</h4>
+<p>Disabled state of a control. Should be combined with <code>disabled</code> attribute where appropriate.</p>
+<h4 id="-is-success-is-error">.is-success / .is-error</h4>
+<p>Shows/hides success/error messages:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">class</span>=<span class="value">"form is-success"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__success alert"</span>&gt;</span>Thank you!<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__error alert alert_error"</span>&gt;</span>Go away!<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre><h3 id="events">Events</h3>
+<h4 id="enable-form-tamia-disable-form-tamia">enable.form.tamia / disable.form.tamia</h4>
+<p>Enables / disables all descendant form elements (they should have classes <code>.field</code>, <code>.button</code> or <code>.disablable</code>).</p>
+<h4 id="lock-form-tamia-unlock-form-tamia">lock.form.tamia / unlock.form.tamia</h4>
+<p>Disables / enables submit button of a form.</p>
+<h3 id="ajax-forms">Ajax forms</h3>
+<p>You can convert any form to Ajax form:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">method</span>=<span class="value">"post"</span> <span class="attribute">class</span>=<span class="value">"form"</span> <span class="attribute">data-component</span>=<span class="value">"form"</span> <span class="attribute">data-form-action</span>=<span class="value">"http://example.com/example.php"</span> <span class="attribute">data-form-type</span>=<span class="value">"jsonp"</span>&gt;</span>
+    ...
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__success alert js-form-success"</span>&gt;</span>Thank you!<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__error alert alert_error js-form-error"</span>&gt;</span>Go away!<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span></code></pre><p>You can subscribe to events <code>send.form.tamia</code>, <code>success.form.tamia</code> and <code>success.form.tamia</code>:</p>
+<pre><code class="javascript">form.on({
+    <span class="string">'send.form.tamia'</span>: <span class="function"><span class="keyword">function</span><span class="params">(event, fields)</span> {</span>
+        event.preventDefault();  <span class="comment">// Cancel form sending</span>
+    },
+    <span class="string">'success.form.tamia'</span>: <span class="function"><span class="keyword">function</span><span class="params">(event, data)</span> {</span>
+        <span class="comment">// Server should return data.result = 'success'</span>
+        <span class="keyword">return</span> <span class="string">'Error message.'</span>;
+    },
+    <span class="string">'error.form.tamia'</span>: <span class="function"><span class="keyword">function</span><span class="params">(event, data)</span> {</span>
+        <span class="keyword">return</span> <span class="string">'Success message.'</span>;
+    }
+});</code></pre><p>Or use states <code>.is-success</code>, <code>.is-error</code> and <code>.is-sending</code> to check form status.</p>
+<h3 id="auto-disable-submit-button">Auto disable submit button</h3>
+<p>Disable submit button on form submit:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">class</span>=<span class="value">"form"</span> <span class="attribute">data-component</span>=<span class="value">"autolock"</span>&gt;</span></code></pre><h3 id="skin">Skin</h3>
 <p>Set <code>form_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
 <h3 id="configuration">Configuration</h3>
 <h4 id="form_focus_color">form_focus_color</h4>
 <p>Type: CSS color value.</p>
-<p>Color of focus otline.</p>
+<p>Color of focus outline.</p>
 
 
 <h3>Examples</h3>
 
-<div class="example"><div class="form form_full">
+<div class="example"><div class="form form_block">
 	<div class="form__row">
 		<input type="text" class="field" placeholder="Name">
 	</div>
@@ -287,7 +342,7 @@
 <div class="example-code">
 	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_6">Show/hide code</span></div>
 	<div class="is-hidden" id="example_6">
-		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form form_full"</span>&gt;</span>
+		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form form_block"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__row"</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field"</span> <span class="attribute">placeholder</span>=<span class="value">"Name"</span>&gt;</span>
 	<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
@@ -298,17 +353,43 @@
 	</div>
 </div>
 
-<div class="example"><div class="form form_inline">
+<div class="example"><div class="form">
 	<input type="text" class="field" placeholder="Name">
 	<button class="button fixie"></button>
-</div>
-</div>
+</div></div>
 <div class="example-code">
 	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_7">Show/hide code</span></div>
 	<div class="is-hidden" id="example_7">
-		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form form_inline"</span>&gt;</span>
+		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field"</span> <span class="attribute">placeholder</span>=<span class="value">"Name"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"button"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+	</div>
+</div>
+
+<div class="example"><div class="alert">Thank you!</div>
+<div class="alert alert_warning">Are you sure?</div>
+<div class="alert alert_error">Not enough cheese</div></div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_8">Show/hide code</span></div>
+	<div class="is-hidden" id="example_8">
+		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"alert"</span>&gt;</span>Thank you!<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"alert alert_warning"</span>&gt;</span>Are you sure?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"alert alert_error"</span>&gt;</span>Not enough cheese<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+	</div>
+</div>
+
+<div class="example"><div class="field-with-unit">
+	<input id="summ" type="text" class="field field-with-unit__field" value="99">
+	<label for="summ" class="field-with-unit__unit">€</label>
+</div>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_9">Show/hide code</span></div>
+	<div class="is-hidden" id="example_9">
+		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"field-with-unit"</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"summ"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"field field-with-unit__field"</span> <span class="attribute">value</span>=<span class="value">"99"</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"summ"</span> <span class="attribute">class</span>=<span class="value">"field-with-unit__unit"</span>&gt;</span>€<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
 	</div>
@@ -346,8 +427,8 @@
 </ul>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_8">Show/hide code</span></div>
-	<div class="is-hidden" id="example_8">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_10">Show/hide code</span></div>
+	<div class="is-hidden" id="example_10">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"list"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">li</span>&gt;</span>...<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">li</span>&gt;</span>...<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
@@ -378,8 +459,8 @@
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_9">Show/hide code</span></div>
-	<div class="is-hidden" id="example_9">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_11">Show/hide code</span></div>
+	<div class="is-hidden" id="example_11">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"media"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">img</span> <span class="attribute">class</span>=<span class="value">"media__img"</span> <span class="attribute">src</span>=<span class="value">"http://placeimg.com/150/100/animals"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"media__body"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
@@ -404,7 +485,8 @@
         <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"button js-modal-dismiss"</span>&gt;</span>Cancel<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
         <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"button js-modal-commit"</span>&gt;</span>Save<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="how-to-open">How to open</h3>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><p>To disable modal closing by click on a shade use <code>data-modal-close-on-shade=&quot;no&quot;</code> attribute:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"modal is-hidden"</span> <span class="attribute">data-modal-close-on-shade</span>=<span class="value">"no"</span>&gt;</span></code></pre><h3 id="how-to-open">How to open</h3>
 <p>Auto open:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"modal is-hidden"</span> <span class="attribute">data-component</span>=<span class="value">"modal"</span> <span class="attribute">data-modal-open</span>=<span class="value">"yes"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><p>Open via JavaScript:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"modal pony is-hidden"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
@@ -412,6 +494,8 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">""</span> <span class="attribute">data-fire</span>=<span class="value">"open.modal.tamia"</span> <span class="attribute">data-target</span>=<span class="value">".js-popup"</span>&gt;</span>Open<span class="tag">&lt;/<span class="title">a</span>&gt;</span></code></pre><h3 id="events">Events</h3>
 <h4 id="open-modal-tamia">open.modal.tamia</h4>
 <p>Fire this event on <code>.modal</code> DOM node to open popup.</p>
+<h4 id="close-modal-tamia">close.modal.tamia</h4>
+<p>Fire this event on <code>.modal</code> DOM node to close popup.</p>
 <h4 id="commit-modal-tamia">commit.modal.tamia</h4>
 <p>Fires when user clicks Save button.</p>
 <p>You can prevent popup from closing:</p>
@@ -433,7 +517,7 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 <div class="modal js-popup is-hidden">
 	<header class="modal__header">
 		<h3 class="modal__title fixie"></h3>
-		<button class="close js-modal-dismiss"></button>
+		<button class="modal__close close js-modal-dismiss"></button>
 	</header>
 	<div class="modal__body">
 		<p class="fixie"></p>
@@ -445,13 +529,13 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_10">Show/hide code</span></div>
-	<div class="is-hidden" id="example_10">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_12">Show/hide code</span></div>
+	<div class="is-hidden" id="example_12">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"link"</span> <span class="attribute">data-fire</span>=<span class="value">"open.modal.tamia"</span> <span class="attribute">data-target</span>=<span class="value">".js-popup"</span>&gt;</span>Open popup<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"modal js-popup is-hidden"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">header</span> <span class="attribute">class</span>=<span class="value">"modal__header"</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">h3</span> <span class="attribute">class</span>=<span class="value">"modal__title"</span>&gt;</span>...<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-		<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"close js-modal-dismiss"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"modal__close close js-modal-dismiss"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
 	<span class="tag">&lt;/<span class="title">header</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"modal__body"</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">p</span>&gt;</span>...<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
@@ -491,8 +575,8 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_11">Show/hide code</span></div>
-	<div class="is-hidden" id="example_11">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_13">Show/hide code</span></div>
+	<div class="is-hidden" id="example_13">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"password password_inline"</span> <span class="attribute">data-component</span>=<span class="value">"password"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"password__toggle js-toggle"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">class</span>=<span class="value">"password__field field js-field"</span>&gt;</span>
@@ -547,6 +631,33 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 </ul>
 
 
+<h2 id='rouble'>Code blocks</h2>
+
+<p>Nice code examples with highlighting.</p>
+<h3 id="markup">Markup</h3>
+<pre><code class="html"><span class="tag">&lt;<span class="title">pre</span> <span class="attribute">class</span>=<span class="value">"code"</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-coffescript"</span>&gt;</span>alert 'Hello world!'<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span></code></pre>
+
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">pre</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-coffescript"</span>&gt;</span>alert 'Hello world!'<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="tools">Tools</h3>
+<ul>
+<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
+<li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
+</ul>
+
+
+<h3>Examples</h3>
+
+<div class="example"><pre class="code"><code class="language-javascript">alert('Hello world!');</code></pre>
+</div>
+<div class="example-code">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_14">Show/hide code</span></div>
+	<div class="is-hidden" id="example_14">
+		<pre><code class="html"><span class="tag">&lt;<span class="title">pre</span> <span class="attribute">class</span>=<span class="value">"code"</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-javascript"</span>&gt;</span>alert('Hello world!');<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span>
+</code></pre>
+	</div>
+</div>
+
 <h2 id='select'>Select</h2>
 
 <p>Select with custom design</p>
@@ -578,8 +689,8 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_12">Show/hide code</span></div>
-	<div class="is-hidden" id="example_12">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_15">Show/hide code</span></div>
+	<div class="is-hidden" id="example_15">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"select select_inline"</span> <span class="attribute">data-component</span>=<span class="value">"select"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"select__box js-box"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">select</span> <span class="attribute">class</span>=<span class="value">"select__select js-select"</span>&gt;</span>
@@ -624,8 +735,8 @@ $(<span class="string">'.pony'</span>).trigger(<span class="string">'loading-sto
 <div class="example"><div class="spinner"></div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_13">Show/hide code</span></div>
-	<div class="is-hidden" id="example_13">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_16">Show/hide code</span></div>
+	<div class="is-hidden" id="example_16">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"spinner"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
 	</div>
@@ -658,8 +769,8 @@ $(<span class="string">'.pony'</span>).trigger(<span class="string">'loading-sto
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_14">Show/hide code</span></div>
-	<div class="is-hidden" id="example_14">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_17">Show/hide code</span></div>
+	<div class="is-hidden" id="example_17">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"switcher"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"switcher__input"</span> <span class="attribute">id</span>=<span class="value">"type_first"</span> <span class="attribute">type</span>=<span class="value">"radio"</span> <span class="attribute">name</span>=<span class="value">"type"</span> <span class="attribute">value</span>=<span class="value">"first"</span> <span class="attribute">checked</span>=<span class="value">"checked"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">label</span> <span class="attribute">class</span>=<span class="value">"switcher__label"</span> <span class="attribute">for</span>=<span class="value">"type_first"</span>&gt;</span>Dog<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
@@ -722,8 +833,8 @@ $(<span class="string">'.pony'</span>).trigger(<span class="string">'loading-sto
 </table>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_15">Show/hide code</span></div>
-	<div class="is-hidden" id="example_15">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_18">Show/hide code</span></div>
+	<div class="is-hidden" id="example_18">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">table</span> <span class="attribute">class</span>=<span class="value">"table"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">thead</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">tr</span>&gt;</span>
@@ -773,8 +884,8 @@ $(<span class="string">'.pony'</span>).trigger(<span class="string">'loading-sto
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_16">Show/hide code</span></div>
-	<div class="is-hidden" id="example_16">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_19">Show/hide code</span></div>
+	<div class="is-hidden" id="example_19">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">h1</span>&gt;</span>...<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">p</span>&gt;</span>...<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
@@ -864,8 +975,8 @@ $(<span class="string">'.pony'</span>).trigger(<span class="string">'loading-sto
 </div>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_17">Show/hide code</span></div>
-	<div class="is-hidden" id="example_17">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_20">Show/hide code</span></div>
+	<div class="is-hidden" id="example_20">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"js-toggle-wrapper form form_block"</span>&gt;</span>
 	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form__row"</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"email"</span> <span class="attribute">class</span>=<span class="value">"field"</span> <span class="attribute">placeholder</span>=<span class="value">"Email"</span>&gt;</span>
@@ -905,8 +1016,8 @@ $(<span class="string">'.pony'</span>).trigger(<span class="string">'loading-sto
 <div class="example"><span class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</span>
 </div>
 <div class="example-code">
-	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_18">Show/hide code</span></div>
-	<div class="is-hidden" id="example_18">
+	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_21">Show/hide code</span></div>
+	<div class="is-hidden" id="example_21">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"has-tooltip"</span> <span class="attribute">data-tooltip</span>=<span class="value">"Call us!"</span>&gt;</span>+7 495 212-85-06<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
 </code></pre>
 	</div>
