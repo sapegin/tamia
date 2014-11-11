@@ -16,6 +16,13 @@ Block controls:
 	<input type="text" class="field field_block" name="name">
 	<input type="submit" class="button button_block" value="Send!">
 
+Field with unit:
+
+	<div class="field-with-unit field-with-unit_left">
+		<input id="summ" type="text" pattern="\d*" class="field field-with-unit__field">
+		<label for="summ" class="field-with-unit__unit">€</label>
+	</div>
+
 Layout:
 
 	<form class="form form_block">

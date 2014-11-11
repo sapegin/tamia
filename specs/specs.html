@@ -138,7 +138,7 @@ window.onerror = function(msg, url, line) {
 	<input type="button" class="button" value="Click me!">
 </div>
 
-<div class="spec form form_inline">
+<div class="spec form">
 	<input type="button" class="button" value="input[type=button]">
 	<input type="submit" class="button" value="input[type=submit]">
 	<button class="button">button</button>
@@ -146,13 +146,13 @@ window.onerror = function(msg, url, line) {
 	<span class="button" tabindex="0">span</span>
 </div>
 
-<div class="spec form form_inline">
+<div class="spec form">
 	<input type="text" class="field" placeholder="Name">
 	<input type="email" class="field" placeholder="Email">
 	<input type="submit" class="button" value="Boom!">
 </div>
 
-<div class="spec form form_inline">
+<div class="spec form">
 	<input type="text" class="field is-disabled" placeholder="input[type=text]" disabled>
 	<input type="button" class="button is-disabled" value="input[type=button]" disabled>
 	<input type="submit" class="button is-disabled" value="input[type=submit]" disabled>
@@ -178,6 +178,20 @@ window.onerror = function(msg, url, line) {
 	<p><span class="link js-disable" data-fire="disable.form.tamia" data-target=".js-form">Disable</span>, <span class="link js-enable" data-fire="enable.form.tamia" data-target=".js-form">enable</span></p>
 	<p><span class="link js-lock" data-fire="lock.form.tamia" data-target=".js-form">Lock submit</span>, <span class="link js-unlock" data-fire="unlock.form.tamia" data-target=".js-form">unlock submit</span></p>
 </div>
+
+<div class="spec spec_narrow">
+	<div class="field-with-unit">
+		<input id="summ" type="text" class="field field-with-unit__field" value="99999999999999999999999999999999999">
+		<label for="summ" class="field-with-unit__unit" style="right:1px">999</label>
+	</div>
+</div>
+<div class="spec spec_narrow">
+	<div class="field-with-unit field-with-unit_left">
+		<input id="summ2" type="text" class="field field-with-unit__field" value="999999">
+		<label for="summ2" class="field-with-unit__unit" style="left:3px">999</label>
+	</div>
+</div>
+
 
 <h2>Checkbox &amp; radio button</h2>
 

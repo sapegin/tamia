@@ -97,6 +97,23 @@
 	&.is-error .form__error
 		display: block
 
+.field-with-unit
+	position: relative
+	font-size: 1em
+	line-height: 1.4
+
+	&__field
+		width: 100%
+
+	&__unit
+		position: absolute
+		top: 0
+		right: 0
+
+	&_left &__unit
+		right: auto
+		left: 0
+
 
 // Close button
 .close
@@ -197,3 +214,16 @@ if modules_default_skin or form_default_skin
 			background: #fcf8e3
 		&_error
 			background: #f2dede
+
+	_unit_padding=0//1.4em  // ~1 character
+
+	.field-with-unit
+		&__field
+			padding-right: _unit_padding
+
+		&__unit
+			padding: .3em .4em
+
+		&_left &__field
+			padding-right: 0
+			padding-left: _unit_padding
