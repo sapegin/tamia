@@ -23,11 +23,13 @@
 		},
 
 		destroy: function() {
-			this.elem.removeState('loading');
-			this.elem.find(_shadeSelector).afterTransition(function() {
-				this.elem.removeClass(_wrapperClass);
-				this.loader.remove();
-			}.bind(this));
+			tamia.delay(function() {
+				this.elem.removeState('loading');
+				this.elem.find(_shadeSelector).afterTransition(function() {
+					this.elem.removeClass(_wrapperClass);
+					this.loader.remove();
+				}.bind(this));
+			}, this, 0);
 		},
 
 		initHtml: function() {
