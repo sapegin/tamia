@@ -321,7 +321,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	var _doc = $(document);
 	var _hiddenState = 'hidden';
-	var _transitionSate = 'transit';
+	var _transitionState = 'transit';
 	var _statePrefix = 'is-';
 	var _statesData = 'tamia-states';
 	var _appear = 'appear';
@@ -428,15 +428,15 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.appear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.data(_transitionSate) === _appear) return;
-			elem.data(_transitionSate, _appear);
-			elem.addState(_transitionSate);
+			if (elem.data(_transitionState) === _appear) return;
+			elem.data(_transitionState, _appear);
+			elem.addState(_transitionState);
 			setTimeout(function() {
-				if (elem.data(_transitionSate) !== _appear) return;
+				if (elem.data(_transitionState) !== _appear) return;
 				elem.removeState(_hiddenState);
 				elem.afterTransition(function() {
-					elem.removeData(_transitionSate);
-					elem.removeState(_transitionSate);
+					elem.removeData(_transitionState);
+					elem.removeState(_transitionState);
 					elem.trigger(_appearedEvent);
 					elem.trigger(_toggledEvent, true);
 				});
@@ -461,13 +461,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.disappear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.data(_transitionSate) === _disappear) return;
-			elem.data(_transitionSate, _disappear);
-			elem.addState(_transitionSate);
+			if (elem.data(_transitionState) === _disappear) return;
+			elem.data(_transitionState, _disappear);
+			elem.addState(_transitionState);
 			elem.addState(_hiddenState);
 			elem.afterTransition(function() {
-				elem.removeData(_transitionSate);
-				elem.removeState(_transitionSate);
+				elem.removeData(_transitionState);
+				elem.removeState(_transitionState);
 				elem.trigger(_disappearedEvent);
 				elem.trigger(_toggledEvent, false);
 			});
