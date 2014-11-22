@@ -326,7 +326,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var _statesData = 'tamia-states';
 	var _appearedEvent = 'appeared.tamia';
 	var _disappearedEvent = 'disappeared.tamia';
-	var _toggledEvent = 'disappeared.tamia';
+	var _toggledEvent = 'toggled.tamia';
 
 
 	/**
