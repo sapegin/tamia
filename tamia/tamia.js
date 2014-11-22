@@ -324,6 +324,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var _transitionSate = 'transit';
 	var _statePrefix = 'is-';
 	var _statesData = 'tamia-states';
+	var _appear = 'appear';
+	var _disappear = 'disappear';
 	var _appearedEvent = 'appeared.tamia';
 	var _disappearedEvent = 'disappeared.tamia';
 	var _toggledEvent = 'toggled.tamia';
@@ -426,11 +428,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.appear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.hasState(_transitionSate) && !elem.hasState(_hiddenState)) return;
+			if (elem.data(_transitionSate) === _appear) return;
+			elem.data(_transitionSate, _appear);
 			elem.addState(_transitionSate);
 			setTimeout(function() {
+				if (elem.data(_transitionSate) !== _appear) return;
 				elem.removeState(_hiddenState);
 				elem.afterTransition(function() {
+					elem.removeData(_transitionSate);
 					elem.removeState(_transitionSate);
 					elem.trigger(_appearedEvent);
 					elem.trigger(_toggledEvent, true);
@@ -456,10 +461,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.disappear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.hasState(_transitionSate) && elem.hasState(_hiddenState)) return;
+			if (elem.data(_transitionSate) === _disappear) return;
+			elem.data(_transitionSate, _disappear);
 			elem.addState(_transitionSate);
 			elem.addState(_hiddenState);
 			elem.afterTransition(function() {
+				elem.removeData(_transitionSate);
 				elem.removeState(_transitionSate);
 				elem.trigger(_disappearedEvent);
 				elem.trigger(_toggledEvent, false);
