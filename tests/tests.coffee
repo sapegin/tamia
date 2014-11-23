@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 93
+TESTS = 95
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -92,7 +92,15 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		test.assertEval (->
 			!(jQuery '.js-dialog').hasClass('is-transit')
 		), '.is-transit class has been removed after transition but before fallback timeout'
-
+	casper.thenEvaluate ->
+		jQuery('.js-dialog').trigger('appear.tamia').trigger('disappear.tamia')
+	casper.wait 750, ->
+		test.assertNotVisible '.js-dialog', 'Dialog is not visible after firing appear.tamia then disappear.tamia'
+	casper.thenEvaluate ->
+		$('.js-dialog').removeState('hidden')  # Show immediately
+		jQuery('.js-dialog').trigger('disappear.tamia').trigger('appear.tamia')
+	casper.wait 750, ->
+		test.assertVisible '.js-dialog', 'Dialog is visible after firing disappear.tamia then appear.tamia'
 
 	# Controls
 	casper.thenClick '.js-control-link', ->
