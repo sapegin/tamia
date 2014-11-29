@@ -10,6 +10,8 @@ list_inside ?= false
 		position: relative
 		padding-left: 1.3em
 		margin-left: -1.3em unless list_inside
+	&_inside > li
+		margin-left: 0
 	> li:before
 		position: absolute
 		left: 0

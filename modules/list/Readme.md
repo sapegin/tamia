@@ -13,6 +13,13 @@ Unordered list with dashes (—) as bullets.
 	</ul>
 
 
+## Modifiers
+
+### .list.list_inside
+
+Places bullets inside container.
+
+
 ## Configuration
 
 ### list_inside
