@@ -5,24 +5,45 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var _selectClass = '.js-select';
-	var _boxClass = '.js-box';
+	var tpl = '\
+<div class="select">\
+	<div class="select__box js-box">{selected.text}</div>\
+	<select class="select__select js-select" rv-value="selected.value" rv-on-change="changed">\
+		<option rv-each-option="options" rv-value="option.value">{option.text}</option>\
+	</select>\
+</div>\
+';
 
 	var Select = tamia.extend(tamia.Component, {
-		binded: 'focus blur change',
-
 		init: function() {
-			this.selectElem = this.elem.find(_selectClass);
-			this.boxElem = this.elem.find(_boxClass);
+			if (DEBUG && this.elemNode.tagName !== 'SELECT') throw new tamia.Error('Select: no <select> element found.');
 
-			this.elem.on({
-				focus: this.focus_,
-				blur: this.blur_,
-				change: this.change_
-			}, _selectClass);
+			var selected = null;
+			var options = Array.prototype.slice.call(this.elemNode.options).map(function(option) {
+				var item = {
+					text: option.text,
+					value: option.value,
+					selected: option.selected
+				};
+				if (item.selected) selected = item;
+				return item;
+			});
 
-			this.change();
-		},
+			var model = {
+				selected: selected,
+				options: options,
+				changed: function(event, self) {
+					self.selected.text = this.options[this.selectedIndex].text;
+				}
+			};
+
+			var newElem = $(tpl);
+			rivets.bind(newElem, model);
+			this.elem.replaceWith(newElem);
+		}
+
+
+		/*,
 
 		focus: function() {
 			this.toggleFocused(true);
@@ -38,7 +59,7 @@
 
 		change: function() {
 			this.boxElem.text(this.selectElem.find(':selected').text());
-		}
+		}*/
 	});
 
 	tamia.initComponents({select: Select});

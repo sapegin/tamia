@@ -29,6 +29,7 @@ module.exports = (grunt) ->
 		concat:
 			docs:
 				src: [
+					'vendor/rivets.bundled.min.js'
 					'vendor/transition-events.js'
 					'tamia/tamia.js'
 					'tamia/component.js'
@@ -39,6 +40,7 @@ module.exports = (grunt) ->
 				dest: 'docs/scripts.js'
 			specs:
 				src: [
+					'vendor/rivets.bundled.min.js'
 					'vendor/transition-events.js'
 					'tamia/tamia.js'
 					'tamia/component.js'
