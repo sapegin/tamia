@@ -28,7 +28,7 @@
 	 *        bind: 'boxElem',
 	 *        content: 'Choose semething'
 	 *      }
-	 *    }));
+	 *    });
 	 *    this.elem.append(select);
 	 *    $.extend(this, select.data('links'));  // {boxElem: $('.js-select-box')}
 	 *
@@ -82,7 +82,7 @@
 					childNode = document.createTextNode(child);
 				}
 				else {
-					childNode = tamia.OporNode(child, false);
+					childNode = tamia.OporNode(child, links);
 				}
 				elem.appendChild(childNode);
 			}
