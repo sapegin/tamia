@@ -5,21 +5,29 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var _selectClass = '.js-select';
-	var _boxClass = '.js-box';
-
 	var Select = tamia.extend(tamia.Component, {
 		binded: 'focus blur change',
 
 		init: function() {
-			this.selectElem = this.elem.find(_selectClass);
-			this.boxElem = this.elem.find(_boxClass);
+			this.selectElem = this.elem.find('.js-select');
+			if (DEBUG && !this.selectElem.length) throw new tamia.Error('Select: no <select class="js-select"> element found.');
 
-			this.elem.on({
+			// Enhance DOM
+			this.selectElem.addClass(tamia.OporClass({
+				block: 'select',
+				elem: 'select'
+			}));
+			this.boxElem = tamia.OporNode({
+				block: 'select',
+				elem: 'box'
+			});
+			this.elem.prepend(this.boxElem);
+
+			this.selectElem.on({
 				focus: this.focus_,
 				blur: this.blur_,
 				change: this.change_
-			}, _selectClass);
+			});
 
 			this.change();
 		},

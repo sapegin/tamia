@@ -6,8 +6,7 @@ Select with custom design
 ## Markup
 
 	<div class="select" data-component="select">
-		<div class="select__box js-box"></div>
-		<select class="select__select js-select">
+		<select class="js-select">
 			<option selected>Please select an option</option>
 			<option>Dog</option>
 			<option>Cat</option>

@@ -31,6 +31,7 @@ module.exports = (grunt) ->
 				src: [
 					'vendor/transition-events.js'
 					'tamia/tamia.js'
+					'tamia/opor.js'
 					'tamia/component.js'
 					'modules/*/*.js'
 					'docs_src/lib/*.js'
@@ -41,6 +42,7 @@ module.exports = (grunt) ->
 				src: [
 					'vendor/transition-events.js'
 					'tamia/tamia.js'
+					'tamia/opor.js'
 					'tamia/component.js'
 					'modules/*/*.js'
 					'specs/test.js'
