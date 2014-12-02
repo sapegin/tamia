@@ -461,7 +461,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.disappear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.data(_transitionState) === _disappear) return;
+			if (elem.data(_transitionState) === _disappear || elem.hasState(_hiddenState)) return;
 			elem.data(_transitionState, _disappear);
 			elem.addState(_transitionState);
 			elem.addState(_hiddenState);
