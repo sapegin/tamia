@@ -348,7 +348,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *        $(elem).slideDown(done);
 	 *      }
 	 *   });
-	 *   $('.js-elem').trigger('animate.tamia', 'slide');
+	 *   $('.js-elem').trigger('runanimation.tamia', 'slide');
 	 */
 	tamia.registerAnimations = function(animations) {
 		$.extend(_animations, animations);
@@ -500,14 +500,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	/**
 	 * Runs animation on an element.
 	 *
-	 * @event animate.tamia
+	 * @event runanimation.tamia
 	 *
 	 * @param {String|Function} animation Animation name, CSS class name or JS function.
 	 * @param {Function} [done] Animation end callback.
 	 *
 	 * Animation name should be registered via `tamia.registerAnimations` function.
 	 */
-	_handlers.animate = function(elem, animation, done) {
+	_handlers.runanimation = function(elem, animation, done) {
 		if (done === undefined) done = function() {};
 		setTimeout(function() {
 			if (_animations[animation]) {

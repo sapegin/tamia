@@ -161,29 +161,29 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 
 	# Animation manager
 	casper.thenEvaluate ->
-		jQuery('.js-animatable').trigger('animate.tamia', ['slideFast', -> window._animate_done = 1])
+		jQuery('.js-animatable').trigger('runanimation.tamia', ['slideFast', -> window._runanimation_done = 1])
 	casper.wait 50, ->
 		test.assertNotVisible '.js-animatable', 'Element is hidden after animation ends (registered animation)'
 		test.assertEval (->
-			window._animate_done is 1
+			window._runanimation_done is 1
 		), 'Callback was invoked after animation (registered animation)'
 	casper.thenEvaluate ->
-		jQuery('.js-animatable').trigger('animate.tamia', ['is-hidden', -> window._animate2_done = 2])
+		jQuery('.js-animatable').trigger('runanimation.tamia', ['is-hidden', -> window._runanimation2_done = 2])
 	casper.wait 50, ->
 		test.assertEval (->
 			jQuery('.js-animatable').hasState('hidden')
 		), 'Element is hidden after animation ends (class animation)'
 		test.assertEval (->
-			window._animate2_done is 2
+			window._runanimation2_done is 2
 		), 'Callback was invoked after animation (class animation)'
 	casper.thenEvaluate ->
-		jQuery('.js-animatable').trigger('animate.tamia', [((elem, done) -> jQuery(elem).data('_animate3_done', 3); done()), (-> window._animate3_done = 3)])
+		jQuery('.js-animatable').trigger('runanimation.tamia', [((elem, done) -> jQuery(elem).data('_runanimation3_done', 3); done()), (-> window._runanimation3_done = 3)])
 	casper.wait 50, ->
 		test.assertEval (->
-			jQuery('.js-animatable').data('_animate3_done') is 3
+			jQuery('.js-animatable').data('_runanimation3_done') is 3
 		), 'Element is hidden after animation ends (custom function animation)'
 		test.assertEval (->
-			window._animate3_done is 3
+			window._runanimation3_done is 3
 		), 'Callback was invoked after animation (custom function animation)'
 
 
