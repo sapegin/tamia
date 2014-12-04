@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 95
+TESTS = 97
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -101,6 +101,14 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		jQuery('.js-dialog').trigger('disappear.tamia').trigger('appear.tamia')
 	casper.wait 750, ->
 		test.assertVisible '.js-dialog', 'Dialog is visible after firing disappear.tamia then appear.tamia'
+	casper.thenEvaluate ->
+		jQuery('.js-dialog').trigger('appear.tamia').trigger('appear.tamia')
+	casper.wait 750, ->
+		test.assertVisible '.js-dialog', 'Dialog is visible after firing appear.tamia two times'
+	casper.thenEvaluate ->
+		jQuery('.js-dialog').trigger('disappear.tamia').trigger('disappear.tamia')
+	casper.wait 750, ->
+		test.assertNotVisible '.js-dialog', 'Dialog is not visible after firing disappear.tamia two times'
 
 	# Controls
 	casper.thenClick '.js-control-link', ->
