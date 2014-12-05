@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 97
+TESTS = 98
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -282,6 +282,12 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		test.assertEval (->
 			(jQuery '.js-flip').hasClass('is-flipped')
 		), 'Flippable: flipped after click'
+	casper.thenEvaluate ->
+		(jQuery '.js-flip').trigger('flip.tamia')
+	casper.then ->
+		test.assertEval (->
+			!(jQuery '.js-flip').hasClass('is-flipped')
+		), 'Flippable: unflipped after firing flip.tamia event'
 
 
 	# Select

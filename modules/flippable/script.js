@@ -15,6 +15,8 @@
 			else {
 				this.elem.on('click', '.js-flip', this.toggle_);
 			}
+
+			this.elem.on('flip.tamia', this.toggle_);
 		},
 
 		toggle: function() {
