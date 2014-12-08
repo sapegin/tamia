@@ -39,20 +39,25 @@
 	 * @param {String|Array} [json.mods] Modifier(s) (.block_mod).
 	 * @param {String|Array} [json.states] State(s) (.is-state).
 	 * @param {String|Array} [json.js] JS class(es) (.js-hook).
-	 * @param {HTMLElement} [json.node] Existing DOM node: will be used instead of a new one.
+	 * @param {String} [json.node] Key in `nodes` object.
 	 * @param {String} [json.bind] Element link key (see example).
 	 * @param {Object|String|Array} [json.content] Child node(s) or text content.
-	 * @return {jQuery}
+	 * @param {Object|HTMLElement} [nodes] Existing DOM nodes or node (to use in `node` parameter of OPORJSON).
 	 * @return {jQuery}
 	 */
-	tamia.OporNode = function(json, links) {
+	tamia.OporNode = function(json, nodes, links) {
+		if (nodes === undefined) nodes = {};
 		var isRoot = links === undefined;
 		if (isRoot) links = {};
 
 		var elem;
 		if (json.node) {
 			// Use existent node
-			elem = json.node;
+			elem = (typeof json.node === 'string') ? nodes[json.node] : nodes;
+			// jQuery object
+			if (elem.jquery && elem.length) {
+				elem = elem[0];
+			}
 			// Detach node
 			if (elem.parentNode) {
 				elem.parentNode.removeChild(elem);
@@ -64,8 +69,11 @@
 		}
 
 		// Classes
-		var classes = elem.className;
-		elem.className = classes ? [classes, tamia.OporClass(json)].join(' ') : tamia.OporClass(json);
+		var newClasses = tamia.OporClass(json);
+		if (newClasses) {
+			var classes = elem.className;
+			elem.className = classes ? [classes, newClasses].join(' ') : newClasses;
+		}
 
 		// Store link
 		if (json.bind) {
@@ -82,7 +90,7 @@
 					childNode = document.createTextNode(child);
 				}
 				else {
-					childNode = tamia.OporNode(child, links);
+					childNode = tamia.OporNode(child, nodes, links);
 				}
 				elem.appendChild(childNode);
 			}
@@ -107,15 +115,17 @@
 	 * @return {String}
 	 */
 	tamia.OporClass = function(json) {
-		if (DEBUG && !json.block) throw new tamia.Error('tamia.OporClass: `block` property is required.', json);
+		var cls = [];
 
-		var base = json.block + (json.elem ? _elemSeparator + json.elem : '');
-		var cls = [base];
+		if (json.block) {
+			var base = json.block + (json.inner ? '-i' : '') + (json.elem ? _elemSeparator + json.elem : '');
+			cls.push(base);
 
-		if (json.mods) {
-			var mods = _ensureArray(json.mods);
-			for (var modIdx = 0; modIdx < mods.length; modIdx++) {
-				cls.push(base + _modSeparator + mods[modIdx]);
+			if (json.mods) {
+				var mods = _ensureArray(json.mods);
+				for (var modIdx = 0; modIdx < mods.length; modIdx++) {
+					cls.push(base + _modSeparator + mods[modIdx]);
+				}
 			}
 		}
 
