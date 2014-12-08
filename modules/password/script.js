@@ -5,8 +5,8 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var supported;
-	var types = {
+	var _supported;
+	var _types = {
 		locked: 'password',
 		unlocked: 'text'
 	};
@@ -26,11 +26,11 @@
 		},
 
 		isSupported: function() {
-			if (supported !== undefined) return supported;
+			if (_supported !== undefined) return _supported;
 
 			// IE8+
-			supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
-			return supported;
+			_supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
+			return _supported;
 		},
 
 		toggle: function() {
@@ -40,11 +40,11 @@
 
 			this.elem.toggleState('unlocked');
 
-			if (fieldType === types.locked && !locked) {
-				this.fieldElem.attr('type', types.unlocked);
+			if (fieldType === _types.locked && !locked) {
+				this.fieldElem.attr('type', _types.unlocked);
 			}
-			else if (fieldType === types.unlocked && locked) {
-				this.fieldElem.attr('type', types.locked);
+			else if (fieldType === _types.unlocked && locked) {
+				this.fieldElem.attr('type', _types.locked);
 			}
 
 			if (focused) {
