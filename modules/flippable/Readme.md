@@ -27,6 +27,10 @@ Back side is visible.
 
 ## Events
 
+### flip.tamia
+
+Flips pane.
+
 ### flipped.tamia
 
 Fires on every flip. Argument will be `true` if back side is visible.

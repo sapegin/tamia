@@ -79,7 +79,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 * Traces all object’s method calls and arguments.
 		 *
 		 * @param {Object} object Object.
-		 * @param {String} [name] Object name.
+		 * @param {String} [name=object.displayName] Object name.
 		 *
 		 * Example:
 		 *
@@ -89,7 +89,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *   }
 		 */
 		tamia.trace = function(object, name) {
-			if (name === undefined) name = 'Object';
+			if (name === undefined) name = object.displayName || 'Object';
 			var level = 0;
 
 			var wrap = function(funcName) {
@@ -297,6 +297,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}
 		}
 
+		// Copy displayName
+		if (DEBUG && props.displayName) {
+			child.displayName = props.displayName;
+		}
+
 		// Set a convenience property in case the parent's prototype is needed later.
 		child.__super__ = parent.prototype;
 
@@ -315,7 +320,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 */
 	tamia.delay = function(func, context, wait) {
 		var args = slice.call(arguments, 3);
-		return setTimeout(function() { return func.apply(context || null, args); }, wait || 0);
+		return setTimeout(function delayedFunc() { return func.apply(context || null, args); }, wait || 0);
 	};
 
 
@@ -348,7 +353,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *        $(elem).slideDown(done);
 	 *      }
 	 *   });
-	 *   $('.js-elem').trigger('animate.tamia', 'slide');
+	 *   $('.js-elem').trigger('runanimation.tamia', 'slide');
 	 */
 	tamia.registerAnimations = function(animations) {
 		$.extend(_animations, animations);
@@ -374,16 +379,18 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 */
 	tamia.registerEvents = function(handlers) {
 		var events = $.map(handlers, _tamiaze).join(' ');
-		_doc.on(events, function(event) {
+		_doc.on(events, function onRegisterEventsEvent(event) {
 			var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
 			var args = slice.call(arguments);
 			args[0] = event.target;
+			var handler = handlers[eventName];
+			if (DEBUG) handler.displayName = eventName + '.tamia event handler';
 			if (DEBUG) log('Event "%s":', eventName, args);
-			handlers[eventName].apply(null, args);
+			handler.apply(null, args);
 		});
 	};
 
-	var _tamiaze = function (handler, name) {
+	var _tamiaze = function(handler, name) {
 		return name + '.tamia';
 	};
 
@@ -431,10 +438,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			if (elem.data(_transitionState) === _appear) return;
 			elem.data(_transitionState, _appear);
 			elem.addState(_transitionState);
-			setTimeout(function() {
+			setTimeout(function appearDelayed() {
 				if (elem.data(_transitionState) !== _appear) return;
 				elem.removeState(_hiddenState);
-				elem.afterTransition(function() {
+				elem.afterTransition(function appearAfterTransition() {
 					elem.removeData(_transitionState);
 					elem.removeState(_transitionState);
 					elem.trigger(_appearedEvent);
@@ -461,11 +468,12 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.disappear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.data(_transitionState) === _disappear) return;
+			var transitionState = elem.data(_transitionState);
+			if (transitionState === _disappear || (!transitionState && elem.hasState(_hiddenState))) return;
 			elem.data(_transitionState, _disappear);
 			elem.addState(_transitionState);
 			elem.addState(_hiddenState);
-			elem.afterTransition(function() {
+			elem.afterTransition(function disappearAfterTransition() {
 				elem.removeData(_transitionState);
 				elem.removeState(_transitionState);
 				elem.trigger(_disappearedEvent);
@@ -499,16 +507,16 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	/**
 	 * Runs animation on an element.
 	 *
-	 * @event animate.tamia
+	 * @event runanimation.tamia
 	 *
 	 * @param {String|Function} animation Animation name, CSS class name or JS function.
 	 * @param {Function} [done] Animation end callback.
 	 *
 	 * Animation name should be registered via `tamia.registerAnimations` function.
 	 */
-	_handlers.animate = function(elem, animation, done) {
+	_handlers.runanimation = function(elem, animation, done) {
 		if (done === undefined) done = function() {};
-		setTimeout(function() {
+		setTimeout(function runAnimationDelayed() {
 			if (_animations[animation]) {
 				_animations[animation](elem, done);
 			}
@@ -555,7 +563,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
 	 */
-	 _doc.on('click', '[data-fire]', function(event) {
+	 _doc.on('click', '[data-fire]', function onDataFireClick(event) {
 		var elem = $(event.currentTarget);
 
 		var data = elem.data();
@@ -586,7 +594,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 * @return {jQuery}
 	 */
 	jQuery.fn.toggleState = function(name, value) {
-		return this.each(function() {
+		return this.each(function eachToggleState() {
 			var elem = $(this);
 			var states = _getStates(elem);
 			if (value === undefined) value = !states[name];
@@ -658,7 +666,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 * @return {String} HTML.
 	 */
 	tamia.stmpl = function(tmpl, data) {
-		return tmpl.replace(/\{([^\}]+)\}/g, function(m, key) {
+		return tmpl.replace(/\{([^\}]+)\}/g, function stmplReplace(m, key) {
 			return data[key] || '';
 		});
 	};
@@ -707,7 +715,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *   <a href="http://github.com/" data-track>GitHub</span>
 	 *   <span class="js-slider-next" data-track="slider" data-track-extra="next">Next</span>
 	 */
-	if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
+	if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function onDataTrackClick(event) {
 		var mp = 'mixpanel' in window;
 		var elem = $(event.currentTarget);
 		var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');

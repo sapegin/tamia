@@ -5,7 +5,8 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var Select = tamia.extend(tamia.Component, {
+	tamia.Select = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Select',
 		binded: 'focus blur change',
 
 		init: function() {
@@ -49,6 +50,6 @@
 		}
 	});
 
-	tamia.initComponents({select: Select});
+	tamia.initComponents({select: tamia.Select});
 
 }(window, jQuery));

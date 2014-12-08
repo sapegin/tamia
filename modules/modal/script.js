@@ -19,7 +19,8 @@
 	'</div>';
 	var _opened = null;
 
-	var Modal = tamia.extend(tamia.Component, {
+	tamia.Modal = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Modal',
 		binded: 'commit dismiss keyup shadeClick',
 
 		init: function() {
@@ -113,7 +114,7 @@
 		'open.modal': function(elem) {
 			var container = $(elem);
 			var modal = container.data('modal');
-			if (!modal) modal = new Modal(elem);
+			if (!modal) modal = new tamia.Modal(elem);
 			modal.open();
 		},
 		'close.modal': function(elem) {
