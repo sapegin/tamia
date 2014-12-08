@@ -16,7 +16,9 @@
 		'</div>' +
 	'</div>';
 
-	var Loader = tamia.extend(tamia.Component, {
+	tamia.Loader = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Loader',
+
 		init: function() {
 			this.initHtml();
 			tamia.delay(this.elem.addState, this.elem, 0, 'loading');
@@ -39,12 +41,13 @@
 		}
 	});
 
+
 	// Events
 	tamia.registerEvents({
 		'loading-start': function(elem) {
 			var container = $(elem);
 			if (container.data('loader')) return;
-			container.data('loader', new Loader(elem));
+			container.data('loader', new tamia.Loader(elem));
 		},
 
 		'loading-stop': function(elem) {

@@ -11,7 +11,8 @@
 		unlocked: 'text'
 	};
 
-	var Password = tamia.extend(tamia.Component, {
+	tamia.Password = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Password',
 		binded: 'toggle focus',
 
 		init: function() {
@@ -56,6 +57,6 @@
 		}
 	});
 
-	tamia.initComponents({password: Password});
+	tamia.initComponents({password: tamia.Password});
 
 }(window, jQuery));

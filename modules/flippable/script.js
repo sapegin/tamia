@@ -5,7 +5,8 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var Flippable = tamia.extend(tamia.Component, {
+	tamia.Flippable = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Flippable',
 		binded: 'toggle',
 
 		init: function() {
@@ -25,6 +26,6 @@
 		}
 	});
 
-	tamia.initComponents({flippable: Flippable});
+	tamia.initComponents({flippable: tamia.Flippable});
 
 }(window, jQuery));
