@@ -72,8 +72,13 @@ module.exports = (grunt) ->
 			dash_css:
 				src: 'docs/styles.css'
 				dest: 'Tamia.docset/Contents/Resources/Documents/styles.css'
-		casperjs:
-			tests: 'tests/tests.coffee'
+		casper:
+			options:
+				test: true
+			js:
+				src: 'tests/tests.coffee'
+			css:
+				src: 'tests/css.coffee'
 		watch:
 			livereload:
 				options:
@@ -442,6 +447,8 @@ module.exports = (grunt) ->
 				)
 		)
 
-	grunt.registerTask 'test', ['casperjs']
+	grunt.registerTask 'test', ['casper']
+	grunt.registerTask 'test:js', ['casper:js']
+	grunt.registerTask 'test:css', ['casper:css']
 	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'copy', 'test']
 	grunt.registerTask 'build', ['concat', 'stylus', 'docs', 'copy']

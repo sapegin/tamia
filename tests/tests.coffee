@@ -244,9 +244,9 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 		test.assertEval (-> not cmpnt.handled), 'Component: second event not handled after off() call'
 
 
-	##########
-	# Blocks #
-	##########
+	###########
+	# Modules #
+	###########
 
 	# Password
 	casper.then ->

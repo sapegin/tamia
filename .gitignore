@@ -3,3 +3,8 @@ node_modules
 docs
 *.map
 Tamia.docset
+specs/specs.css
+specs/specs.js
+tests/failures
+tests/screenshots/*.fail.png
+tests/screenshots/*.diff.png

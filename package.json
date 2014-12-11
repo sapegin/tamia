@@ -12,7 +12,7 @@
   "devDependencies": {
     "autoprefixer-stylus": "~0.0.3",
     "grunt": "~0.4.2",
-    "grunt-casperjs": "~1.4.0",
+    "grunt-casper": "~0.4.1",
     "grunt-coffeelint": "~0.0.8",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.5.0",
@@ -23,6 +23,7 @@
     "load-grunt-tasks": "~0.4.0",
     "lodash": "~2.4.1",
     "marked": "~0.3.0",
+    "phantomcss": "~0.9.1",
     "sequelize": "~1.7.5",
     "sqlite3": "~2.2.3",
     "stylus": "~0.42.0",
