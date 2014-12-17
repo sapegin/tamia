@@ -1,7 +1,7 @@
 # Tâmia CSS regression tests
 # Requires CasperJS 1.1
 
-TESTS = 8
+TESTS = 10
 
 phantomcss = require 'phantomcss'
 
@@ -13,6 +13,12 @@ phantomcss.init({
 	screenshotRoot: 'tests/screenshots'
 	failedComparisonsRoot: 'tests/failures'
 	cleanupComparisonImages: true
+	fileNameGetter: (root, filename) ->
+		name = root + '/' + filename
+		if fs.isFile(name + '.png')
+			return name + '.diff.png'
+		else
+		    return name + '.png'
 })
 
 snap = (id, suffix) ->
@@ -23,6 +29,12 @@ casper.test.begin 'Tâmia CSS/specs', TESTS, suite = (test) ->
 	casper.start 'specs/specs.html'
 	casper.viewport 1024, 768
 	phantomcss.turnOffAnimations()
+
+	# Checkbox & Radio button
+	casper.then ->
+		snap 'checkbox1'
+	casper.then ->
+		snap 'radio1'
 
 	# Switcher
 	casper.then ->
