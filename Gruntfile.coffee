@@ -79,6 +79,8 @@ module.exports = (grunt) ->
 				src: 'tests/tests.coffee'
 			css:
 				src: 'tests/css.coffee'
+			css_styles:
+				src: 'tests/css-styles.coffee'
 		watch:
 			livereload:
 				options:
@@ -450,5 +452,6 @@ module.exports = (grunt) ->
 	grunt.registerTask 'test', ['casper']
 	grunt.registerTask 'test:js', ['casper:js']
 	grunt.registerTask 'test:css', ['casper:css']
+	grunt.registerTask 'test:css_styles', ['casper:css_styles']
 	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'copy', 'test']
 	grunt.registerTask 'build', ['concat', 'stylus', 'docs', 'copy']

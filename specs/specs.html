@@ -16,114 +16,6 @@ window.onerror = function(msg, url, line) {
 };
 </script>
 
-<h2>Layout</h2>
-
-<h3>Columns (1/N)</h3>
-
-<div class="l-row spec">
-	<div class="l-quarter c1">.l-quarter</div>
-	<div class="l-quarter c2">.l-quarter</div>
-	<div class="l-quarter c3">.l-quarter<br>…</div>
-	<div class="l-quarter c4">.l-quarter</div>
-	<div class="l-quarter c5">.l-quarter</div>
-	<div class="l-quarter c6">.l-quarter</div>
-	<div class="l-quarter c7">.l-quarter</div>
-</div>
-
-<div class="l-row spec">
-	<div class="l-sixth c1">.l-sixth</div>
-	<div class="l-sixth c2">.l-sixth</div>
-	<div class="l-sixth c3">.l-sixth</div>
-	<div class="l-sixth c4">.l-sixth</div>
-	<div class="l-sixth c5">.l-sixth</div>
-	<div class="l-sixth c6">.l-sixth</div>
-</div>
-
-<div class="l-row spec">
-	<div class="l-quarter c1">.l-quarter</div>
-	<div class="l-quarter c2">.l-quarter</div>
-	<div class="l-quarter c3">.l-quarter</div>
-	<div class="l-quarter c4">.l-quarter</div>
-</div>
-
-<div class="l-row spec">
-	<div class="l-quarter c1">.l-quarter</div>
-	<div class="l-three-quarters c2">.l-three-quarters</div>
-</div>
-
-<div class="l-row spec">
-	<div class="l-third c1">.l-third</div>
-	<div class="l-third c2">.l-third</div>
-	<div class="l-third c3">.l-third</div>
-</div>
-
-<div class="l-row spec">
-	<div class="l-third c1">.l-third</div>
-	<div class="l-two-thirds c2">.l-two-thirds</div>
-</div>
-
-<div class="l-row spec">
-	<div class="l-half c1">.l-half</div>
-	<div class="l-half c2">.l-half</div>
-</div>
-
-<h3>Grid</h3>
-
-<div class="grid-row spec">
-	<div class="grid-1 c1">grid-col(4,3)</div>
-	<div class="grid-2 c2">grid-col(1,3)</div>
-	<div class="grid-3 c3">
-		<div>grid-col(7,6)</div>
-		<div class="grid-row">
-			<div class="grid-3-1 c4">grid-col(1,2,6)</div>
-			<div class="grid-3-2 c5">grid-col(3,4,6)</div>
-		</div>
-	</div>
-</div>
-
-<div class="grid-row spec c1">grid-row()
-	<div class="grid-4 c2">grid-col(4,3)</div>
-</div>
-
-<div class="grid-row spec c1">grid-row()
-	<div class="grid-5 c2">
-		<div>grid-col(4,6)</div>
-		<div class="grid-row">
-			<div class="grid-3-1 c4">grid-col(1,2,6)</div>
-			<div class="grid-3-2 c5">grid-col(3,4,6)</div>
-		</div>
-	</div>
-</div>
-
-<div class="grid-row spec c1"><span style="position:absolute">grid-row() > grid-col-row(4,6)</span>
-	<div class="grid-6 c2">
-		<div class="grid-3-1 c4">grid-col(1,2,6)</div>
-		<div class="grid-3-2 c5">grid-col(3,4,6)</div>
-	</div>
-</div>
-
-<div class="spec">
-	<div class="grid-row">
-		<div class="grid-1 c1 grid-padding">grid-col(4,3)</div>
-		<div class="grid-2 c2 grid-padding">grid-col(1,3)</div>
-		<div class="grid-3 c3 grid-padding">grid-col(7,6)</div>
-	</div>
-	<div class="grid-row">
-		<div class="grid-1 grid-padding"><div class="grid-explode c6">grid-col(4,3); grid-explode()</div></div>
-		<div class="grid-2 grid-padding">grid-col(1,3)</div>
-		<div class="grid-3 grid-padding">grid-col(7,6)</div>
-	</div>
-</div>
-
-
-<h3>Center</h3>
-
-<div class="l-center spec c1" style="height:300px">
-	<div class="l-center-i">
-		<span class="c4">.l-center .l-center-i span</span>
-	</div>
-</div>
-
 <h2>Form</h2>
 
 <div class="spec spec_narrow">
@@ -283,14 +175,14 @@ window.onerror = function(msg, url, line) {
 
 <h2>Password</h2>
 
-<div class="spec spec_narrow">
+<div class="spec spec_narrow" id="password1">
 	<div class="password js-password" data-component="password">
 		<span class="password__toggle js-toggle"></span>
 		<input type="password" class="password__field field js-field">
 	</div>
 </div>
 
-<div class="spec spec_narrow">
+<div class="spec spec_narrow" id="password2">
 	<div class="password is-disabled" data-component="password">
 		<span class="password__toggle js-toggle"></span>
 		<input type="password" class="password__field field js-field">
@@ -299,7 +191,7 @@ window.onerror = function(msg, url, line) {
 
 <h2>Select</h2>
 
-<div class="spec spec_narrow">
+<div class="spec spec_narrow" id="select1">
 	<div class="select js-select-component" data-component="select">
 		<div class="select__box js-box"></div>
 		<select class="select__select js-select">
@@ -312,7 +204,7 @@ window.onerror = function(msg, url, line) {
 	</div>
 </div>
 
-<div class="spec spec_narrow">
+<div class="spec spec_narrow" id="select2">
 	<div class="select is-disabled" data-component="select">
 		<div class="select__box js-box"></div>
 		<select class="select__select js-select">
@@ -353,28 +245,11 @@ window.onerror = function(msg, url, line) {
 	<p><span class="link js-loading-start" data-fire="loading-start.tamia" data-target=".js-loaders">Start loading</span>, <span class="link js-loading-stop" data-fire="loading-stop.tamia" data-target=".js-loaders">stop loading</span></p>
 </div>
 
-
-<h2>Tooltip</h2>
-
-<div class="spec">
-	<div class="tooltip">I’m tooltip!</div>
-</div>
-
-<div class="spec">
-	<a href="#" class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</a>
-</div>
-
-<h2>Fade</h2>
-
-<div class="spec spec_narrow">
-	<h1 class="fade">The dark side clouds everything. Impossible to see the light, the future is.</h1>
-</div>
-
 <h2>Modal</h2>
 
 <div class="spec">
 	<a href="#" class="" data-fire="open.modal.tamia" data-target=".js-popup">Open</a>
-	<div class="modal modal_fluid is-hidden js-popup">
+	<div class="modal modal_fluid is-hidden js-popup" id="modal1">
 		<header class="modal__header">
 			<h3 class="modal__title">Hallo!</h3>
 			<button class="close modal__close js-modal-dismiss"></button>
@@ -415,17 +290,11 @@ window.onerror = function(msg, url, line) {
 
 <h2>Flippable</h2>
 
-<div class="spec">
+<div class="spec" id="flippable1">
 	<div class="flippable js-flip" data-component="flippable" style="width:200px; height:200px">
 		<div class="flippable__front c3" style="padding:20px">Click me!</div>
 		<div class="flippable__back c4"></div>
 	</div>
-</div>
-
-<h2>Rouble</h2>
-
-<div class="spec">
-	<p>100 <span class="rub">Р</span></p>
 </div>
 
 <h2>JS helpers</h2>
