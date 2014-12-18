@@ -96,11 +96,11 @@
 	/**
 	 * Disable submit button on submit
 	 */
-	var AutoLock = tamia.extend(tamia.Component, {
+	tamia.AutoLock = tamia.extend(tamia.Component, {
+		displayName: 'tamia.AutoLock',
 		binded: 'submit',
 
 		init: function() {
-			// tamia.trace(this, 'AutoLock');
 			this.elem.on('submit', this.submit_);
 		},
 
@@ -109,7 +109,7 @@
 		}
 	});
 
-	tamia.initComponents({autolock: AutoLock});
+	tamia.initComponents({autolock: tamia.AutoLock});
 
 
 	var _toggle_fields = function(elem, enable) {
