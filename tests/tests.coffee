@@ -9,6 +9,11 @@ TESTS = 98
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
 
+casper.on 'page.error', (message, trace) ->
+	console.log 'ERROR:', message
+	trace.forEach (item) ->
+		console.log '  ', item.file + ':' + item.line
+
 casper.test.begin('Tâmia', TESTS, suite = (test) ->
 
 	casper.start 'specs/specs.html'
@@ -26,15 +31,14 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 	casper.then ->
 		test.assertNotVisible '.js-hidden-component', 'Hidden component is hidden by default'
 	casper.thenEvaluate ->
-		(jQuery '.js-hidden').show().trigger('init.tamia')
-	casper.then ->
+		jQuery('.js-hidden').show().trigger('init.tamia')
+	casper.thenEvaluate ->
+		console.log jQuery('.js-hidden-component')[0].className
+
+	casper.wait 500, ->
 		test.assertVisible '.js-hidden-component', 'Hidden component is visible now'
-		test.assertEval (->
-				(jQuery '.js-hidden-component').hasClass('is-ok')
-			), 'Hidden component hidden: has class .is-ok'
-		test.assertEval (->
-				(jQuery '.js-hidden-component').hasClass('is-pony')
-			), 'Hidden component hidden: has class .is-pony'
+		test.assertEval (->	jQuery('.js-hidden-component').hasClass('is-ok')), 'Hidden component: has class .is-ok'
+		test.assertEval (->	jQuery('.js-hidden-component').hasClass('is-pony')), 'Hidden component: has class .is-pony'
 
 
 	# Dynamic initialization
