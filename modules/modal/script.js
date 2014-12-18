@@ -11,26 +11,26 @@
 	var _bodyClass = 'modal-opened';
 	var _switchingState = 'switching';
 	var _hiddenState = 'hidden';
-	var _wrapperTmpl = {
-		block: 'modal-shade',
-		states: 'hidden',
-		content: {
-			block: 'l-center',
-			content: {
-				block: 'l-center',
-				inner: true,
-				js: 'modal',
-				content: {
-					node: true
-				}
-			}
-		}
-	};
 	var _opened = null;
 
 	tamia.Modal = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Modal',
 		binded: 'commit dismiss keyup shadeClick',
+		wrapperTemplate: {
+			block: 'modal-shade',
+			states: 'hidden',
+			content: {
+				block: 'l-center',
+				content: {
+					block: 'l-center',
+					inner: true,
+					js: 'modal',
+					content: {
+						node: true
+					}
+				}
+			}
+		},
 
 		init: function() {
 			this.elem.data('modal', this);
@@ -41,9 +41,9 @@
 			}
 		},
 
-		initHtml: function() {
+		initWrapperHtml: function() {
 			if (this.wrapper) return;
-			this.wrapper = tamia.OporNode(_wrapperTmpl, this.elem);
+			this.wrapper = tamia.OporNode(this.wrapperTemplate, this.elem);
 			this.wrapper.on('click', this.shadeClick_);
 			_body.append(this.wrapper);
 			this.elem.removeState('hidden');
@@ -53,7 +53,7 @@
 			if (this === _opened) return;
 
 			var opened = _opened;
-			this.initHtml();
+			this.initWrapperHtml();
 			_body.addClass(_bodyClass);
 			if (opened) {
 				opened.close({hide: true});

@@ -8,22 +8,25 @@
 	tamia.Select = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Select',
 		binded: 'focus blur change',
+		template: {
+			block: 'select',
+			node: 'root',
+			content: [
+				{
+					block: 'select',
+					elem: 'box',
+					link: 'boxElem'
+				},
+				{
+					block: 'select',
+					elem: 'select',
+					node: '.js-select',
+					link: 'selectElem'
+				}
+			]
+		},
 
 		init: function() {
-			this.selectElem = this.elem.find('.js-select');
-			if (DEBUG && !this.selectElem.length) throw new tamia.Error('Select: no <select class="js-select"> element found.');
-
-			// Enhance DOM
-			this.selectElem.addClass(tamia.OporClass({
-				block: 'select',
-				elem: 'select'
-			}));
-			this.boxElem = tamia.OporNode({
-				block: 'select',
-				elem: 'box'
-			});
-			this.elem.prepend(this.boxElem);
-
 			this.selectElem.on({
 				focus: this.focus_,
 				blur: this.blur_,

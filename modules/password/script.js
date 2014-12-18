@@ -14,15 +14,30 @@
 	tamia.Password = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Password',
 		binded: 'toggle focus',
+		template: {
+			block: 'password',
+			node: 'root',
+			content: [
+				{
+					block: 'password',
+					elem: 'toggle',
+					link: 'toggleElem'
+				},
+				{
+					block: 'password',
+					elem: 'field',
+					mix: {
+						block: 'field'
+					},
+					node: '.js-field',
+					link: 'fieldElem'
+				}
+			]
+		},
 
 		init: function() {
-			this.bindAll('toggle', 'focus');
-
-			this.fieldElem = this.elem.find('.js-field');
-			this.toggleElem = this.elem.find('.js-toggle');
-
 			// Mousedown instead of click to catch focused field
-			this.elem.on('mousedown', '.js-toggle', this.toggle_);
+			this.toggleElem.on('mousedown', this.toggle_);
 		},
 
 		isSupported: function() {

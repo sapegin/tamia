@@ -48,6 +48,7 @@
 
 		if (this.isSupported()) {
 			this.handlers = {};
+			this.initHtml();
 			this.init();
 			this.elem.addState('ok');
 		}
@@ -59,6 +60,7 @@
 
 	Component.prototype = {
 		__tamia_cmpnt__: true,
+		displayName: 'tamia.Component',
 
 		/**
 		 * List of methods that should be binded to `this` (see `bindAll` method).
@@ -66,6 +68,11 @@
 		 * @type {String|Array}
 		 */
 		binded: null,
+
+		/**
+		 * Component’s OPORJSON template (see `initHtml` method).
+		 */
+		template: null,
 
 		/**
 		 * Put all your initialization code in this method.
@@ -111,6 +118,18 @@
 		 */
 		fallback: function() {
 			// Could be implemented
+		},
+
+		/**
+		 * Initialize HTML using OPORJSON stored in `this.template`.
+		 */
+		initHtml: function() {
+			if (!this.template) return;
+			if (DEBUG && !tamia.OporNode) throw new tamia.Error('Component.initHtml: Tâmia OPOR API not found. Please include tamia/tamia/opor.js.');
+			var opor = tamia.OporNode(this.template, {
+				root: this.elem
+			});
+			$.extend(this, opor.data('links'));
 		},
 
 		/**

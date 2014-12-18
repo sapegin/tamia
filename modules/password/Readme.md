@@ -6,8 +6,7 @@ Password field with toggle to show characters.
 ## Markup
 
 	<div class="password" data-component="password">
-		<span class="password__toggle js-toggle"></span>
-		<input type="password" class="password__field field js-field">
+		<input type="password" class="js-field">
 	</div>
 
 
