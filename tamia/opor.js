@@ -17,7 +17,7 @@
 	 *
 	 * Example:
 	 *
-	 *    var select = tamia.OporNode({
+	 *    var select = tamia.oporNode({
 	 *      block: 'select',
 	 *      mods: ['big', 'awesome'],
 	 *      states: 'hidden',
@@ -47,7 +47,7 @@
 	 * @param {Object|HTMLElement|jQuery} [nodes] Existing DOM nodes or node (to use in `node` parameter of OPORJSON).
 	 * @return {jQuery}
 	 */
-	tamia.OporNode = function(json, nodes, links) {
+	tamia.oporNode = function(json, nodes, links) {
 		if (nodes === undefined) nodes = {};
 		var isRoot = links === undefined;
 		if (isRoot) links = {};
@@ -60,7 +60,7 @@
 					elem = nodes[json.node];
 				}
 				else {
-					if (DEBUG && (!nodes || !nodes.root)) throw new tamia.Error('tamia.OporNode: `nodes.root` is required to use selectors in `node` parameter.');
+					if (DEBUG && (!nodes || !nodes.root)) throw new tamia.Error('tamia.oporNode: `nodes.root` is required to use selectors in `node` parameter.');
 					elem = nodes.root[0].querySelector(json.node);
 				}
 			}
@@ -71,7 +71,7 @@
 			if (elem && elem.jquery && elem.length) {
 				elem = elem[0];
 			}
-			if (DEBUG && (!elem || elem.nodeType !== 1)) throw new tamia.Error('tamia.OporNode: node `' + json.node + '` not found.', json);
+			if (DEBUG && (!elem || elem.nodeType !== 1)) throw new tamia.Error('tamia.oporNode: node `' + json.node + '` not found.', json);
 			// Detach node
 			if (!isRoot && elem.parentNode) {
 				elem.parentNode.removeChild(elem);
@@ -83,7 +83,7 @@
 		}
 
 		// Classes
-		var newClasses = tamia.OporClass(json);
+		var newClasses = tamia.oporClass(json);
 		if (newClasses) {
 			var classes = elem.className;
 			if (classes) {
@@ -133,12 +133,12 @@
 	 *
 	 * Example:
 	 *
-	 *   tamia.OporClass({block: 'select', elem: 'box', js: 'box'});  // "select__box js-box"
+	 *   tamia.oporClass({block: 'select', elem: 'box', js: 'box'});  // "select__box js-box"
 	 *
 	 * @param {Object} json OPORJSON
 	 * @return {String}
 	 */
-	tamia.OporClass = function(json) {
+	tamia.oporClass = function(json) {
 		var cls = [];
 
 		if (json.block) {
@@ -156,7 +156,7 @@
 		if (json.mix) {
 			var mixes = _ensureArray(json.mix);
 			for (var mixIdx = 0; mixIdx < mixes.length; mixIdx++) {
-				cls.push(tamia.OporClass(mixes[mixIdx]));
+				cls.push(tamia.oporClass(mixes[mixIdx]));
 			}
 		}
 
@@ -192,7 +192,7 @@
 			return document.createTextNode(child);
 		}
 		else {
-			return tamia.OporNode(child, nodes, links);
+			return tamia.oporNode(child, nodes, links);
 		}
 	}
 

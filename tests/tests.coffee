@@ -247,6 +247,12 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 	casper.then ->
 		test.assertEval (-> not cmpnt.handled), 'Component: second event not handled after off() call'
 
+	# OPORJSON
+	casper.then ->
+		test.assertEval (-> !!cmpnt.elem.jquery), 'Component: elem is jQuery object'
+		test.assertEval (-> cmpnt.elemNode.nodeType is 1), 'Component: elemNode is DOM node'
+
+
 
 	###########
 	# Modules #

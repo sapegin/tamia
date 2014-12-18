@@ -125,8 +125,8 @@
 		 */
 		initHtml: function() {
 			if (!this.template) return;
-			if (DEBUG && !tamia.OporNode) throw new tamia.Error('Component.initHtml: Tâmia OPOR API not found. Please include tamia/tamia/opor.js.');
-			var opor = tamia.OporNode(this.template, {
+			if (DEBUG && !tamia.oporNode) throw new tamia.Error('Component.initHtml: Tâmia OPOR API not found. Please include tamia/tamia/opor.js.');
+			var opor = tamia.oporNode(this.template, {
 				root: this.elem
 			});
 			$.extend(this, opor.data('links'));

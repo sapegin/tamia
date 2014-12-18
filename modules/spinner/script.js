@@ -41,7 +41,7 @@
 
 		initHtml: function() {
 			this.elem.addClass(_wrapperClass);
-			this.loader = tamia.OporNode(this.template);
+			this.loader = tamia.oporNode(this.template);
 			this.elem.append(this.loader);
 		}
 	});

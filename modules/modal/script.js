@@ -43,7 +43,7 @@
 
 		initWrapperHtml: function() {
 			if (this.wrapper) return;
-			this.wrapper = tamia.OporNode(this.wrapperTemplate, this.elem);
+			this.wrapper = tamia.oporNode(this.wrapperTemplate, this.elem);
 			this.wrapper.on('click', this.shadeClick_);
 			_body.append(this.wrapper);
 			this.elem.removeState('hidden');
