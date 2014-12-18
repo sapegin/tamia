@@ -14,6 +14,34 @@ var ERRORS = [];
 window.onerror = function(msg, url, line) {
 	ERRORS.push([msg, url, line]);
 };
+if (navigator.userAgent.indexOf('CasperJS') !== -1) {
+	function patchConsole(func) {
+		var consoleFunc = console[func];
+		console[func] = function() {
+			for (var argIdx = 0; argIdx < arguments.length; argIdx++) {
+				var arg = arguments[argIdx];
+				if (arg !== null && typeof arg === 'object') {
+					if ('nodeType' in arg) {
+						var tag = arg.tagName;
+						if (arg.id) tag += '#' + arg.id;
+						if (arg.className) tag += '.' + arg.className;
+						arguments[argIdx] = tag;
+					}
+					else {
+						try {
+							arguments[argIdx] = JSON.stringify(arg, null, '  ');
+						}
+						catch (e) {
+						}
+					}
+				}
+			}
+			consoleFunc.apply(console, arguments);
+		}
+	}
+	patchConsole('log');
+	patchConsole('warn');
+}
 </script>
 
 <h2>Layout</h2>
