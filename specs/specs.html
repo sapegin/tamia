@@ -430,5 +430,33 @@ tamia.preload(
 <div class="js-states is-state1"></div>
 <div class="js-states is-state1"></div>
 
+<!-- OPORJSON -->
+<div class="js-opor1">
+	<input type="text" class="test someclass js-input">
+</div>
+<div class="js-opor2"></div>
+<script>
+tamia.oporNode({
+		block: 'test',
+		node: 'root',
+		content: [
+			{block: 'test', elem: 'extra'},
+			{block: 'test', elem: 'input', node: '.js-input'}
+		]
+	}, {
+		root: $('.js-opor1')
+	}
+);
+tamia.oporNode({
+		block: 'test',
+		node: true,
+		content: [
+			{block: 'test', elem: 'extra'},
+		]
+	}, $('.js-opor2')
+);
+</script>
+
+
 </body>
 </html>

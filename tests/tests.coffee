@@ -4,7 +4,7 @@
 # Debug:
 # casperjs test --verbose --log-level=debug tests/tests.coffee
 
-TESTS = 98
+TESTS = 112
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
@@ -249,10 +249,76 @@ casper.test.begin('Tâmia', TESTS, suite = (test) ->
 
 	# OPORJSON
 	casper.then ->
-		test.assertEval (-> !!cmpnt.elem.jquery), 'Component: elem is jQuery object'
-		test.assertEval (-> cmpnt.elemNode.nodeType is 1), 'Component: elemNode is DOM node'
-
-
+		test.assertEvalEquals(
+			(-> tamia.oporClass({block: 'bla'})),
+			'bla',
+			'tamia.oporClass: simple class name'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporClass({block: 'bla', inner: true})),
+			'bla-i',
+			'tamia.oporClass: simple inner class name'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporClass({block: 'bla', elem: 'el', mods: 'mo', states: 'hidden', js: 'hook', mix: {block: 'mmm'}})),
+			'bla__el bla__el_mo mmm is-hidden js-hook',
+			'tamia.oporClass: complex class name'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporClass({block: 'bla', elem: 'el', mods: ['1', '2'], states: ['st1', 'st2'], js: ['js1', 'js2'], mix: [{block: 'm1'}, {block: 'm2'}]})),
+			'bla__el bla__el_1 bla__el_2 m1 m2 is-st1 is-st2 js-js1 js-js2',
+			'tamia.oporClass: multiple everything in class name'
+		)
+		test.assertEvalEquals(
+			(-> !!tamia.oporNode({block: 'bla'}).jquery),
+			true,
+			'tamia.oporNode: returns jQuery node'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'bla'})[0].outerHTML),
+			'<div class="bla"></div>',
+			'tamia.oporNode: simple block'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'bla', tag: 'img', attrs: {src: 'puppy.jpg', alt: ''}})[0].outerHTML),
+			'<img class="bla" src="puppy.jpg" alt="">',
+			'tamia.oporNode: custom tag and attrs'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'bla', content: 'Hello world!'})[0].outerHTML),
+			'<div class="bla">Hello world!</div>',
+			'tamia.oporNode: block with text content'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'bla', content: {block: 'bla', elem: 'inner'}})[0].outerHTML),
+			'<div class="bla"><div class="bla__inner"></div></div>',
+			'tamia.oporNode: block with child element'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'bla', content: [{block: 'bla', elem: '1', content: {block: 'bla', elem: '2'}}, {block: 'bla', elem: '3'}]})[0].outerHTML),
+			'<div class="bla"><div class="bla__1"><div class="bla__2"></div></div><div class="bla__3"></div></div>',
+			'tamia.oporNode: complex tree'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'b1', js: '1', link: 'l1', content: {block: 'b2', js: '2', link: 'l2'}}).data('links').l1.hasClass('js-1')),
+			true,
+			'tamia.oporNode: link saved 1'
+		)
+		test.assertEvalEquals(
+			(-> tamia.oporNode({block: 'b1', js: '1', link: 'l1', content: {block: 'b2', js: '2', link: 'l2'}}).data('links').l2.hasClass('js-2')),
+			true,
+			'tamia.oporNode: link saved 2'
+		)
+		test.assertEvalEquals(
+			(-> $('.js-opor1')[0].outerHTML),
+			'<div class="js-opor1 test">\n\t\n<div class="test__extra"></div><input type="text" class="test someclass js-input test__input"></div>',
+			'tamia.oporNode: `nodes` param as object + selectors'
+		)
+		test.assertEvalEquals(
+			(-> $('.js-opor2')[0].outerHTML),
+			'<div class="js-opor2 test"><div class="test__extra"></div></div>',
+			'tamia.oporNode: `nodes` param as jQuery object'
+		)
 
 	###########
 	# Modules #
