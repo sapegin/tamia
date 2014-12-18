@@ -25,7 +25,7 @@
 	 *        block: 'select',
 	 *        elem: 'box',
 	 *        js: 'select-box',
-	 *        bind: 'boxElem',
+	 *        link: 'boxElem',
 	 *        content: 'Choose semething'
 	 *      }
 	 *    });
@@ -39,10 +39,12 @@
 	 * @param {String|Array} [json.mods] Modifier(s) (.block_mod).
 	 * @param {String|Array} [json.states] State(s) (.is-state).
 	 * @param {String|Array} [json.js] JS class(es) (.js-hook).
-	 * @param {String} [json.node] Key in `nodes` object.
-	 * @param {String} [json.bind] Element link key (see example).
+	 * @param {OPORJSON|Array} [json.mix] Blocks to mix ({block: 'scrollable'}).
+	 * @param {Object} [json.attrs] HTML attributes ({href: '/about'}).
+	 * @param {String|HTMLElement|jQuery} [json.node] Key in `nodes` object, DOM/jQuery node or selector.
+	 * @param {String} [json.link] Element link key (see example).
 	 * @param {Object|String|Array} [json.content] Child node(s) or text content.
-	 * @param {Object|HTMLElement} [nodes] Existing DOM nodes or node (to use in `node` parameter of OPORJSON).
+	 * @param {Object|HTMLElement|jQuery} [nodes] Existing DOM nodes or node (to use in `node` parameter of OPORJSON).
 	 * @return {jQuery}
 	 */
 	tamia.OporNode = function(json, nodes, links) {
@@ -53,13 +55,25 @@
 		var elem;
 		if (json.node) {
 			// Use existent node
-			elem = (typeof json.node === 'string') ? nodes[json.node] : nodes;
+			if (typeof json.node === 'string') {
+				if (nodes[json.node]) {
+					elem = nodes[json.node];
+				}
+				else {
+					if (DEBUG && (!nodes || !nodes.root)) throw new tamia.Error('tamia.OporNode: `nodes.root` is required to use selectors in `node` parameter.');
+					elem = nodes.root[0].querySelector(json.node);
+				}
+			}
+			else {
+				elem = nodes;
+			}
 			// jQuery object
-			if (elem.jquery && elem.length) {
+			if (elem && elem.jquery && elem.length) {
 				elem = elem[0];
 			}
+			if (DEBUG && (!elem || elem.nodeType !== 1)) throw new tamia.Error('tamia.OporNode: node `' + json.node + '` not found.', json);
 			// Detach node
-			if (elem.parentNode) {
+			if (!isRoot && elem.parentNode) {
 				elem.parentNode.removeChild(elem);
 			}
 		}
@@ -72,28 +86,38 @@
 		var newClasses = tamia.OporClass(json);
 		if (newClasses) {
 			var classes = elem.className;
-			elem.className = classes ? [classes, newClasses].join(' ') : newClasses;
+			if (classes) {
+				newClasses = _uniqueArray((classes + ' ' + newClasses).split(' ')).join(' ');
+			}
+			elem.className = newClasses;
+		}
+
+		// Attributes
+		if (json.attrs) {
+			for (var name in json.attrs) {
+				elem.setAttribute(name, json.attrs[name]);
+			}
 		}
 
 		// Store link
-		if (json.bind) {
-			links[json.bind] = $(elem);
+		if (json.link) {
+			links[json.link] = $(elem);
 		}
 
 		// Append content
 		if (json.content) {
-			var children = _ensureArray(json.content);
-			for (var childIdx = 0; childIdx < children.length; childIdx++) {
-				var child = children[childIdx];
-				var childNode;
-				if (typeof child === 'string') {
-					childNode = document.createTextNode(child);
+			var child;
+			if ($.isArray(json.content)) {
+				child = document.createDocumentFragment();
+				var children = _ensureArray(json.content);
+				for (var childIdx = 0; childIdx < children.length; childIdx++) {
+					child.appendChild(_createChildNode(children[childIdx], nodes, links));
 				}
-				else {
-					childNode = tamia.OporNode(child, nodes, links);
-				}
-				elem.appendChild(childNode);
 			}
+			else {
+				child = _createChildNode(json.content, nodes, links);
+			}
+			elem.appendChild(child);
 		}
 
 		if (isRoot) {
@@ -129,6 +153,13 @@
 			}
 		}
 
+		if (json.mix) {
+			var mixes = _ensureArray(json.mix);
+			for (var mixIdx = 0; mixIdx < mixes.length; mixIdx++) {
+				cls.push(tamia.OporClass(mixes[mixIdx]));
+			}
+		}
+
 		if (json.states) {
 			var states = _ensureArray(json.states);
 			for (var stateIdx = 0; stateIdx < states.length; stateIdx++) {
@@ -148,6 +179,21 @@
 
 	function _ensureArray(array) {
 		return $.isArray(array) ? array : [array];
+	}
+
+	function _uniqueArray(array) {
+		return $.grep(array, function(value, key) {
+			return $.inArray(value, array) === key;
+		});
+	}
+
+	function _createChildNode(child, nodes, links) {
+		if (typeof child === 'string') {
+			return document.createTextNode(child);
+		}
+		else {
+			return tamia.OporNode(child, nodes, links);
+		}
 	}
 
 }(window, jQuery));
