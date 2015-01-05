@@ -134,7 +134,7 @@ layout-row()
 	display: flex
 	flex-flow: row wrap
 	/// IE8-9
-	.no-flexbox &
+	.no-flexbox.no-flexboxlegacy &
 		display: block
 		letter-spacing: -0.31em
 	content: "tamia__layout-row"  if DEBUG
@@ -176,7 +176,7 @@ _layout-col()
 	display: block
 	grid-padding()
 	/// IE8-9
-	.no-flexbox &
+	.no-flexbox.no-flexboxlegacy &
 		display: inline-block
 		vertical-align: top
 		letter-spacing: normal
@@ -267,7 +267,7 @@ center(width, height=null)
 	flex: 1
 .l-right
 	text-align: right
-.no-flexbox
+.no-flexbox.no-flexboxlegacy
 	.l-left
 		float: left
 	.l-right
