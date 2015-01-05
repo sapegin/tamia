@@ -1,12 +1,17 @@
 # Tâmia CSS regression tests
 # Requires CasperJS 1.1
 
-TESTS = 9
+TESTS = 10
 
 phantomcss = require 'phantomcss'
 
 casper.on 'remote.message', (message) ->
 	console.log 'BROWSER:', message
+
+casper.on 'page.error', (message, trace) ->
+	console.log 'ERROR:', message
+	trace.forEach (item) ->
+		console.log '  ', item.file + ':' + item.line
 
 phantomcss.init({
 	libraryRoot: 'node_modules/phantomcss'
@@ -27,12 +32,16 @@ snap = (id, suffix) ->
 casper.test.begin 'Tâmia CSS/styles', TESTS, suite = (test) ->
 
 	casper.start 'specs/styles.html'
-	casper.viewport 1024, 768
-	phantomcss.turnOffAnimations()
+	casper.viewport 1024, 1024
+	# phantomcss.turnOffAnimations()
+
+	casper.thenEvaluate ->
+		document.documentElement.className += ' phantomjs'
 
 	# Layout
-	# casper.then ->
-	# 	snap 'columns1'
+	casper.then ->
+		# PhantomJS supports only legacy flexbox, so wrapping won’t work
+		snap 'columns1'
 	casper.then ->
 		snap 'grid1'
 	casper.then ->
