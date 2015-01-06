@@ -1,6 +1,9 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Base CSS
 
+// Text selection background color.
+selection_color ?= null
+
 // Global reset.
 *
 	padding: 0
@@ -113,11 +116,16 @@ a:active
 	outline: 0
 
 // Text selection and iOS tap highlighting.
-if light(bg_color)
+if selection_color
+	_selection_color = selection_color
+else if light(bg_color)
 	_selection_color = rgba(darken(bg_color,60),.5)
 else
 	_selection_color = rgba(lighten(bg_color,60),.5)
-text-selection(base_color, _selection_color)
+::selection
+	color: base_color
+	background: _selection_color
+	text-shadow: none
 a:link
 	-webkit-tap-highlight-color: rgba(_selection_color,.25)
 

@@ -45,20 +45,6 @@ enable-ligatures()
 	-moz-font-feature-settings: "liga=1, dlig=1"
 	font-feature-settings: "liga", "dlig"
 
-// Text selection style.
-//
-// color - Text color.
-// background - Background color.
-text-selection(color, background)
-	::-moz-selection
-		color: color
-		background: background
-		text-shadow: none
-	::selection
-		color: color
-		background: background
-		text-shadow: none
-
 // Disables text selection.
 no-select()
 	-webkit-touch-callout: none
