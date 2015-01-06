@@ -3,7 +3,7 @@
 // JS component base class
 
 /*global DEBUG:false, tamia:false*/
-;(function(window, jQuery, undefined) {
+;(function(window, $, undefined) {
 	'use strict';
 
 	/**
