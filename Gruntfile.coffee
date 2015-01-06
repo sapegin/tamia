@@ -182,6 +182,11 @@ module.exports = (grunt) ->
 		component = docsProcessJs component
 		html.push (docsAppendTitle component, 'Base JavaScript Component Class')
 
+		# OPORJSON
+		opor = grunt.file.read 'tamia/opor.js'
+		opor = docsProcessJs opor
+		html.push (docsAppendTitle opor, 'OPORJSON API')
+
 		saveHtml 'docs', marked html.join '\n\n'
 
 		# Modules
