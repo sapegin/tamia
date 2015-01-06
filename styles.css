@@ -10,7 +10,7 @@
   flex-flow: row wrap;
 }
 
-.no-flexbox .l-row {
+.no-flexbox.no-flexboxlegacy .l-row {
   display: block;
   letter-spacing: -.31em;
 }
@@ -26,16 +26,17 @@
 .l-half,
 .l-three-quarters,
 .l-two-thirds {
+  display: block;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.no-flexbox .l-sixth,
-.no-flexbox .l-quarter,
-.no-flexbox .l-third,
-.no-flexbox .l-half,
-.no-flexbox .l-three-quarters,
-.no-flexbox .l-two-thirds {
+.no-flexbox.no-flexboxlegacy .l-sixth,
+.no-flexbox.no-flexboxlegacy .l-quarter,
+.no-flexbox.no-flexboxlegacy .l-third,
+.no-flexbox.no-flexboxlegacy .l-half,
+.no-flexbox.no-flexboxlegacy .l-three-quarters,
+.no-flexbox.no-flexboxlegacy .l-two-thirds {
   display: inline-block;
   vertical-align: top;
   letter-spacing: normal;
@@ -77,11 +78,11 @@
   text-align: right;
 }
 
-.no-flexbox .l-left {
+.no-flexbox.no-flexboxlegacy .l-left {
   float: left;
 }
 
-.no-flexbox .l-right {
+.no-flexbox.no-flexboxlegacy .l-right {
   float: right;
 }
 
@@ -115,6 +116,10 @@
   margin-right: auto;
 }
 
+.l-text-centered {
+  text-align: center;
+}
+
 .l-space {
   margin-bottom: 10px;
 }
@@ -129,6 +134,14 @@
 
 .l-quad-space {
   margin-bottom: 40px;
+}
+
+.l-quint-space {
+  margin-bottom: 50px;
+}
+
+.l-sext-space {
+  margin-bottom: 60px;
 }
 
 * {
@@ -314,7 +327,7 @@ a:link {
 }
 
 .is-hidden {
-  display: none;
+  display: none !important;
 }
 
 .is-invisible {
@@ -322,11 +335,11 @@ a:link {
 }
 
 .is-transit {
-  display: block;
+  display: block !important;
 }
 
 .is-transit.l-center {
-  display: table;
+  display: table !important;
 }
 
 .group:before,
@@ -953,13 +966,6 @@ a:link {
   width: 100%;
 }
 
-.form_block .field.is-hidden,
-.form_block .button.is-hidden,
-.form_block .select.is-hidden,
-.form_block .password.is-hidden {
-  display: none;
-}
-
 .form__group {
   margin-bottom: 20px;
 }
@@ -1141,7 +1147,7 @@ a:link {
 }
 
 .field-with-unit__field {
-  padding-right: 0;
+  padding-right: 1.4em;
 }
 
 .field-with-unit__unit {
@@ -1150,7 +1156,7 @@ a:link {
 
 .field-with-unit_left .field-with-unit__field {
   padding-right: 0;
-  padding-left: 0;
+  padding-left: 1.4em;
 }
 
 .list > li,
@@ -1158,6 +1164,11 @@ a:link {
   position: relative;
   padding-left: 1.3em;
   margin-left: -1.3em;
+}
+
+.list_inside > li,
+.text ul_inside > li {
+  margin-left: 0;
 }
 
 .list > li:before,
@@ -1951,7 +1962,6 @@ h5:first-child,
 }
 
 .toggle-element.is-hidden {
-  display: none;
   opacity: 0;
 }
 

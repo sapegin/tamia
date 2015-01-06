@@ -292,7 +292,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 * Traces all object’s method calls and arguments.
 		 *
 		 * @param {Object} object Object.
-		 * @param {String} [name] Object name.
+		 * @param {String} [name=object.displayName] Object name.
 		 *
 		 * Example:
 		 *
@@ -302,7 +302,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 *   }
 		 */
 		tamia.trace = function(object, name) {
-			if (name === undefined) name = 'Object';
+			if (name === undefined) name = object.displayName || 'Object';
 			var level = 0;
 
 			var wrap = function(funcName) {
@@ -510,6 +510,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}
 		}
 
+		// Copy displayName
+		if (DEBUG && props.displayName) {
+			child.displayName = props.displayName;
+		}
+
 		// Set a convenience property in case the parent's prototype is needed later.
 		child.__super__ = parent.prototype;
 
@@ -528,18 +533,20 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 */
 	tamia.delay = function(func, context, wait) {
 		var args = slice.call(arguments, 3);
-		return setTimeout(function() { return func.apply(context || null, args); }, wait || 0);
+		return setTimeout(function delayedFunc() { return func.apply(context || null, args); }, wait || 0);
 	};
 
 
 	var _doc = $(document);
 	var _hiddenState = 'hidden';
-	var _transitionSate = 'transit';
+	var _transitionState = 'transit';
 	var _statePrefix = 'is-';
 	var _statesData = 'tamia-states';
+	var _appear = 'appear';
+	var _disappear = 'disappear';
 	var _appearedEvent = 'appeared.tamia';
 	var _disappearedEvent = 'disappeared.tamia';
-	var _toggledEvent = 'disappeared.tamia';
+	var _toggledEvent = 'toggled.tamia';
 
 
 	/**
@@ -559,7 +566,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *        $(elem).slideDown(done);
 	 *      }
 	 *   });
-	 *   $('.js-elem').trigger('animate.tamia', 'slide');
+	 *   $('.js-elem').trigger('runanimation.tamia', 'slide');
 	 */
 	tamia.registerAnimations = function(animations) {
 		$.extend(_animations, animations);
@@ -585,16 +592,18 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 */
 	tamia.registerEvents = function(handlers) {
 		var events = $.map(handlers, _tamiaze).join(' ');
-		_doc.on(events, function(event) {
+		_doc.on(events, function onRegisterEventsEvent(event) {
 			var eventName = [event.type, event.namespace].join('.').replace(/.tamia$/, '');
 			var args = slice.call(arguments);
 			args[0] = event.target;
+			var handler = handlers[eventName];
+			if (DEBUG) handler.displayName = eventName + '.tamia event handler';
 			if (DEBUG) log('Event "%s":', eventName, args);
-			handlers[eventName].apply(null, args);
+			handler.apply(null, args);
 		});
 	};
 
-	var _tamiaze = function (handler, name) {
+	var _tamiaze = function(handler, name) {
 		return name + '.tamia';
 	};
 
@@ -639,12 +648,15 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.appear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.hasState(_transitionSate) && !elem.hasState(_hiddenState)) return;
-			elem.addState(_transitionSate);
-			setTimeout(function() {
+			if (elem.data(_transitionState) === _appear) return;
+			elem.data(_transitionState, _appear);
+			elem.addState(_transitionState);
+			setTimeout(function appearDelayed() {
+				if (elem.data(_transitionState) !== _appear) return;
 				elem.removeState(_hiddenState);
-				elem.afterTransition(function() {
-					elem.removeState(_transitionSate);
+				elem.afterTransition(function appearAfterTransition() {
+					elem.removeData(_transitionState);
+					elem.removeState(_transitionState);
 					elem.trigger(_appearedEvent);
 					elem.trigger(_toggledEvent, true);
 				});
@@ -669,11 +681,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	_handlers.disappear = function(elem) {
 		elem = $(elem);
 		if (Modernizr && Modernizr.csstransitions) {
-			if (elem.hasState(_transitionSate) && elem.hasState(_hiddenState)) return;
-			elem.addState(_transitionSate);
+			var transitionState = elem.data(_transitionState);
+			if (transitionState === _disappear || (!transitionState && elem.hasState(_hiddenState))) return;
+			elem.data(_transitionState, _disappear);
+			elem.addState(_transitionState);
 			elem.addState(_hiddenState);
-			elem.afterTransition(function() {
-				elem.removeState(_transitionSate);
+			elem.afterTransition(function disappearAfterTransition() {
+				elem.removeData(_transitionState);
+				elem.removeState(_transitionState);
 				elem.trigger(_disappearedEvent);
 				elem.trigger(_toggledEvent, false);
 			});
@@ -705,16 +720,16 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	/**
 	 * Runs animation on an element.
 	 *
-	 * @event animate.tamia
+	 * @event runanimation.tamia
 	 *
 	 * @param {String|Function} animation Animation name, CSS class name or JS function.
 	 * @param {Function} [done] Animation end callback.
 	 *
 	 * Animation name should be registered via `tamia.registerAnimations` function.
 	 */
-	_handlers.animate = function(elem, animation, done) {
+	_handlers.runanimation = function(elem, animation, done) {
 		if (done === undefined) done = function() {};
-		setTimeout(function() {
+		setTimeout(function runAnimationDelayed() {
 			if (_animations[animation]) {
 				_animations[animation](elem, done);
 			}
@@ -761,7 +776,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *
 	 *   $('.portfolio').trigger('slider-next', [1, 2, 3]);
 	 */
-	 _doc.on('click', '[data-fire]', function(event) {
+	 _doc.on('click', '[data-fire]', function onDataFireClick(event) {
 		var elem = $(event.currentTarget);
 
 		var data = elem.data();
@@ -792,7 +807,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 * @return {jQuery}
 	 */
 	jQuery.fn.toggleState = function(name, value) {
-		return this.each(function() {
+		return this.each(function eachToggleState() {
 			var elem = $(this);
 			var states = _getStates(elem);
 			if (value === undefined) value = !states[name];
@@ -864,7 +879,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 * @return {String} HTML.
 	 */
 	tamia.stmpl = function(tmpl, data) {
-		return tmpl.replace(/\{([^\}]+)\}/g, function(m, key) {
+		return tmpl.replace(/\{([^\}]+)\}/g, function stmplReplace(m, key) {
 			return data[key] || '';
 		});
 	};
@@ -913,7 +928,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	 *   <a href="http://github.com/" data-track>GitHub</span>
 	 *   <span class="js-slider-next" data-track="slider" data-track-extra="next">Next</span>
 	 */
-	if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function(event) {
+	if ('ga' in window || 'mixpanel' in window) _doc.on('click', '[data-track]', function onDataTrackClick(event) {
 		var mp = 'mixpanel' in window;
 		var elem = $(event.currentTarget);
 		var eventName = elem.data('track') || (mp ? 'Link clicked' : 'link');
@@ -1035,10 +1050,210 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 // Tâmia © 2014 Artem Sapegin http://sapegin.me
 // https://github.com/sapegin/tamia
+// OPOR API
+
+/*global DEBUG:false, tamia:false*/
+;(function(window, $, undefined) {
+	'use strict';
+
+	var _defaultTag = 'div';
+	var _elemSeparator = '__';
+	var _modSeparator = '_';
+	var _statePrefix = 'is-';
+	var _jsPrefix = 'js-';
+
+	/**
+	 * OPORJSON to DOM tree.
+	 *
+	 * Example:
+	 *
+	 *    var select = tamia.oporNode({
+	 *      block: 'select',
+	 *      mods: ['big', 'awesome'],
+	 *      states: 'hidden',
+	 *      content: {
+	 *        block: 'select',
+	 *        elem: 'box',
+	 *        js: 'select-box',
+	 *        link: 'boxElem',
+	 *        content: 'Choose semething'
+	 *      }
+	 *    });
+	 *    this.elem.append(select);
+	 *    $.extend(this, select.data('links'));  // {boxElem: $('.js-select-box')}
+	 *
+	 * @param {Object} json OPORJSON (`block` or `node` is required).
+	 * @param {String} [json.tag=div] Tag name.
+	 * @param {String} [json.block] Block name (.block).
+	 * @param {String} [json.elem] Element name (.block__elem).
+	 * @param {String|Array} [json.mods] Modifier(s) (.block_mod).
+	 * @param {String|Array} [json.states] State(s) (.is-state).
+	 * @param {String|Array} [json.js] JS class(es) (.js-hook).
+	 * @param {OPORJSON|Array} [json.mix] Blocks to mix ({block: 'scrollable'}).
+	 * @param {Object} [json.attrs] HTML attributes ({href: '/about'}).
+	 * @param {String|HTMLElement|jQuery} [json.node] Key in `nodes` object, DOM/jQuery node or selector.
+	 * @param {String} [json.link] Element link key (see example).
+	 * @param {Object|String|Array} [json.content] Child node(s) or text content.
+	 * @param {Object|HTMLElement|jQuery} [nodes] Existing DOM nodes or node (to use in `node` parameter of OPORJSON).
+	 * @return {jQuery}
+	 */
+	tamia.oporNode = function(json, nodes, links) {
+		if (nodes === undefined) nodes = {};
+		var isRoot = links === undefined;
+		if (isRoot) links = {};
+
+		var elem;
+		if (json.node) {
+			// Use existent node
+			if (typeof json.node === 'string') {
+				if (nodes[json.node]) {
+					elem = nodes[json.node];
+				}
+				else {
+					if (DEBUG && (!nodes || !nodes.root)) throw new tamia.Error('tamia.oporNode: `nodes.root` is required to use selectors in `node` parameter.');
+					elem = nodes.root[0].querySelector(json.node);
+				}
+			}
+			else {
+				elem = nodes;
+			}
+			// jQuery object
+			if (elem && elem.jquery && elem.length) {
+				elem = elem[0];
+			}
+			if (DEBUG && (!elem || elem.nodeType !== 1)) throw new tamia.Error('tamia.oporNode: node `' + json.node + '` not found.', json);
+			// Detach node
+			if (!isRoot && elem.parentNode) {
+				elem.parentNode.removeChild(elem);
+			}
+		}
+		else {
+			// Create new node
+			elem = document.createElement(json.tag || _defaultTag);
+		}
+
+		// Classes
+		var newClasses = tamia.oporClass(json);
+		if (newClasses) {
+			var classes = elem.className;
+			if (classes) {
+				newClasses = _uniqueArray((classes + ' ' + newClasses).split(' ')).join(' ');
+			}
+			elem.className = newClasses;
+		}
+
+		// Attributes
+		if (json.attrs) {
+			for (var name in json.attrs) {
+				elem.setAttribute(name, json.attrs[name]);
+			}
+		}
+
+		// Store link
+		if (json.link) {
+			links[json.link] = $(elem);
+		}
+
+		// Append content
+		if (json.content) {
+			var child;
+			if ($.isArray(json.content)) {
+				child = document.createDocumentFragment();
+				var children = _ensureArray(json.content);
+				for (var childIdx = 0; childIdx < children.length; childIdx++) {
+					child.appendChild(_createChildNode(children[childIdx], nodes, links));
+				}
+			}
+			else {
+				child = _createChildNode(json.content, nodes, links);
+			}
+			elem.appendChild(child);
+		}
+
+		if (isRoot) {
+			elem = $(elem);
+			elem.data('links', links);
+			return elem;
+		}
+		return elem;
+	};
+
+	/**
+	 * Generates class names for given OPORJSON element.
+	 *
+	 * Example:
+	 *
+	 *   tamia.oporClass({block: 'select', elem: 'box', js: 'box'});  // "select__box js-box"
+	 *
+	 * @param {Object} json OPORJSON
+	 * @return {String}
+	 */
+	tamia.oporClass = function(json) {
+		var cls = [];
+
+		if (json.block) {
+			var base = json.block + (json.inner ? '-i' : '') + (json.elem ? _elemSeparator + json.elem : '');
+			cls.push(base);
+
+			if (json.mods) {
+				var mods = _ensureArray(json.mods);
+				for (var modIdx = 0; modIdx < mods.length; modIdx++) {
+					cls.push(base + _modSeparator + mods[modIdx]);
+				}
+			}
+		}
+
+		if (json.mix) {
+			var mixes = _ensureArray(json.mix);
+			for (var mixIdx = 0; mixIdx < mixes.length; mixIdx++) {
+				cls.push(tamia.oporClass(mixes[mixIdx]));
+			}
+		}
+
+		if (json.states) {
+			var states = _ensureArray(json.states);
+			for (var stateIdx = 0; stateIdx < states.length; stateIdx++) {
+				cls.push(_statePrefix + states[stateIdx]);
+			}
+		}
+
+		if (json.js) {
+			var js = _ensureArray(json.js);
+			for (var jsIdx = 0; jsIdx < js.length; jsIdx++) {
+				cls.push(_jsPrefix + js[jsIdx]);
+			}
+		}
+
+		return cls.join(' ');
+	};
+
+	function _ensureArray(array) {
+		return $.isArray(array) ? array : [array];
+	}
+
+	function _uniqueArray(array) {
+		return $.grep(array, function(value, key) {
+			return $.inArray(value, array) === key;
+		});
+	}
+
+	function _createChildNode(child, nodes, links) {
+		if (typeof child === 'string') {
+			return document.createTextNode(child);
+		}
+		else {
+			return tamia.oporNode(child, nodes, links);
+		}
+	}
+
+}(window, jQuery));
+
+// Tâmia © 2014 Artem Sapegin http://sapegin.me
+// https://github.com/sapegin/tamia
 // JS component base class
 
 /*global DEBUG:false, tamia:false*/
-;(function(window, jQuery, undefined) {
+;(function(window, $, undefined) {
 	'use strict';
 
 	/**
@@ -1083,6 +1298,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		if (this.isSupported()) {
 			this.handlers = {};
+			this.initHtml();
 			this.init();
 			this.elem.addState('ok');
 		}
@@ -1094,6 +1310,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	Component.prototype = {
 		__tamia_cmpnt__: true,
+		displayName: 'tamia.Component',
 
 		/**
 		 * List of methods that should be binded to `this` (see `bindAll` method).
@@ -1101,6 +1318,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		 * @type {String|Array}
 		 */
 		binded: null,
+
+		/**
+		 * Component’s OPORJSON template (see `initHtml` method).
+		 */
+		template: null,
 
 		/**
 		 * Put all your initialization code in this method.
@@ -1149,6 +1371,18 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		},
 
 		/**
+		 * Initialize HTML using OPORJSON stored in `this.template`.
+		 */
+		initHtml: function() {
+			if (!this.template) return;
+			if (DEBUG && !tamia.oporNode) throw new tamia.Error('Component.initHtml: Tâmia OPOR API not found. Please include tamia/tamia/opor.js.');
+			var opor = tamia.oporNode(this.template, {
+				root: this.elem
+			});
+			$.extend(this, opor.data('links'));
+		},
+
+		/**
 		 * Binds all specified methods to this. Binded method names have `_` at the end.
 		 *
 		 * @param {String} method1... Method names
@@ -1188,7 +1422,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var Flippable = tamia.extend(tamia.Component, {
+	tamia.Flippable = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Flippable',
 		binded: 'toggle',
 
 		init: function() {
@@ -1198,6 +1433,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			else {
 				this.elem.on('click', '.js-flip', this.toggle_);
 			}
+
+			this.elem.on('flip.tamia', this.toggle_);
 		},
 
 		toggle: function() {
@@ -1206,7 +1443,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		}
 	});
 
-	tamia.initComponents({flippable: Flippable});
+	tamia.initComponents({flippable: tamia.Flippable});
 
 }(window, jQuery));
 
@@ -1223,16 +1460,17 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	/**
 	 * Ajax form
 	 */
-	var Form = tamia.extend(tamia.Component, {
+	tamia.Form = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Form',
 		binded: 'submit success error',
 
 		init: function() {
-			//tamia.trace(this, 'Form');
+			//tamia.trace(this);
 
 			this.method = this.elem.data('method') || 'post';
 			this.dataType = this.elem.data('form-type') || 'json';
 			this.url = this.elem.data('form-action');
-			if (DEBUG && !this.url) throw tamia.Error('Form: data-form-action not defined.');
+			if (DEBUG && !this.url) throw tamia.Error('tamia.Form: data-form-action not defined.');
 
 			this.successElem = this.elem.find('.js-form-success');
 			if (this.successElem.length) this.defaultMessage = this.successElem.html();
@@ -1301,17 +1539,17 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		}
 	});
 
-	tamia.initComponents({form: Form});
+	tamia.initComponents({form: tamia.Form});
 
 
 	/**
 	 * Disable submit button on submit
 	 */
-	var AutoLock = tamia.extend(tamia.Component, {
+	tamia.AutoLock = tamia.extend(tamia.Component, {
+		displayName: 'tamia.AutoLock',
 		binded: 'submit',
 
 		init: function() {
-			// tamia.trace(this, 'AutoLock');
 			this.elem.on('submit', this.submit_);
 		},
 
@@ -1320,7 +1558,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		}
 	});
 
-	tamia.initComponents({autolock: AutoLock});
+	tamia.initComponents({autolock: tamia.AutoLock});
 
 
 	var _toggle_fields = function(elem, enable) {
@@ -1386,16 +1624,26 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 	var _bodyClass = 'modal-opened';
 	var _switchingState = 'switching';
 	var _hiddenState = 'hidden';
-	var _wrapperTmpl = '' +
-	'<div class="modal-shade is-hidden">' +
-		'<div class="l-center">' +
-			'<div class="l-center-i js-modal"></div>' +
-		'</div>' +
-	'</div>';
 	var _opened = null;
 
-	var Modal = tamia.extend(tamia.Component, {
+	tamia.Modal = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Modal',
 		binded: 'commit dismiss keyup shadeClick',
+		wrapperTemplate: {
+			block: 'modal-shade',
+			states: 'hidden',
+			content: {
+				block: 'l-center',
+				content: {
+					block: 'l-center',
+					inner: true,
+					js: 'modal',
+					content: {
+						node: true
+					}
+				}
+			}
+		},
 
 		init: function() {
 			this.elem.data('modal', this);
@@ -1406,11 +1654,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			}
 		},
 
-		initHtml: function() {
+		initWrapperHtml: function() {
 			if (this.wrapper) return;
-
-			this.wrapper = $(_wrapperTmpl);
-			this.wrapper.find('.js-modal').append(this.elem);
+			this.wrapper = tamia.oporNode(this.wrapperTemplate, this.elem);
 			this.wrapper.on('click', this.shadeClick_);
 			_body.append(this.wrapper);
 			this.elem.removeState('hidden');
@@ -1420,7 +1666,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 			if (this === _opened) return;
 
 			var opened = _opened;
-			this.initHtml();
+			this.initWrapperHtml();
 			_body.addClass(_bodyClass);
 			if (opened) {
 				opened.close({hide: true});
@@ -1488,7 +1734,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		'open.modal': function(elem) {
 			var container = $(elem);
 			var modal = container.data('modal');
-			if (!modal) modal = new Modal(elem);
+			if (!modal) modal = new tamia.Modal(elem);
 			modal.open();
 		},
 		'close.modal': function(elem) {
@@ -1508,31 +1754,47 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var supported;
-	var types = {
+	var _supported;
+	var _types = {
 		locked: 'password',
 		unlocked: 'text'
 	};
 
-	var Password = tamia.extend(tamia.Component, {
+	tamia.Password = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Password',
 		binded: 'toggle focus',
+		template: {
+			block: 'password',
+			node: 'root',
+			content: [
+				{
+					block: 'password',
+					elem: 'toggle',
+					link: 'toggleElem'
+				},
+				{
+					block: 'password',
+					elem: 'field',
+					mix: {
+						block: 'field'
+					},
+					node: '.js-field',
+					link: 'fieldElem'
+				}
+			]
+		},
 
 		init: function() {
-			this.bindAll('toggle', 'focus');
-
-			this.fieldElem = this.elem.find('.js-field');
-			this.toggleElem = this.elem.find('.js-toggle');
-
 			// Mousedown instead of click to catch focused field
-			this.elem.on('mousedown', '.js-toggle', this.toggle_);
+			this.toggleElem.on('mousedown', this.toggle_);
 		},
 
 		isSupported: function() {
-			if (supported !== undefined) return supported;
+			if (_supported !== undefined) return _supported;
 
 			// IE8+
-			supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
-			return supported;
+			_supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
+			return _supported;
 		},
 
 		toggle: function() {
@@ -1542,11 +1804,11 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 			this.elem.toggleState('unlocked');
 
-			if (fieldType === types.locked && !locked) {
-				this.fieldElem.attr('type', types.unlocked);
+			if (fieldType === _types.locked && !locked) {
+				this.fieldElem.attr('type', _types.unlocked);
 			}
-			else if (fieldType === types.unlocked && locked) {
-				this.fieldElem.attr('type', types.locked);
+			else if (fieldType === _types.unlocked && locked) {
+				this.fieldElem.attr('type', _types.locked);
 			}
 
 			if (focused) {
@@ -1559,7 +1821,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		}
 	});
 
-	tamia.initComponents({password: Password});
+	tamia.initComponents({password: tamia.Password});
 
 }(window, jQuery));
 
@@ -1610,21 +1872,33 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var _selectClass = '.js-select';
-	var _boxClass = '.js-box';
-
-	var Select = tamia.extend(tamia.Component, {
+	tamia.Select = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Select',
 		binded: 'focus blur change',
+		template: {
+			block: 'select',
+			node: 'root',
+			content: [
+				{
+					block: 'select',
+					elem: 'box',
+					link: 'boxElem'
+				},
+				{
+					block: 'select',
+					elem: 'select',
+					node: '.js-select',
+					link: 'selectElem'
+				}
+			]
+		},
 
 		init: function() {
-			this.selectElem = this.elem.find(_selectClass);
-			this.boxElem = this.elem.find(_boxClass);
-
-			this.elem.on({
+			this.selectElem.on({
 				focus: this.focus_,
 				blur: this.blur_,
 				change: this.change_
-			}, _selectClass);
+			});
 
 			this.change();
 		},
@@ -1646,7 +1920,7 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		}
 	});
 
-	tamia.initComponents({select: Select});
+	tamia.initComponents({select: tamia.Select});
 
 }(window, jQuery));
 
@@ -1659,42 +1933,52 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 	var _wrapperClass = 'loader-wrapper';
 	var _shadeSelector = '.loader-shade';
-	var _loaderTmpl = '' +
-	'<div class="loader-shade">' +
-		'<div class="l-center">' +
-			'<div class="l-center-i">' +
-				'<div class="spinner spinner_big"></div>' +
-			'</div>' +
-		'</div>' +
-	'</div>';
 
-	var Loader = tamia.extend(tamia.Component, {
+	tamia.Loader = tamia.extend(tamia.Component, {
+		displayName: 'tamia.Loader',
+		template: {
+			block: 'loader-shade',
+			content: {
+				block: 'l-center',
+				content: {
+					block: 'l-center',
+					inner: true,
+					content: {
+						block: 'spinner',
+						mods: 'big'
+					}
+				}
+			}
+		},
+
 		init: function() {
-			this.initHtml();
 			tamia.delay(this.elem.addState, this.elem, 0, 'loading');
 		},
 
 		destroy: function() {
-			this.elem.removeState('loading');
-			this.elem.find(_shadeSelector).afterTransition(function() {
-				this.elem.removeClass(_wrapperClass);
-				this.loader.remove();
-			}.bind(this));
+			tamia.delay(function() {
+				this.elem.removeState('loading');
+				this.elem.find(_shadeSelector).afterTransition(function() {
+					this.elem.removeClass(_wrapperClass);
+					this.loader.remove();
+				}.bind(this));
+			}, this, 0);
 		},
 
 		initHtml: function() {
 			this.elem.addClass(_wrapperClass);
-			this.loader = $(_loaderTmpl);
+			this.loader = tamia.oporNode(this.template);
 			this.elem.append(this.loader);
 		}
 	});
+
 
 	// Events
 	tamia.registerEvents({
 		'loading-start': function(elem) {
 			var container = $(elem);
 			if (container.data('loader')) return;
-			container.data('loader', new Loader(elem));
+			container.data('loader', new tamia.Loader(elem));
 		},
 
 		'loading-stop': function(elem) {

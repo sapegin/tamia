@@ -242,6 +242,9 @@
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='.l-centered'>.l-centered</h4>
 
 <p>Horizontally centered block.</p>
+<h4 id='.l-text-centered'>.l-text-centered</h4>
+
+<p>Centered text.</p>
 <h3 id="spacing">Spacing</h3>
 <h4 id='space'>space(rows)</h4>
 
@@ -261,6 +264,12 @@
 <h4 id='.l-quad-space'>.l-quad-space</h4>
 
 <p>Quadruple bottom margin.</p>
+<h4 id='.l-quint-space'>.l-quint-space</h4>
+
+<p>Quintuple bottom margin.</p>
+<h4 id='.l-sext-space'>.l-sext-space</h4>
+
+<p>Sextuple bottom margin.</p>
 <h2 id="links">Links</h2>
 <h3 id="configuration">Configuration</h3>
 <h4 id='link_style'>link_style</h4>
@@ -581,12 +590,12 @@
   },
   <span class="comment">// ...</span>
 }</code></pre><p>Then if you run <code>grunt --debug</code> DEBUG variable will be true and false if you run just <code>grunt</code>.</p>
-<h4 id='tamia.trace'>tamia.trace(object, [name])</h4>
+<h4 id='tamia.trace'>tamia.trace(object, [name)</h4>
 
 <p>Traces all object’s method calls and arguments.</p>
 <ul>
 <li><em>Object</em> <strong>object</strong>: Object.</li>
-<li><em>String</em> <strong>[name]</strong>: Object name.</li>
+<li><em>String</em> <strong>[name</strong>:=object.displayName] Object name.</li>
 </ul>
 <h5 id="example">Example</h5>
 <pre><code class="javascript">init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
@@ -664,7 +673,7 @@
      $(elem).slideDown(done);
    }
 });
-$(<span class="string">'.js-elem'</span>).trigger(<span class="string">'animate.tamia'</span>, <span class="string">'slide'</span>);</code></pre><h3 id="events-management">Events management</h3>
+$(<span class="string">'.js-elem'</span>).trigger(<span class="string">'runanimation.tamia'</span>, <span class="string">'slide'</span>);</code></pre><h3 id="events-management">Events management</h3>
 <h4 id='tamia.registerEvents'>tamia.registerEvents(handlers)</h4>
 
 <p>Registers Tâmia events (eventname.tamia) on document.</p>
@@ -703,7 +712,7 @@ $(<span class="string">'.js-container'</span>).trigger(<span class="string">'ini
 
 <p>Toggles element’s visibility with CSS transition.</p>
 <p>See <code>appear.tamia</code> event for details.</p>
-<h4 id='animate.tamia'>animate.tamia</h4>
+<h4 id='runanimation.tamia'>runanimation.tamia</h4>
 
 <p>Runs animation on an element.</p>
 <p>@param {String|Function} animation Animation name, CSS class name or JS function.</p>
@@ -711,7 +720,9 @@ $(<span class="string">'.js-container'</span>).trigger(<span class="string">'ini
 <li><em>Function</em> <strong>[done]</strong>: Animation end callback.</li>
 </ul>
 <p>Animation name should be registered via <code>tamia.registerAnimations</code> function.</p>
-<h3 id="controls">Controls</h3>
+<h4 id='onDataFireClick'>onDataFireClick()</h4>
+
+<p>Controls.</p>
 <p>Fires jQuery event to specified element on click at this element.</p>
 <p>data-fire</p>
 <ul>
@@ -782,7 +793,9 @@ $(<span class="string">'.js-container'</span>).trigger(<span class="string">'ini
 <li><em>String</em> <strong>data</strong>: Template context.</li>
 </ul>
 <p>Returns <em>jQuery</em>.</p>
-<h3 id="google-analytics-or-mixpanel-events-tracking">Google Analytics or Mixpanel events tracking</h3>
+<h4 id='onDataTrackClick'>onDataTrackClick()</h4>
+
+<p>Google Analytics or Mixpanel events tracking.</p>
 <ul>
 <li><strong>data-track</strong>: Event name (‘link’ if empty).</li>
 <li><strong>[data-track-extra]</strong>: Extra data.</li>
@@ -823,6 +836,9 @@ After initialization all components will have <code>ok</code> state.</p>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='Component.binded'>Component.binded</h4>
 
 <p>List of methods that should be binded to <code>this</code> (see <code>bindAll</code> method).</p>
+<h4 id='template'>template()</h4>
+
+<p>Component’s OPORJSON template (see <code>initHtml</code> method).</p>
 <h4 id='Component.init'>Component.init()</h4>
 
 <p>Put all your initialization code in this method.</p>
@@ -844,6 +860,9 @@ After initialization all components will have <code>ok</code> state.</p>
 <h4 id='Component.fallback'>Component.fallback()</h4>
 
 <p>Implement this method to do some fallbacks. It will be called if isSupported() returns false.</p>
+<h4 id='Component.initHtml'>Component.initHtml()</h4>
+
+<p>Initialize HTML using OPORJSON stored in <code>this.template</code>.</p>
 <h4 id='Component.bindAll'>Component.bindAll(method1…)</h4>
 
 <p>Binds all specified methods to this. Binded method names have <code>_</code> at the end.</p>
@@ -856,6 +875,48 @@ After initialization all components will have <code>ok</code> state.</p>
 
 <p>Returns component visibility.</p>
 <p>Returns <em>Boolean</em>.</p>
+<h2 id="oporjson-api">OPORJSON API</h2>
+<h4 id='tamia.oporNode'>tamia.oporNode(json, [json.tag, [json.block], [json.elem], [json.attrs], [json.link])</h4>
+
+<p>OPORJSON to DOM tree.</p>
+<h5 id="example">Example</h5>
+<pre><code class="javascript"> <span class="keyword">var</span> select = tamia.oporNode({
+   block: <span class="string">'select'</span>,
+   mods: [<span class="string">'big'</span>, <span class="string">'awesome'</span>],
+   states: <span class="string">'hidden'</span>,
+   content: {
+     block: <span class="string">'select'</span>,
+     elem: <span class="string">'box'</span>,
+     js: <span class="string">'select-box'</span>,
+     link: <span class="string">'boxElem'</span>,
+     content: <span class="string">'Choose semething'</span>
+   }
+ });
+ <span class="keyword">this</span>.elem.append(select);
+ $.extend(<span class="keyword">this</span>, select.data(<span class="string">'links'</span>));  <span class="comment">// {boxElem: $('.js-select-box')}</span></code></pre><ul>
+<li><em>Object</em> <strong>json</strong>: OPORJSON (<code>block</code> or <code>node</code> is required).</li>
+<li><em>String</em> <strong>[json.tag</strong>:=div] Tag name.</li>
+<li><em>String</em> <strong>[json.block]</strong>: Block name (.block).</li>
+<li><em>String</em> <strong>[json.elem]</strong>: Element name (.block__elem).
+@param {String|Array} [json.mods] Modifier(s) (.block_mod).
+@param {String|Array} [json.states] State(s) (.is-state).
+@param {String|Array} [json.js] JS class(es) (.js-hook).
+@param {OPORJSON|Array} [json.mix] Blocks to mix ({block: ‘scrollable’}).</li>
+<li><em>Object</em> <strong>[json.attrs]</strong>: HTML attributes ({href: ‘/about’}).
+@param {String|HTMLElement|jQuery} [json.node] Key in <code>nodes</code> object, DOM/jQuery node or selector.</li>
+<li><em>String</em> <strong>[json.link]</strong>: Element link key (see example).
+@param {Object|String|Array} [json.content] Child node(s) or text content.
+@param {Object|HTMLElement|jQuery} [nodes] Existing DOM nodes or node (to use in <code>node</code> parameter of OPORJSON).</li>
+</ul>
+<p>Returns <em>jQuery</em>.</p>
+<h4 id='tamia.oporClass'>tamia.oporClass(json)</h4>
+
+<p>Generates class names for given OPORJSON element.</p>
+<h5 id="example">Example</h5>
+<pre><code class="scss">tamia<span class="class">.oporClass</span>({<span class="value">block</span><span class="value">: <span class="string">'select'</span>, elem: <span class="string">'box'</span>, js: <span class="string">'box'</span>});</span>  <span class="comment">// "select__box js-box"</span></code></pre><ul>
+<li><em>Object</em> <strong>json</strong>: OPORJSON</li>
+</ul>
+<p>Returns <em>String</em>.</p>
 
 				</div>
 				<div class="toc-holder l-quarter">

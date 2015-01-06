@@ -231,6 +231,8 @@
 <h4 id="-flippable-is-flipped">.flippable.is-flipped</h4>
 <p>Back side is visible.</p>
 <h3 id="events">Events</h3>
+<h4 id="flip-tamia">flip.tamia</h4>
+<p>Flips pane.</p>
 <h4 id="flipped-tamia">flipped.tamia</h4>
 <p>Fires on every flip. Argument will be <code>true</code> if back side is visible.</p>
 <h3 id="js-hooks">JS Hooks</h3>
@@ -404,7 +406,10 @@
     <span class="tag">&lt;<span class="title">li</span>&gt;</span>Cat<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
     <span class="tag">&lt;<span class="title">li</span>&gt;</span>Mouse<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
     <span class="tag">&lt;<span class="title">li</span>&gt;</span>Moose<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span></code></pre><h3 id="configuration">Configuration</h3>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span></code></pre><h3 id="modifiers">Modifiers</h3>
+<h4 id="-list-list_inside">.list.list_inside</h4>
+<p>Places bullets inside container.</p>
+<h3 id="configuration">Configuration</h3>
 <h4 id="list_inside">list_inside</h4>
 <p>Type: Boolean, default: <code>false</code>.</p>
 <p>If <code>true</code> places bullets inside container (by default bullets are outside).</p>
@@ -554,8 +559,7 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 <p>Password field with toggle to show characters.</p>
 <h3 id="markup">Markup</h3>
 <pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"password"</span> <span class="attribute">data-component</span>=<span class="value">"password"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"password__toggle js-toggle"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">class</span>=<span class="value">"password__field field js-field"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">class</span>=<span class="value">"js-field"</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="states">States</h3>
 <h4 id="-password-is-ok">.password.is-ok</h4>
 <p>Browser is supported.</p>
@@ -570,16 +574,14 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 <h3>Examples</h3>
 
 <div class="example"><div class="password password_inline" data-component="password">
-	<span class="password__toggle js-toggle"></span>
-	<input type="password" class="password__field field js-field">
+	<input type="password" class="js-field">
 </div>
 </div>
 <div class="example-code">
 	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_13">Show/hide code</span></div>
 	<div class="is-hidden" id="example_13">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"password password_inline"</span> <span class="attribute">data-component</span>=<span class="value">"password"</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"password__toggle js-toggle"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">class</span>=<span class="value">"password__field field js-field"</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">class</span>=<span class="value">"js-field"</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
 	</div>
@@ -631,29 +633,25 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 </ul>
 
 
-<h2 id='rouble'>Code blocks</h2>
+<h2 id='rouble'>Rouble ß</h2>
 
-<p>Nice code examples with highlighting.</p>
+<p>Russian Rouble sign.</p>
 <h3 id="markup">Markup</h3>
-<pre><code class="html"><span class="tag">&lt;<span class="title">pre</span> <span class="attribute">class</span>=<span class="value">"code"</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-coffescript"</span>&gt;</span>alert 'Hello world!'<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span></code></pre>
-
-<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">pre</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-coffescript"</span>&gt;</span>alert 'Hello world!'<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="tools">Tools</h3>
+<pre><code class="html"><span class="tag">&lt;<span class="title">p</span>&gt;</span>100 <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"rub"</span>&gt;</span>Р<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></code></pre><h3 id="caveats">Caveats</h3>
 <ul>
-<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
-<li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
+<li>IE9+.</li>
+<li>Only one font (Arial) is available now.</li>
 </ul>
 
 
 <h3>Examples</h3>
 
-<div class="example"><pre class="code"><code class="language-javascript">alert('Hello world!');</code></pre>
+<div class="example"><p>499 <span class="rub">Р</span></p>
 </div>
 <div class="example-code">
 	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_14">Show/hide code</span></div>
 	<div class="is-hidden" id="example_14">
-		<pre><code class="html"><span class="tag">&lt;<span class="title">pre</span> <span class="attribute">class</span>=<span class="value">"code"</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-javascript"</span>&gt;</span>alert('Hello world!');<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span>
+		<pre><code class="html"><span class="tag">&lt;<span class="title">p</span>&gt;</span>499 <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"rub"</span>&gt;</span>Р<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
 </code></pre>
 	</div>
 </div>
@@ -663,8 +661,7 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 <p>Select with custom design</p>
 <h3 id="markup">Markup</h3>
 <pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"select"</span> <span class="attribute">data-component</span>=<span class="value">"select"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"select__box js-box"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">select</span> <span class="attribute">class</span>=<span class="value">"select__select js-select"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">select</span> <span class="attribute">class</span>=<span class="value">"js-select"</span>&gt;</span>
         <span class="tag">&lt;<span class="title">option</span> <span class="attribute">selected</span>&gt;</span>Please select an option<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
         <span class="tag">&lt;<span class="title">option</span>&gt;</span>Dog<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
         <span class="tag">&lt;<span class="title">option</span>&gt;</span>Cat<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
@@ -678,8 +675,7 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 <h3>Examples</h3>
 
 <div class="example"><div class="select select_inline" data-component="select">
-	<div class="select__box js-box"></div>
-	<select class="select__select js-select">
+	<select class="js-select">
 		<option selected>Please select an option</option>
 		<option class="fixie"></option>
 		<option class="fixie"></option>
@@ -692,8 +688,7 @@ $('.pony').trigger('open.modal.tamia');</code></pre><p>Open via link:</p>
 	<div class="example-code__link"><span class="link" data-fire="toggle.tamia" data-target="#example_15">Show/hide code</span></div>
 	<div class="is-hidden" id="example_15">
 		<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"select select_inline"</span> <span class="attribute">data-component</span>=<span class="value">"select"</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"select__box js-box"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">select</span> <span class="attribute">class</span>=<span class="value">"select__select js-select"</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">select</span> <span class="attribute">class</span>=<span class="value">"js-select"</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">option</span> <span class="attribute">selected</span>&gt;</span>Please select an option<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">option</span>&gt;</span>...<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">option</span>&gt;</span>...<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
