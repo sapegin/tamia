@@ -40,14 +40,6 @@
 			this.toggleElem.on('mousedown', this.toggle_);
 		},
 
-		isSupported: function() {
-			if (_supported !== undefined) return _supported;
-
-			// IE8+
-			_supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
-			return _supported;
-		},
-
 		toggle: function() {
 			var focused = document.activeElement === this.fieldElem[0];
 			var locked = this.elem.hasState('unlocked');
