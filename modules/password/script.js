@@ -27,7 +27,13 @@
 						block: 'field'
 					},
 					node: '.js-field',
-					link: 'fieldElem'
+					link: 'fieldElem',
+					attrs: {
+						autocapitalize: 'off',
+						autocomplete: 'off',
+						autocorrect: 'off',
+						spellcheck: 'false'
+					}
 				}
 			]
 		},
