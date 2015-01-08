@@ -5,11 +5,8 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var _supported;
-	var _types = {
-		locked: 'password',
-		unlocked: 'text'
-	};
+	var _unlockedState = 'unlocked';
+	var _inputSyncEvent = 'input.sync.password';
 
 	tamia.Password = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Password',
@@ -42,17 +39,26 @@
 
 		toggle: function() {
 			var focused = document.activeElement === this.fieldElem[0];
-			var locked = this.elem.hasState('unlocked');
-			var fieldType = this.fieldElem.attr('type');
+			var locked = !this.isLocked();
 
-			this.elem.toggleState('unlocked');
+			this.elem.toggleState(_unlockedState);
 
-			if (fieldType === _types.locked && !locked) {
-				this.fieldElem.attr('type', _types.unlocked);
+			// Create hidden input[type=password] element to invoke password saving in browser
+			if (!locked) {
+				this.cloneElem = this.fieldElem.clone();
+				this.cloneElem.hide();
+				this.fieldElem.after(this.cloneElem);
+				this.fieldElem.name = '';
+				this.fieldElem.on(_inputSyncEvent, this.syncWith.bind(this, this.cloneElem));
+				this.cloneElem.on(_inputSyncEvent, this.syncWith.bind(this, this.fieldElem));
 			}
-			else if (fieldType === _types.unlocked && locked) {
-				this.fieldElem.attr('type', _types.locked);
+			else if (this.cloneElem) {
+				this.fieldElem.off(_inputSyncEvent);
+				this.fieldElem.name = this.cloneElem.name;
+				this.cloneElem.remove();
 			}
+
+			this.fieldElem.attr('type', locked ? 'password' : 'text');
 
 			if (focused) {
 				setTimeout(this.focus_, 0);
@@ -61,6 +67,14 @@
 
 		focus: function() {
 			this.fieldElem.focus();
+		},
+
+		isLocked: function() {
+			return !this.elem.hasState(_unlockedState);
+		},
+
+		syncWith: function(receiver, event) {
+			receiver.val(event.target.value);
 		}
 	});
 
