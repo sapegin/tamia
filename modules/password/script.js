@@ -6,6 +6,7 @@
 	'use strict';
 
 	var _unlockedState = 'unlocked';
+	var _disabledState = 'disabled';
 	var _inputSyncEvent = 'input.sync.password';
 
 	tamia.Password = tamia.extend(tamia.Component, {
@@ -41,6 +42,10 @@
 		init: function() {
 			// Mousedown instead of click to catch focused field
 			this.toggleElem.on('mousedown', this.toggle_);
+
+			if (this.elem.hasState(_disabledState)) {
+				this.fieldElem.prop(_disabledState, true);
+			}
 		},
 
 		toggle: function() {

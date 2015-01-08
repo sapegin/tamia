@@ -5,6 +5,8 @@
 ;(function(window, $, undefined) {
 	'use strict';
 
+	var _disabledState = 'disabled';
+
 	tamia.Select = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Select',
 		binded: 'focus blur change',
@@ -32,6 +34,10 @@
 				blur: this.blur_,
 				change: this.change_
 			});
+
+			if (this.elem.hasState(_disabledState)) {
+				this.selectElem.prop(_disabledState, true);
+			}
 
 			this.change();
 		},
