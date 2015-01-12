@@ -12,6 +12,20 @@ Nice code examples with highlighting.
 	</div>
 
 
+## Skin
+
+Set `code_default_skin` or `modules_default_skin` to `true` to enable default skin.
+
+
+## Configuration
+
+### code_class_prefix
+
+Type: String. Default: `hljs-`.
+
+Prefix for color scheme classes.
+
+
 ## Tools
 
 * [highlight.js](http://softwaremaniacs.org/soft/highlight/en/).

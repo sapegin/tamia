@@ -1,74 +1,82 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Tâmia © 2015 Artem Sapegin http://sapegin.me
 // Tomorrow theme
-// Theme from: http://jmblog.github.com/color-themes-for-google-code-highlightjs
+// Theme from: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow.css
 
-.tomorrow-comment,
-.comment,
-.title
+_prefix = code_class_prefix
+
+// Comment
+.{_prefix}comment,
 	color: #8e908c
-
-.tomorrow-comment,
-.comment
 	@media print
 		font-style: italic
 
-.tomorrow-red,
-.variable,
-.attribute,
-.tag,
-.regexp,
-.ruby .constant,
-.xml .tag .title,
-.xml .pi,
-.xml .doctype,
-.html .doctype,
-.css .id,
-.css .class,
-.css .pseudo
+// Red
+.{_prefix}variable,
+.{_prefix}attribute,
+.{_prefix}tag,
+.{_prefix}regexp,
+.ruby .{_prefix}constant,
+.xml .{_prefix}tag .{_prefix}title,
+.xml .{_prefix}pi,
+.xml .{_prefix}doctype,
+.html .{_prefix}doctype,
+.css .{_prefix}id,
+.css .{_prefix}class,
+.css .{_prefix}pseudo
 	color: #c82829
 	@media print
 		font-weight: bold
 
-.tomorrow-orange,
-.number,
-.codeprocessor,
-.built_in,
-.literal,
-.params,
-.constant
+// Orange
+.{_prefix}number,
+.{_prefix}preprocessor,
+.{_prefix}pragma,
+.{_prefix}built_in,
+.{_prefix}literal,
+.{_prefix}params,
+.{_prefix}constant
 	color: #f5871f
 
-.tomorrow-yellow,
-.class,
-.ruby .class .title,
-.css .rules .attribute
+// Yellow
+.ruby .{_prefix}class .{_prefix}title,
+.css .{_prefix}rules .{_prefix}attribute
 	color: #eab700
 
-.tomorrow-green,
-.string,
-.value,
-.inheritance,
-.header,
-.ruby .symbol,
-.xml .cdata
+// Green
+.{_prefix}string,
+.{_prefix}value,
+.{_prefix}inheritance,
+.{_prefix}header,
+.ruby .{_prefix}symbol,
+.xml .{_prefix}cdata
 	color: #718c00
 
-.tomorrow-aqua,
-.css .hexcolor
+// Aqua
+.{_prefix}title,
+.css .{_prefix}hexcolor
 	color: #3e999f
 
-.tomorrow-blue,
-.function,
-.python .decorator,
-.python .title,
-.ruby .function .title,
-.ruby .title .keyword,
-.perl .sub,
-.javascript .title,
-.coffeescript .title
+// Blue
+.{_prefix}function,
+.python .{_prefix}decorator,
+.python .{_prefix}title,
+.ruby .{_prefix}function .{_prefix}title,
+.ruby .{_prefix}title .{_prefix}keyword,
+.perl .{_prefix}sub,
+.javascript .{_prefix}title,
+.coffeescript .{_prefix}title
 	color: #4271ae
 
-.tomorrow-purple,
-.keyword,
-.javascript .function
+// Purple
+.{_prefix}keyword,
+.javascript .{_prefix}function
 	color: #8959a8
+
+.coffeescript .javascript,
+.javascript .xml,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata
+	opacity: 0.5

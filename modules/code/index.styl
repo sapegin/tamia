@@ -1,8 +1,9 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Tâmia © 2015 Artem Sapegin http://sapegin.me
 // Code blocks
 
 modules_default_skin ?= true
 code_default_skin ?= false
+code_class_prefix ?= 'hljs-'
 
 .code,
 .text code,
@@ -17,6 +18,7 @@ code_default_skin ?= false
 	-moz-tab-size: 4
 	  -o-tab-size: 4
 	     tab-size: 4
+	-webkit-text-size-adjust: none
 
 	code
 		display: block
