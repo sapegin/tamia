@@ -53,7 +53,13 @@ module.exports = (grunt) ->
 				paths: ['.']
 				urlfunc: 'embedurl'
 				use: [
-					-> (require 'autoprefixer-stylus')('last 2 versions', 'ie 8', 'ie 9')
+					-> (require 'stylobuild')({
+						autoprefixer:
+							# `android >= 4` adds legacy flexbox for PhantomJS
+							browsers: 'last 2 versions, ie 9, android >= 4'
+						csso: false
+						pixrem: false
+					})
 				]
 			specs:
 				files:
@@ -74,6 +80,10 @@ module.exports = (grunt) ->
 			dash_css:
 				src: 'docs/styles.css'
 				dest: 'Tamia.docset/Contents/Resources/Documents/styles.css'
+		clean:
+			tests: [
+				'tests/failures'
+			]
 		casper:
 			options:
 				test: true
@@ -456,9 +466,9 @@ module.exports = (grunt) ->
 				)
 		)
 
-	grunt.registerTask 'test', ['casper']
+	grunt.registerTask 'test', ['clean', 'casper']
 	grunt.registerTask 'test:js', ['casper:js']
-	grunt.registerTask 'test:css', ['casper:css']
-	grunt.registerTask 'test:css_styles', ['casper:css_styles']
+	grunt.registerTask 'test:css', ['clean', 'casper:css']
+	grunt.registerTask 'test:css_styles', ['clean', 'casper:css_styles']
 	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'copy', 'test']
 	grunt.registerTask 'build', ['concat', 'stylus', 'docs', 'copy']

@@ -36,6 +36,11 @@ casper.test.begin 'Tâmia CSS/styles', TESTS, suite = (test) ->
 	# phantomcss.turnOffAnimations()
 
 	casper.thenEvaluate ->
+		#console.log(document.documentElement.className)
+		# for rule in document.styleSheets[0].cssRules
+			# console.log(rule.cssText)
+
+	casper.thenEvaluate ->
 		document.documentElement.className += ' phantomjs'
 
 	# Layout
