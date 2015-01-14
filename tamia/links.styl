@@ -36,9 +36,6 @@ hover_underline_color ?= rgba(hover_color,.4)
 link_underline_position ?= 80%
 link_underline_position = 76.5% if link_style == "underline"
 
-// Pressable links (shifts down by 1px, default: false).
-link_pressable ?= false
-
 
 //
 // Mixins
@@ -88,28 +85,17 @@ link-all-states()
 //
 
 // Pressable element: pointer cursor + disable text selection.
-.pressable-inset
+pressable()
 	no-select()
 	cursor: pointer
 
-// Pressable element: shifts down by 1px on click.
-.pressable
-	@extend .pressable-inset
-	&:active
-		position: relative if link_pressable
-		top: 1px if link_pressable
-
 // Non-pressable element: cancels .pressable.
-.no-pressable
-	&,
-	&:hover,
-	&:active
-		cursor: default
-	&:active
-		position: static if link_pressable
+no-pressable()
+	cursor: default
+	pointer-events: none
 
 // Remove underline.
-.no-underline
+no-underline()
 	+link-all-states()
 		text-decoration: none
 		border-bottom: 0
@@ -122,7 +108,6 @@ link-all-states()
 .link
 	&,
 	& u
-		@extend .pressable
 		transition: border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out
 		cursor: pointer
 		if link_style == "underline"
@@ -180,7 +165,7 @@ link-all-states()
 			color: hover_color
 
 	&_quoted
-		@extend .no-underline
+		no-underline()
 
 .no-cssgradients
 	.link
