@@ -63,6 +63,17 @@ link-hovers()
 	&:focus
 		{block}
 
+// :link and :visited states of the link.
+//
+// Example:
+//
+// 	 +link-non-hovers()
+//	 	color: #bada55
+link-non-hovers()
+	&,
+	&:link,
+	&:visited
+		{block}
 
 // All states of the link.
 //
