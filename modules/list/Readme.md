@@ -1,6 +1,6 @@
-# Unordered list
+# Lists
 
-Unordered list with dashes (—) as bullets.
+Unordered list with dashes (—) as bullets and basic ordered list.
 
 
 ## Markup
@@ -31,6 +31,6 @@ If `true` places bullets inside container (by default bullets are outside).
 
 ## Caveats
 
-1. If `list_inside` is `false` (default) automatically places bullets inside container (like `list_inside = true` does) when window width is less than `max_width` global variable.
+1. If `list_inside` is `false` (default) automatically places bullets inside container (like `list_inside = true` does) when window width is less than `max_width` or `content_max_width` global variable.
 
 2. `UL`s inside `.text` class are treated as `.list`.

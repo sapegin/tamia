@@ -1,15 +1,16 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
-// Unordered list with dashes as bullets
+// Unordered list with dashes (—) as bullets and basic ordered list
 
 // Place bullets inside container (by default bullets are outside).
 list_inside ?= false
 
+_margin = 1.3em
 
 .list
 	> li
 		position: relative
-		padding-left: 1.3em
-		margin-left: -1.3em unless list_inside
+		padding-left: _margin
+		margin-left: -(_margin) unless list_inside
 	&_inside > li
 		margin-left: 0
 	> li:before
@@ -17,8 +18,9 @@ list_inside ?= false
 		left: 0
 		content: "\2014\a0"
 
-	ul
-		margin-left: 1.3em
+	ul,
+	ol
+		margin-left: _margin
 
 	li > ul,
 	li > ol
@@ -28,11 +30,12 @@ list_inside ?= false
 	ul
 		@extend .list
 
-list_max_width ?= max_width or content_max_width
+list_max_width ?= max_width or content_max_width or max_width
 
 if not list_inside and list_max_width
 	+below(list_max_width)
 		.list > li,
 		.text ul > li
 			margin-left: 0
-
+		.text ol > li
+			margin-left: _margin
