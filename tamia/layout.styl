@@ -21,7 +21,7 @@ grid_columns ?= 12
 // Columns wrapper.
 grid-row()
 	clearfix()
-	grid-wrapper()
+	grid-margin()
 	content: "tamia__grid-row"  if DEBUG
 
 // Column (grid).
@@ -107,7 +107,7 @@ grid-padding(full=false)
 		padding-right: side-gutter
 
 // Column wrapper left/right negative margin.
-grid-wrapper()
+grid-margin()
 	side-gutter = (-(grid_gutter / 2))
 	margin-left: side-gutter
 	margin-right: side-gutter
@@ -128,9 +128,8 @@ _grid-float()
 // Layouts
 //
 
-// Layout wrapper.
-layout-row()
-	grid-wrapper()
+// Layout wrapper (without margins).
+layout-wrapper()
 	display: flex
 	flex-flow: row wrap
 	/// IE8-9
@@ -138,6 +137,12 @@ layout-row()
 		display: block
 		letter-spacing: -0.31em
 	content: "tamia__layout-row"  if DEBUG
+
+// Layout row wrapper (with margins).
+layout-row()
+	grid-margin()
+	layout-wrapper()
+
 
 // Column (simple layout).
 //
@@ -213,13 +218,8 @@ center(width, height=null)
 //
 
 // Column wrapper.
-//
-// - l-row_flat - Disable negative left/right margins.
 .l-row
 	layout-row()
-	&_flat
-		margin-left: 0
-		margin-right: 0
 
 .l-sixth,
 .l-quarter,
@@ -253,16 +253,20 @@ center(width, height=null)
 .l-half
 	_layout-part(1/2)
 
-// Flexible columns with left text alignment (to use inside .l-row).
+// Wrapper for .l-left/.l-right.
+.l-wrap
+	layout-wrapper()
+
+// Flexible columns with left text alignment (to use inside .l-wrap).
 //
 // Example:
 //
-//   <div class="l-row l-row_flat">
+//   <div class="l-wrap">
 //     <div class="l-left">Left</div>
 //     <div class="l-right">Left</div>
 //   </div>
 .l-left,
-// Flexible columns with right text alignment (to use inside .l-row).
+// Flexible columns with right text alignment (to use inside .l-wrap).
 .l-right
 	flex: 1
 .l-right
