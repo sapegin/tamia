@@ -81,8 +81,7 @@ grid-explode(full=false)
 	if full
 		margin: -(grid_gutter)
 	else
-		margin-left: -(grid_gutter)
-		margin-right: -(grid_gutter)
+		margin-side: -(grid_gutter)
 
 // Width of column, in percent.
 //
@@ -103,14 +102,12 @@ grid-padding(full=false)
 	if full
 		padding: side-gutter
 	else
-		padding-left: side-gutter
-		padding-right: side-gutter
+		padding-side: side-gutter
 
 // Column wrapper left/right negative margin.
 grid-margin()
 	side-gutter = (-(grid_gutter / 2))
-	margin-left: side-gutter
-	margin-right: side-gutter
+	margin-side: side-gutter
 
 _grid-column(position=1, span=1, context=null)
 	context = grid_columns if not context
@@ -309,8 +306,7 @@ center(width, height=null)
 // Horizontally centered block.
 .l-centered
 	display: block
-	margin-left: auto
-	margin-right: auto
+	margin-side: auto
 
 // Centered text.
 .l-text-centered
