@@ -40,12 +40,14 @@ if sticky_footer_height
 		padding-bottom: sticky_footer_height
 	.footer
 		sticky-footer(sticky_footer_height)
-		padding: 0 spacer
 		if max_width
 			&-i
 				max-width: max_width
 				margin-left: auto
 				margin-right: auto
+				padding: 0 spacer
+		else
+			padding: 0 spacer
 
 // www.aestheticallyloyal.com/public/optimize-legibility/
 h1, h2, h3
