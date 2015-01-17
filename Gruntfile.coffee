@@ -466,7 +466,7 @@ module.exports = (grunt) ->
 				)
 		)
 
-	grunt.registerTask 'test', ['clean', 'casper']
+	grunt.registerTask 'test', ['jshint', 'coffeelint', 'clean', 'casper']
 	grunt.registerTask 'test:js', ['casper:js']
 	grunt.registerTask 'test:css', ['clean', 'casper:css']
 	grunt.registerTask 'test:css_styles', ['clean', 'casper:css_styles']
