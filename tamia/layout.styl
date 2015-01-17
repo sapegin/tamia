@@ -258,21 +258,38 @@ center(width, height=null)
 //
 // Example:
 //
+//   .block
+//     layout-wrapper()
+//     &__first
+//       layout-left()
+//     &__second
+//       layout-right()
+layout-left()
+	flex: 1
+	.no-flexbox.no-flexboxlegacy
+		float: left
+
+// Flexible columns with right text alignment (to use inside .l-wrap).
+layout-right()
+	flex: 1
+	text-align: right
+	.no-flexbox.no-flexboxlegacy
+		float: right
+
+// Flexible columns with left text alignment (to use inside .l-wrap).
+//
+// Example:
+//
 //   <div class="l-wrap">
 //     <div class="l-left">Left</div>
 //     <div class="l-right">Left</div>
 //   </div>
-.l-left,
+.l-left
+	layout-left()
+
 // Flexible columns with right text alignment (to use inside .l-wrap).
 .l-right
-	flex: 1
-.l-right
-	text-align: right
-.no-flexbox.no-flexboxlegacy
-	.l-left
-		float: left
-	.l-right
-		float: right
+	layout-right()
 
 // Pull left (float: left).
 .l-pull-left
