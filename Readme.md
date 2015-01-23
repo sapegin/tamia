@@ -1,4 +1,6 @@
-# Tâmia [![Build Status](https://travis-ci.org/sapegin/tamia.png)](https://travis-ci.org/sapegin/tamia)
+# Tâmia
+
+[![Build Status](https://travis-ci.org/tamiadev/tamia.png)](https://travis-ci.org/tamiadev/tamia)
 
 Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of four parts:
 
@@ -32,7 +34,7 @@ I love new technologies so I spend as little time as possible on old browsers. T
 
 ## Workflow
 
-I use [Yeomen generator](https://github.com/sapegin/generator-tamia) for scaffolding new projects: create folders and all required files.
+I use [Yeomen generator](https://github.com/tamiadev/generator-tamia) for scaffolding new projects: create folders and all required files.
 
 I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
 
@@ -86,19 +88,19 @@ tamia.initComponents({pony: Pony});
 </div>
 ```
 
-See documentation [for details](http://sapegin.github.io/tamia/docs.html).
+See documentation [for details](http://tamiadev.github.io/tamia/docs.html).
 
 
 ## JavaScript Helpers
 
 Useful events and other stuff.
 
-See documentation [for details](http://sapegin.github.io/tamia/docs.html).
+See documentation [for details](http://tamiadev.github.io/tamia/docs.html).
 
 
 ## Modules library
 
-Form controls, basic text styles, [etc](https://github.com/sapegin/tamia/tree/master/modules).
+Form controls, basic text styles, [etc](https://github.com/tamiadev/tamia/tree/master/modules).
 
 All modules are disabled by default. See *Using Modules* below for details.
 
@@ -107,13 +109,13 @@ All modules are disabled by default. See *Using Modules* below for details.
 
 There are few other things made specifically for Tâmia:
 
-* [Yeomen project generator](https://github.com/sapegin/generator-tamia);
-* [Grunt task](https://github.com/sapegin/grunt-tamia-sprite) for generating sprites.
+* [Yeomen project generator](https://github.com/tamiadev/generator-tamia);
+* [Grunt task](https://github.com/tamiadev/grunt-tamia-sprite) for generating sprites.
 
 
 ## Documentation
 
-See [here](http://sapegin.github.io/tamia/).
+See [here](http://tamiadev.github.io/tamia/).
 
 
 ## Installation
@@ -121,7 +123,7 @@ See [here](http://sapegin.github.io/tamia/).
 The easiest way to install Tâmia is to use Yeomen generator:
 
 ```
-$ npm install -g yo, generator-tamia
+$ npm install -g yo generator-tamia
 $ yo tamia
 ```
 
