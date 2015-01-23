@@ -162,7 +162,7 @@ module.exports = (grunt) ->
 		# Index page
 		readme = grunt.file.read 'Readme.md'
 		readme = readme.replace /^[\S\s]*?##/, '##'
-		readme = readme.replace /The MIT License, see the included `License.md` file./, 'The [MIT License](https://github.com/sapegin/tamia/blob/master/License.md).'
+		readme = readme.replace /The MIT License, see the included `License.md` file./, 'The [MIT License](https://github.com/tamiadev/tamia/blob/master/License.md).'
 		saveHtml 'index', marked readme
 
 		# Stylus modules
