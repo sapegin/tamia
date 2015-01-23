@@ -36,7 +36,7 @@
 					</nav>
 				</div>
 				<div class="l-right">
-					<a href="https://github.com/sapegin/tamia" class="github-link">View on GitHub</a>
+					<a href="https://github.com/tamiadev/tamia" class="github-link">View on GitHub</a>
 				</div>
 			</div>
 		</div>
@@ -177,7 +177,13 @@
 
 <pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">pre</span>&gt;</span><span class="tag">&lt;<span class="title">code</span> <span class="attribute">class</span>=<span class="value">"language-coffescript"</span>&gt;</span>alert 'Hello world!'<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="tools">Tools</h3>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h3 id="skin">Skin</h3>
+<p>Set <code>code_default_skin</code> or <code>modules_default_skin</code> to <code>true</code> to enable default skin.</p>
+<h3 id="configuration">Configuration</h3>
+<h4 id="code_class_prefix">code_class_prefix</h4>
+<p>Type: String. Default: <code>hljs-</code>.</p>
+<p>Prefix for color scheme classes.</p>
+<h3 id="tools">Tools</h3>
 <ul>
 <li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>.</li>
 <li><a href="https://github.com/docpad/docpad-plugin-highlightjs">docpad-plugin-highlightjs</a> for DocPad.</li>
@@ -397,9 +403,9 @@
 	</div>
 </div>
 
-<h2 id='list'>Unordered list</h2>
+<h2 id='list'>Lists</h2>
 
-<p>Unordered list with dashes (—) as bullets.</p>
+<p>Unordered list with dashes (—) as bullets and basic ordered list.</p>
 <h3 id="markup">Markup</h3>
 <pre><code class="html"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"list"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">li</span>&gt;</span>Dog<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
@@ -415,7 +421,7 @@
 <p>If <code>true</code> places bullets inside container (by default bullets are outside).</p>
 <h3 id="caveats">Caveats</h3>
 <ol>
-<li><p>If <code>list_inside</code> is <code>false</code> (default) automatically places bullets inside container (like <code>list_inside = true</code> does) when window width is less than <code>max_width</code> global variable.</p>
+<li><p>If <code>list_inside</code> is <code>false</code> (default) automatically places bullets inside container (like <code>list_inside = true</code> does) when window width is less than <code>max_width</code> or <code>content_max_width</code> global variable.</p>
 </li>
 <li><p><code>UL</code>s inside <code>.text</code> class are treated as <code>.list</code>.</p>
 </li>

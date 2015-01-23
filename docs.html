@@ -36,7 +36,7 @@
 					</nav>
 				</div>
 				<div class="l-right">
-					<a href="https://github.com/sapegin/tamia" class="github-link">View on GitHub</a>
+					<a href="https://github.com/tamiadev/tamia" class="github-link">View on GitHub</a>
 				</div>
 			</div>
 		</div>
@@ -60,7 +60,12 @@
 <h4 id='sticky_footer_height'>sticky_footer_height</h4>
 
 <p>Sticky footer height (default: no sticky footer).</p>
-<h4 id='bg_color'>bg_color</h4>
+<h5 id="example">Example</h5>
+<pre><code class="html"><span class="tag">&lt;<span class="title">footer</span> <span class="attribute">class</span>=<span class="value">"footer"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer-i"</span>&gt;</span>
+    Footer content
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">footer</span>&gt;</span></code></pre><h4 id='bg_color'>bg_color</h4>
 
 <p>Background color (default: white).</p>
 <h4 id='base_color'>base_color</h4>
@@ -145,13 +150,16 @@
 <ul>
 <li><strong>full</strong> Padding on all sides if true, left/right otherwise (default: false).</li>
 </ul>
-<h4 id='grid-wrapper'>grid-wrapper()</h4>
+<h4 id='grid-margin'>grid-margin()</h4>
 
 <p>Column wrapper left/right negative margin.</p>
 <h3 id="layouts">Layouts</h3>
+<h4 id='layout-wrapper'>layout-wrapper()</h4>
+
+<p>Layout wrapper (without margins).</p>
 <h4 id='layout-row'>layout-row()</h4>
 
-<p>Layout wrapper.</p>
+<p>Layout row wrapper (with margins).</p>
 <h4 id='layout-nth'>layout-nth(part)</h4>
 
 <p>Column (simple layout).</p>
@@ -193,9 +201,6 @@
 <h4 id='.l-row'>.l-row</h4>
 
 <p>Column wrapper.</p>
-<ul>
-<li>l-row_flat - Disable negative left/right margins.</li>
-</ul>
 <h4 id='.l-sixth'>.l-sixth</h4>
 
 <p>Sixth (to use inside .l-row).</p>
@@ -214,16 +219,31 @@
 <h4 id='.l-half'>.l-half</h4>
 
 <p>Half (to use inside .l-row).</p>
+<h4 id='.l-wrap'>.l-wrap</h4>
+
+<p>Wrapper for .l-left/.l-right.</p>
+<h4 id='layout-left'>layout-left()</h4>
+
+<p>Flexible columns with left text alignment (to use inside .l-wrap).</p>
+<h5 id="example">Example</h5>
+<pre><code class="scss"><span class="class">.block</span>
+  <span class="function">layout-wrapper()</span>
+  &amp;__first
+    <span class="function">layout-left()</span>
+  &amp;__second
+    <span class="function">layout-right()</span></code></pre><h4 id='layout-right'>layout-right()</h4>
+
+<p>Flexible columns with right text alignment (to use inside .l-wrap).</p>
 <h4 id='.l-left'>.l-left</h4>
 
-<p>Flexible columns with left text alignment (to use inside .l-row).</p>
+<p>Flexible columns with left text alignment (to use inside .l-wrap).</p>
 <h5 id="example">Example</h5>
-<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-row l-row_flat"</span>&gt;</span>
+<pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-wrap"</span>&gt;</span>
   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"l-right"</span>&gt;</span>Left<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><h4 id='.l-right'>.l-right</h4>
 
-<p>Flexible columns with right text alignment (to use inside .l-row).</p>
+<p>Flexible columns with right text alignment (to use inside .l-wrap).</p>
 <h4 id='.l-pull-left'>.l-pull-left</h4>
 
 <p>Pull left (float: left).</p>
@@ -303,9 +323,6 @@
 <h4 id='link_underline_position'>link_underline_position</h4>
 
 <p>Link underline position (only when link_style == gradient, default: 80%)</p>
-<h4 id='link_pressable'>link_pressable</h4>
-
-<p>Pressable links (shifts down by 1px, default: false).</p>
 <h3 id="mixins">Mixins</h3>
 <h4 id='link-underline'>link-underline()</h4>
 
@@ -318,24 +335,26 @@
 <p>:hover, :active and :focus states of the link.</p>
 <h5 id="example">Example</h5>
 <pre><code class="scss"> +<span class="function">link-hovers()</span>
+     <span class="attribute">color</span><span class="value">: <span class="hexcolor">#bada55</span></span></code></pre><h4 id='link-non-hovers'>link-non-hovers()</h4>
+
+<p>:link and :visited states of the link.</p>
+<h5 id="example">Example</h5>
+<pre><code class="scss"> +<span class="function">link-non-hovers()</span>
      <span class="attribute">color</span><span class="value">: <span class="hexcolor">#bada55</span></span></code></pre><h4 id='link-all-states'>link-all-states()</h4>
 
 <p>All states of the link.</p>
 <h5 id="example">Example</h5>
 <pre><code class="scss"> +<span class="function">link-all-states()</span>
-     <span class="attribute">color</span><span class="value">: @color</span></code></pre><h3 id="classes">Classes</h3>
-<h4 id='.pressable-inset'>.pressable-inset</h4>
+     <span class="attribute">color</span><span class="value">: @color</span></code></pre><h4 id='pressable'>pressable()</h4>
 
 <p>Pressable element: pointer cursor + disable text selection.</p>
-<h4 id='.pressable'>.pressable</h4>
-
-<p>Pressable element: shifts down by 1px on click.</p>
-<h4 id='.no-pressable'>.no-pressable</h4>
+<h4 id='no-pressable'>no-pressable()</h4>
 
 <p>Non-pressable element: cancels .pressable.</p>
-<h4 id='.no-underline'>.no-underline</h4>
+<h4 id='no-underline'>no-underline()</h4>
 
 <p>Remove underline.</p>
+<h3 id="classes">Classes</h3>
 <h4 id='.link'>.link</h4>
 
 <p>Link.</p>
@@ -500,13 +519,6 @@
 <h4 id='enable-ligatures'>enable-ligatures()</h4>
 
 <p>Enables ligatures in text.</p>
-<h4 id='text-selection'>text-selection(color, background)</h4>
-
-<p>Text selection style.</p>
-<ul>
-<li><strong>color</strong> Text color.</li>
-<li><strong>background</strong> Background color.</li>
-</ul>
 <h4 id='no-select'>no-select()</h4>
 
 <p>Disables text selection.</p>
@@ -527,6 +539,12 @@
 <li><strong>width</strong> Width.
 [height] - Height (the same as width if not passed).</li>
 </ul>
+<h4 id='margin-side'>margin-side()</h4>
+
+<p>Set element’s left and right margins.</p>
+<h4 id='padding-side'>padding-side()</h4>
+
+<p>Set element’s left and right paddings.</p>
 <h4 id='no-cols'>no-cols()</h4>
 
 <p>Disables columns.</p>

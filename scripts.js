@@ -1754,11 +1754,9 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
-	var _supported;
-	var _types = {
-		locked: 'password',
-		unlocked: 'text'
-	};
+	var _unlockedState = 'unlocked';
+	var _disabledState = 'disabled';
+	var _inputSyncEvent = 'input.sync.password';
 
 	tamia.Password = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Password',
@@ -1779,7 +1777,13 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 						block: 'field'
 					},
 					node: '.js-field',
-					link: 'fieldElem'
+					link: 'fieldElem',
+					attrs: {
+						autocapitalize: 'off',
+						autocomplete: 'off',
+						autocorrect: 'off',
+						spellcheck: 'false'
+					}
 				}
 			]
 		},
@@ -1787,29 +1791,34 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 		init: function() {
 			// Mousedown instead of click to catch focused field
 			this.toggleElem.on('mousedown', this.toggle_);
-		},
 
-		isSupported: function() {
-			if (_supported !== undefined) return _supported;
-
-			// IE8+
-			_supported = $('<!--[if lte IE 8]><i></i><![endif]-->').find('i').length !== 1;
-			return _supported;
+			if (this.elem.hasState(_disabledState)) {
+				this.fieldElem.prop(_disabledState, true);
+			}
 		},
 
 		toggle: function() {
 			var focused = document.activeElement === this.fieldElem[0];
-			var locked = this.elem.hasState('unlocked');
-			var fieldType = this.fieldElem.attr('type');
+			var locked = !this.isLocked();
 
-			this.elem.toggleState('unlocked');
+			this.elem.toggleState(_unlockedState);
 
-			if (fieldType === _types.locked && !locked) {
-				this.fieldElem.attr('type', _types.unlocked);
+			// Create hidden input[type=password] element to invoke password saving in browser
+			if (!locked) {
+				this.cloneElem = this.fieldElem.clone();
+				this.cloneElem.hide();
+				this.fieldElem.after(this.cloneElem);
+				this.fieldElem.name = '';
+				this.fieldElem.on(_inputSyncEvent, this.syncWith.bind(this, this.cloneElem));
+				this.cloneElem.on(_inputSyncEvent, this.syncWith.bind(this, this.fieldElem));
 			}
-			else if (fieldType === _types.unlocked && locked) {
-				this.fieldElem.attr('type', _types.locked);
+			else if (this.cloneElem) {
+				this.fieldElem.off(_inputSyncEvent);
+				this.fieldElem.name = this.cloneElem.name;
+				this.cloneElem.remove();
 			}
+
+			this.fieldElem.attr('type', locked ? 'password' : 'text');
 
 			if (focused) {
 				setTimeout(this.focus_, 0);
@@ -1818,6 +1827,14 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 
 		focus: function() {
 			this.fieldElem.focus();
+		},
+
+		isLocked: function() {
+			return !this.elem.hasState(_unlockedState);
+		},
+
+		syncWith: function(receiver, event) {
+			receiver.val(event.target.value);
 		}
 	});
 
@@ -1872,6 +1889,8 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 ;(function(window, $, undefined) {
 	'use strict';
 
+	var _disabledState = 'disabled';
+
 	tamia.Select = tamia.extend(tamia.Component, {
 		displayName: 'tamia.Select',
 		binded: 'focus blur change',
@@ -1899,6 +1918,10 @@ if (typeof window.DEBUG === 'undefined') window.DEBUG = true;
 				blur: this.blur_,
 				change: this.change_
 			});
+
+			if (this.elem.hasState(_disabledState)) {
+				this.selectElem.prop(_disabledState, true);
+			}
 
 			this.change();
 		},
