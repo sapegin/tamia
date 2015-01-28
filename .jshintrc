@@ -11,6 +11,7 @@
 	"jquery": true,
 	"esnext": true,
 	"globals": {
-		"DEBUG": true
+		"DEBUG": true,
+		"define": false
 	}
 }

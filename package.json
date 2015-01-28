@@ -10,6 +10,9 @@
     "url": "http://github.com/tamiadev/tamia.git"
   },
   "devDependencies": {
+    "amdefine": "~0.1.0",
+    "chai": "~1.10.0",
+    "coffee-script": "~1.8.0",
     "grunt": "~0.4.2",
     "grunt-casper": "~0.4.1",
     "grunt-coffeelint": "~0.0.8",
@@ -19,10 +22,12 @@
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-stylus": "~0.12.0",
     "grunt-contrib-watch": "~0.5.3",
+    "grunt-mocha-test": "~0.12.7",
     "highlight.js": "~8.0.0",
     "load-grunt-tasks": "~0.4.0",
     "lodash": "~2.4.1",
     "marked": "~0.3.0",
+    "mocha": "~2.1.0",
     "phantomcss": "~0.9.1",
     "sequelize": "~1.7.5",
     "sqlite3": "~2.2.3",

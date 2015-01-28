@@ -16,7 +16,7 @@ module.exports = (grunt) ->
 			options:
 				jshintrc: '.jshintrc'
 			files: [
-				'tamia/*.js'
+				'src/*.js'
 				'modules/*/*.js'
 			]
 		coffeelint:
@@ -84,6 +84,16 @@ module.exports = (grunt) ->
 			tests: [
 				'tests/failures'
 			]
+		mochaTest:
+			test:
+				options:
+					reporter: 'spec'
+					require: [
+						'./tests/mochasetup'
+						'coffee-script/register'
+						'amdefine/intercept'
+					]
+				src: ['tests/specs/*.coffee']
 		casper:
 			options:
 				test: true
