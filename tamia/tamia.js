@@ -1,5 +1,5 @@
 // Tâmia © 2013 Artem Sapegin http://sapegin.me
-// https://github.com/sapegin/tamia
+// https://github.com/tamiadev/tamia
 // JS core
 // jQuery is required. Modernizr and jQuery.Transitions aren’t required.
 

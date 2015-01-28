@@ -1,5 +1,5 @@
 // Tâmia © 2014 Artem Sapegin http://sapegin.me
-// https://github.com/sapegin/tamia
+// https://github.com/tamiadev/tamia
 // OPOR API
 
 /*global DEBUG:false, tamia:false*/
