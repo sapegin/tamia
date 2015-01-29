@@ -1,13 +1,11 @@
 'use strict'
 
-stmpl = require 'stmpl'
-
 describe 'stmpl', ->
+	before (done) ->
+		requireTest 'stmpl', done
 
-	it 'exists', (done) ->
+	it 'exists', ->
 		expect(stmpl).to.be.a.function
-		done()
 
-	it 'process', (done) ->
+	it 'process', ->
 		expect(stmpl('Hello {who}!', {who: 'world'})).to.equal('Hello world!')
-		done()

@@ -2,7 +2,7 @@
 // https://github.com/tamiadev/tamia
 // Simplest template
 
-define(function(test) {
+define(function() {
 'use strict';
 
 /**

@@ -10,7 +10,7 @@
     "url": "http://github.com/tamiadev/tamia.git"
   },
   "devDependencies": {
-    "amdefine": "~0.1.0",
+    "atomus": "~0.1.13",
     "chai": "~1.10.0",
     "coffee-script": "~1.8.0",
     "grunt": "~0.4.2",

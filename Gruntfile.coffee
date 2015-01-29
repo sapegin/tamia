@@ -91,9 +91,10 @@ module.exports = (grunt) ->
 					require: [
 						'./tests/mochasetup'
 						'coffee-script/register'
-						'amdefine/intercept'
 					]
-				src: ['tests/specs/*.coffee']
+				src: [
+					'tests/specs/*.coffee'
+				]
 		casper:
 			options:
 				test: true
