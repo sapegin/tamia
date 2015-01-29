@@ -2,7 +2,7 @@
 
 describe 'states', ->
 	before (done) ->
-		requireTest 'states', (err, jQuery) ->
+		requireModule 'states', (err, jQuery) ->
 			global.$ = jQuery
 			done()
 

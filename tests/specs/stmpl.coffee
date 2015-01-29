@@ -2,7 +2,7 @@
 
 describe 'stmpl', ->
 	before (done) ->
-		requireTest 'stmpl', done
+		requireModule 'stmpl', done
 
 	it 'exists', ->
 		expect(stmpl).to.be.a.function

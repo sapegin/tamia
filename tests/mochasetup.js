@@ -14,10 +14,12 @@ global.expect = require('chai').expect;
 
 /**
  * Creates jsdom browser, loads module via Require.js and register it as a global function.
- * @param {String} module Name of Require.js module: will be available as global.module().
+ * Exposes jsdom’s browser as `global.browser`.
+ *
+ * @param {String} name Name of Require.js module: will be available as `global.module()`.
  * @param {Function} done
  */
-global.requireTest = function(module, done) {
+global.requireModule = function(name, done) {
 	var requireJs = path.join(ROOT, 'bower_components/requirejs/require.js');
 	var requireConfig = {
 		baseUrl: path.join(ROOT, 'src'),
@@ -30,18 +32,13 @@ global.requireTest = function(module, done) {
 		.html(
 			'<!doctype html>' +
 			'<script src="' + requireJs + '"></script>' +
-			'<script>' +
-			'function load(done) {' +
-				'requirejs.config(' + JSON.stringify(requireConfig) + ');' +
-				'requirejs(["' + module + '"], done);' +
-			'}' +
-			'</script>'
+			'<script>requirejs.config(' + JSON.stringify(requireConfig) + ')</script>'
 		)
 		.ready(function(errors, window) {
 			global.browser = this;
-			window.load(function(func) {
-				global[module] = func;
-				done(null, func);
+			window.requirejs([name], function(module) {
+				global[name] = module;
+				done(null, module);
 			});
 		});
 };
