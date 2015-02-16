@@ -329,6 +329,29 @@ layout-right()
 .l-text-centered
 	text-align: center
 
+// Panel with a header (sticked to top) and a body (occupies all available space).
+// (No fallback for non-flexbox browsers.)
+//
+// .l-panel__centered can be applied to either header or body and will center content horizontally and vertically.
+//
+// Example:
+//
+//   <div class="l-panel">
+//     <div class="l-panel__header"></div>
+//     <div class="l-panel__body l-panel__centered"></div>
+//   </div>
+ .l-panel
+	display: flex
+	flex-direction: column
+
+	&__body
+		flex: 2
+
+	&__centered
+		display: flex
+		align-items: center
+		justify-content: center
+
 //
 // Spacing
 //
