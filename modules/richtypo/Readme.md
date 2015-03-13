@@ -20,9 +20,31 @@ Classes and tweaks for better typography.
 	Awesome Web Typography with <span class="slaquo"> </span> <span class="hlaquo">“</span>Richtypo”'
 
 
-## Caveats
+## Configuration
 
-* Enables ligatures in headings (h1—h6 inside .text and .alpha—.zeta).
+### richtypo_global_ligatures
+
+Type: Boolean. Default: `true`.
+
+Enables ligatures on body (just headers otherwise).
+
+### richtypo_extra_features
+
+Type: Boolean or List. Default: `false`.
+
+Extra OpenType features, eg. `"ss01", "ss03", "salt"` (`richtypo_global_ligatures` should be enabled).
+
+### richtypo_figures
+
+Type: String. Default: `proportional`.
+
+Figures type: `proportional`, `oldstyle` (`richtypo_global_ligatures` should be enabled).
+
+### richtypo_proper_abbr
+
+Type: Boolean. Default: `true`.
+
+Enables small caps in abbreviations (if your font supports them).
 
 
 ## Tools

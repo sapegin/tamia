@@ -1,4 +1,4 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Tâmia © 2015 Artem Sapegin http://sapegin.me
 // Misc functions and mixins
 
 /// Colors for debug() function.
@@ -38,13 +38,6 @@ tweak-inverted-text()
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
 
-// Enables ligatures in text.
-enable-ligatures()
-	text-rendering: optimizeLegibility
-	-webkit-font-feature-settings: "liga", "dlig"
-	-moz-font-feature-settings: "liga=1, dlig=1"
-	font-feature-settings: "liga", "dlig"
-
 // Disables text selection.
 no-select()
 	-webkit-touch-callout: none
@@ -63,6 +56,11 @@ hide-text()
 	text-shadow: none
 	background-color: transparent
 	border: 0
+
+// Heading font size with negative left margin to better align it with the column.
+heading-font-size(size)
+	font-size: size
+	margin-left: -(size / 20)
 
 
 //
@@ -98,6 +96,12 @@ margin-side(width)
 padding-side(width)
 	padding-left: width
 	padding-right: width
+
+// Make all images inside responsive.
+responsive-images()
+	img
+		max-width: 100%
+		height: auto
 
 // Disables columns.
 no-cols()

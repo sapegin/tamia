@@ -25,7 +25,7 @@
     "marked": "~0.3.0",
     "phantomcss": "~0.9.1",
     "sequelize": "~1.7.5",
-    "sqlite3": "~2.2.3",
+    "sqlite3": "~3.0.5",
     "stylobuild": "~0.6.0",
     "stylus": "~0.42.0",
     "underscore.string": "~2.3.3"

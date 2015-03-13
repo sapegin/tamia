@@ -1,8 +1,8 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Tâmia © 2015 Artem Sapegin http://sapegin.me
 // Basic text styles
 
 .text
-	@extend .responsive-images
+	responsive-images()
 
 	word-wrap: break-word
 	hyphens: auto
@@ -36,23 +36,23 @@
 
 .alpha,
 .text h1
-	font-size: 44px
+	heading-font-size: 44px
 
 .beta,
 .text h2
-	font-size: 34px
+	heading-font-size: 34px
 
 .gamma,
 .text h3
-	font-size: 28px
+	heading-font-size: 28px
 
 .delta,
 .text h4
-	font-size: 20px
+	heading-font-size: 20px
 
 .epsilon,
 .text h5
-	font-size: 1em
+	heading-font-size: 1em
 	font-weight: bold
 
 // Collapse margin between headings and before first heading.
