@@ -116,7 +116,7 @@ no-underline()
 .link
 	&,
 	& u
-		transition: color .2s ease-in-out, background .2s ease-in-out
+		transition: color .3s ease-in-out, background .3s ease-in-out
 		cursor: pointer
 		if link_style == "underline"
 			text-decoration: underline
@@ -126,6 +126,9 @@ no-underline()
 			background-position: 0 link_underline_position
 			background-size: 5px 1px
 			background-repeat: repeat-x
+	&:hover,
+	&:hover u
+		transition: none
 
 	&,
 	&:link,
