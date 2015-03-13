@@ -10,7 +10,6 @@
 // Values:
 // - none - no underline.
 // - underline - text-decoration:underline.
-// - border - border-bottom:1px solid.
 // - gradient - Uses CSS gradients to position line under text (cannot change line color on hover).
 link_style ?= "underline"
 
@@ -41,15 +40,14 @@ link_underline_position = 76.5% if link_style == "underline"
 // Mixins
 //
 
-// Adds link underline (adds nothing for "underline" and "border" types)
+// Adds link underline (adds nothing for "underline" type)
 link-underline(color)
 	if link_style == "gradient"
 		background-image: linear-gradient(to right, color, color)
 
-// Adds fake link underline (adds nothing for "underline" type)
+// Adds fake link underline
 link-fake-underline(color)
-	if link_style != "border"
-		background-image: linear-gradient(to right, color, color 50%, transparent 50%)
+	background-image: linear-gradient(to right, color, color 50%, transparent 50%)
 
 // :hover, :active and :focus states of the link.
 //
@@ -104,7 +102,6 @@ no-pressable()
 no-underline()
 	+link-all-states()
 		text-decoration: none
-		border-bottom: 0
 		background-image: none
 
 
@@ -119,15 +116,12 @@ no-underline()
 .link
 	&,
 	& u
-		transition: border .1s ease-in-out, color .2s ease-in-out, background .2s ease-in-out
+		transition: color .2s ease-in-out, background .2s ease-in-out
 		cursor: pointer
 		if link_style == "underline"
 			text-decoration: underline
 		else
 			text-decoration: none
-		if link_style == "border"
-			border-bottom-width: 1px
-			border-bottom-style: solid
 		if link_style == "gradient"
 			background-position: 0 link_underline_position
 			background-size: 5px 1px
@@ -155,8 +149,6 @@ no-underline()
 		color: hover_color
 
 	&_fake
-		if link_style == "border"
-			border-bottom-style: dotted
 		if link_style != "gradient"
 			text-decoration: none
 			background-position: 0 link_underline_position
