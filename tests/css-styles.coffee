@@ -59,6 +59,8 @@ casper.test.begin 'Tâmia CSS/styles', TESTS, suite = (test) ->
 	# List
 	casper.then ->
 		snap 'list1'
+	casper.then ->
+		snap 'list3'
 
 	# Media
 	casper.then ->
