@@ -1,4 +1,4 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
+// Tâmia © 2015 Artem Sapegin http://sapegin.me
 // Links
 
 //
@@ -13,41 +13,50 @@
 // - gradient - Uses CSS gradients to position line under text (cannot change line color on hover).
 link_style ?= "underline"
 
+_is_underline = (link_style == "underline")
+_is_gradient = (link_style == "gradient")
+
 // Link color.
 link_color ?= #1978c8
 
-// Visited link color.
+// Visited link color (only for underline links because image backgrounds don’t work on :visited links).
 visited_color ?= #a963b8
+if _is_gradient
+	visited_color = link_color
 
 // Hovered link color.
 hover_color ?= #f28a25
 
-// Link underline color.
-link_underline_color ?= rgba(link_color,.4)
+// Link underline color (for gradient links).
+link_underline_color ?= currentColor
 
-// Visited link underline color.
-visited_underline_color ?= rgba(visited_color,.4)
+// Hovered link underline color (for gradient links).
+hover_underline_color ?= currentColor
 
-// Hovered link underline color.
-hover_underline_color ?= rgba(hover_color,.4)
-
-// Link underline position (only when link_style == gradient, default: 80%)
-link_underline_position ?= 80%
-link_underline_position = 76.5% if link_style == "underline"
+// Link underline position (only for gradient links, default: 90%)
+link_underline_position ?= 90%
+link_underline_position = 85%  if _is_underline
 
 
 //
 // Mixins
 //
 
-// Adds link underline (adds nothing for "underline" type)
+// Adds link underline (for gradient links).
 link-underline(color)
-	if link_style == "gradient"
-		background-image: linear-gradient(to right, color, color)
+	background-image: linear-gradient(to left, color 50%, color 50%)
 
 // Adds fake link underline
 link-fake-underline(color)
 	background-image: linear-gradient(to right, color, color 50%, transparent 50%)
+
+// Link underline position (for gradient and fake links).
+link-underline-position(position)
+	background-position: 0 position
+
+// Link underline size (for gradient and fake links).
+link-underline-size(height, step=1px)
+	background-size: step height
 
 // :hover, :active and :focus states of the link.
 //
@@ -88,6 +97,10 @@ link-all-states()
 	&:focus
 		{block}
 
+// Clear link descenders.
+link-clear-descenders(bg_color)
+	text-shadow: 3px 0 bg_color, 2px 0 bg_color, 1px 0 bg_color, -1px 0 bg_color, -2px 0 bg_color, -3px 0 bg_color
+
 // Pressable element: pointer cursor + disable text selection.
 pressable()
 	no-select()
@@ -110,22 +123,19 @@ no-underline()
 //
 
 // Link.
-//
-// .link_fake - Pseudo link with dashed underline.
-// .link_quoted - Link in quotes (quotes should be colored but not underlined). Example: a.link.link_quoted>u.
 .link
 	&,
 	& u
-		transition: color .3s ease-in-out, background .3s ease-in-out
+		transition: color .2s ease-in-out, background .2s ease-in-out
 		cursor: pointer
-		if link_style == "underline"
+		if _is_underline
 			text-decoration: underline
 		else
 			text-decoration: none
-		if link_style == "gradient"
-			background-position: 0 link_underline_position
-			background-size: 5px 1px
+		if _is_gradient
 			background-repeat: repeat-x
+			link-underline-position: link_underline_position
+			link-underline-size: 1px
 	&:hover,
 	&:hover u
 		transition: none
@@ -134,13 +144,14 @@ no-underline()
 	&:link,
 	& u,
 	&:link u
-		link-underline(link_underline_color)
 		color: link_color
+		if _is_gradient
+			link-underline(link_underline_color)
 
-	&:visited,
-	&:visited u
-		link-underline(visited_underline_color)
-		color: visited_color
+	if _is_underline
+		&:visited,
+		&:visited u
+			color: visited_color
 
 	&:hover,
 	&:active,
@@ -148,29 +159,37 @@ no-underline()
 	&:hover u,
 	&:active u,
 	&:focus u
-		link-underline(hover_underline_color)
+		color: hover_color
+		if _is_gradient and hover_underline_color != currentColor
+			link-underline(hover_underline_color)
+
+// Pseudo link with dashed underline.
+.link_fake
+	link-underline-size: 1px 5px
+	if _is_underline
+		text-decoration: none
+		background-repeat: repeat-x
+		link-underline-position: link_underline_position
+
+	&,
+	&:link,
+	&:visited
+		link-fake-underline(link_underline_color)
+		color: link_color
+
+	&:hover,
+	&:active,
+	&:focus
+		if hover_underline_color != currentColor
+			link-fake-underline(hover_underline_color)
 		color: hover_color
 
-	&_fake
-		if link_style != "gradient"
-			text-decoration: none
-			background-position: 0 link_underline_position
-			background-size: 5px 1px
-			background-repeat: repeat-x
-
-		&,
-		&:link,
-		&:visited
-			link-fake-underline(link_underline_color)
-			color: link_color
-
-		&:hover,
-		&:active,
-		&:focus
-			link-fake-underline(link_underline_color)
-			color: hover_color
-
-	&_quoted
+// Link in quotes (quotes should be colored but not underlined).
+//
+// Example:
+//
+//   <a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
+.link_quoted
 		no-underline()
 
 .no-cssgradients
@@ -179,3 +198,10 @@ no-underline()
 	.link_fake
 		text-decoration: none
 		border-bottom: 1px dotted
+
+@media print
+	.link,
+	.link u,
+	.link_fake
+		background-image: none
+		text-decoration: underline
