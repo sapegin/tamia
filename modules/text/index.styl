@@ -1,6 +1,8 @@
 // Tâmia © 2015 Artem Sapegin http://sapegin.me
 // Basic text styles
 
+text_default_headings ?= true
+
 .text
 	responsive-images()
 
@@ -22,41 +24,42 @@
 	a
 		@extend .link
 
-.alpha,
-.text h1,
-.beta,
-.text h2,
-.gamma,
-.text h3,
-.delta,
-.text h4,
-.epsilon,
-.text h5
-	margin-top: 4*spacer
-	margin-bottom: 2*spacer
-	line-height: 1.2
-	font-weight: normal
+if text_default_headings
+	.alpha,
+	.text h1,
+	.beta,
+	.text h2,
+	.gamma,
+	.text h3,
+	.delta,
+	.text h4,
+	.epsilon,
+	.text h5
+		margin-top: 4*spacer
+		margin-bottom: 2*spacer
+		line-height: 1.2
+		font-weight: normal
 
-.alpha,
-.text h1
-	heading-font-size: 44px
+	.alpha,
+	.text h1
+		heading-font-size: 44px
 
-.beta,
-.text h2
-	heading-font-size: 34px
+	.beta,
+	.text h2
+		heading-font-size: 34px
 
-.gamma,
-.text h3
-	heading-font-size: 28px
+	.gamma,
+	.text h3
+		heading-font-size: 28px
 
-.delta,
-.text h4
-	heading-font-size: 20px
+	.delta,
+	.text h4
+		heading-font-size: 20px
 
-.epsilon,
-.text h5
-	heading-font-size: 1em
-	font-weight: bold
+	.epsilon,
+	.text h5
+		heading-font-size: 1em
+		font-weight: bold
 
 // Collapse margin between headings and before first heading.
 .text h1 + h2,
