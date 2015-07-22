@@ -35,6 +35,29 @@ between(min, max)
 	@media condition
 		{block}
 
+// Media query shortcut: viewport height is greater than or equal to specified value.
+//
+// Example:
+//
+//   .pony
+//     color: #c0ffee
+//     +higher(320px)
+//       color: #bada55
+//
+// min - Min height.
+higher(min)
+	condition = 'only screen and (min-height: %s)' % min
+	@media condition
+		{block}
+
+// Media query shortcut: viewport height is less than or equal to specified value.
+//
+// max - Max height.
+lower(max)
+	condition = 'only screen and (max-height: %s)' % max
+	@media condition
+		{block}
+
 // Media query shortcut: retina screen.
 retina()
 	@media (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (min-resolution: 144dpi)
