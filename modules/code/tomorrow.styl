@@ -5,78 +5,59 @@
 _prefix = code_class_prefix
 
 // Comment
-.{_prefix}comment
+.{_prefix}comment,
+.{_prefix}quote
 	color: #8e908c
 	@media print
 		font-style: italic
 
 // Red
 .{_prefix}variable,
-.{_prefix}attribute,
+.{_prefix}template-variable,
 .{_prefix}tag,
+.{_prefix}name,
+.{_prefix}selector-id,
+.{_prefix}selector-class,
 .{_prefix}regexp,
-.ruby .{_prefix}constant,
-.xml .{_prefix}tag .{_prefix}title,
-.xml .{_prefix}pi,
-.xml .{_prefix}doctype,
-.html .{_prefix}doctype,
-.css .{_prefix}id,
-.css .{_prefix}class,
-.css .{_prefix}pseudo
+.{_prefix}deletion
 	color: #c82829
 	@media print
 		font-weight: bold
 
 // Orange
 .{_prefix}number,
-.{_prefix}preprocessor,
-.{_prefix}pragma,
 .{_prefix}built_in,
+.{_prefix}builtin-name,
 .{_prefix}literal,
+.{_prefix}type,
 .{_prefix}params,
-.{_prefix}constant
+.{_prefix}meta,
+.{_prefix}link
 	color: #f5871f
 
 // Yellow
-.ruby .{_prefix}class .{_prefix}title,
-.css .{_prefix}rules .{_prefix}attribute
+.{_prefix}attribute
 	color: #eab700
 
 // Green
 .{_prefix}string,
-.{_prefix}value,
-.{_prefix}inheritance,
-.{_prefix}header,
-.ruby .{_prefix}symbol,
-.xml .{_prefix}cdata
+.{_prefix}symbol,
+.{_prefix}bullet,
+.{_prefix}addition
 	color: #718c00
 
-// Aqua
-.{_prefix}title,
-.css .{_prefix}hexcolor
-	color: #3e999f
-
 // Blue
-.{_prefix}function,
-.python .{_prefix}decorator,
-.python .{_prefix}title,
-.ruby .{_prefix}function .{_prefix}title,
-.ruby .{_prefix}title .{_prefix}keyword,
-.perl .{_prefix}sub,
-.javascript .{_prefix}title,
-.coffeescript .{_prefix}title
+.{_prefix}title,
+.{_prefix}section
 	color: #4271ae
 
 // Purple
 .{_prefix}keyword,
-.javascript .{_prefix}function
+.{_prefix}selector-tag
 	color: #8959a8
 
-.coffeescript .javascript,
-.javascript .xml,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata
-	opacity: 0.5
+.{_prefix}emphasis
+	font-style: italic
+
+.{_prefix}strong
+	font-weight: bold
