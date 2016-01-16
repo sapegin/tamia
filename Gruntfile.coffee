@@ -12,20 +12,6 @@ module.exports = (grunt) ->
 	require('load-grunt-tasks')(grunt)
 
 	grunt.initConfig
-		jshint:
-			options:
-				jshintrc: '.jshintrc'
-			files: [
-				'tamia/*.js'
-				'modules/*/*.js'
-			]
-		coffeelint:
-			options:
-				configFile: 'coffeelint.json'
-			files: [
-				'Gruntfile.coffee'
-				'tests/*.coffee'
-			]
 		concat:
 			docs:
 				src: [
@@ -466,9 +452,9 @@ module.exports = (grunt) ->
 				)
 		)
 
-	grunt.registerTask 'test', ['jshint', 'coffeelint', 'clean', 'casper']
+	grunt.registerTask 'test', ['clean', 'casper']
 	grunt.registerTask 'test:js', ['casper:js']
 	grunt.registerTask 'test:css', ['clean', 'casper:css']
 	grunt.registerTask 'test:css_styles', ['clean', 'casper:css_styles']
-	grunt.registerTask 'default', ['jshint', 'coffeelint', 'concat', 'stylus', 'docs', 'copy', 'test']
+	grunt.registerTask 'default', ['concat', 'stylus', 'docs', 'copy', 'test']
 	grunt.registerTask 'build', ['concat', 'stylus', 'docs', 'copy']
