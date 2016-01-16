@@ -3,13 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
     "url": "http://github.com/tamiadev/tamia.git"
   },
   "devDependencies": {
+    "eslint": "~1.10.3",
+    "eslint-config-tamia": "~1.0.0",
     "grunt": "~0.4.2",
     "grunt-casper": "~0.4.1",
     "grunt-coffeelint": "~0.0.8",
