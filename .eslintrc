@@ -1,3 +1,7 @@
 {
-	"extends": "tamia"
+	"parser": "babel-eslint",
+	"extends": "tamia",
+	"globals": {
+		"DEBUG": false
+	}
 }
