@@ -1,5 +1,8 @@
 import './polyfills';
 import { log } from './debug/logger';
+import { TamiaError } from './util';
+
+let handlersCache = {};
 
 /**
  * Attach event handler.
@@ -22,6 +25,7 @@ export function on(elem, eventName, handler) {
 		}
 		handler(event, ...details);
 	};
+	handlersCache[handler] = wrappedHandler;
 	elem.addEventListener(eventName, wrappedHandler, false);
 }
 
@@ -33,7 +37,9 @@ export function on(elem, eventName, handler) {
  * @param {Function} handler Handler function.
  */
 export function off(elem, eventName, handler) {
-	elem.removeEventListener(eventName, handler, false);
+	let wrappedHandler = handlersCache[handler];
+	elem.removeEventListener(eventName, wrappedHandler, false);
+	handlersCache[handler] = null;
 }
 
 /**

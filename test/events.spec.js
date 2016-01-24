@@ -20,16 +20,15 @@ describe('events', () => {
 
 	it('off() should remove an event handler from an element', () => {
 		let elem = document.createElement('div');
+		let handler = sinon.spy();
 
-		let handler1 = sinon.spy();
-		events.on(elem, 'click', handler1);
+		events.on(elem, 'click', handler);
 		click(elem);
-		expect(handler1.called).to.be.true;
+		expect(handler.calledOnce).to.be.true;
 
-		let handler2 = sinon.spy();
-		events.off(elem, 'click', handler2);
+		events.off(elem, 'click', handler);
 		click(elem);
-		expect(handler2.called).to.be.false;
+		expect(handler.calledOnce).to.be.true;
 	});
 
 	it('trigger() should trigger a custom event', () => {
