@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
 	devtool: 'cheap-module-source-map',
@@ -21,6 +22,9 @@ module.exports = {
 	},
 
 	plugins: [
+		new webpack.DefinePlugin({
+			DEBUG: JSON.stringify('true'),
+		}),
 	],
 
 	module: {
