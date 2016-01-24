@@ -2,7 +2,7 @@ import './polyfills';
 import { log } from './debug/logger';
 import { TamiaError } from './util';
 
-let handlersCache = {};
+let cache = new WeakMap();
 
 /**
  * Attach event handler.
@@ -25,7 +25,7 @@ export function on(elem, eventName, handler) {
 		}
 		handler(event, ...details);
 	};
-	handlersCache[handler] = wrappedHandler;
+	cache[handler] = wrappedHandler;
 	elem.addEventListener(eventName, wrappedHandler, false);
 }
 
@@ -37,9 +37,9 @@ export function on(elem, eventName, handler) {
  * @param {Function} handler Handler function.
  */
 export function off(elem, eventName, handler) {
-	let wrappedHandler = handlersCache[handler];
+	let wrappedHandler = cache[handler];
 	elem.removeEventListener(eventName, wrappedHandler, false);
-	handlersCache[handler] = null;
+	cache[handler] = null;
 }
 
 /**
