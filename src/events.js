@@ -10,6 +10,9 @@ import { log } from './debug/logger';
  */
 export function on(elem, eventName, handler) {
 	if (DEBUG) {
+		if (!handler) {
+			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
+		}
 		handler.displayName = `${eventName} event handler`;
 	}
 	let wrappedHandler = (event) => {
