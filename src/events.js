@@ -25,7 +25,7 @@ export function on(elem, eventName, handler) {
 		}
 		handler(event, ...details);
 	};
-	cache[handler] = wrappedHandler;
+	cache.set(handler, wrappedHandler);
 	elem.addEventListener(eventName, wrappedHandler, false);
 }
 
@@ -37,9 +37,8 @@ export function on(elem, eventName, handler) {
  * @param {Function} handler Handler function.
  */
 export function off(elem, eventName, handler) {
-	let wrappedHandler = cache[handler];
+	let wrappedHandler = cache.get(handler);
 	elem.removeEventListener(eventName, wrappedHandler, false);
-	cache[handler] = null;
 }
 
 /**
