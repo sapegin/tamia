@@ -31,6 +31,30 @@ describe('events', () => {
 		expect(handler.calledOnce).to.be.true;
 	});
 
+	it('one() should attach an event handler and remove it after the first event', () => {
+		let elem = document.createElement('div');
+		let handler = sinon.spy();
+
+		events.one(elem, 'click', handler);
+
+		click(elem);
+		expect(handler.calledOnce).to.be.true;
+
+		click(elem);
+		expect(handler.calledOnce).to.be.true;
+	});
+
+	it('off() should remove an event handler that was set with one() function', () => {
+		let elem = document.createElement('div');
+		let handler = sinon.spy();
+
+		events.one(elem, 'click', handler);
+		events.off(elem, 'click', handler);
+		click(elem);
+
+		expect(handler.called).to.be.false;
+	});
+
 	it('trigger() should trigger a custom event', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();

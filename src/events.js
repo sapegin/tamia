@@ -10,8 +10,9 @@ let cache = new WeakMap();
  * @param {HTMLElement} elem Element.
  * @param {string} eventName Event name.
  * @param {Function} handler Handler function.
+ * @param {Function} originalHandler Handler function that will be used to remove event handler with off() function.
  */
-export function on(elem, eventName, handler) {
+export function on(elem, eventName, handler, originalHandler) {
 	if (DEBUG) {
 		if (!handler) {
 			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
@@ -25,7 +26,7 @@ export function on(elem, eventName, handler) {
 		}
 		handler(event, ...details);
 	};
-	cache.set(handler, wrappedHandler);
+	cache.set(originalHandler || handler, wrappedHandler);
 	elem.addEventListener(eventName, wrappedHandler, false);
 }
 
@@ -39,6 +40,22 @@ export function on(elem, eventName, handler) {
 export function off(elem, eventName, handler) {
 	let wrappedHandler = cache.get(handler);
 	elem.removeEventListener(eventName, wrappedHandler, false);
+	cache.delete(handler);
+}
+
+/**
+ * Attach event handler that will be executed only once.
+ *
+ * @param {HTMLElement} elem Element.
+ * @param {string} eventName Event name.
+ * @param {Function} handler Handler function.
+ */
+export function one(elem, eventName, handler) {
+	let wrappedHandler = (...args) => {
+		handler(...args);
+		off(elem, eventName, handler);
+	};
+	on(elem, eventName, wrappedHandler, handler);
 }
 
 /**
