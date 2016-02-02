@@ -3,5 +3,8 @@
 	"extends": "tamia",
 	"globals": {
 		"DEBUG": false
+	},
+	"rules": {
+		"no-use-before-define": 0
 	}
 }

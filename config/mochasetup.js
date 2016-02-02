@@ -4,6 +4,7 @@ global.expect = require('chai').expect;
 
 global.window = require('domino').createWindow();
 global.document = window.document;
+global.getComputedStyle = window.getComputedStyle;
 
 // dataset polyfill
 // Based on https://gist.github.com/brettz9/4093766
@@ -41,3 +42,8 @@ var propDescriptor = {
 	},
 };
 Object.defineProperty(window.Element.prototype, 'dataset', propDescriptor);
+
+// requestAnimationFrame mock
+global.requestAnimationFrame = window.requestAnimationFrame = function(callback) {
+	callback();
+};

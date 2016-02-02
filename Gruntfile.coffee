@@ -15,7 +15,6 @@ module.exports = (grunt) ->
 		concat:
 			docs:
 				src: [
-					'vendor/transition-events.js'
 					'tamia/tamia.js'
 					'tamia/opor.js'
 					'tamia/component.js'
@@ -26,7 +25,6 @@ module.exports = (grunt) ->
 				dest: 'docs/scripts.js'
 			specs:
 				src: [
-					'vendor/transition-events.js'
 					'tamia/tamia.js'
 					'tamia/opor.js'
 					'tamia/component.js'
