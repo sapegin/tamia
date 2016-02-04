@@ -1,10 +1,6 @@
 import isFunction from 'lodash/isFunction';
 import * as events from './events';
 
-/**
- * Animations management
- */
-
 let cache = {};
 
 /**
