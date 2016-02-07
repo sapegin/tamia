@@ -4,6 +4,7 @@ global.expect = require('chai').expect;
 
 global.window = require('domino').createWindow();
 global.document = window.document;
+global.Element = window.Element;
 global.getComputedStyle = window.getComputedStyle;
 
 // dataset polyfill
