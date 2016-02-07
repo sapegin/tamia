@@ -1,18 +1,73 @@
 import './polyfills';
 import { log } from './debug/logger';
 import { TamiaError } from './util';
+import isFunction from 'lodash/isFunction';
 
 let cache = new WeakMap();
+
+// TODO: store originalHandler as handler.__TamiaOriginalHandler ?
+
+/**
+ * Event delegation.
+ * Based on https://github.com/fat/bean
+ *
+ * @param {Function} func Handler.
+ * @param {string} selector CSS selector.
+ * @param {HTMLElement} root Root element.
+ * @returns {Function}
+ */
+function delegate(func, selector, root) {
+	let findTarget = (target) => {
+		let array = root.querySelectorAll(selector);
+		for (; target && target !== root; target = target.parentNode) {
+			for (let i = array.length; i--;) {
+				if (array[i] === target) {
+					return target;
+				}
+			}
+		}
+	};
+
+	return (event, ...details) => {
+		let match = findTarget(event.target);
+		if (match) {
+			if (DEBUG) {
+				log(`Event ${event.type} on`, match, `Delegated: ${selector}.`, 'Details:', details);
+			}
+			let delegatedEvent = Object.create(event, {
+				target: {
+					value: match,
+				},
+			});
+			func(delegatedEvent, ...details);
+		}
+	};
+}
 
 /**
  * Attach event handler.
  *
  * @param {HTMLElement} elem Element.
  * @param {string} eventName Event name.
+ * @param {string} [selector] CSS selector for event delegation.
  * @param {Function} handler Handler function.
  * @param {Function} originalHandler Handler function that will be used to remove event handler with off() function.
  */
-export function on(elem, eventName, handler, originalHandler) {
+export function on(elem, eventName, selector, handler, originalHandler) {
+	if (isFunction(selector)) {
+		// No selector specified
+		originalHandler = handler;
+		handler = selector;
+		selector = undefined;
+	}
+	else {
+		// Delegation
+		if (!originalHandler) {
+			originalHandler = handler;
+		}
+		handler = delegate(handler, selector, elem);
+	}
+
 	if (DEBUG) {
 		if (!handler) {
 			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
@@ -21,7 +76,7 @@ export function on(elem, eventName, handler, originalHandler) {
 	}
 	let wrappedHandler = (event) => {
 		let details = event.detail || [];
-		if (DEBUG) {
+		if (DEBUG && !selector) {
 			log(`Event ${event.type} on`, event.target, 'Details:', details);
 		}
 		handler(event, ...details);

@@ -18,6 +18,18 @@ describe('events', () => {
 		expect(handler.called).to.be.true;
 	});
 
+	it('on() should attach an event handler with delegation', () => {
+		let elem = document.createElement('div');
+		let span = document.createElement('span');
+		elem.appendChild(span);
+		let handler = sinon.spy();
+
+		events.on(elem, 'click', 'span', handler);
+		click(span);
+
+		expect(handler.called).to.be.true;
+	});
+
 	it('off() should remove an event handler from an element', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
@@ -51,6 +63,19 @@ describe('events', () => {
 		events.one(elem, 'click', handler);
 		events.off(elem, 'click', handler);
 		click(elem);
+
+		expect(handler.called).to.be.false;
+	});
+
+	it('off() should remove an event handler with delegation', () => {
+		let elem = document.createElement('div');
+		let span = document.createElement('span');
+		elem.appendChild(span);
+		let handler = sinon.spy();
+
+		events.on(elem, 'click', 'span', handler);
+		events.off(elem, 'click', handler);
+		click(span);
 
 		expect(handler.called).to.be.false;
 	});
