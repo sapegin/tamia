@@ -34,12 +34,13 @@ function delegate(func, selector, root) {
 			if (DEBUG) {
 				log(`Event ${event.type} on`, match, `Delegated: ${selector}.`, 'Details:', details);
 			}
-			let delegatedEvent = Object.create(event, {
-				target: {
-					value: match,
-				},
+			Object.defineProperty(event, 'target', {
+				enumerable: false,
+				configurable: false,
+				writable: false,
+				value: match,
 			});
-			func(delegatedEvent, ...details);
+			func(event, ...details);
 		}
 	};
 }
