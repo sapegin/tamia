@@ -7,6 +7,10 @@ let cache = new WeakMap();
 
 // TODO: store originalHandler as handler.__TamiaOriginalHandler ?
 
+function isElement(value) {
+	return !!value && (value.nodeType === 1 || value.nodeType === 9);
+}
+
 /**
  * Event delegation.
  * Based on https://github.com/fat/bean
@@ -70,7 +74,10 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
 	}
 
 	if (DEBUG) {
-		if (!handler) {
+		if (!isElement(elem)) {
+			throw new TamiaError(`Element for ${eventName} event not found.`);
+		}
+		if (!isFunction(handler)) {
 			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
 		}
 		handler.displayName = `${eventName} event handler`;
@@ -94,6 +101,15 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
  * @param {Function} handler Handler function.
  */
 export function offEvent(elem, eventName, handler) {
+	if (DEBUG) {
+		if (!isElement(elem)) {
+			throw new TamiaError(`Element for ${eventName} event not found.`);
+		}
+		if (!isFunction(handler)) {
+			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
+		}
+	}
+
 	let wrappedHandler = cache.get(handler);
 	elem.removeEventListener(eventName, wrappedHandler, false);
 	cache.delete(handler);
@@ -107,6 +123,15 @@ export function offEvent(elem, eventName, handler) {
  * @param {Function} handler Handler function.
  */
 export function oneEvent(elem, eventName, handler) {
+	if (DEBUG) {
+		if (!isElement(elem)) {
+			throw new TamiaError(`Element for ${eventName} event not found.`);
+		}
+		if (!isFunction(handler)) {
+			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
+		}
+	}
+
 	let wrappedHandler = (...args) => {
 		handler(...args);
 		offEvent(elem, eventName, handler);
@@ -122,6 +147,12 @@ export function oneEvent(elem, eventName, handler) {
  * @param {*} detail... Extra data.
  */
 export function triggerEvent(elem, eventName, ...detail) {
+	if (DEBUG) {
+		if (!isElement(elem)) {
+			throw new TamiaError(`Element for ${eventName} event not found.`);
+		}
+	}
+
 	let params = {
 		bubbles: true,
 		cancelable: false,
@@ -137,6 +168,12 @@ export function triggerEvent(elem, eventName, ...detail) {
  * @param {string} eventName Event name.
  */
 export function triggerNativeEvent(elem, eventName) {
+	if (DEBUG) {
+		if (!isElement(elem)) {
+			throw new TamiaError(`Element for ${eventName} event not found.`);
+		}
+	}
+
 	let event = document.createEvent('HTMLEvents');
 	event.initEvent(eventName, true, false);
 	elem.dispatchEvent(event);
