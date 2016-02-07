@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "npm run lint && npm test",
+    "test": "npm run lint && npm run mocha",
     "mocha": "mocha test",
     "mocha:watch": "mocha --watch --reporter min test",
     "lint": "eslint src",
