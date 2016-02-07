@@ -1,5 +1,5 @@
 import isFunction from 'lodash/isFunction';
-import * as events from './events';
+import { oneEvent } from './events';
 
 let cache = {};
 
@@ -45,7 +45,7 @@ export function runAnimation(elem, animation, done = () => {}) {
 			};
 			elem.classList.add(animation);
 			if (getComputedStyle(elem).animation) {
-				events.one(elem, 'animationend', animationDone);
+				oneEvent(elem, 'animationend', animationDone);
 			}
 			else {
 				afterTransitions(elem, animationDone);

@@ -8,46 +8,46 @@ function click(elem) {
 }
 
 describe('events', () => {
-	it('on() should attach an event handler to an element', () => {
+	it('onEvent() should attach an event handler to an element', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.on(elem, 'click', handler);
+		events.onEvent(elem, 'click', handler);
 		click(elem);
 
 		expect(handler.called).to.be.true;
 	});
 
-	it('on() should attach an event handler with delegation', () => {
+	it('onEvent() should attach an event handler with delegation', () => {
 		let elem = document.createElement('div');
 		let span = document.createElement('span');
 		elem.appendChild(span);
 		let handler = sinon.spy();
 
-		events.on(elem, 'click', 'span', handler);
+		events.onEvent(elem, 'click', 'span', handler);
 		click(span);
 
 		expect(handler.called).to.be.true;
 	});
 
-	it('off() should remove an event handler from an element', () => {
+	it('offEvent() should remove an event handler from an element', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.on(elem, 'click', handler);
+		events.onEvent(elem, 'click', handler);
 		click(elem);
 		expect(handler.calledOnce).to.be.true;
 
-		events.off(elem, 'click', handler);
+		events.offEvent(elem, 'click', handler);
 		click(elem);
 		expect(handler.calledOnce).to.be.true;
 	});
 
-	it('one() should attach an event handler and remove it after the first event', () => {
+	it('oneEvent() should attach an event handler and remove it after the first event', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.one(elem, 'click', handler);
+		events.oneEvent(elem, 'click', handler);
 
 		click(elem);
 		expect(handler.calledOnce).to.be.true;
@@ -56,58 +56,58 @@ describe('events', () => {
 		expect(handler.calledOnce).to.be.true;
 	});
 
-	it('off() should remove an event handler that was set with one() function', () => {
+	it('offEvent() should remove an event handler that was set with oneEvent() function', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.one(elem, 'click', handler);
-		events.off(elem, 'click', handler);
+		events.oneEvent(elem, 'click', handler);
+		events.offEvent(elem, 'click', handler);
 		click(elem);
 
 		expect(handler.called).to.be.false;
 	});
 
-	it('off() should remove an event handler with delegation', () => {
+	it('offEvent() should remove an event handler with delegation', () => {
 		let elem = document.createElement('div');
 		let span = document.createElement('span');
 		elem.appendChild(span);
 		let handler = sinon.spy();
 
-		events.on(elem, 'click', 'span', handler);
-		events.off(elem, 'click', handler);
+		events.onEvent(elem, 'click', 'span', handler);
+		events.offEvent(elem, 'click', handler);
 		click(span);
 
 		expect(handler.called).to.be.false;
 	});
 
-	it('trigger() should trigger a custom event', () => {
+	it('triggerEvent() should trigger a custom event', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.on(elem, 'tamia.foo', handler);
-		events.trigger(elem, 'tamia.foo');
+		events.onEvent(elem, 'tamia.foo', handler);
+		events.triggerEvent(elem, 'tamia.foo');
 
 		expect(handler.called).to.be.true;
 	});
 
-	it('trigger() should pass details as additional arguments to a handler', () => {
+	it('triggerEvent() should pass details as additional arguments to a handler', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.on(elem, 'tamia.foo', handler);
-		events.trigger(elem, 'tamia.foo', 1, '2');
+		events.onEvent(elem, 'tamia.foo', handler);
+		events.triggerEvent(elem, 'tamia.foo', 1, '2');
 
 		expect(handler.called).to.be.true;
 		expect(handler.firstCall.args[1]).to.eql(1);
 		expect(handler.firstCall.args[2]).to.eql('2');
 	});
 
-	it('triggerNative() should trigger a native event', () => {
+	it('triggerNativeEvent() should trigger a native event', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
-		events.on(elem, 'click', handler);
-		events.triggerNative(elem, 'click');
+		events.onEvent(elem, 'click', handler);
+		events.triggerNativeEvent(elem, 'click');
 
 		expect(handler.called).to.be.true;
 	});
@@ -120,7 +120,7 @@ describe('events', () => {
 		events.registerGlobalEvents({
 			'tamia.foo': handler,
 		});
-		events.trigger(elem, 'tamia.foo');
+		events.triggerEvent(elem, 'tamia.foo');
 
 		expect(handler.called).to.be.true;
 	});

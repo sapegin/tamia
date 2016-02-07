@@ -53,7 +53,7 @@ function delegate(func, selector, root) {
  * @param {Function} handler Handler function.
  * @param {Function} originalHandler Handler function that will be used to remove event handler with off() function.
  */
-export function on(elem, eventName, selector, handler, originalHandler) {
+export function onEvent(elem, eventName, selector, handler, originalHandler) {
 	if (isFunction(selector)) {
 		// No selector specified
 		originalHandler = handler;
@@ -92,7 +92,7 @@ export function on(elem, eventName, selector, handler, originalHandler) {
  * @param {string} eventName Event name.
  * @param {Function} handler Handler function.
  */
-export function off(elem, eventName, handler) {
+export function offEvent(elem, eventName, handler) {
 	let wrappedHandler = cache.get(handler);
 	elem.removeEventListener(eventName, wrappedHandler, false);
 	cache.delete(handler);
@@ -105,12 +105,12 @@ export function off(elem, eventName, handler) {
  * @param {string} eventName Event name.
  * @param {Function} handler Handler function.
  */
-export function one(elem, eventName, handler) {
+export function oneEvent(elem, eventName, handler) {
 	let wrappedHandler = (...args) => {
 		handler(...args);
-		off(elem, eventName, handler);
+		offEvent(elem, eventName, handler);
 	};
-	on(elem, eventName, wrappedHandler, handler);
+	onEvent(elem, eventName, wrappedHandler, handler);
 }
 
 /**
@@ -120,7 +120,7 @@ export function one(elem, eventName, handler) {
  * @param {string} eventName Event name.
  * @param {*} detail... Extra data.
  */
-export function trigger(elem, eventName, ...detail) {
+export function triggerEvent(elem, eventName, ...detail) {
 	let params = {
 		bubbles: true,
 		cancelable: false,
@@ -135,7 +135,7 @@ export function trigger(elem, eventName, ...detail) {
  * @param {HTMLElement} elem Element.
  * @param {string} eventName Event name.
  */
-export function triggerNative(elem, eventName) {
+export function triggerNativeEvent(elem, eventName) {
 	let event = document.createEvent('HTMLEvents');
 	event.initEvent(eventName, true, false);
 	elem.dispatchEvent(event);
@@ -154,6 +154,6 @@ export function triggerNative(elem, eventName) {
  */
 export function registerGlobalEvents(handlers) {
 	for (let eventName in handlers) {
-		on(document, eventName, handlers[eventName]);
+		onEvent(document, eventName, handlers[eventName]);
 	}
 }

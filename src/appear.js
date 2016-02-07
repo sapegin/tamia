@@ -1,4 +1,4 @@
-import * as events from './events';
+import { triggerEvent, registerGlobalEvents } from './events';
 import { addState, removeState, hasState } from './states';
 import { afterTransitions } from './animation';
 import data from './data';
@@ -48,8 +48,8 @@ export function appear(elem) {
 	afterTransitions(elem, () => {
 		data(elem, TRANSITION_STATE, null);
 		removeState(elem, TRANSITION_STATE);
-		events.trigger(elem, APPEARED_EVENT);
-		events.trigger(elem, TOGGLED_EVENT, true);
+		triggerEvent(elem, APPEARED_EVENT);
+		triggerEvent(elem, TOGGLED_EVENT, true);
 	});
 }
 
@@ -75,8 +75,8 @@ export function disappear(elem) {
 	afterTransitions(elem, () => {
 		data(elem, TRANSITION_STATE, null);
 		removeState(elem, TRANSITION_STATE);
-		events.trigger(elem, DISAPPEARED_EVENT);
-		events.trigger(elem, TOGGLED_EVENT, false);
+		triggerEvent(elem, DISAPPEARED_EVENT);
+		triggerEvent(elem, TOGGLED_EVENT, false);
 	});
 }
 
@@ -95,7 +95,7 @@ export function toggle(elem) {
 	}
 }
 
-events.registerGlobalEvents({
+registerGlobalEvents({
 	'tamia.appear': event => appear(event.target),
 	'tamia.disappear': event => disappear(event.target),
 	'tamia.toggle': event => toggle(event.target),
