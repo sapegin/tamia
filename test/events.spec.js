@@ -8,6 +8,10 @@ function click(elem) {
 }
 
 describe('events', () => {
+	afterEach(() => {
+		document.body.innerHTML = '';
+	});
+
 	it('onEvent() should attach an event handler to an element', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
@@ -121,6 +125,40 @@ describe('events', () => {
 			'tamia.foo': handler,
 		});
 		events.triggerEvent(elem, 'tamia.foo');
+
+		expect(handler.called).to.be.true;
+	});
+
+	it('data-fire should trigger an event on an element', () => {
+		let elem1 = document.createElement('div');
+		elem1.setAttribute('id', 'elem1');
+		let elem2 = document.createElement('div');
+		elem2.setAttribute('data-fire', 'foo');
+		elem2.setAttribute('data-target', '#elem1');
+		document.body.appendChild(elem1);
+		document.body.appendChild(elem2);
+
+		let handler = sinon.spy();
+
+		events.onEvent(elem1, 'foo', handler);
+		click(elem2);
+
+		expect(handler.called).to.be.true;
+	});
+
+	it('data-fire should trigger an event on an element (data-closest)', () => {
+		let elem1 = document.createElement('div');
+		elem1.className = 'elem1';
+		let elem2 = document.createElement('div');
+		elem2.setAttribute('data-fire', 'foo');
+		elem2.setAttribute('data-closest', '.elem1');
+		document.body.appendChild(elem1);
+		elem1.appendChild(elem2);
+
+		let handler = sinon.spy();
+
+		events.onEvent(elem1, 'foo', handler);
+		click(elem2);
 
 		expect(handler.called).to.be.true;
 	});
