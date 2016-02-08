@@ -1,16 +1,12 @@
 import './polyfills';
 import { log } from './debug/logger';
 import data from './data';
-import { TamiaError } from './util';
+import { isElement, TamiaError } from './util';
 import isFunction from 'lodash/isFunction';
 
 let cache = new WeakMap();
 
 // TODO: store originalHandler as handler.__TamiaOriginalHandler ?
-
-function isElement(value) {
-	return !!value && (value.nodeType === 1 || value.nodeType === 9);
-}
 
 /**
  * Event delegation.
