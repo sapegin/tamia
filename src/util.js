@@ -6,7 +6,9 @@ export class TamiaError extends Error {
 		super(message);
 		this.name = this.constructor.name;
 		this.message = message;
-		Error.captureStackTrace(this, this.constructor.name);
+		if (Error.captureStackTrace) {
+			Error.captureStackTrace(this, this.constructor);
+		}
 	}
 }
 
