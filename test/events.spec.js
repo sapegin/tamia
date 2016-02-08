@@ -34,17 +34,19 @@ describe('events', () => {
 		expect(handler.called).to.be.true;
 	});
 
-	it('offEvent() should remove an event handler from an element', () => {
+	it('onEvent() with delegation should set event.target to delegated element, not to an actual event catcher', () => {
 		let elem = document.createElement('div');
+		let button = document.createElement('button');
+		let span = document.createElement('span');
+		button.appendChild(span);
+		elem.appendChild(button);
 		let handler = sinon.spy();
 
-		events.onEvent(elem, 'click', handler);
-		click(elem);
-		expect(handler.calledOnce).to.be.true;
+		events.onEvent(elem, 'click', 'button', handler);
+		click(span);
 
-		events.offEvent(elem, 'click', handler);
-		click(elem);
-		expect(handler.calledOnce).to.be.true;
+		expect(handler.called).to.be.true;
+		expect(handler.firstCall.args[0].target.tagName).to.eql('BUTTON');
 	});
 
 	it('oneEvent() should attach an event handler and remove it after the first event', () => {
@@ -56,6 +58,19 @@ describe('events', () => {
 		click(elem);
 		expect(handler.calledOnce).to.be.true;
 
+		click(elem);
+		expect(handler.calledOnce).to.be.true;
+	});
+
+	it('offEvent() should remove an event handler from an element', () => {
+		let elem = document.createElement('div');
+		let handler = sinon.spy();
+
+		events.onEvent(elem, 'click', handler);
+		click(elem);
+		expect(handler.calledOnce).to.be.true;
+
+		events.offEvent(elem, 'click', handler);
 		click(elem);
 		expect(handler.calledOnce).to.be.true;
 	});
@@ -161,5 +176,25 @@ describe('events', () => {
 		click(elem2);
 
 		expect(handler.called).to.be.true;
+	});
+
+	it('data-fire should accept extra attributes', () => {
+		let elem1 = document.createElement('div');
+		elem1.setAttribute('id', 'elem1');
+		let elem2 = document.createElement('div');
+		elem2.setAttribute('data-fire', 'foo');
+		elem2.setAttribute('data-target', '#elem1');
+		elem2.setAttribute('data-attrs', '1,2');
+		document.body.appendChild(elem1);
+		document.body.appendChild(elem2);
+
+		let handler = sinon.spy();
+
+		events.onEvent(elem1, 'foo', handler);
+		click(elem2);
+
+		expect(handler.called).to.be.true;
+		expect(handler.firstCall.args[1]).to.eql('1');
+		expect(handler.firstCall.args[2]).to.eql('2');
 	});
 });
