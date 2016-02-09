@@ -1,6 +1,6 @@
 import * as util from '../src/util';
 
-describe('states', () => {
+describe('util', () => {
 	it('TamiaError should be an Error descendant', () => {
 		let result = new util.TamiaError();
 		expect(result).to.be.an.instanceof(Error);
