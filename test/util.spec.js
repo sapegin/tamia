@@ -16,7 +16,7 @@ describe('states', () => {
 		expect(result).to.eql(['foo']);
 	});
 
-	it('isElement() should return true if a value is an HTML element', () => {
+	it('isElement() should return true if a value is an DOM element', () => {
 		let result = util.isElement(document.createElement('div'));
 		expect(result).to.be.true;
 	});

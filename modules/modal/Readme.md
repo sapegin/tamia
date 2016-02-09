@@ -43,11 +43,11 @@ Open via link:
 
 ### open.modal.tamia
 
-Fire this event on `.modal` DOM node to open popup.
+Fire this event on `.modal` DOM element to open popup.
 
 ### close.modal.tamia
 
-Fire this event on `.modal` DOM node to close popup.
+Fire this event on `.modal` DOM element to close popup.
 
 ### commit.modal.tamia
 
