@@ -37,24 +37,30 @@ const JS_PREFIX = 'js-';
  * @param {string|Array} [json.js] JS class(es) (.js-hook).
  * @param {OPORJSON|string|Array} [json.mix] Blocks to mix ({block: 'scrollable'}).
  * @param {Object} [json.attrs] HTML attributes ({href: '/about'}).
- * @param {HTMLElement} [json.element] Existing DOM element.
+ * @param {string} [json.element] Selector of an existing DOM element (inside `rootElem`) or `@root` (`rootElem`).
  * @param {boolean} [json.link] Store link to an element (link name: `${json.elem}Elem`, see example).
  * @param {Object|string|Array} [json.content] Child element(s) or text content.
+ * @param {HTMLElement} [rootElem] Root DOM element.
  * @param {Object} [links] (Internal.)
  * @param {boolean} [isChildren] (Internal.)
  * @return {HTMLElement|Array} Single generated DOM element or an array [elem, links].
  */
-export function oporElement(json, links = {}, isChildren = false) {
+export function oporElement(json, rootElem, links = {}, isChildren = false) {
 	let elem;
 	if (json.element) {
 		// Use existing DOM element
-		if (DEBUG && !isElement(json.element)) {
-			let type = typeof json.element;
-			let name = json.block + (json.elem ? `__${json.elem}` : '');
-			throw new TamiaError(`Invalid type of "json.element" for "${name}". ` +
-				`Expected: "HTMLElement", actual: "${type}".`);
+		if (DEBUG && !isElement(rootElem)) {
+			throw new TamiaError('"rootElem" is required to use "json.element".');
 		}
-		elem = json.element;
+		if (json.element === '@root') {
+			elem = rootElem;
+		}
+		else {
+			elem = rootElem.querySelector(json.element);
+			if (DEBUG && !isElement(elem)) {
+				throw new TamiaError(`Could not find an element "${json.element}" inside "rootElem".`);
+			}
+		}
 
 		// Detach element
 		if (isChildren && elem.parentNode) {
@@ -93,11 +99,11 @@ export function oporElement(json, links = {}, isChildren = false) {
 		if (Array.isArray(json.content)) {
 			container = document.createDocumentFragment();
 			for (let childIdx = 0; childIdx < json.content.length; childIdx++) {
-				container.appendChild(createChildelement(json.content[childIdx], links));
+				container.appendChild(createChildelement(json.content[childIdx], rootElem, links));
 			}
 		}
 		else {
-			container = createChildelement(json.content, links);
+			container = createChildelement(json.content, rootElem, links);
 		}
 		elem.appendChild(container);
 	}
@@ -166,9 +172,9 @@ export function oporClass(json, returnArray = false) {
 	return classes.join(' ');
 }
 
-function createChildelement(child, links) {
+function createChildelement(child, rootElem, links) {
 	if (typeof child === 'string') {
 		return document.createTextNode(child);
 	}
-	return oporElement(child, links, true);
+	return oporElement(child, rootElem, links, true);
 }

@@ -136,10 +136,27 @@ describe('OPOR', () => {
 		elem.className = 'was-here';
 		let result = opor.oporElement({
 			block: 'select',
-			element: elem,
-		});
+			element: '@root',
+		}, elem);
 		expect(result.tagName).to.eql('DIV');
 		expect(result.className).to.eql('was-here select');
+	});
+
+	it('oporElement() should be able to use existing DOM elements', () => {
+		global.DEBUG = true;
+		let elem = document.createElement('div');
+		let inner = document.createElement('span');
+		inner.className = 'js-foo';
+		elem.appendChild(inner);
+		let result = opor.oporElement({
+			block: 'select',
+			content: {
+				block: 'select',
+				elem: 'foo',
+				element: '.js-foo',
+			},
+		}, elem);
+		expect(result.firstChild.tagName).to.eql('SPAN');
 	});
 
 	it('oporElement() should be able to attach custom attributes', () => {
