@@ -143,7 +143,6 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should be able to use existing DOM elements', () => {
-		global.DEBUG = true;
 		let elem = document.createElement('div');
 		let inner = document.createElement('span');
 		inner.className = 'js-foo';
