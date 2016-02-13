@@ -7,7 +7,7 @@
     "mocha": "mocha test",
     "mocha:watch": "mocha --watch --reporter min test",
     "lint": "eslint src",
-    "start": "webpack-dev-server --inline --content-base specs --config config/webpack.config.js"
+    "start": "webpack-dev-server --inline --content-base specs --config config/webpack.config.js --no-info"
   },
   "repository": {
     "type": "git",
