@@ -39,6 +39,14 @@ module.exports = {
 				],
 				loader: 'babel',
 			},
+			{
+				test: /\.styl$/,
+				loaders: [
+					'style',
+					'css',
+					'stylus',
+				],
+			},
 		],
 	},
 };

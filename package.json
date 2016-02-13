@@ -20,6 +20,7 @@
     "babel-preset-es2015": "~6.3.13",
     "babel-preset-stage-1": "~6.3.13",
     "chai": "~3.4.1",
+    "css-loader": "~0.23.1",
     "domino": "~1.0.21",
     "eslint": "~1.10.3",
     "eslint-config-tamia": "~1.0.0",
@@ -37,8 +38,10 @@
     "sequelize": "~3.17.3",
     "sinon": "~1.17.2",
     "sqlite3": "~3.1.1",
+    "style-loader": "~0.13.0",
     "stylobuild": "~0.6.0",
     "stylus": "~0.42.0",
+    "stylus-loader": "~1.5.1",
     "underscore.string": "~2.3.3",
     "webpack": "~1.12.11",
     "webpack-dev-server": "~1.14.1"
