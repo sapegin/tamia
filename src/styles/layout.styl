@@ -1,4 +1,3 @@
-// Tâmia © 2013 Artem Sapegin http://sapegin.me
 // Grids and layouts
 
 //
@@ -6,10 +5,10 @@
 //
 
 // Grid gutter size, in pixels (default: 2×spacer).
-grid_gutter ?= 2*spacer
+grid_gutter ?= 2*spacer;
 
 // Number of columns in grid (default: 12).
-grid_columns ?= 12
+grid_columns ?= 12;
 
 
 //
@@ -19,10 +18,11 @@ grid_columns ?= 12
 /// Inspired by http://zengrids.com
 
 // Columns wrapper.
-grid-row()
-	clearfix()
-	grid-margin()
-	content: "tamia__grid-row"  if DEBUG
+grid-row() {
+	clearfix();
+	grid-margin();
+	content: "tamia__grid-row"  if DEBUG;
+}
 
 // Column (grid).
 //
@@ -37,16 +37,20 @@ grid-row()
 //	   <div class="col2"></div>
 //   </div>
 //
-//   .row
-//     grid-row()
-//   .col1
-//     grid-col(1,2)
-//   .col2
-//     grid-col(3,10)
-grid-col(position=1, span=1, context=null)
-	_grid-column(position, span, context)
-	_grid-float()
-	grid-padding()
+//   .row {
+//     grid-row();
+//   }
+//   .col1 {
+//     grid-col(1,2);
+//   }
+//   .col2 {
+//     grid-col(3,10);
+//   }
+grid-col(position=1, span=1, context=null) {
+	_grid-column(position, span, context);
+	_grid-float();
+	grid-padding();
+}
 
 // Column and wrapper for nested columns (grid).
 //
@@ -64,24 +68,31 @@ grid-col(position=1, span=1, context=null)
 //	   <div class="col2"></div>
 //   </div>
 //
-//   .row
-//     grid-row()
-//   .col1
-//     grid-col-row(1,8)
-//   .col2, .col3, .col4
-//     grid-col(...)
-grid-col-row(position=1, span=1, context=null)
-	_grid-column(position, span, context)
+//   .row {
+//     grid-row();
+//   }
+//   .col1 {
+//     grid-col-row(1,8);
+//   }
+//   .col2, .col3, .col4 {
+//     grid-col(...);
+//   }
+grid-col-row(position=1, span=1, context=null) {
+	_grid-column(position, span, context);
+}
 
 // Gutter size negative margin to make column with different background.
 //
 // full - Explode to all sides if true, left/right otherwise (default: false).
-grid-explode(full=false)
-	grid-padding(full)
-	if full
-		margin: -(grid_gutter)
-	else
-		margin-side: -(grid_gutter)
+grid-explode(full=false) {
+	grid-padding(full);
+	if full {
+		margin: -(grid_gutter);
+	}
+	else {
+		margin-side: -(grid_gutter);
+	}
+}
 
 // Width of column, in percent.
 //
@@ -89,36 +100,43 @@ grid-explode(full=false)
 // context - Width of parent column (default: null).
 //
 // Returns percent.
-grid-width(span=1, context=null)
-	context = grid_columns if not context
-	unit-width = 100% / context
-	span * unit-width
+grid-width(span=1, context=null) {
+	context = grid_columns  if not context;
+	_unit-width = 100% / context;
+	span * _unit-width;
+}
 
 // Column left/right padding.
 //
 // full - Padding on all sides if true, left/right otherwise (default: false).
-grid-padding(full=false)
-	side-gutter = grid_gutter / 2;
-	if full
-		padding: side-gutter
-	else
-		padding-side: side-gutter
+grid-padding(full=false) {
+	_side-gutter = grid_gutter / 2;
+	if full {
+		padding: _side-gutter;
+	}
+	else {
+		padding-side: _side-gutter;
+	}
+}
 
 // Column wrapper left/right negative margin.
-grid-margin()
-	side-gutter = (-(grid_gutter / 2))
-	margin-side: side-gutter
+grid-margin() {
+	_side-gutter = (-(grid_gutter / 2));
+	margin-side: _side-gutter;
+}
 
-_grid-column(position=1, span=1, context=null)
-	context = grid_columns if not context
-	unit-width = 100% / context
-	width: span * unit-width
-	margin-left: (position - 1) * unit-width
-	content: "tamia__grid-col"  if DEBUG
+_grid-column(position=1, span=1, context=null) {
+	context = grid_columns  if not context;
+	_unit-width = 100% / context;
+	width: span * _unit-width;
+	margin-left: (position - 1) * _unit-width;
+	content: "tamia__grid-col"  if DEBUG;
+}
 
-_grid-float()
-	float: left
-	margin-right: -100%
+_grid-float() {
+	float: left;
+	margin-right: -100%;
+}
 
 
 //
@@ -126,19 +144,17 @@ _grid-float()
 //
 
 // Layout wrapper (without margins).
-layout-wrapper()
-	display: flex
-	flex-flow: row wrap
-	/// IE8-9
-	.no-flexbox.no-flexboxlegacy &
-		display: block
-		letter-spacing: -0.31em
-	content: "tamia__layout-row"  if DEBUG
+layout-wrapper() {
+	display: flex;
+	flex-flow: row wrap;
+	content: "tamia__layout-row"  if DEBUG;
+}
 
 // Layout row wrapper (with margins).
-layout-row()
-	grid-margin()
-	layout-wrapper()
+layout-row() {
+	grid-margin();
+	layout-wrapper();
+}
 
 
 // Column (simple layout).
@@ -152,41 +168,42 @@ layout-row()
 //     <div class="col"></div>
 //   </div>
 //
-//   .row
-//     layout-row()
-//   .col
-//     layout-nth(1/2)  // Half
-layout-nth(part)
-	_layout-col()
-	_layout-part(part)
+//   .row {
+//     layout-row();
+//   }
+//   .col {
+//     layout-nth(1/2);  // Half
+//   }
+layout-nth(part) {
+	_layout-col();
+	_layout-part(part);
+}
 
 // Change number of columns.
 //
 // Use it to change number of columns (defined via layout-nth()) inside media queries.
 //
 // part - 1/Nth part of wrapper.
-layout-change(part)
-	_layout-part(part)
+layout-change(part) {
+	_layout-part(part);
+}
 
 // Disable columns.
 //
 // Alias for layout-change(1).
-layout-stop()
-	_layout-part(1)
+layout-stop() {
+	_layout-part(1);
+}
 
-_layout-col()
-	display: block
-	grid-padding()
-	/// IE8-9
-	.no-flexbox.no-flexboxlegacy &
-		display: inline-block
-		vertical-align: top
-		letter-spacing: normal
-	content: "tamia__layout-col"  if DEBUG
+_layout-col() {
+	display: block;
+	grid-padding();
+	content: "tamia__layout-col"  if DEBUG;
+}
 
-_layout-part(part)
-	width: (100% / (1 / part))
-
+_layout-part(part) {
+	width: (100% / (1 / part));
+}
 
 //
 // Misc
@@ -199,82 +216,93 @@ _layout-part(part)
 //
 // Example:
 //
-//   .checkbox:before
-//     center(.8em, .65em)
-//     background-image: url("check.svg")
-center(width, height=null)
-	size(width, height)
-	left: 50%
-	top: 50%
-	margin-left: (-(@width / 2))
-	margin-top: (-(@height / 2))
-
+//   .checkbox:before {
+//     center(.8em, .65em);
+//     background-image: url("check.svg");
+//   }
+center(width, height=null) {
+	size(width, height);
+	left: 50%;
+	top: 50%;
+	margin-left: (-(@width / 2));
+	margin-top: (-(@height / 2));
+}
 
 //
 // Classes
 //
 
 // Column wrapper.
-.l-row
-	layout-row()
+.l-row {
+	layout-row();
+}
 
 .l-sixth,
 .l-quarter,
 .l-third,
 .l-half,
 .l-three-quarters,
-.l-two-thirds
-	_layout-col()
+.l-two-thirds {
+	_layout-col();
+}
 
 // Sixth (to use inside .l-row).
-.l-sixth
-	_layout-part(1/6)
+.l-sixth {
+	_layout-part(1/6);
+}
 
 // Quarter (to use inside .l-row).
-.l-quarter
-	_layout-part(1/4)
+.l-quarter {
+	_layout-part(1/4);
+}
 
 // Three quarters (to use inside .l-row).
-.l-three-quarters
-	_layout-part(3/4)
+.l-three-quarters {
+	_layout-part(3/4);
+}
 
 // Third (to use inside .l-row).
-.l-third
-	_layout-part(1/3)
+.l-third {
+	_layout-part(1/3);
+}
 
 // Two thirds (to use inside .l-row).
-.l-two-thirds
-	_layout-part(2/3)
+.l-two-thirds {
+	_layout-part(2/3);
+}
 
 // Half (to use inside .l-row).
-.l-half
-	_layout-part(1/2)
+.l-half {
+	_layout-part(1/2);
+}
 
 // Wrapper for .l-left/.l-right.
-.l-wrap
-	layout-wrapper()
+.l-wrap {
+	layout-wrapper();
+}
 
 // Flexible columns with left text alignment (to use inside .l-wrap).
 //
 // Example:
 //
-//   .block
-//     layout-wrapper()
-//     &__first
-//       layout-left()
-//     &__second
-//       layout-right()
-layout-left()
-	flex: 1
-	.no-flexbox.no-flexboxlegacy
-		float: left
+//   .block {
+//     layout-wrapper();
+//     &__first {
+//       layout-left();
+//     }
+//     &__second {
+//       layout-right();
+//     }
+//   }
+layout-left() {
+	flex: 1;
+}
 
 // Flexible columns with right text alignment (to use inside .l-wrap).
-layout-right()
-	flex: 1
-	text-align: right
-	.no-flexbox.no-flexboxlegacy
-		float: right
+layout-right() {
+	flex: 1;
+	text-align: right;
+}
 
 // Flexible columns with left text alignment (to use inside .l-wrap).
 //
@@ -284,20 +312,24 @@ layout-right()
 //     <div class="l-left">Left</div>
 //     <div class="l-right">Left</div>
 //   </div>
-.l-left
-	layout-left()
+.l-left {
+	layout-left();
+}
 
 // Flexible columns with right text alignment (to use inside .l-wrap).
-.l-right
-	layout-right()
+.l-right {
+	layout-right();
+}
 
 // Pull left (float: left).
-.l-pull-left
-	float: left !important
+.l-pull-left {
+	float: left !important;
+}
 
 // Pull right (float: right).
-.l-pull-right
-	float: right !important
+.l-pull-right {
+	float: right !important;
+}
 
 // Centered content (vertically and horizontally).
 //
@@ -309,25 +341,30 @@ layout-right()
 //       <!--div class="l-center__wrap">Centered content</span-->
 //     </div>
 //   </div>
-.l-center
-	display: table
-	width: 100%
-	height: 100%
-	&-i
-		display: table-cell
-		text-align: center
-		vertical-align: middle
-	&__wrap
-		display: inline-block
+.l-center {
+	display: table;
+	width: 100%;
+	height: 100%;
+	&-i {
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+	}
+	&__wrap {
+		display: inline-block;
+	}
+}
 
 // Horizontally centered block.
-.l-centered
-	display: block
-	margin-side: auto
+.l-centered {
+	display: block;
+	margin-side: auto;
+}
 
 // Centered text.
-.l-text-centered
-	text-align: center
+.l-text-centered {
+	text-align: center;
+}
 
 // Panel with a header (sticked to top) and a body (occupies all available space).
 // (No fallback for non-flexbox browsers.)
@@ -340,17 +377,20 @@ layout-right()
 //     <div class="l-panel__header"></div>
 //     <div class="l-panel__body l-panel__centered"></div>
 //   </div>
-.l-panel
-	display: flex
-	flex-direction: column
+.l-panel {
+	display: flex;
+	flex-direction: column;
 
-	&__body
-		flex: 2
+	&__body {
+		flex: 2;
+	}
 
-	&__centered
-		display: flex
-		align-items: center
-		justify-content: center
+	&__centered {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
 
 //
 // Spacing
@@ -359,119 +399,151 @@ layout-right()
 // Space after block.
 //
 // rows - Number of “rows” (one row = default spacer).
-space(rows=1)
-	margin-bottom: rows*spacer
+space(rows=1) {
+	margin-bottom: rows*spacer;
+}
 
 // Standard bottom margin.
-.l-space
-	space()
+.l-space {
+	space();
+}
 
 // Double bottom margin.
-.l-double-space
-	space(2)
+.l-double-space {
+	space(2);
+}
 
 // Triple bottom margin.
-.l-triple-space
-	space(3)
+.l-triple-space {
+	space(3);
+}
 
 // Quadruple bottom margin.
-.l-quad-space
-	space(4)
+.l-quad-space {
+	space(4);
+}
 
 // Quintuple bottom margin.
-.l-quint-space
-	space(5)
+.l-quint-space {
+	space(5);
+}
 
 // Sextuple bottom margin.
-.l-sext-space
-	space(6)
+.l-sext-space {
+	space(6);
+}
 
 ///
 /// Debug stuff
 ///
 
-if DEBUG
-	.tamia__show-help
-		overflow: hidden
+if DEBUG {
+	.tamia__show-help {
+		overflow: hidden;
+	}
 
-	.tamia__help
-		display: flex
-		align-items: center
-		justify-content: center
-		position: fixed
-		left: 0
-		top: 0
-		right: 0
-		bottom: 0
-		*
-			background: #fff
-			color: #000
-			text-shadow: none
-			font: 16px/20px "Helvetica Neue", Arial, sans-serif
-		ul
-			padding: 2*spacer 2*spacer spacer
-			border-radius: .25em
-			box-shadow: 0 .2em .1em black(.15)
-		li
-			margin-bottom: spacer
-		kbd
-			display: inline-block
-			margin-right: .3em
-			padding: .1em .3em
-			background: #ccc
-			border-radius: .3em
-			text-shadow: 0 1px 0 white(.4)
+	.tamia__help {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		* {
+			background: #fff;
+			color: #000;
+			text-shadow: none;
+			font: 16px/20px "Helvetica Neue", Arial, sans-serif;
+		}
+		ul {
+			padding: 2*spacer 2*spacer spacer;
+			border-radius: .25em;
+			box-shadow: 0 .2em .1em black(.15);
+		}
+		li {
+			margin-bottom: spacer;
+		}
+		kbd {
+			display: inline-block;
+			margin-right: .3em;
+			padding: .1em .3em;
+			background: #ccc;
+			border-radius: .3em;
+			text-shadow: 0 1px 0 white(.4);
+		}
+	}
 
-	.tamia__show-layout-outlines
+	.tamia__show-layout-outlines {
 		.tamia__grid-col,
-		.tamia__layout-col
-			transition: outline .15s ease-in-out
-		.tamia__grid-col
-			outline: 1px solid #fc6 !important
-		.tamia__layout-col
-			outline: 1px solid #6cc !important
+		.tamia__layout-col {
+			transition: outline .15s ease-in-out;
+		}
+		.tamia__grid-col {
+			outline: 1px solid #fc6 !important;
+		}
+		.tamia__layout-col {
+			outline: 1px solid #6cc !important;
+		}
+	}
 
-	.tamia__show-all-outlines
+	.tamia__show-all-outlines {
 		*:before,
-		*:after
-			outline: 1px solid #d381c3 !important
-		*
-			outline: 1px solid #fb0120 !important
-			*
-				outline: 1px solid #fc6d24 !important
-				*
-					outline: 1px solid #fda331 !important
-					*
-						outline: 1px solid #a1c659 !important
-						*
-							outline: 1px solid #76c7b7 !important
-							*
-								outline: 1px solid #6fb3d2 !important
-								*
-									outline: 1px solid #be643c !important
+		*:after {
+			outline: 1px solid #d381c3 !important;
+		}
+		* {
+			outline: 1px solid #fb0120 !important;
+			* {
+				outline: 1px solid #fc6d24 !important;
+				* {
+					outline: 1px solid #fda331 !important;
+					* {
+						outline: 1px solid #a1c659 !important;
+						* {
+							outline: 1px solid #76c7b7 !important;
+							* {
+								outline: 1px solid #6fb3d2 !important;
+								* {
+									outline: 1px solid #be643c !important;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
 	.tamia__grid-row,
-	.tamia__layout-row
-		position: relative
+	.tamia__layout-row {
+		position: relative;
+	}
 
-	.tamia__grid-debugger
-		position: absolute
-		left: 0
-		right: 0
-		z-index: 10000
-		overflow: hidden
-		pointer-events: none
-		transition: opacity .15s ease-in-out
-		&.is-hidden
-			opacity: 0
+	.tamia__grid-debugger {
+		position: absolute;
+		left: 0;
+		right: 0;
+		z-index: 10000;
+		overflow: hidden;
+		pointer-events: none;
+		transition: opacity .15s ease-in-out;
+		&.is-hidden {
+			opacity: 0;
+		}
+	}
 
-	.tamia__grid-debugger-col
-		grid-padding()
-		float: left
-		width: grid-width()
-		height: inherit
-		&:before
-			content: ""
-			display: block
-			height: inherit
-			background: hsla(220,40%,50%,.25)
+	.tamia__grid-debugger-col {
+		grid-padding();
+		float: left;
+		width: grid-width();
+		height: inherit;
+		&:before {
+			content: "";
+			display: block;
+			height: inherit;
+			background: hsla(220, 40%, 50%, .25);
+		}
+	}
+}
