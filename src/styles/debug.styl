@@ -1,0 +1,114 @@
+///
+/// Debug classes
+///
+
+if DEBUG {
+	.tamia__show-help {
+		overflow: hidden;
+	}
+
+	.tamia__help {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		* {
+			background: #fff;
+			color: #000;
+			text-shadow: none;
+			font: 16px/20px "Helvetica Neue", Arial, sans-serif;
+		}
+		ul {
+			padding: 2*spacer 2*spacer spacer;
+			border-radius: .25em;
+			box-shadow: 0 .2em .1em black(.15);
+		}
+		li {
+			margin-bottom: spacer;
+		}
+		kbd {
+			display: inline-block;
+			margin-right: .3em;
+			padding: .1em .3em;
+			background: #ccc;
+			border-radius: .3em;
+			text-shadow: 0 1px 0 white(.4);
+		}
+	}
+
+	.tamia__show-layout-outlines {
+		.tamia__grid-col,
+		.tamia__layout-col {
+			transition: outline .15s ease-in-out;
+		}
+		.tamia__grid-col {
+			outline: 1px solid #fc6 !important;
+		}
+		.tamia__layout-col {
+			outline: 1px solid #6cc !important;
+		}
+	}
+
+	.tamia__show-all-outlines {
+		*:before,
+		*:after {
+			outline: 1px solid #d381c3 !important;
+		}
+		* {
+			outline: 1px solid #fb0120 !important;
+			* {
+				outline: 1px solid #fc6d24 !important;
+				* {
+					outline: 1px solid #fda331 !important;
+					* {
+						outline: 1px solid #a1c659 !important;
+						* {
+							outline: 1px solid #76c7b7 !important;
+							* {
+								outline: 1px solid #6fb3d2 !important;
+								* {
+									outline: 1px solid #be643c !important;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.tamia__grid-row,
+	.tamia__layout-row {
+		position: relative;
+	}
+
+	.tamia__grid-debugger {
+		position: absolute;
+		left: 0;
+		right: 0;
+		z-index: 10000;
+		overflow: hidden;
+		pointer-events: none;
+		transition: opacity .15s ease-in-out;
+		&.is-hidden {
+			opacity: 0;
+		}
+	}
+
+	.tamia__grid-debugger-col {
+		grid-padding();
+		float: left;
+		width: grid-width();
+		height: inherit;
+		&:before {
+			content: "";
+			display: block;
+			height: inherit;
+			background: hsla(220, 40%, 50%, .25);
+		}
+	}
+}

@@ -12,15 +12,12 @@
 // - gradient - Uses CSS gradients to position line under text (cannot change line color on hover).
 link_style ?= "underline";
 
-_is_underline = (link_style == "underline");
-_is_gradient = (link_style == "gradient");
-
 // Link color.
 link_color ?= #1978c8;
 
 // Visited link color (only for underline links because image backgrounds don’t work on :visited links).
 visited_color ?= #a963b8;
-visited_color = link_color  if _is_gradient;
+visited_color = link_color  if link_style == "gradient";
 
 // Hovered link color.
 hover_color ?= #f28a25;
@@ -33,7 +30,7 @@ hover_underline_color ?= currentColor;
 
 // Link underline position (only for gradient links, default: 90%)
 link_underline_position ?= 90%;
-link_underline_position = 85%  if _is_underline;
+link_underline_position = 85%  if link_style == "underline";
 
 
 //
@@ -127,117 +124,5 @@ no-underline() {
 	+link-all-states() {
 		text-decoration: none;
 		background-image: none;
-	}
-}
-
-
-//
-// Classes
-//
-
-// Link.
-.link {
-	&,
-	& u {
-		transition: color .2s ease-in-out, background .2s ease-in-out;
-		cursor: pointer;
-		if _is_underline {
-			text-decoration: underline;
-		}
-		else {
-			text-decoration: none;
-		}
-		if _is_gradient {
-			background-repeat: repeat-x;
-			link-underline-position: link_underline_position;
-			link-underline-size: 1px;
-		}
-	}
-	&:hover,
-	&:hover u {
-		transition: none;
-	}
-
-	&,
-	&:link,
-	& u,
-	&:link u {
-		color: link_color;
-		if _is_gradient {
-			link-underline(link_underline_color);
-		}
-	}
-
-	if _is_underline {
-		&:visited,
-		&:visited u {
-			color: visited_color;
-		}
-	}
-
-	&:hover,
-	&:active,
-	&:focus,
-	&:hover u,
-	&:active u,
-	&:focus u {
-		color: hover_color;
-		if _is_gradient and hover_underline_color != currentColor {
-			link-underline(hover_underline_color);
-		}
-	}
-}
-
-// Pseudo link with dashed underline.
-.link_fake {
-	link-underline-size: 1px 5px;
-	if _is_underline {
-		text-decoration: none;
-		background-repeat: repeat-x;
-		link-underline-position: link_underline_position;
-	}
-
-	&,
-	&:link,
-	&:visited {
-		link-fake-underline(link_underline_color);
-		color: link_color;
-	}
-
-	&:hover,
-	&:active,
-	&:focus {
-		if hover_underline_color != currentColor {
-			link-fake-underline(hover_underline_color);
-		}
-		color: hover_color;
-	}
-}
-
-// Link in quotes (quotes should be colored but not underlined).
-//
-// Example:
-//
-//   <a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
-.link_quoted {
-	no-underline();
-}
-
-.no-cssgradients {
-	.link {
-		text-decoration: underline;
-	}
-	.link_fake {
-		text-decoration: none;
-		border-bottom: 1px dotted;
-	}
-}
-
-@media print {
-	.link,
-	.link u,
-	.link_fake {
-		background-image: none;
-		text-decoration: underline;
 	}
 }

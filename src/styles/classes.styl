@@ -1,4 +1,6 @@
+//
 // Helper classes
+//
 
 // Element is hidden.
 .is-hidden {
@@ -21,4 +23,295 @@
 // Clearfix.
 .group {
 	clearfix();
+}
+
+
+//
+// Layout Classes
+//
+
+// Column wrapper.
+.l-row {
+	layout-row();
+}
+
+.l-sixth,
+.l-quarter,
+.l-third,
+.l-half,
+.l-three-quarters,
+.l-two-thirds {
+	_layout-col();
+}
+
+// Sixth (to use inside .l-row).
+.l-sixth {
+	_layout-part(1/6);
+}
+
+// Quarter (to use inside .l-row).
+.l-quarter {
+	_layout-part(1/4);
+}
+
+// Three quarters (to use inside .l-row).
+.l-three-quarters {
+	_layout-part(3/4);
+}
+
+// Third (to use inside .l-row).
+.l-third {
+	_layout-part(1/3);
+}
+
+// Two thirds (to use inside .l-row).
+.l-two-thirds {
+	_layout-part(2/3);
+}
+
+// Half (to use inside .l-row).
+.l-half {
+	_layout-part(1/2);
+}
+
+// Wrapper for .l-left/.l-right.
+.l-wrap {
+	layout-wrapper();
+}
+
+// Flexible columns with left text alignment (to use inside .l-wrap).
+//
+// Example:
+//
+//   <div class="l-wrap">
+//     <div class="l-left">Left</div>
+//     <div class="l-right">Left</div>
+//   </div>
+.l-left {
+	layout-left();
+}
+
+// Flexible columns with right text alignment (to use inside .l-wrap).
+.l-right {
+	layout-right();
+}
+
+// Pull left (float: left).
+.l-pull-left {
+	float: left !important;
+}
+
+// Pull right (float: right).
+.l-pull-right {
+	float: right !important;
+}
+
+// Centered content (vertically and horizontally).
+//
+// Example:
+//
+//   <div class="l-center">
+//     <div class="l-center-i">
+//       <span>Centered content</span>
+//       <!--div class="l-center__wrap">Centered content</span-->
+//     </div>
+//   </div>
+.l-center {
+	display: table;
+	width: 100%;
+	height: 100%;
+	&-i {
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+	}
+	&__wrap {
+		display: inline-block;
+	}
+}
+
+// Horizontally centered block.
+.l-centered {
+	display: block;
+	margin-side: auto;
+}
+
+// Centered text.
+.l-text-centered {
+	text-align: center;
+}
+
+// Panel with a header (sticked to top) and a body (occupies all available space).
+// (No fallback for non-flexbox browsers.)
+//
+// .l-panel__centered can be applied to either header or body and will center content horizontally and vertically.
+//
+// Example:
+//
+//   <div class="l-panel">
+//     <div class="l-panel__header"></div>
+//     <div class="l-panel__body l-panel__centered"></div>
+//   </div>
+.l-panel {
+	display: flex;
+	flex-direction: column;
+
+	&__body {
+		flex: 2;
+	}
+
+	&__centered {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+
+//
+// Spacing
+//
+
+// Standard bottom margin.
+.l-space {
+	space();
+}
+
+// Double bottom margin.
+.l-double-space {
+	space(2);
+}
+
+// Triple bottom margin.
+.l-triple-space {
+	space(3);
+}
+
+// Quadruple bottom margin.
+.l-quad-space {
+	space(4);
+}
+
+// Quintuple bottom margin.
+.l-quint-space {
+	space(5);
+}
+
+// Sextuple bottom margin.
+.l-sext-space {
+	space(6);
+}
+
+//
+// Links
+//
+
+_is_underline = (link_style == "underline");
+_is_gradient = (link_style == "gradient");
+
+// Link.
+.link {
+	&,
+	& u {
+		transition: color .2s ease-in-out, background .2s ease-in-out;
+		cursor: pointer;
+		if _is_underline {
+			text-decoration: underline;
+		}
+		else {
+			text-decoration: none;
+		}
+		if _is_gradient {
+			background-repeat: repeat-x;
+			link-underline-position: link_underline_position;
+			link-underline-size: 1px;
+		}
+	}
+	&:hover,
+	&:hover u {
+		transition: none;
+	}
+
+	&,
+	&:link,
+	& u,
+	&:link u {
+		color: link_color;
+		if _is_gradient {
+			link-underline(link_underline_color);
+		}
+	}
+
+	if _is_underline {
+		&:visited,
+		&:visited u {
+			color: visited_color;
+		}
+	}
+
+	&:hover,
+	&:active,
+	&:focus,
+	&:hover u,
+	&:active u,
+	&:focus u {
+		color: hover_color;
+		if _is_gradient and hover_underline_color != currentColor {
+			link-underline(hover_underline_color);
+		}
+	}
+}
+
+// Pseudo link with dashed underline.
+.link_fake {
+	link-underline-size: 1px 5px;
+	if _is_underline {
+		text-decoration: none;
+		background-repeat: repeat-x;
+		link-underline-position: link_underline_position;
+	}
+
+	&,
+	&:link,
+	&:visited {
+		link-fake-underline(link_underline_color);
+		color: link_color;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		if hover_underline_color != currentColor {
+			link-fake-underline(hover_underline_color);
+		}
+		color: hover_color;
+	}
+}
+
+// Link in quotes (quotes should be colored but not underlined).
+//
+// Example:
+//
+//   <a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
+.link_quoted {
+	no-underline();
+}
+
+.no-cssgradients {
+	.link {
+		text-decoration: underline;
+	}
+	.link_fake {
+		text-decoration: none;
+		border-bottom: 1px dotted;
+	}
+}
+
+@media print {
+	.link,
+	.link u,
+	.link_fake {
+		background-image: none;
+		text-decoration: underline;
+	}
 }
