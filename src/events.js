@@ -150,10 +150,10 @@ export function triggerEvent(elem, eventName, ...detail) {
 
 	let params = {
 		bubbles: true,
-		cancelable: false,
+		cancelable: true,
 		detail,
 	};
-	elem.dispatchEvent(new window.CustomEvent(eventName, params));
+	return elem.dispatchEvent(new CustomEvent(eventName, params));
 }
 
 /**
@@ -171,7 +171,7 @@ export function triggerNativeEvent(elem, eventName) {
 
 	let event = document.createEvent('HTMLEvents');
 	event.initEvent(eventName, true, false);
-	elem.dispatchEvent(event);
+	return elem.dispatchEvent(event);
 }
 
 /**

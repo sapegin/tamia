@@ -6,6 +6,7 @@ global.window = require('domino').createWindow();
 global.document = window.document;
 global.navigator = window.navigator;
 global.Element = window.Element;
+global.CustomEvent = window.CustomEvent;
 global.getComputedStyle = window.getComputedStyle;
 
 // dataset polyfill

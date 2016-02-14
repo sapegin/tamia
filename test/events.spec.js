@@ -104,9 +104,10 @@ describe('events', () => {
 		let handler = sinon.spy();
 
 		events.onEvent(elem, 'tamia.foo', handler);
-		events.triggerEvent(elem, 'tamia.foo');
+		let result = events.triggerEvent(elem, 'tamia.foo');
 
 		expect(handler.called).to.be.true;
+		expect(result).to.be.true;
 	});
 
 	it('triggerEvent() should pass details as additional arguments to a handler', () => {
@@ -121,14 +122,25 @@ describe('events', () => {
 		expect(handler.firstCall.args[2]).to.eql('2');
 	});
 
+	it('triggerEvent() should return false if event was cancelled', () => {
+		let elem = document.createElement('div');
+		let handler = event => event.preventDefault();
+
+		events.onEvent(elem, 'tamia.foo', handler);
+		let result = events.triggerEvent(elem, 'tamia.foo');
+
+		expect(result).to.be.false;
+	});
+
 	it('triggerNativeEvent() should trigger a native event', () => {
 		let elem = document.createElement('div');
 		let handler = sinon.spy();
 
 		events.onEvent(elem, 'click', handler);
-		events.triggerNativeEvent(elem, 'click');
+		let result = events.triggerNativeEvent(elem, 'click');
 
 		expect(handler.called).to.be.true;
+		expect(result).to.be.true;
 	});
 
 	it('registerGlobalEvents() should attach event handlers to document', () => {
