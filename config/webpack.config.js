@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
 module.exports = {
-	devtool: 'cheap-module-source-map',
+	devtool: 'eval',
 
 	entry: [
 		'./specs/specs.js',
