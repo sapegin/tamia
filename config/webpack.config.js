@@ -19,7 +19,7 @@ module.exports = {
 		modulesDirectories: [
 			path.resolve(__dirname, '../node_modules'),
 		],
-		extensions: ['', '.js', '.jsx', '.scss'],
+		extensions: ['', '.js', '.styl'],
 	},
 
 	plugins: [
@@ -50,6 +50,13 @@ module.exports = {
 				],
 			},
 		],
+	},
+
+	stylus: {
+		define: {
+			DEBUG: true,
+			embedurl: require('stylus').url(),
+		},
 	},
 
 	postcss: function() {
