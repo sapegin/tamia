@@ -1,102 +1,130 @@
-DEBUG = true
 modules_default_skin = true
 link_style = "gradient"
 
-@import "tamia"
-@import "../modules/*"
+@import "../src/styles/core";
 
 // Colors
 // http://chriskempson.github.io/base16/
-.c1
-	background: #90a959
-.c2
-	background: #75b5aa
-.c3
-	background: #6a9fb5
-.c4
-	background: #aa759f
-.c5
-	background: #d28445
-.c6
-	background: #ac4142
-.c7
-	background: #8f5536
-.c8
-	background: #f4bf75
+.c1 {
+	background: #90a959;
+}
+.c2 {
+	background: #75b5aa;
+}
+.c3 {
+	background: #6a9fb5;
+}
+.c4 {
+	background: #aa759f;
+}
+.c5 {
+	background: #d28445;
+}
+.c6 {
+	background: #ac4142;
+}
+.c7 {
+	background: #8f5536;
+}
+.c8 {
+	background: #f4bf75;
+}
 
 //
-.spec
-	margin-bottom: 20px
+.spec {
+	margin-bottom: 20px;
 
-	&_narrow
-		width: 300px
-
-
-.dialog
-	position: fixed
-	left: 50%
-	top: 50%
-	padding: 2*spacer
-	transform: translate(-50%, -50%)
-	background: #fff
-	box-shadow: 0 0 10px black(.2)
-	transition: opacity .5s ease-in-out
-
-	&.is-hidden
-		opacity: 0
+	&_narrow {
+		width: 300px;
+	}
+}
 
 
-body
-	padding: 20px
-	font: 16px/1.4 Helvetica, arial, freesans, clean, sans-serif
-.phantomjs body
-	width:1024px !important
+.dialog {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	padding: 2*spacer;
+	transform: translate(-50%, -50%);
+	background: #fff;
+	box-shadow: 0 0 10px black(.2);
+	transition: opacity .5s ease-in-out;
 
-h2
-	font-size: 24px
-	font-weight: normal
-	margin-bottom: 20px
-h3
-	font-size: 18px
-	font-weight: normal
-	margin-bottom: 12px
+	&.is-hidden {
+		opacity: 0;
+	}
+}
+
+body {
+	padding: 20px;
+	font: 16px/1.4 Helvetica, arial, freesans, clean, sans-serif;
+}
+//.phantomjs body
+//	width:1024px !important
+
+h2 {
+	font-size: 24px;
+	font-weight: normal;
+	margin-bottom: 20px;
+}
+h3 {
+	font-size: 18px;
+	font-weight: normal;
+	margin-bottom: 12px;
+}
 
 
 // Grid examples
-.grid-row
-	grid-row()
-.grid-1
-	grid-col(4,3)
-.grid-2
-	grid-col(1,3)
-.grid-3
-	grid-col(7,6)
-.grid-3-1
-	grid-col(1,2,6)
-.grid-3-2
-	grid-col(3,4,6)
-.grid-4
-	grid-col(2,3)
-.grid-5
-	grid-col(4,6)
-.grid-6
-	grid-col-row(4,6)
-.grid-padding
-	padding-top: spacer
-	padding-bottom: spacer
-.grid-explode
-	grid-explode()
+.grid-row {
+	grid-row();
+}
+.grid-1 {
+	grid-col(4,3);
+}
+.grid-2 {
+	grid-col(1,3);
+}
+.grid-3 {
+	grid-col(7,6);
+}
+.grid-3-1 {
+	grid-col(1,2,6);
+}
+.grid-3-2 {
+	grid-col(3,4,6);
+}
+.grid-4 {
+	grid-col(2,3);
+}
+.grid-5 {
+	grid-col(4,6);
+}
+.grid-6 {
+	grid-col-row(4,6);
+}
+.grid-padding {
+	padding-top: spacer;
+	padding-bottom: spacer;
+}
+.grid-explode {
+	grid-explode();
+}
 
 // Links
-.links__big1
-	font-size: 24px
-.links__big2
-	font-size: 32px
-	a
-		link-underline-size: 2px
-		link-underline-position: 93%
-.links__big3
-	font-size: 48px
-	a
-		link-underline-size: 2px
-		link-underline-position: 93%
+.links__big1 {
+	font-size: 24px;
+}
+.links__big2 {
+	font-size: 32px;
+	a {
+		link-underline-size: 2px;
+		link-underline-position: 93%;
+	}
+}
+.links__big3 {
+	font-size: 48px;
+	a {
+		link-underline-size: 2px;
+		link-underline-position: 93%;
+	}
+}
