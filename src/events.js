@@ -226,7 +226,7 @@ onEvent(document, 'click', '[data-fire]', (event) => {
 	}
 
 	if (DEBUG) {
-		log(`Fire event ${eventName} with attrs`, attrs, 'on', targetElem);
+		log(`Fire event ${eventName} with attributes`, attrs || [], 'on', targetElem);
 	}
 
 	attrs = attrs ? attrs.split(/[;, ]/) : [];
