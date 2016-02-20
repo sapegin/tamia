@@ -140,6 +140,7 @@ export function oneEvent(elem, eventName, handler) {
  * @param {HTMLElement} elem Element.
  * @param {string} eventName Event name.
  * @param {*} detail... Extra data.
+ * @return {boolean}
  */
 export function triggerEvent(elem, eventName, ...detail) {
 	if (DEBUG) {
@@ -161,6 +162,7 @@ export function triggerEvent(elem, eventName, ...detail) {
  *
  * @param {HTMLElement} elem Element.
  * @param {string} eventName Event name.
+ * @return {boolean}
  */
 export function triggerNativeEvent(elem, eventName) {
 	if (DEBUG) {
