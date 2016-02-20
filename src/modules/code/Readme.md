@@ -29,4 +29,3 @@ Prefix for color scheme classes.
 ## Tools
 
 * [highlight.js](http://softwaremaniacs.org/soft/highlight/en/).
-* [docpad-plugin-highlightjs](https://github.com/docpad/docpad-plugin-highlightjs) for DocPad.
