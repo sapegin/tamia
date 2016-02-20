@@ -66,48 +66,20 @@ Shows/hides success/error messages:
 
 ## Events
 
-### enable.form.tamia / disable.form.tamia
+### tamia.form.enable / tamia.form.disable
 
 Enables / disables all descendant form elements (they should have classes `.field`, `.button` or `.disablable`).
 
-### lock.form.tamia / unlock.form.tamia
+### tamia.form.lock / tamia.form.unlock
 
 Disables / enables submit button of a form.
-
-
-## Ajax forms
-
-You can convert any form to Ajax form:
-
-	<form method="post" class="form" data-component="form" data-form-action="http://example.com/example.php" data-form-type="jsonp">
-		...
-		<div class="form__success alert js-form-success">Thank you!</div>
-		<div class="form__error alert alert_error js-form-error">Go away!</div>
-	</form>
-
-You can subscribe to events `send.form.tamia`, `success.form.tamia` and `success.form.tamia`:
-
-	form.on({
-		'send.form.tamia': function(event, fields) {
-			event.preventDefault();  // Cancel form sending
-		},
-		'success.form.tamia': function(event, data) {
-			// Server should return data.result = 'success'
-			return 'Error message.';
-		},
-		'error.form.tamia': function(event, data) {
-			return 'Success message.';
-		}
-	});
-
-Or use states `.is-success`, `.is-error` and `.is-sending` to check form status.
 
 
 ## Auto disable submit button
 
 Disable submit button on form submit:
 
-	<form class="form" data-component="autolock">
+	<form class="form" data-autolock>
 
 
 ## Skin
