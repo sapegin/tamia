@@ -5,7 +5,7 @@ Modal popup.
 
 ## Markup
 
-	<div class="modal is-hidden">
+	<t-modal class="modal is-hidden">
 		<header class="modal__header">
 			<h3 class="modal__title">Hello world</h3>
 			<button class="close js-modal-dismiss"></button>
@@ -17,51 +17,51 @@ Modal popup.
 			<div class="button js-modal-dismiss">Cancel</div>
 			<div class="button js-modal-commit">Save</div>
 		</footer>
-	</div>
+	</t-modal>
 
 To disable modal closing by click on a shade use `data-modal-close-on-shade="no"` attribute:
 
-	<div class="modal is-hidden" data-modal-close-on-shade="no">
+	<t-modal class="modal is-hidden" data-modal-close-on-shade="no">
 
 ## How to open
 
 Auto open:
 
-	<div class="modal is-hidden" data-component="modal" data-modal-open="yes">...</div>
+	<t-modal class="modal is-hidden" data-component="modal" data-modal-open="yes">...</t-modal>
 
 Open via JavaScript:
 
-	<div class="modal pony is-hidden">...</div>
-	$('.pony').trigger('open.modal.tamia');
+	<t-modal class="modal pony is-hidden">...</t-modal>
+	triggerEvent($$('.pony'), 'tamia.modal.open');
 
 Open via link:
 
-	<a href="#" class="" data-fire="open.modal.tamia" data-target=".js-popup">Open</a>
+	<a href="#" class="" data-fire="tamia.modal.open" data-target=".js-popup">Open</a>
 
 
 ## Events
 
-### open.modal.tamia
+### tamia.modal.open
 
-Fire this event on `.modal` DOM element to open popup.
+Fire this event on `t-modal` DOM element to open popup.
 
-### close.modal.tamia
+### tamia.modal.close
 
-Fire this event on `.modal` DOM element to close popup.
+Fire this event on `t-modal` DOM element to close popup.
 
-### commit.modal.tamia
+### tamia.modal.commit
 
 Fires when user clicks Save button.
 
 You can prevent popup from closing:
 
-	$('.js-popup').on('commit.modal.tamia', function() {
+	onEvent($$('.js-popup', 'tamia.modal.commit', () => {
 		return false;
 	});
 
-### dismiss.modal.tamia
+### tamia.modal.dismiss
 
-Fires when user click Cancel button
+Fires when user click Cancel button.
 
 
 ## Skin
