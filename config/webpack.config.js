@@ -19,7 +19,7 @@ module.exports = {
 		modulesDirectories: [
 			path.resolve(__dirname, '../node_modules'),
 		],
-		extensions: ['', '.js', '.styl'],
+		extensions: ['', '.js'],
 	},
 
 	plugins: [
