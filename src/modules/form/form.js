@@ -13,7 +13,7 @@ const DISABLED_STATE = 'disabled';
  * @param {HTMLElement} elem Element.
  * @param {boolean} enable Enable or disable.
  */
-export function toggle(elem, enable) {
+export function toggleElem(elem, enable) {
 	toggleState(elem, DISABLED_STATE, !enable);
 	if (enable) {
 		elem.removeAttribute('disabled');
@@ -32,10 +32,10 @@ export function toggle(elem, enable) {
  */
 export function toggleAll(container, selector, enable) {
 	let elements = container.querySelectorAll(selector);
-	[...elements].forEach(elem => toggle(elem, enable));
+	[...elements].forEach(elem => toggleElem(elem, enable));
 
 	if (container.matches(selector)) {
-		toggle(container, enable);
+		toggleElem(container, enable);
 	}
 }
 

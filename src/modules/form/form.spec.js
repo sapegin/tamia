@@ -1,20 +1,20 @@
-import { toggle, toggleAll, toggleFields, toggleSubmit } from './form';
+import { toggleElem, toggleAll, toggleFields, toggleSubmit } from './form';
 
 describe('modules/form', () => {
-	it('toggle() should disable enabled form element', () => {
+	it('toggleElem() should disable enabled form element', () => {
 		let elem = document.createElement('input');
 		elem.classList.add('foo');
-		toggle(elem, false);
+		toggleElem(elem, false);
 
 		expect(elem.className).to.eql('foo is-disabled');
 		expect(elem.getAttribute('disabled')).to.eql('disabled');
 	});
 
-	it('toggle() should enable disabled form element', () => {
+	it('toggleElem() should enable disabled form element', () => {
 		let elem = document.createElement('input');
 		elem.setAttribute('disabled', 'disabled');
 		elem.classList.add('foo', 'is-disabled');
-		toggle(elem, true);
+		toggleElem(elem, true);
 
 		expect(elem.className).to.eql('foo');
 		expect(elem.getAttribute('disabled')).to.eql(null);
