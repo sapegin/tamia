@@ -5,9 +5,9 @@ Password field with toggle to show characters.
 
 ## Markup
 
-	<div class="password" data-component="password">
-		<input type="password" class="js-field">
-	</div>
+	<t-password class="password">
+		<input type="password">
+	</t-password>
 
 
 ## States
@@ -19,11 +19,6 @@ Browser is supported.
 ### .password.is-unlocked
 
 Password characters are visible.
-
-
-## Caveats
-
-IE9+.
 
 
 ## Skin
