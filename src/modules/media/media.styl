@@ -1,0 +1,23 @@
+// Media object
+// Based on https://github.com/csswizardry/inuit.css/blob/master/objects/_media.scss
+
+@import "../../styles/core";
+
+.media {
+	clearfix();
+	display: block;
+
+	&__img {
+		float: left;
+		margin-right: spacer;
+	}
+	&__img_rev {
+		float: right;
+		margin-right: 0;
+		margin-left: spacer;
+	}
+
+	&__body {
+		overflow: hidden;
+	}
+}
