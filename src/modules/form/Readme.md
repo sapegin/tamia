@@ -64,17 +64,6 @@ Shows/hides success/error messages:
 	</form>
 
 
-## Events
-
-### tamia.form.enable / tamia.form.disable
-
-Enables / disables all descendant form elements (they should have classes `.field`, `.button` or `.disablable`).
-
-### tamia.form.lock / tamia.form.unlock
-
-Disables / enables submit button of a form.
-
-
 ## Auto disable submit button
 
 Disable submit button on form submit:

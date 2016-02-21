@@ -1,6 +1,6 @@
 // Basic form controls
 
-import { onEvent, triggerEvent, registerGlobalEvents } from '../../events';
+import { onEvent } from '../../events';
 import { toggleState } from '../../states';
 
 const FORM_ELEMENTS_SELECTOR = '.field, .button, .disablable';
@@ -59,45 +59,6 @@ export function toggleSubmit(container, enable) {
 	toggleAll(container, SUBMIT_BUTTON_SELECTOR, enable);
 }
 
-// Events
-registerGlobalEvents({
-	/**
-	 * Enables all descendant form elements.
-	 *
-	 * @param {Event} event Event.
-	 */
-	'tamia.form.enable': (event) => {
-		toggleFields(event.target, true);
-	},
-
-	/**
-	 * Disables all descendant form elements.
-	 *
-	 * @param {Event} event Event.
-	 */
-	'tamia.form.disable': (event) => {
-		toggleFields(event.target, false);
-	},
-
-	/**
-	 * Enables submit button of a form.
-	 *
-	 * @param {Event} event Event.
-	 */
-	'tamia.form.unlock': (event) => {
-		toggleSubmit(event.target, true);
-	},
-
-	/**
-	 * Disables submit button of a form.
-	 *
-	 * @param {Event} event Event.
-	 */
-	'tamia.form.lock': (event) => {
-		toggleSubmit(event.target, false);
-	},
-});
-
 /**
  * Disable submit button on form submit.
  *
@@ -108,5 +69,5 @@ registerGlobalEvents({
  *   <form action="..." data-autolock>...</form>
  */
 onEvent(document, 'submit', '[data-autolock]', (event) => {
-	triggerEvent(event.target, 'tamia.form.lock');
+	toggleSubmit(event.target, false);
 });
