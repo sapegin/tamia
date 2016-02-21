@@ -1,4 +1,4 @@
-# Rouble ß
+# Rouble
 
 Russian Rouble sign.
 
@@ -10,5 +10,4 @@ Russian Rouble sign.
 
 ## Caveats
 
-* IE9+.
-* Only one font (Arial) is available now.
+* Only one font (Arial) is available.
