@@ -1,5 +1,6 @@
 {
   "name": "tamia",
+  "description": "Tiny but extremely opinionated front-end framework",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,9 +10,25 @@
     "lint": "eslint src",
     "start": "webpack-dev-server --inline --content-base specs --config config/webpack.config.js --no-info"
   },
+  "homepage": "https://github.com/tamiadev/tamia",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me/"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/tamiadev/tamia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tamiadev/tamia/issues"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
   },
   "devDependencies": {
     "autoprefixer": "~6.3.3",
