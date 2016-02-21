@@ -99,11 +99,11 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 		if (Array.isArray(json.content)) {
 			container = document.createDocumentFragment();
 			for (let childIdx = 0; childIdx < json.content.length; childIdx++) {
-				container.appendChild(createChildelement(json.content[childIdx], rootElem, links));
+				container.appendChild(createChildElement(json.content[childIdx], rootElem, links));
 			}
 		}
 		else {
-			container = createChildelement(json.content, rootElem, links);
+			container = createChildElement(json.content, rootElem, links);
 		}
 		elem.appendChild(container);
 	}
@@ -172,7 +172,7 @@ export function oporClass(json, returnArray = false) {
 	return classes.join(' ');
 }
 
-function createChildelement(child, rootElem, links) {
+function createChildElement(child, rootElem, links) {
 	if (typeof child === 'string') {
 		return document.createTextNode(child);
 	}
