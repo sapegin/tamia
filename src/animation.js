@@ -55,12 +55,24 @@ export function runAnimation(elem, animation, done = () => {}) {
 }
 
 /**
+ * Fire callback after all element’s CSS transitions finished.
+ * Based on https://github.com/ai/transition-events
+ *
+ * @param {HTMLElement} elem DOM element.
+ * @param {Function} callback Callback.
+ */
+export function afterTransitions(elem, callback) {
+	let after = getTransitionsEndTime(elem);
+	setTimeout(() => requestAnimationFrame(callback), after);
+}
+
+/**
  * Return array of milliseconds for CSS value of `transition-duration` or `transition-delay`.
  *
  * @param {string} string transition-duration value.
  * @returns {Array}
  */
-export function parseTimes(string) {
+function parseTimes(string) {
 	let times = string.split(/,\s*/);
 	return times.map((value) => {
 		let number = parseFloat(value);
@@ -77,7 +89,7 @@ export function parseTimes(string) {
  * @param {HTMLElement} elem DOM element.
  * @returns {number}
  */
-export function getTransitionsEndTime(elem) {
+function getTransitionsEndTime(elem) {
 	let styles = getComputedStyle(elem);
 	let props = styles['transition-property'];
 	if (!props) {
@@ -95,14 +107,4 @@ export function getTransitionsEndTime(elem) {
 	}, 0);
 }
 
-/**
- * Fire callback after all element’s CSS transitions finished.
- * Based on https://github.com/ai/transition-events
- *
- * @param {HTMLElement} elem DOM element.
- * @param {Function} callback Callback.
- */
-export function afterTransitions(elem, callback) {
-	let after = getTransitionsEndTime(elem);
-	setTimeout(() => requestAnimationFrame(callback), after);
-}
+export let _test = { parseTimes, getTransitionsEndTime };

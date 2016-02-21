@@ -9,44 +9,6 @@ let cache = new WeakMap();
 // TODO: store originalHandler as handler.__TamiaOriginalHandler ?
 
 /**
- * Event delegation.
- * Based on https://github.com/fat/bean
- *
- * @param {Function} func Handler.
- * @param {string} selector CSS selector.
- * @param {HTMLElement} root Root element.
- * @returns {Function}
- */
-function delegate(func, selector, root) {
-	let findTarget = (target) => {
-		let array = root.querySelectorAll(selector);
-		for (; target && target !== root; target = target.parentNode) {
-			for (let i = array.length; i--;) {
-				if (array[i] === target) {
-					return target;
-				}
-			}
-		}
-	};
-
-	return (event, ...details) => {
-		let match = findTarget(event.target);
-		if (match) {
-			if (DEBUG) {
-				log(`Event ${event.type} on`, match, `Delegated: ${selector}.`, 'Details:', details);
-			}
-			Object.defineProperty(event, 'target', {
-				enumerable: false,
-				configurable: false,
-				writable: false,
-				value: match,
-			});
-			func(event, ...details);
-		}
-	};
-}
-
-/**
  * Attach event handler.
  *
  * @param {HTMLElement} elem Element.
@@ -234,3 +196,41 @@ onEvent(document, 'click', '[data-fire]', (event) => {
 	attrs = attrs ? attrs.split(/[;, ]/) : [];
 	triggerEvent(targetElem, eventName, ...attrs);
 });
+
+/**
+ * Event delegation.
+ * Based on https://github.com/fat/bean
+ *
+ * @param {Function} func Handler.
+ * @param {string} selector CSS selector.
+ * @param {HTMLElement} root Root element.
+ * @returns {Function}
+ */
+function delegate(func, selector, root) {
+	let findTarget = (target) => {
+		let array = root.querySelectorAll(selector);
+		for (; target && target !== root; target = target.parentNode) {
+			for (let i = array.length; i--;) {
+				if (array[i] === target) {
+					return target;
+				}
+			}
+		}
+	};
+
+	return (event, ...details) => {
+		let match = findTarget(event.target);
+		if (match) {
+			if (DEBUG) {
+				log(`Event ${event.type} on`, match, `Delegated: ${selector}.`, 'Details:', details);
+			}
+			Object.defineProperty(event, 'target', {
+				enumerable: false,
+				configurable: false,
+				writable: false,
+				value: match,
+			});
+			func(event, ...details);
+		}
+	};
+}

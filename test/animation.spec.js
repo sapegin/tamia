@@ -54,7 +54,7 @@ describe('animation', () => {
 	});
 
 	it('parseTimes() should return an array of milliseconds', () => {
-		let result = anim.parseTimes('4s, 30s');
+		let result = anim._test.parseTimes('4s, 30s');
 
 		expect(result).to.eql([4000, 30000]);
 	});
@@ -65,7 +65,7 @@ describe('animation', () => {
 		elem.style['transition-duration'] = '1s, 3s';
 		elem.style['transition-delay'] = '4s, 0s';
 
-		let result = anim.getTransitionsEndTime(elem);
+		let result = anim._test.getTransitionsEndTime(elem);
 
 		expect(result).to.eql(8000);
 	});
@@ -76,7 +76,7 @@ describe('animation', () => {
 		elem.style['transition-duration'] = '1s';
 		elem.style['transition-delay'] = '4s';
 
-		let result = anim.getTransitionsEndTime(elem);
+		let result = anim._test.getTransitionsEndTime(elem);
 
 		expect(result).to.eql(10000);
 	});
@@ -84,7 +84,7 @@ describe('animation', () => {
 	it('getTransitionsEndTime() should return 0 when element has no transitions', () => {
 		let elem = document.createElement('div');
 
-		let result = anim.getTransitionsEndTime(elem);
+		let result = anim._test.getTransitionsEndTime(elem);
 
 		expect(result).to.eql(0);
 	});
