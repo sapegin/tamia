@@ -184,7 +184,7 @@ export function triggerNativeEvent(elem, eventName) {
  * Example:
  *
  *   registerGlobalEvents({
- *      'tamia.form.enable': (event, ...details) => { ... },
+ *      'tamia.foo.bar': (event, ...details) => { ... },
  *   });
  */
 export function registerGlobalEvents(handlers) {
