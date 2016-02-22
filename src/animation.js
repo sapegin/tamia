@@ -73,7 +73,7 @@ export function afterTransitions(elem, callback) {
  * @param {Function} callback Callback.
  */
 export function afterTransitionsOrAnimations(elem, callback) {
-	if (getComputedStyle(elem).animation) {
+	if (parseInt(getComputedStyle(elem).animationDuration, 10) > 0) {
 		oneEvent(elem, 'animationend', callback);
 	}
 	else {
