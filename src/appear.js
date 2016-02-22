@@ -1,12 +1,9 @@
 import { triggerEvent, registerGlobalEvents } from './events';
 import { addState, removeState, hasState } from './states';
-import { afterTransitions } from './animation';
-import data from './data';
+import { animateToState, animateFromState } from './animation';
 
 const HIDDEN_STATE = 'hidden';
 const TRANSITION_STATE = 'transit';
-const APPEAR = 'appear';
-const DISAPPEAR = 'disappear';
 const APPEARED_EVENT = 'tamia.appeared';
 const DISAPPEARED_EVENT = 'tamia.disappeared';
 const TOGGLED_EVENT = 'tamia.toggled';
@@ -32,21 +29,12 @@ const TOGGLED_EVENT = 'tamia.toggled';
  * @param {HTMLElement} elem DOM element.
  */
 export function appear(elem) {
-	if (data(elem, TRANSITION_STATE) === APPEAR) {
-		return;
-	}
-	data(elem, TRANSITION_STATE, APPEAR);
 	addState(elem, TRANSITION_STATE);
 
 	// Force repaint
 	elem.offsetHeight;  // eslint-disable-line no-unused-expressions
 
-	if (data(elem, TRANSITION_STATE) !== APPEAR) {
-		return;
-	}
-	removeState(elem, HIDDEN_STATE);
-	afterTransitions(elem, () => {
-		data(elem, TRANSITION_STATE, null);
+	animateFromState(elem, HIDDEN_STATE, () => {
 		removeState(elem, TRANSITION_STATE);
 		triggerEvent(elem, APPEARED_EVENT);
 		triggerEvent(elem, TOGGLED_EVENT, true);
@@ -61,19 +49,12 @@ export function appear(elem) {
  * @param {HTMLElement} elem DOM element.
  */
 export function disappear(elem) {
-	let transitionState = data(elem, TRANSITION_STATE);
-	if (transitionState === DISAPPEAR || (!transitionState && hasState(elem, HIDDEN_STATE))) {
-		return;
-	}
-	data(elem, TRANSITION_STATE, DISAPPEAR);
 	addState(elem, TRANSITION_STATE);
 
 	// Force repaint
 	elem.offsetHeight;  // eslint-disable-line no-unused-expressions
 
-	addState(elem, HIDDEN_STATE);
-	afterTransitions(elem, () => {
-		data(elem, TRANSITION_STATE, null);
+	animateToState(elem, HIDDEN_STATE, () => {
 		removeState(elem, TRANSITION_STATE);
 		triggerEvent(elem, DISAPPEARED_EVENT);
 		triggerEvent(elem, TOGGLED_EVENT, false);
