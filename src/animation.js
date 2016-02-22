@@ -1,8 +1,8 @@
 import { oneEvent } from './events';
-import { addState } from './states';
+import { addState, removeState } from './states';
 
 /**
- * Run animation on an element.
+ * Run animation on an element, add regular CSS class.
  * Removes CSS class after animation end.
  *
  * @param {HTMLElement} elem DOM element.
@@ -22,7 +22,7 @@ export function animate(elem, animation, done) {
 }
 
 /**
- * Run animation on an element.
+ * Run animation on an element, add CSS state.
  * Do not remove CSS class after animation end.
  *
  * @param {HTMLElement} elem DOM element.
@@ -32,6 +32,22 @@ export function animate(elem, animation, done) {
 export function animateToState(elem, state, done) {
 	window.requestAnimationFrame(() => {
 		addState(elem, state);
+		if (done) {
+			afterTransitionsOrAnimations(elem, done);
+		}
+	});
+}
+/**
+ * Run animation on an element, remove CSS state.
+ * Do not remove CSS class after animation end.
+ *
+ * @param {HTMLElement} elem DOM element.
+ * @param {string} state CSS class name.
+ * @param {Function} [done] Animation end callback.
+ */
+export function animateFromState(elem, state, done) {
+	window.requestAnimationFrame(() => {
+		removeState(elem, state);
 		if (done) {
 			afterTransitionsOrAnimations(elem, done);
 		}

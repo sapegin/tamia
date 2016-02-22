@@ -1,8 +1,7 @@
 // Spinner
 
-import { addState, removeState } from '../../states';
 import { oporElement } from '../../opor';
-import { afterTransitions } from '../../animation';
+import { animateToState, animateFromState, afterTransitions } from '../../animation';
 
 const WRAPPER_CLASS = 'loader-wrapper';
 const LOADING_STATE = 'loading';
@@ -25,15 +24,13 @@ export default function attachSpinner(elem) {
 	let spinner = oporElement(TEMPLATE);
 	elem.appendChild(spinner);
 
-	requestAnimationFrame(() => addState(elem, LOADING_STATE));
+	animateToState(elem, LOADING_STATE);
 
 	return () => {
-		requestAnimationFrame(() => {
-			removeState(elem, LOADING_STATE);
-			afterTransitions(spinner, () => {
-				spinner.parentNode.removeChild(spinner);
-				elem.classList.remove(WRAPPER_CLASS);
-			});
+		animateFromState(elem, LOADING_STATE);
+		afterTransitions(spinner, () => {
+			spinner.parentNode.removeChild(spinner);
+			elem.classList.remove(WRAPPER_CLASS);
 		});
 	};
 }
