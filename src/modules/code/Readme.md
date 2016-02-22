@@ -5,12 +5,15 @@ Nice code examples with highlighting.
 
 ## Markup
 
-	<pre class="code"><code class="language-coffescript">alert 'Hello world!'</code></pre>
+```html
+<pre class="code"><code class="language-coffescript">alert 'Hello world!'</code></pre>
+```
 
-	<div class="text">
-		<pre><code class="language-coffescript">alert 'Hello world!'</code></pre>
-	</div>
-
+```html
+<div class="text">
+	<pre><code class="language-coffescript">alert 'Hello world!'</code></pre>
+</div>
+```
 
 ## Skin
 

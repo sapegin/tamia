@@ -7,18 +7,23 @@ Classes and tweaks for better typography.
 
 ### Abbreviations with spacing
 
-	<div class="text">
-		<p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
-	</div>
+```html
+<div class="text">
+	<p><abbr>PNG</abbr>, <abbr>GIF</abbr> (animated or not) and <abbr>JPEG</abbr> formats.</p>
+</div>
+```
 
 ### The best ampersand
 
-	Nuts <span class="amp">&amp;</span> Bolts.
+```html
+Nuts <span class="amp">&amp;</span> Bolts.
+```
 
 ### Hanging punctuation
 
-	Awesome Web Typography with <span class="slaquo"> </span> <span class="hlaquo">“</span>Richtypo”'
-
+```html
+Awesome Web Typography with <span class="slaquo"> </span> <span class="hlaquo">“</span>Richtypo”'
+```
 
 ## Configuration
 

@@ -5,20 +5,23 @@ Unordered list with dashes (—) as bullets and basic ordered list.
 
 ## Markup
 
-	<ul class="list">
-		<li>Dog</li>
-		<li>Cat</li>
-		<li>Mouse</li>
-		<li>Moose</li>
-	</ul>
+```html
+<ul class="list">
+	<li>Dog</li>
+	<li>Cat</li>
+	<li>Mouse</li>
+	<li>Moose</li>
+</ul>
+```
 
-	<ol class="list-num">
-		<li>Dog</li>
-		<li>Cat</li>
-		<li>Mouse</li>
-		<li>Moose</li>
-	</ol>
-
+```html
+<ol class="list-num">
+	<li>Dog</li>
+	<li>Cat</li>
+	<li>Mouse</li>
+	<li>Moose</li>
+</ol>
+```
 
 ## Modifiers
 

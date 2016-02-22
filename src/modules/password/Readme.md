@@ -5,10 +5,11 @@ Password field with toggle to show characters.
 
 ## Markup
 
-	<t-password class="password">
-		<input type="password">
-	</t-password>
-
+```html
+<t-password class="password">
+	<input type="password">
+</t-password>
+```
 
 ## States
 

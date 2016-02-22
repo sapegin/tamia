@@ -5,8 +5,9 @@ Fading text.
 
 ## Markup
 
-	<div class="fade" title="Very long text">Very long text</div>
-
+```html
+<div class="fade" title="Very long text">Very long text</div>
+```
 
 ## Caveats
 

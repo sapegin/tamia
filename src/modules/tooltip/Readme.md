@@ -5,10 +5,13 @@ Simple tooltips.
 
 ## Markup
 
-	<div class="tooltip">I’m tooltip!</div>
+```html
+<div class="tooltip">I’m tooltip!</div>
+```
 
-	<a href="#" class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</a>
-
+```html
+<a href="#" class="has-tooltip" data-tooltip="Call us!">+7 495 212-85-06</a>
+```
 
 ## Skin
 
