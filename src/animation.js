@@ -1,55 +1,26 @@
-import isFunction from 'lodash/isFunction';
 import { oneEvent } from './events';
-
-let cache = {};
-
-/**
- * Register an animation.
- *
- * @param {Object} animations Animations list.
- *
- * Example:
- *
- *   registerAnimations({
- *     slide: function(elem, done) {
- *       ...
- *     }
- *   });
- *   runAnimation($$('.js-elem'), 'slide');
- */
-export function registerAnimations(animations) {
-	cache = { ...cache, ...animations };
-}
 
 /**
  * Run animation on an element.
  *
  * @param {HTMLElement} elem DOM element.
- * @param {string|Function} animation Animation name, CSS class name or JS function.
+ * @param {string} animation CSS class name.
  * @param {Function} [done] Animation end callback.
  *
- * Animation name should be registered via `tamia.registerAnimations` function.
+ * Animation name should be registered via `registerAnimation` function.
  */
 export function runAnimation(elem, animation, done = () => {}) {
 	window.requestAnimationFrame(() => {
-		if (cache[animation]) {
-			cache[animation](elem, done);
-		}
-		else if (isFunction(animation)) {
-			animation(elem, done);
+		let animationDone = () => {
+			elem.classList.remove(animation);
+			done();
+		};
+		elem.classList.add(animation);
+		if (getComputedStyle(elem).animation) {
+			oneEvent(elem, 'animationend', animationDone);
 		}
 		else {
-			let animationDone = () => {
-				elem.classList.remove(animation);
-				done();
-			};
-			elem.classList.add(animation);
-			if (getComputedStyle(elem).animation) {
-				oneEvent(elem, 'animationend', animationDone);
-			}
-			else {
-				afterTransitions(elem, animationDone);
-			}
+			afterTransitions(elem, animationDone);
 		}
 	});
 }

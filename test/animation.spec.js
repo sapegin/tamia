@@ -1,45 +1,7 @@
 import sinon from 'sinon';
 import * as anim from '../src/animation';
 
-const doneFunc = () => {};
-
 describe('animation', () => {
-	it('runAnimation() should call a registered animation function', () => {
-		let handler = sinon.spy();
-		let elem = document.createElement('div');
-
-		anim.registerAnimations({
-			foo: handler,
-		});
-		anim.runAnimation(elem, 'foo', doneFunc);
-
-		expect(handler.called).to.be.true;
-		expect(handler.firstCall.args[0]).to.eql(elem);
-		expect(handler.firstCall.args[1]).to.eql(doneFunc);
-	});
-
-	it('runAnimation() should accept animation as a function', () => {
-		let handler = sinon.spy();
-		let elem = document.createElement('div');
-
-		anim.runAnimation(elem, handler, doneFunc);
-
-		expect(handler.called).to.be.true;
-		expect(handler.firstCall.args[0]).to.eql(elem);
-		expect(handler.firstCall.args[1]).to.eql(doneFunc);
-	});
-
-	it('runAnimation() should work when there is no callback function', () => {
-		let handler = sinon.spy();
-		let elem = document.createElement('div');
-
-		anim.runAnimation(elem, handler);
-
-		expect(handler.called).to.be.true;
-		expect(handler.firstCall.args[0]).to.eql(elem);
-		expect(handler.firstCall.args[1]).to.be.a('function');
-	});
-
 	it('runAnimation() should accept CSS class name', (done) => {
 		let handler = sinon.spy();
 		let elem = document.createElement('div');
