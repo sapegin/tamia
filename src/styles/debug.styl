@@ -3,9 +3,7 @@
 ///
 
 if DEBUG {
-	.tamia__show-help {
-		overflow: hidden;
-	}
+	@import "./core";
 
 	.tamia__help {
 		display: flex;
@@ -17,18 +15,23 @@ if DEBUG {
 		right: 0;
 		bottom: 0;
 		* {
-			background: #fff;
 			color: #000;
 			text-shadow: none;
 			font: 16px/20px "Helvetica Neue", Arial, sans-serif;
 		}
 		ul {
-			padding: 2*spacer 2*spacer spacer;
+			background: white(.9);
+			position: relative;
+			padding: 2.5*spacer 2.5*spacer 2.5*spacer;
+			border: 1px solid white(.95);
 			border-radius: .25em;
-			box-shadow: 0 .2em .1em black(.15);
+			box-shadow: 0 0 3em black(.2);
 		}
 		li {
 			margin-bottom: spacer;
+		}
+		li:last-child {
+			margin-bottom: 0;
 		}
 		kbd {
 			display: inline-block;
