@@ -1,3 +1,5 @@
+import { isElement, TamiaError } from './util';
+
 /**
  * States management
  *
@@ -15,6 +17,10 @@ const STATE_PREFIX = 'is-';
  * @return {boolean}
  */
 export function toggleState(elem, name, value) {
+	if (DEBUG && !isElement(elem)) {
+		throw new TamiaError(`Cannot toggle state "${name}": element not found.`);
+	}
+
 	let cls = STATE_PREFIX + name;
 	if (value === undefined || elem.classList.contains(cls) !== value) {
 		return elem.classList.toggle(cls);
@@ -29,6 +35,10 @@ export function toggleState(elem, name, value) {
  * @param {string} name State name.
  */
 export function addState(elem, name) {
+	if (DEBUG && !isElement(elem)) {
+		throw new TamiaError(`Cannot add state "${name}": element not found.`);
+	}
+
 	elem.classList.add(STATE_PREFIX + name);
 }
 
@@ -39,6 +49,10 @@ export function addState(elem, name) {
  * @param {string} name State name.
  */
 export function removeState(elem, name) {
+	if (DEBUG && !isElement(elem)) {
+		throw new TamiaError(`Cannot remove state "${name}": element not found.`);
+	}
+
 	elem.classList.remove(STATE_PREFIX + name);
 }
 
@@ -50,5 +64,9 @@ export function removeState(elem, name) {
  * @return {boolean}
  */
 export function hasState(elem, name) {
+	if (DEBUG && !isElement(elem)) {
+		throw new TamiaError(`Cannot check state "${name}": element not found.`);
+	}
+
 	return elem.classList.contains(STATE_PREFIX + name);
 }
