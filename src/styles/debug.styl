@@ -6,14 +6,20 @@ if DEBUG {
 	@import "./core";
 
 	.tamia__help {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: fixed;
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
+		transition: opacity .15s ease-in-out;
+		&-i {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+		}
+		&.is-hidden {
+			opacity: 0;
+		}
 		* {
 			color: #000;
 			text-shadow: none;

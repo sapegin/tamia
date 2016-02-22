@@ -19,7 +19,6 @@ let gridDebugger;
 function toggleGrid() {
 	addLayoutClasses();
 	addGrid();
-	toggle(gridDebugger);
 }
 
 function toggleOutline() {
@@ -32,22 +31,24 @@ function toggleAllOutline() {
 }
 
 function toggleHelp() {
-	const cls = 'tamia__show-help';
-	body.classList.toggle(cls);
-	if (body.classList.contains(cls)) {
-		body.insertAdjacentHTML('beforeend', `
-			<div class="tamia__help">
-				<ul>
-					<li><kbd>G</kbd> Toggle grid</li>
-					<li><kbd>O</kbd> Toggle columns outlines</li>
-					<li><kbd>A</kbd> Toggle all elements outlines</li>
-				</ul>
-			</div>
-		`);
+	let getHelpElem = () => document.querySelector('.tamia__help');
+	let helpElem = getHelpElem();
+	if (helpElem) {
+		toggle(helpElem);
 	}
 	else {
-		let helpElem = document.querySelector('.tamia__help');
-		helpElem.parentNode.removeChild(helpElem);
+		body.insertAdjacentHTML('beforeend', `
+			<div class="tamia__help is-hidden">
+				<div class="tamia__help-i">
+					<ul>
+						<li><kbd>G</kbd> Toggle grid</li>
+						<li><kbd>O</kbd> Toggle columns outlines</li>
+						<li><kbd>A</kbd> Toggle all elements outlines</li>
+					</ul>
+				</div>
+			</div>
+		`);
+		toggle(getHelpElem());
 	}
 }
 
