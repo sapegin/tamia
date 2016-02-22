@@ -1,26 +1,39 @@
 import { oneEvent } from './events';
+import { addState } from './states';
 
 /**
  * Run animation on an element.
+ * Removes CSS class after animation end.
  *
  * @param {HTMLElement} elem DOM element.
  * @param {string} animation CSS class name.
  * @param {Function} [done] Animation end callback.
- *
- * Animation name should be registered via `registerAnimation` function.
  */
-export function runAnimation(elem, animation, done = () => {}) {
+export function animate(elem, animation, done) {
 	window.requestAnimationFrame(() => {
-		let animationDone = () => {
-			elem.classList.remove(animation);
-			done();
-		};
 		elem.classList.add(animation);
-		if (getComputedStyle(elem).animation) {
-			oneEvent(elem, 'animationend', animationDone);
-		}
-		else {
-			afterTransitions(elem, animationDone);
+		afterTransitionsOrAnimations(elem, () => {
+			elem.classList.remove(animation);
+			if (done) {
+				done();
+			}
+		});
+	});
+}
+
+/**
+ * Run animation on an element.
+ * Do not remove CSS class after animation end.
+ *
+ * @param {HTMLElement} elem DOM element.
+ * @param {string} state CSS class name.
+ * @param {Function} [done] Animation end callback.
+ */
+export function animateToState(elem, state, done) {
+	window.requestAnimationFrame(() => {
+		addState(elem, state);
+		if (done) {
+			afterTransitionsOrAnimations(elem, done);
 		}
 	});
 }
@@ -35,6 +48,21 @@ export function runAnimation(elem, animation, done = () => {}) {
 export function afterTransitions(elem, callback) {
 	let after = getTransitionsEndTime(elem);
 	setTimeout(() => requestAnimationFrame(callback), after);
+}
+
+/**
+ * Fire callback after all element’s CSS transitions or animations finished.
+ *
+ * @param {HTMLElement} elem DOM element.
+ * @param {Function} callback Callback.
+ */
+export function afterTransitionsOrAnimations(elem, callback) {
+	if (getComputedStyle(elem).animation) {
+		oneEvent(elem, 'animationend', callback);
+	}
+	else {
+		afterTransitions(elem, callback);
+	}
 }
 
 /**

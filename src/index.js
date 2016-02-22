@@ -2,9 +2,9 @@ import './styles/index.styl';
 
 // Expose public API
 export {
-	registerAnimation,
-	runAnimation,
+	animate,
 	afterTransitions,
+	afterTransitionsOrAnimations,
 } from './animation';
 export {
 	appear,

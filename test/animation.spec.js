@@ -2,14 +2,27 @@ import sinon from 'sinon';
 import * as anim from '../src/animation';
 
 describe('animation', () => {
-	it('runAnimation() should accept CSS class name', (done) => {
+	it('animate() should accept CSS class name', (done) => {
 		let handler = sinon.spy();
 		let elem = document.createElement('div');
-		anim.runAnimation(elem, 'bar', handler);
+		anim.animate(elem, 'bar', handler);
 
 		expect(elem.className).to.eql('bar');
 		setTimeout(() => {
 			expect(elem.className).to.eql('');
+			expect(handler.called).to.be.true;
+			done();
+		}, 1);
+	});
+	
+	it('animateToState() should accept CSS class name', (done) => {
+		let handler = sinon.spy();
+		let elem = document.createElement('div');
+		anim.animateToState(elem, 'bar', handler);
+
+		expect(elem.className).to.eql('is-bar');
+		setTimeout(() => {
+			expect(elem.className).to.eql('is-bar');
 			expect(handler.called).to.be.true;
 			done();
 		}, 1);
