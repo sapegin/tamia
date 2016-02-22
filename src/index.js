@@ -37,3 +37,8 @@ export {
 	removeState,
 	hasState,
 } from './states';
+
+// Debug modules
+if (DEBUG) {
+	require('./debug/layout');
+}
