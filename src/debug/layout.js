@@ -20,6 +20,7 @@ let gridDebugger;
 function toggleGrid() {
 	addLayoutClasses();
 	addGrid();
+	toggle(gridDebugger);
 }
 
 function toggleOutline() {
