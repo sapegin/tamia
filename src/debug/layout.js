@@ -11,6 +11,7 @@ import { onEvent } from '../events';
 * - o - Toggle layout outlines.
 * - a - Toggle all elements outlines.
 */
+
 const NUMBER_OF_COLUMNS = 12;
 const body = document.body;
 let layoutClassesAdded = false;
