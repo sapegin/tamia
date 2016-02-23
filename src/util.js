@@ -1,18 +1,4 @@
 /**
- * Custom exception
- */
-export class TamiaError extends Error {
-	constructor(message) {
-		super(message);
-		this.name = this.constructor.name;
-		this.message = message;
-		if (Error.captureStackTrace) {
-			Error.captureStackTrace(this, this.constructor);
-		}
-	}
-}
-
-/**
  * Convert a value to an array if it is not an array.
  *
  * @param {*} array Array or not.

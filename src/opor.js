@@ -1,4 +1,4 @@
-import { ensureArray, isElement, TamiaError } from './util';
+import { ensureArray, isElement } from './util';
 import isEmpty from 'lodash/isEmpty';
 import camelCase from 'lodash/camelCase';
 
@@ -50,7 +50,7 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 	if (json.element) {
 		// Use existing DOM element
 		if (DEBUG && !isElement(rootElem)) {
-			throw new TamiaError('"rootElem" is required to use "json.element".');
+			throw new Error('"rootElem" is required to use "json.element".');
 		}
 		if (json.element === '@root') {
 			elem = rootElem;
@@ -58,7 +58,7 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 		else {
 			elem = rootElem.querySelector(json.element);
 			if (DEBUG && !isElement(elem)) {
-				throw new TamiaError(`Could not find an element "${json.element}" inside "rootElem".`);
+				throw new Error(`Could not find an element "${json.element}" inside "rootElem".`);
 			}
 		}
 
@@ -88,7 +88,7 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 	// Store link
 	if (json.link) {
 		if (DEBUG && !json.elem) {
-			throw new TamiaError('"json.elem" is required to use "json.link".');
+			throw new Error('"json.elem" is required to use "json.link".');
 		}
 		links[camelCase(json.elem) + 'Elem'] = elem;
 	}

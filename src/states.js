@@ -1,4 +1,4 @@
-import { isElement, TamiaError } from './util';
+import { isElement } from './util';
 
 /**
  * States management
@@ -18,7 +18,7 @@ const STATE_PREFIX = 'is-';
  */
 export function toggleState(elem, name, value) {
 	if (DEBUG && !isElement(elem)) {
-		throw new TamiaError(`Cannot toggle state "${name}": element not found.`);
+		throw new Error(`Cannot toggle state "${name}": element not found.`);
 	}
 
 	let cls = STATE_PREFIX + name;
@@ -36,7 +36,7 @@ export function toggleState(elem, name, value) {
  */
 export function addState(elem, name) {
 	if (DEBUG && !isElement(elem)) {
-		throw new TamiaError(`Cannot add state "${name}": element not found.`);
+		throw new Error(`Cannot add state "${name}": element not found.`);
 	}
 
 	elem.classList.add(STATE_PREFIX + name);
@@ -50,7 +50,7 @@ export function addState(elem, name) {
  */
 export function removeState(elem, name) {
 	if (DEBUG && !isElement(elem)) {
-		throw new TamiaError(`Cannot remove state "${name}": element not found.`);
+		throw new Error(`Cannot remove state "${name}": element not found.`);
 	}
 
 	elem.classList.remove(STATE_PREFIX + name);
@@ -65,7 +65,7 @@ export function removeState(elem, name) {
  */
 export function hasState(elem, name) {
 	if (DEBUG && !isElement(elem)) {
-		throw new TamiaError(`Cannot check state "${name}": element not found.`);
+		throw new Error(`Cannot check state "${name}": element not found.`);
 	}
 
 	return elem.classList.contains(STATE_PREFIX + name);

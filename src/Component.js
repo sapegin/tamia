@@ -1,6 +1,6 @@
 import assignIn from 'lodash/assignIn';
 import isFunction from 'lodash/isFunction';
-import { isElement, TamiaError } from './util';
+import { isElement } from './util';
 import { addState } from './states';
 import { oporElement } from './opor';
 
@@ -54,7 +54,7 @@ export default class Component {
 	 */
 	constructor(elem) {
 		if (!isElement(elem)) {
-			throw new TamiaError(`No DOM element passed to ${this.constructor.name} constructor.`);
+			throw new Error(`No DOM element passed to ${this.constructor.name} constructor.`);
 		}
 
 		this.elem = elem;
@@ -100,7 +100,7 @@ export default class Component {
 	bindMethods(...methods) {
 		methods.forEach(method => {
 			if (DEBUG && !isFunction(this[method])) {
-				throw new TamiaError(`${this.constructor.name}.bindAll: method "${method}" ` +
+				throw new Error(`${this.constructor.name}.bindAll: method "${method}" ` +
 					`does not exists or not a function.`);
 			}
 			this[method] = this[method].bind(this);

@@ -1,7 +1,7 @@
 import './polyfills';
 import { log } from './debug/logger';
 import data from './data';
-import { isElement, TamiaError } from './util';
+import { isElement } from './util';
 import isFunction from 'lodash/isFunction';
 
 let cache = new WeakMap();
@@ -32,10 +32,10 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
 
 	if (DEBUG) {
 		if (!isElement(elem)) {
-			throw new TamiaError(`Element for ${eventName} event not found.`);
+			throw new Error(`Element for ${eventName} event not found.`);
 		}
 		if (!isFunction(handler)) {
-			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
+			throw new Error(`Handler for ${eventName} event is not a function.`);
 		}
 		handler.displayName = `${eventName} event handler`;
 	}
@@ -60,10 +60,10 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
 export function offEvent(elem, eventName, handler) {
 	if (DEBUG) {
 		if (!isElement(elem)) {
-			throw new TamiaError(`Element for ${eventName} event not found.`);
+			throw new Error(`Element for ${eventName} event not found.`);
 		}
 		if (!isFunction(handler)) {
-			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
+			throw new Error(`Handler for ${eventName} event is not a function.`);
 		}
 	}
 
@@ -82,10 +82,10 @@ export function offEvent(elem, eventName, handler) {
 export function oneEvent(elem, eventName, handler) {
 	if (DEBUG) {
 		if (!isElement(elem)) {
-			throw new TamiaError(`Element for ${eventName} event not found.`);
+			throw new Error(`Element for ${eventName} event not found.`);
 		}
 		if (!isFunction(handler)) {
-			throw new TamiaError(`Handler for ${eventName} event is not a function.`);
+			throw new Error(`Handler for ${eventName} event is not a function.`);
 		}
 	}
 
@@ -107,7 +107,7 @@ export function oneEvent(elem, eventName, handler) {
 export function triggerEvent(elem, eventName, ...detail) {
 	if (DEBUG) {
 		if (!isElement(elem)) {
-			throw new TamiaError(`Element for ${eventName} event not found.`);
+			throw new Error(`Element for ${eventName} event not found.`);
 		}
 	}
 
@@ -129,7 +129,7 @@ export function triggerEvent(elem, eventName, ...detail) {
 export function triggerNativeEvent(elem, eventName) {
 	if (DEBUG) {
 		if (!isElement(elem)) {
-			throw new TamiaError(`Element for ${eventName} event not found.`);
+			throw new Error(`Element for ${eventName} event not found.`);
 		}
 	}
 
@@ -181,12 +181,12 @@ onEvent(document, 'click', '[data-fire]', (event) => {
 	let eventName = data(elem, 'fire');
 
 	if (DEBUG && !target && !closest) {
-		throw new TamiaError(`You should define either data-target or data-closest on ${elem}`);
+		throw new Error(`You should define either data-target or data-closest on ${elem}.`);
 	}
 
 	let targetElem = target ? document.querySelector(target) : elem.closest(closest);
 	if (DEBUG && !targetElem) {
-		throw new TamiaError(`Target element ${target || closest} not found for ${elem}`);
+		throw new Error(`Target element ${target || closest} not found for ${elem}.`);
 	}
 
 	if (DEBUG) {

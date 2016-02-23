@@ -1,11 +1,6 @@
 import * as util from '../src/util';
 
 describe('util', () => {
-	it('TamiaError should be an Error descendant', () => {
-		let result = new util.TamiaError();
-		expect(result).to.be.an.instanceof(Error);
-	});
-
 	it('ensureArray() should return a value if it is an array', () => {
 		let result = util.ensureArray([1, 2]);
 		expect(result).to.eql([1, 2]);

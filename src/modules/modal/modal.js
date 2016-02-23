@@ -4,7 +4,6 @@ import { onEvent, offEvent, triggerEvent, registerGlobalEvents } from '../../eve
 import { addState, removeState } from '../../states';
 import { appear, disappear } from '../../appear';
 import { oporElement } from '../../opor';
-import { TamiaError } from '../../util';
 import data from '../../data';
 import Component from '../../Component';
 import registerComponent from '../../registerComponent';
@@ -134,7 +133,7 @@ registerGlobalEvents({
 	'tamia.modal.open': (event) => {
 		let modal = data(event.target, INSTANCE_KEY);
 		if (!modal) {
-			throw new TamiaError('Modal component was not initialized at this element.');
+			throw new Error('Modal component was not initialized at this element.');
 		}
 		modal.open();
 	},
