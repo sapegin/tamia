@@ -4,7 +4,7 @@
 
 Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of four parts:
 
-1. Stylus bootstap.
+1. Stylus bootstrap.
 2. Component base class.
 3. JavaScript helpers.
 4. Modules library.
@@ -12,12 +12,14 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 
 ## Based On
 
-* Autoprefixer.
-* Modernizr.
-* jQuery.
-* Stylus.
-* Grunt.
-* Yo.
+* Web Components
+* Autoprefixer
+* ECMAScript6
+* Webpack
+* Stylus
+* ESLint
+* Lodash
+* Babel
 
 
 ## Why Another Framework
