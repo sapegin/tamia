@@ -1,8 +1,8 @@
-import data, { toObject } from '../src/data';
+import data, { _test } from '../src/data';
 
 describe('data', () => {
 	it('toObject() should convert string to numbers, boolean and null', () => {
-		let result = toObject({
+		let result = _test.toObject({
 			true: 'true',
 			false: 'false',
 			null: 'null',
