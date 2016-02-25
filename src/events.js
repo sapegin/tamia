@@ -1,7 +1,7 @@
 import './polyfills';
 import { log } from './debug/logger';
 import data from './data';
-import { isElement } from './util';
+import { isEventReceiver } from './util';
 import isFunction from 'lodash/isFunction';
 
 let cache = new WeakMap();
@@ -31,7 +31,7 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
 	}
 
 	if (DEBUG) {
-		if (!isElement(elem)) {
+		if (!isEventReceiver(elem)) {
 			throw new Error(`Element for ${eventName} event not found.`);
 		}
 		if (!isFunction(handler)) {
@@ -41,7 +41,7 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
 	}
 	let wrappedHandler = (event) => {
 		let details = event.detail || [];
-		if (DEBUG && !selector) {
+		if (DEBUG && !selector && event.type !== 'scroll') {
 			log(`Event ${event.type} on`, event.target, 'Details:', details);
 		}
 		handler(event, ...details);
@@ -59,7 +59,7 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
  */
 export function offEvent(elem, eventName, handler) {
 	if (DEBUG) {
-		if (!isElement(elem)) {
+		if (!isEventReceiver(elem)) {
 			throw new Error(`Element for ${eventName} event not found.`);
 		}
 		if (!isFunction(handler)) {
@@ -81,7 +81,7 @@ export function offEvent(elem, eventName, handler) {
  */
 export function oneEvent(elem, eventName, handler) {
 	if (DEBUG) {
-		if (!isElement(elem)) {
+		if (!isEventReceiver(elem)) {
 			throw new Error(`Element for ${eventName} event not found.`);
 		}
 		if (!isFunction(handler)) {
@@ -106,7 +106,7 @@ export function oneEvent(elem, eventName, handler) {
  */
 export function triggerEvent(elem, eventName, ...detail) {
 	if (DEBUG) {
-		if (!isElement(elem)) {
+		if (!isEventReceiver(elem)) {
 			throw new Error(`Element for ${eventName} event not found.`);
 		}
 	}
@@ -128,7 +128,7 @@ export function triggerEvent(elem, eventName, ...detail) {
  */
 export function triggerNativeEvent(elem, eventName) {
 	if (DEBUG) {
-		if (!isElement(elem)) {
+		if (!isEventReceiver(elem)) {
 			throw new Error(`Element for ${eventName} event not found.`);
 		}
 	}

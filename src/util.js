@@ -9,11 +9,21 @@ export function ensureArray(array) {
 }
 
 /**
- * Check if a value is DOM element or document.
+ * Check if a value is DOM element.
  *
- * @param {*} value A value.
+ * @param {*} value A value to check.
  * @returns {boolean}
  */
 export function isElement(value) {
-	return !!value && (value.nodeType === 1 || value.nodeType === 9);
+	return !!value && (value.nodeType === 1);
+}
+
+/**
+ * Check if a value is DOM element, document or window.
+ *
+ * @param {*} value A value to check.
+ * @returns {boolean}
+ */
+export function isEventReceiver(value) {
+	return !!value && (value.nodeType === 1 || value.nodeType === 9 || value === window);
 }
