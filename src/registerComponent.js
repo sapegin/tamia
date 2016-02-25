@@ -11,9 +11,9 @@ import 'document-register-element';
  *
  * Examples:
  *
- *   <t-pony></t-pony>
+ *   <u-pony></u-pony>
  *
- *   registerComponent('t-pony', Pony);
+ *   registerComponent('u-pony', Pony);
  */
 export default function registerComponent(tag, Ctor, parent = HTMLElement) {
 	let instance;
