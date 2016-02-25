@@ -12,10 +12,10 @@ export {
 	toggle,
 } from './appear';
 export {
-	Component,
+	default as Component,
 } from './Component';
 export {
-	default,
+	default as data,
 } from './data';
 export {
 	onEvent,
@@ -29,7 +29,7 @@ export {
 	oporClass,
 } from './opor';
 export {
-	default,
+	default as registerComponent,
 } from './registerComponent';
 export {
 	toggleState,
