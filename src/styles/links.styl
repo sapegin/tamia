@@ -59,10 +59,13 @@ link-underline-size(height, step=1px) {
 
 // :hover, :active and :focus states of the link.
 //
-// Example:
+// Examples:
 //
-// 	 +link-hovers()
-//	 	color: #bada55
+// ```scss
+// +link-hovers() {
+//   color: #bada55;
+// }
+// ```
 link-hovers() {
 	&:hover,
 	&:active,
@@ -73,10 +76,13 @@ link-hovers() {
 
 // :link and :visited states of the link.
 //
-// Example:
+// Examples:
 //
-// 	 +link-non-hovers()
-//	 	color: #bada55
+// ```scss
+// +link-non-hovers() {
+//   color: #bada55;
+// }
+// ```
 link-non-hovers() {
 	&,
 	&:link,
@@ -87,10 +93,13 @@ link-non-hovers() {
 
 // All states of the link.
 //
-// Example:
+// Examples:
 //
-// 	 +link-all-states()
-//	 	color: @color
+// ```scss
+// +link-all-states() {
+//   color: @color;
+// }
+// ```
 link-all-states() {
 	&,
 	&:link,

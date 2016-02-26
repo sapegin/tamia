@@ -143,11 +143,11 @@ export function triggerNativeEvent(elem, eventName) {
  *
  * @param {object} handlers Handlers list.
  *
- * Example:
+ * @example
  *
- *   registerGlobalEvents({
- *      'tamia.foo.bar': (event, ...details) => { ... },
- *   });
+ * registerGlobalEvents({
+ *    'tamia.foo.bar': (event, ...details) => { ... },
+ * });
  */
 export function registerGlobalEvents(handlers) {
 	for (let eventName in handlers) {
@@ -205,6 +205,7 @@ onEvent(document, 'click', '[data-fire]', (event) => {
  * @param {string} selector CSS selector.
  * @param {HTMLElement} root Root element.
  * @returns {Function}
+ * @private
  */
 function delegate(func, selector, root) {
 	let findTarget = (target) => {

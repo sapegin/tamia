@@ -9,24 +9,24 @@ const STATE_PREFIX = 'is-';
 const JS_PREFIX = 'js-';
 
 /**
- * OPORJSON to DOM tree.
+ * Generate DOM tree from OPORJSON.
  *
- * Example:
+ * @example
  *
- *    let [select, links] = oporElement({
- *      block: 'select',
- *      mods: ['big', 'awesome'],
- *      states: 'hidden',
- *      content: {
- *        block: 'select',
- *        elem: 'box-foo',
- *        js: 'select-box',
- *        link: true,
- *        content: 'Choose something'
- *      }
- *    });
- *    this.elem.appendChild(select);
- *    Object.assign(this, links);  // {boxFooElem: $$('.js-select-box')}
+ * let [select, links] = oporElement({
+ *   block: 'select',
+ *   mods: ['big', 'awesome'],
+ *   states: 'hidden',
+ *   content: {
+ *     block: 'select',
+ *     elem: 'box-foo',
+ *     js: 'select-box',
+ *     link: true,
+ *     content: 'Choose something'
+ *   }
+ * });
+ * this.elem.appendChild(select);
+ * Object.assign(this, links);  // {boxFooElem: $$('.js-select-box')}
  *
  * @param {Object} json OPORJSON (`block` or `element` is required).
  * @param {string} [json.tag=div] Tag name.
@@ -118,11 +118,11 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 }
 
 /**
- * Generates class names for given OPORJSON element.
+ * Generate class names for given OPORJSON element.
  *
- * Example:
+ * @example
  *
- *   oporClass({block: 'select', elem: 'box', js: 'box'});  // "select__box js-box"
+ * oporClass({block: 'select', elem: 'box', js: 'box'});  // "select__box js-box"
  *
  * @param {Object} json OPORJSON
  * @param {boolean} returnArray Return array, concatenated string otherwise.

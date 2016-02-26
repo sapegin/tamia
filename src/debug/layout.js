@@ -1,16 +1,16 @@
 import { toggle } from '../appear';
 import { onEvent } from '../events';
 
-/**
-* Layout debugger.
-*
-* Hotkeys:
-*
-* - ? - Toggle help.
-* - g - Toggle grid.
-* - o - Toggle layout outlines.
-* - a - Toggle all elements outlines.
-*/
+/*
+ * Layout debugger.
+ *
+ * Hotkeys:
+ *
+ * - ? - Toggle help.
+ * - g - Toggle grid.
+ * - o - Toggle layout outlines.
+ * - a - Toggle all elements outlines.
+ */
 
 const NUMBER_OF_COLUMNS = 12;
 const body = document.body;

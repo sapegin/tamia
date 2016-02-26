@@ -14,7 +14,7 @@
 	visibility: hidden;
 }
 
-/// Element is in transit between hidden (.is-hidden) and visible.
+/// Element is in transit between hidden (`.is-hidden`) and visible.
 .is-transit {
 	display: block !important;
 	&.l-center {
@@ -46,54 +46,56 @@
 	_layout-col();
 }
 
-// Sixth (to use inside .l-row).
+// Sixth (to use inside `.l-row`).
 .l-sixth {
 	_layout-part(1/6);
 }
 
-// Quarter (to use inside .l-row).
+// Quarter (to use inside `.l-row`).
 .l-quarter {
 	_layout-part(1/4);
 }
 
-// Three quarters (to use inside .l-row).
+// Three quarters (to use inside `.l-row`).
 .l-three-quarters {
 	_layout-part(3/4);
 }
 
-// Third (to use inside .l-row).
+// Third (to use inside `.l-row`).
 .l-third {
 	_layout-part(1/3);
 }
 
-// Two thirds (to use inside .l-row).
+// Two thirds (to use inside `.l-row`).
 .l-two-thirds {
 	_layout-part(2/3);
 }
 
-// Half (to use inside .l-row).
+// Half (to use inside `.l-row`).
 .l-half {
 	_layout-part(1/2);
 }
 
-// Wrapper for .l-left/.l-right.
+// Wrapper for `.l-left`/`.l-right`.
 .l-wrap {
 	layout-wrapper();
 }
 
-// Flexible columns with left text alignment (to use inside .l-wrap).
+// Flexible columns with left text alignment (to use inside `.l-wrap`).
 //
-// Example:
+// Examples:
 //
-//   <div class="l-wrap">
-//     <div class="l-left">Left</div>
-//     <div class="l-right">Left</div>
-//   </div>
+// ```html
+// <div class="l-wrap">
+//   <div class="l-left">Left</div>
+//   <div class="l-right">Left</div>
+// </div>
+// ```
 .l-left {
 	layout-left();
 }
 
-// Flexible columns with right text alignment (to use inside .l-wrap).
+// Flexible columns with right text alignment (to use inside `.l-wrap`).
 .l-right {
 	layout-right();
 }
@@ -110,14 +112,16 @@
 
 // Centered content (vertically and horizontally).
 //
-// Example:
+// Examples:
 //
-//   <div class="l-center">
-//     <div class="l-center-i">
-//       <span>Centered content</span>
-//       <!--div class="l-center__wrap">Centered content</span-->
-//     </div>
+// ```html
+// <div class="l-center">
+//   <div class="l-center-i">
+//     <span>Centered content</span>
+//     <!-- <div class="l-center__wrap">Centered content</span> -->
 //   </div>
+// </div>
+// ```
 .l-center {
 	display: table;
 	width: 100%;
@@ -144,16 +148,17 @@
 }
 
 // Panel with a header (sticked to top) and a body (occupies all available space).
-// (No fallback for non-flexbox browsers.)
 //
-// .l-panel__centered can be applied to either header or body and will center content horizontally and vertically.
+// `.l-panel__centered` can be applied to either header or body and will center content horizontally and vertically.
 //
-// Example:
+// Examples:
 //
-//   <div class="l-panel">
-//     <div class="l-panel__header"></div>
-//     <div class="l-panel__body l-panel__centered"></div>
-//   </div>
+// ```html
+// <div class="l-panel">
+//   <div class="l-panel__header"></div>
+//   <div class="l-panel__body l-panel__centered"></div>
+// </div>
+// ```
 .l-panel {
 	display: flex;
 	flex-direction: column;
@@ -292,9 +297,11 @@ _is_gradient = (link_style == "gradient");
 
 // Link in quotes (quotes should be colored but not underlined).
 //
-// Example:
+// Examples:
 //
-//   <a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
+// ```html
+// <a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
+// ```
 .link_quoted {
 	no-underline();
 }

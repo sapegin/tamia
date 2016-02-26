@@ -3,6 +3,7 @@
  *
  * @param {*} array Array or not.
  * @returns {Array}
+ * @private
  */
 export function ensureArray(array) {
 	return Array.isArray(array) ? array : [array];
@@ -13,6 +14,7 @@ export function ensureArray(array) {
  *
  * @param {*} value A value to check.
  * @returns {boolean}
+ * @private
  */
 export function isElement(value) {
 	return !!value && (value.nodeType === 1);
@@ -23,6 +25,7 @@ export function isElement(value) {
  *
  * @param {*} value A value to check.
  * @returns {boolean}
+ * @private
  */
 export function isEventReceiver(value) {
 	return !!value && (value.nodeType === 1 || value.nodeType === 9 || value === window);

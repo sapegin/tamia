@@ -56,12 +56,12 @@ export function animateFromState(elem, state, done) {
 
 /**
  * Fire callback after all element’s CSS transitions finished.
- * Based on https://github.com/ai/transition-events
  *
  * @param {HTMLElement} elem DOM element.
  * @param {Function} callback Callback.
  */
 export function afterTransitions(elem, callback) {
+	// Based on https://github.com/ai/transition-events
 	let after = getTransitionsEndTime(elem);
 	setTimeout(() => requestAnimationFrame(callback), after);
 }
@@ -86,6 +86,7 @@ export function afterTransitionsOrAnimations(elem, callback) {
  *
  * @param {string} string transition-duration value.
  * @returns {Array}
+ * @private
  */
 function parseTimes(string) {
 	let times = string.split(/,\s*/);
@@ -103,6 +104,7 @@ function parseTimes(string) {
  *
  * @param {HTMLElement} elem DOM element.
  * @returns {number}
+ * @private
  */
 function getTransitionsEndTime(elem) {
 	let styles = getComputedStyle(elem);

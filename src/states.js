@@ -1,6 +1,6 @@
 import { isElement } from './util';
 
-/**
+/*
  * States management
  *
  * State is a special CSS class: .is-name.

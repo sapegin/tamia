@@ -3,17 +3,19 @@ import 'document-register-element';
 /* eslint-disable object-shorthand */
 
 /**
- * Initialize components.
+ * Bind component class to a tag name.
  *
  * @param {string} tag Custom tag name.
  * @param {class} Ctor Component class.
  * @param {object} [parent] Base HTML element.
  *
- * Examples:
+ * @xample
  *
- *   <u-pony></u-pony>
+ * <u-pony></u-pony>
  *
- *   registerComponent('u-pony', Pony);
+ * @example
+ *
+ * registerComponent('u-pony', Pony);
  */
 export default function registerComponent(tag, Ctor, parent = HTMLElement) {
 	let instance;

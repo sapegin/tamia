@@ -30,22 +30,26 @@ grid-row() {
 // span - Width, in culumns (default: 1).
 // context - Width of parent column (default: null).
 //
-// Example:
+// Examples:
 //
-//   <div class="row">
-//	   <div class="col1"></div>
-//	   <div class="col2"></div>
-//   </div>
+// ```html
+// <div class="row">
+//   <div class="col1"></div>
+//   <div class="col2"></div>
+// </div>
+// ```
 //
-//   .row {
-//     grid-row();
-//   }
-//   .col1 {
-//     grid-col(1,2);
-//   }
-//   .col2 {
-//     grid-col(3,10);
-//   }
+// ```scss
+// .row {
+//   grid-row();
+// }
+// .col1 {
+//   grid-col(1,2);
+// }
+// .col2 {
+//   grid-col(3,10);
+// }
+// ```
 grid-col(position=1, span=1, context=null) {
 	_grid-column(position, span, context);
 	_grid-float();
@@ -58,25 +62,29 @@ grid-col(position=1, span=1, context=null) {
 // span - Width, in culumns (default: 1).
 // context - Width of parent column (default: null).
 //
-// Example:
+// Examples:
 //
-//   <div class="row">
-//	   <div class="col1">
-//	     <div class="col3"></div>
-//	     <div class="col4"></div>
-//	   </div>
-//	   <div class="col2"></div>
-//   </div>
+// ```html
+// <div class="row">
+//	 <div class="col1">
+//	   <div class="col3"></div>
+//	   <div class="col4"></div>
+//	 </div>
+//	 <div class="col2"></div>
+// </div>
+// ```
 //
-//   .row {
-//     grid-row();
-//   }
-//   .col1 {
-//     grid-col-row(1,8);
-//   }
-//   .col2, .col3, .col4 {
-//     grid-col(...);
-//   }
+// ```scss
+// .row {
+//   grid-row();
+// }
+// .col1 {
+//   grid-col-row(1,8);
+// }
+// .col2, .col3, .col4 {
+//   grid-col(...);
+// }
+// ```
 grid-col-row(position=1, span=1, context=null) {
 	_grid-column(position, span, context);
 }
@@ -161,19 +169,23 @@ layout-row() {
 //
 // part - 1/Nth part of wrapper.
 //
-// Example:
+// Examples:
 //
-//   <div class="row">
-//     <div class="col"></div>
-//     <div class="col"></div>
-//   </div>
+// ```html
+// <div class="row">
+//   <div class="col"></div>
+//   <div class="col"></div>
+// </div>
+// ```
 //
-//   .row {
-//     layout-row();
-//   }
-//   .col {
-//     layout-nth(1/2);  // Half
-//   }
+// ```scss
+// .row {
+//   layout-row();
+// }
+// .col {
+//   layout-nth(1/2);  // Half
+// }
+// ```
 layout-nth(part) {
 	_layout-col();
 	_layout-part(part);
@@ -214,12 +226,14 @@ _layout-part(part) {
 // width - Width of an element.
 // height - Height of an element (default: null).
 //
-// Example:
+// Examples:
 //
-//   .checkbox:before {
-//     center(.8em, .65em);
-//     background-image: url("check.svg");
-//   }
+// ```scss
+// .checkbox:before {
+//   center(.8em, .65em);
+//   background-image: url("check.svg");
+// }
+// ```
 center(width, height=null) {
 	size(width, height);
 	left: 50%;
@@ -230,17 +244,19 @@ center(width, height=null) {
 
 // Flexible columns with left text alignment (to use inside .l-wrap).
 //
-// Example:
+// Examples:
 //
-//   .block {
-//     layout-wrapper();
-//     &__first {
-//       layout-left();
-//     }
-//     &__second {
-//       layout-right();
-//     }
+// ```scss
+// .block {
+//   layout-wrapper();
+//   &__first {
+//     layout-left();
 //   }
+//   &__second {
+//     layout-right();
+//   }
+// }
+// ```
 layout-left() {
 	flex: 1;
 }

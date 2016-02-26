@@ -5,52 +5,59 @@ import { addState } from './states';
 import { oporElement } from './opor';
 
 /**
- * @class JS component base class.
+ * Base component class.
  *
- * Elements: any HTML element with class name that follow a pattern `.js-name` where `name` is an element name.
- *
- * States: any class on component root HTML node that follow a pattern `.is-state` where `state` is a state name.
  * After initialization all components will have `ok` state.
  *
- * You can redefine following methods in your components:
+ * You can redefine the following methods in your components:
+ * - `init()` - element is attached to the DOM;
+ * - `destroy()` - element is detached from the DOM;
+ * - `attributeChanged(name, previousValue, value)` - attribute is changed.
  *
- *   * init() - element is attached to the DOM;
- *   * destroy() - element is detached from the DOM;
- *   * attributeChanged(name, previousValue, value)
+ * And the following static properties:
+ * - `binded` - list of methods that should be binded to `this`;
+ * - `template` - OPORJSON template.
  *
- * Example:
+ * @example
  *
- *   class Pony extends Component {
- *     static binded = 'toggle';
- *     init() {
- *       onEvent(this.elem, 'click', '.js-toggle', this.toggle);
- *     }
- *     toggle() {
- *       toggleState(this.elem, 'pink');
- *     }
- *   });
+ * class Pony extends Component {
+ *   static binded = 'toggle';
+ *   init() {
+ *     onEvent(this.elem, 'click', '.js-toggle', this.toggle);
+ *   }
+ *   toggle() {
+ *     toggleState(this.elem, 'pink');
+ *   }
+ * }
  *
- *   registerComponent('t-pony', Pony);
+ * registerComponent('u-pony', Pony);
  *
- *   <t-pony class="pink-pony is-pink">
- *     <button class="pink-pony__button js-toggle">To pink or not to pink?</button>
- *   </t-pony>
+ * @example
+ *
+ * <u-pony class="pink-pony is-pink">
+ *   <button class="pink-pony__button js-toggle">To pink or not to pink?</button>
+ * </u-pony>
  */
 export default class Component {
 	/**
 	 * List of methods that should be binded to `this` (see `bindAll` method).
 	 *
 	 * @type {String|Array}
+	 * @private
 	 */
 	static binded = null;
 
 	/**
 	 * Component’s OPORJSON template (see `initHtml` method).
+	 *
+	 * @type {OPORJSON}
+	 * @private
 	 */
 	static template = null;
 
 	/**
 	 * @param {HTMLElement} elem DOM element.
+	 * @private
 	 */
 	constructor(elem) {
 		if (!isElement(elem)) {
@@ -64,6 +71,7 @@ export default class Component {
 
 	/**
 	 * Put all your initialization code in this method. Calls when element is attached to the DOM.
+	 * @name component.init
 	 */
 	init() {
 		// Could be implemented
@@ -71,6 +79,7 @@ export default class Component {
 
 	/**
 	 * You can implement this method to do destroy component. Calls when element is detached from the DOM.
+	 * @name component.destroy
 	 */
 	destroy() {
 		// Could be implemented
@@ -79,6 +88,7 @@ export default class Component {
 	/**
 	 * You can implement this method to react to element attributes changes.
 	 *
+	 * @name component.attributeChanged
 	 * @param {string} name Attribute name.
 	 * @param {*} previousValue Previous value.
 	 * @param {*} value New value.
@@ -91,13 +101,9 @@ export default class Component {
 	 * Binds all specified methods to this.
 	 *
 	 * @param {string} methods... Method names
-	 *
-	 * Example:
-	 *
-	 *   this.bindMethods('toggle');
-	 *   onEvent(this.elem, 'click', this.toggle);
+	 * @private
 	 */
-	bindMethods(...methods) {
+	_bindMethods(...methods) {
 		methods.forEach(method => {
 			if (DEBUG && !isFunction(this[method])) {
 				throw new Error(`${this.constructor.name}.bindAll: method "${method}" ` +
@@ -114,7 +120,7 @@ export default class Component {
 				binded = binded.split(' ');
 			}
 			if (binded.length) {
-				this.bindMethods(...binded);
+				this._bindMethods(...binded);
 			}
 		}
 	}

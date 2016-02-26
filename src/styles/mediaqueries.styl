@@ -4,12 +4,16 @@
 
 // Media query shortcut: viewport width is greater than or equal to specified value.
 //
-// Example:
+// Examples:
 //
-//   .pony
-//     color: #c0ffee
-//     +above(320px)
-//       color: #bada55
+// ```scss
+// .pony {
+//   color: #c0ffee;
+//   +above(320px) {
+//     color: #bada55;
+//   }
+// }
+// ```
 //
 // min - Min width.
 above(min) {
@@ -42,13 +46,16 @@ between(min, max) {
 
 // Media query shortcut: viewport height is greater than or equal to specified value.
 //
-// Example:
+// Examples:
 //
-//   .pony
-//     color: #c0ffee
-//     +higher(320px)
-//       color: #bada55
-//
+// ```scss
+// .pony {
+//   color: #c0ffee;
+//   +higher(320px) {
+//     color: #bada55;
+//   }
+// }
+// ```
 // min - Min height.
 higher(min) {
 	_condition = 'only screen and (min-height: %s)' % min;

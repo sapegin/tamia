@@ -32,7 +32,7 @@ To disable modal closing by click on a shade use `data-modal-close-on-shade="no"
 Auto open:
 
 ```html
-<t-modal class="modal is-hidden" data-component="modal" data-modal-open="yes">...</t-modal>
+<t-modal class="modal is-hidden" data-modal-open="yes">...</t-modal>
 ```
 
 Open via JavaScript:

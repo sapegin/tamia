@@ -11,20 +11,24 @@ const TOGGLED_EVENT = 'tamia.toggled';
 /**
  * Show element with CSS transition.
  *
- * tamia.appeared and tamia.toggled events will be fired the moment transition ends.
+ * `tamia.appeared` and `tamia.toggled` events will be fired the moment transition ends.
  *
- * Example:
+ * @example
  *
- *   .dialog {
- *     transition:opacity .5s ease-in-out;
- *     &.is-hidden {
- *       opacity:0;
- *     }
+ * .dialog {
+ *   transition:opacity .5s ease-in-out;
+ *   &.is-hidden {
+ *     opacity: 0;
  *   }
+ * }
  *
- *   <div class="dialog is-hidden js-dialog">...</div>
+ * @example
  *
- *   appear($$('.js-dialog'));
+ * <div class="dialog is-hidden js-dialog">...</div>
+ *
+ * @example
+ *
+ * appear($$('.js-dialog'));
  *
  * @param {HTMLElement} elem DOM element.
  */
@@ -44,7 +48,7 @@ export function appear(elem) {
 /**
  * Hide element with CSS transition.
  *
- * tamia.disappeared and tamia.toggled events will be fired the moment transition ends.
+ * `tamia.disappeared` and `tamia.toggled` events will be fired the moment transition ends.
  *
  * @param {HTMLElement} elem DOM element.
  */
@@ -63,7 +67,7 @@ export function disappear(elem) {
 
 /**
  * Toggle element’s visibility with CSS transition.
- * See appear/disappear for details.
+ * See [appear](#appear)/[disappear](#disappear) for details.
  *
  * @param {HTMLElement} elem DOM element.
  */

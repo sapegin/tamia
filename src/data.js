@@ -35,6 +35,7 @@ export default function data(elem, attr, value) {
  *
  * @param {object} map Object.
  * @returns {object}
+ * @private
  */
 function toObject(map) {
 	let object = {};
