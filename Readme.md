@@ -12,8 +12,8 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 
 ## Based On
 
-* Web Components
-* Autoprefixer
+* [Web Components](https://github.com/WebReflection/document-register-element)
+* [Autoprefixer](https://github.com/postcss/autoprefixer)
 * ECMAScript6
 * Webpack
 * Stylus
@@ -26,23 +26,21 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 
 Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.
 
-Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.
+Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project in 2000s.
 
 
 ## Browser Support
 
-I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE8 (and probably not all features will work fine there).
+I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE11.
 
 
 ## Workflow
 
-I use [Yeomen generator](https://github.com/tamiadev/generator-tamia) for scaffolding new projects: create folders and all required files.
-
-I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.
+I use Webpack to bundle JavaScript and Stylus.
 
 For CSS I use kinda [BEM](http://bem.info/) light methodology—[OPOR](http://blog.sapegin.me/all/opor-methodology) (One Page of Rules).
 
-And then I use BitBucket and Fabric to deploy website to a server.
+And then I use [shipit](https://github.com/sapegin/shipit) to deploy a site to a server from GitHub or BitBucket or using rsync.
 
 
 ## Definitions: blocks, components, modules
@@ -51,16 +49,17 @@ And then I use BitBucket and Fabric to deploy website to a server.
 
 **Component** is a JavaScript “class” inherited from `tamia.Component` base “class”. You could mix blocks and components in any same combination.
 
-**Module** is combination of block (appearance) and component (behaviour) that can be used on many websites. Some modules have only blocks, some modules have default skin that you can disable if you want.
+**Module** is combination of block (appearance) and component (behaviour) that can be used on many sites. Some modules have only blocks, some modules have default skin that you can disable if you want.
 
 
 ## Stylus Bootstap
 
-It’s a base CSS rules (like Normalize.css but a quite different) and a lot of useful Stylus mixins:
+It’s a base CSS rules (like [Normalize.css](https://necolas.github.io/normalize.css/) but quite different) and a lot of useful Stylus mixins:
 
 * Fluid grid.
-* Sprites (manual or generated) with Retina support.
+* Images with Retina support.
 * Links with three types of underlining: text-decoration, border-bottom and linear-gradient.
+* Media query helpers.
 * Sticky footer.
 * Debug helpers.
 * Lot of useful mixins.
@@ -70,75 +69,72 @@ It’s a base CSS rules (like Normalize.css but a quite different) and a lot of 
 
 Simple example:
 
-```js
-var Pony = tamia.extend(tamia.Component, {
-  binded: 'toggle',
-  init: function() {
-    this.elem.on('click', '.js-toggle', this.toggle_);
-  },
-  toggle: function() {
-    this.elem.toggleState('pink');
-  }
-});
+```javascript
+import { Component, registerComponent, onEvent, toggleState } from 'tamia';
+class Pony extends Component {
+  static binded = 'toggle';
 
-tamia.initComponents({pony: Pony});
+  init() {
+    onEvent(this.elem, 'click', '.js-toggle', this.toggle);
+  }
+
+  toggle() {
+    toggleState(this.elem, 'pink');
+  }
+}
+
+registerComponent('u-pony', Pony);
 ```
 
 ```html
-<div class="pink-pony is-pink" data-component="pony">
-  <button class="pink-pony__button js-toggle">To pink or not to pink?</div>
-</div>
+<u-pony class="pink-pony is-pink">
+  <button class="pink-pony__button js-toggle">To pink or not to pink?</button>
+</u-pony>
 ```
 
-See documentation [for details](http://tamiadev.github.io/tamia/docs.html).
+See documentation [for details](http://tamiadev.github.io/tamia/api.html#Component).
 
 
 ## JavaScript Helpers
 
 Useful events and other stuff.
 
-See documentation [for details](http://tamiadev.github.io/tamia/docs.html).
+See documentation [for details](http://tamiadev.github.io/tamia/api.html).
 
 
 ## Modules library
 
-Form controls, basic text styles, [etc](https://github.com/tamiadev/tamia/tree/master/modules).
+Form controls, basic text styles, [etc](http://tamiadev.github.io/tamia/modules.html).
 
 All modules are disabled by default. See *Using Modules* below for details.
 
 
 ## Tools
 
-There are few other things made specifically for Tâmia:
+There are a few other things made specifically for Tâmia:
 
-* [Yeomen project generator](https://github.com/tamiadev/generator-tamia);
-* [Grunt task](https://github.com/tamiadev/grunt-tamia-sprite) for generating sprites.
+* tamia-build: Webpack-based build tool.
+* [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config.
 
 
 ## Documentation
 
-See [here](http://tamiadev.github.io/tamia/).
+[See here](http://tamiadev.github.io/tamia/).
 
 
 ## Installation
 
-The easiest way to install Tâmia is to use Yeomen generator:
-
 ```
-$ npm install -g yo generator-tamia
-$ yo tamia
+npm install --save tamia
 ```
 
-(You can use `yo tamia:framework` to update Tâmia to the latest version.)
+Add to your main JavaScript module:
 
-You can also install manually:
+```javascript
+import 'tamia';
+```
 
-1. Download and unzip repository to `tamia` folder inside your project.
-
-2. Include Stylus bootstrap to your main Stylus stylesheet: `import "tamia/tamia"`.
-
-3. Include JavaScript helpers to your page: `<script src="tamia/tamia/tamia.js"></script>`.
-
+It will import all base styles as well.
 
 ## Getting Started
 
@@ -156,13 +152,11 @@ link_color = #c0ffee
 
 ### Using Modules
 
-To add module to the project:
+To add module to the project add this to you main JavaScript module:
 
 ```
-$ yo tamia:module
+import 'tamia/src/modules/modulename';
 ```
-
-Then select module you want and it’ll be added .
 
 Default skin is disabled by default. To enable it add to project’s `index.styl`:
 
@@ -178,17 +172,18 @@ Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude
 Stylus:
 
 ```
-div
-	outline: 1px solid #c0ffee if DEBUG
+div {
+	outline: 1px solid #c0ffee if DEBUG;
+}
 ```
 
 JavaScript:
 
 ```
-if (DEBUG) console.log('Debug info');
+if (DEBUG) {
+	console.log('Debug info');
+}
 ```
-
-To enable debug mode in Stylus just run Grunt with `--debug` command line option. Debug mode in JavaScript enabled by default in unminified code.
 
 
 ## The Name
