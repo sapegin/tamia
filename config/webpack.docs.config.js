@@ -34,4 +34,10 @@ module.exports = merge.smart(baseConfig, {
 		}),
 		new ExtractTextPlugin('styles.css'),
 	],
+
+	stylus: {
+		import: [
+			path.resolve(__dirname, '../docs_src/styles/config.styl'),
+		],
+	},
 });
