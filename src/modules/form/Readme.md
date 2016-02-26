@@ -54,7 +54,7 @@ Messages:
 ```html
 <div class="alert">Thank you!</div>
 <div class="alert alert_warning">Are you sure?</div>
-<div class="alert alert_error">Not enough cheese</div>
+<div class="alert alert_error">Out of cheese</div>
 ```
 
 ## States
