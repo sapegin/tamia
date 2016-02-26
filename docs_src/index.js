@@ -7,7 +7,7 @@ import {
 	createTemplateRenderer,
 	helpers,
 } from 'fledermaus';
-import { readFile } from 'sweet2/lib/util';
+import { readFile } from 'fledermaus/lib/util';
 import fs from 'fs';
 import glob from 'glob';
 import hljs from 'highlight.js';
@@ -15,7 +15,6 @@ import slugify from 'underscore.string/slugify';
 
 const blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^.*?$)?/mg;
 
-// Stylus modules
 const stylusModules = [
 	'classes',
 	'layout',
@@ -50,65 +49,35 @@ let renderTemplate = createTemplateRenderer({
 	root: path.join(__dirname, 'templates'),
 });
 
-let documents = [];
-
-/*
- * Index page
- */
-
-let readme = readFile(path.resolve(__dirname, '../Readme.md'));
-readme = readme.replace(/^[\S\s]*?##/, '##');
-readme = readme.replace(
-	/The MIT License, see the included `License.md` file./,
-	'The [MIT License](https://github.com/tamiadev/tamia/blob/master/License.md).'
-);
-
-documents.push({
-	page: 'index',
-	sourcePath: 'index.md',
-	layout: 'template',
-	content: renderMarkdown(readme),
-});
-
-/*
- * Styles
- */
-
-documents.push({
-	page: 'styles',
-	sourcePath: 'styles.md',
-	layout: 'template',
-	content: renderMarkdown(generateStyles()),
-	title: 'Styles: CSS classes and Stylus mixins',
-});
-
-/*
- * JS API
- */
-
-documents.push({
-	page: 'javascript',
-	sourcePath: 'javascript.md',
-	layout: 'template',
-	content: renderMarkdown(generateApi()),
-	title: 'JavaScript API',
-});
-
-/*
- * Modules
- */
-
-documents.push({
-	page: 'modules',
-	sourcePath: 'modules.md',
-	layout: 'template',
-	content: generateModules(),
-	title: 'Modules',
-});
-
-/*
- * Generate and save pages
- */
+let documents = [
+	{
+		page: 'index',
+		sourcePath: 'index.md',
+		layout: 'template',
+		content: renderMarkdown(generateIndex()),
+	},
+	{
+		page: 'styles',
+		sourcePath: 'styles.md',
+		layout: 'template',
+		content: renderMarkdown(generateStyles()),
+		title: 'Styles: CSS classes and Stylus mixins',
+	},
+	{
+		page: 'javascript',
+		sourcePath: 'javascript.md',
+		layout: 'template',
+		content: renderMarkdown(generateApi()),
+		title: 'JavaScript API',
+	},
+	{
+		page: 'modules',
+		sourcePath: 'modules.md',
+		layout: 'template',
+		content: generateModules(),
+		title: 'Modules',
+	},
+];
 
 let pages = generatePages(documents, config, helpers, { ect: renderTemplate });
 savePages(pages, DOCS_DIR);
@@ -117,6 +86,16 @@ savePages(pages, DOCS_DIR);
 /*
  * Functions
  */
+
+function generateIndex() {
+	let readme = readFile(path.resolve(__dirname, '../Readme.md'));
+	readme = readme.replace(/^[\S\s]*?##/, '##');
+	readme = readme.replace(
+		/The MIT License, see the included `License.md` file./,
+		'The [MIT License](https://github.com/tamiadev/tamia/blob/master/License.md).'
+	);
+	return readme;
+}
 
 function generateApi() {
 	let api = readFile(path.join(DOCS_DIR, 'md/api.md'));
