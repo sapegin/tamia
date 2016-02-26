@@ -5,9 +5,7 @@ var autoprefixer = require('autoprefixer');
 module.exports = {
 	devtool: 'eval',
 
-	entry: [
-		'./specs/specs.js',
-	],
+	entry: './specs/specs.js',
 
 	output: {
 		path: path.resolve(__dirname, '../specs'),
@@ -37,6 +35,7 @@ module.exports = {
 				include: [
 					path.resolve(__dirname, '../src'),
 					path.resolve(__dirname, '../specs'),
+					path.resolve(__dirname, '../docs_src'),
 				],
 				loader: 'babel',
 			},

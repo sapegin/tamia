@@ -8,7 +8,10 @@
     "mocha": "mocha test src/**/*.spec.js",
     "mocha:watch": "mocha --watch --reporter min test src/**/*.spec.js",
     "lint": "eslint src",
-    "start": "webpack-dev-server --inline --content-base specs --config config/webpack.config.js --no-info"
+    "start": "webpack-dev-server --inline --content-base specs --config config/webpack.config.js --no-info",
+    "docs:api": "mkdirp docs/md && documentation build -c docs_src/config.json --format md --output docs/md/api.md src/*.js",
+    "docs:bundle": "webpack --config config/webpack.docs.config.js --no-info",
+    "docs:build": "babel-node docs_src"
   },
   "homepage": "https://github.com/tamiadev/tamia",
   "author": {
@@ -31,26 +34,33 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
+    "Stickyfill": "github:wilddeer/stickyfill",
     "autoprefixer": "~6.3.3",
+    "babel-cli": "~6.5.1",
     "babel-core": "~6.5.2",
-    "babel-eslint": "~5.0.0-beta6",
-    "babel-loader": "~6.2.2",
+    "babel-eslint": "~5.0.0",
+    "babel-loader": "~6.2.3",
     "babel-preset-es2015": "~6.5.0",
     "babel-preset-stage-1": "~6.5.0",
     "chai": "~3.5.0",
     "css-loader": "~0.23.1",
+    "documentation": "git+ssh://git@github.com/documentationjs/documentation.git",
     "domino": "~1.0.23",
     "eslint": "~1.10.3",
     "eslint-config-tamia": "~1.0.0",
+    "extract-text-webpack-plugin": "~1.0.1",
+    "fledermaus": "~3.0.0",
+    "glob": "~7.0.0",
     "grunt": "~0.4.2",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-stylus": "~0.12.0",
     "grunt-contrib-watch": "~0.5.3",
-    "highlight.js": "~8.0.0",
+    "highlight.js": "~9.2.0",
     "load-grunt-tasks": "~0.4.0",
     "marked": "~0.3.0",
+    "mkdirp": "~0.5.1",
     "mocha": "~2.4.5",
     "phantomcss": "~0.11.1",
     "postcss-loader": "~0.8.1",
@@ -61,12 +71,13 @@
     "stylobuild": "~0.6.0",
     "stylus": "~0.53.0",
     "stylus-loader": "~1.5.1",
-    "underscore.string": "~3.2.3",
-    "webpack": "~1.12.13",
-    "webpack-dev-server": "~1.14.1"
+    "underscore.string": "~3.3.4",
+    "webpack": "~1.12.14",
+    "webpack-dev-server": "~1.14.1",
+    "webpack-merge": "~0.7.3"
   },
   "dependencies": {
     "document-register-element": "~0.5.4",
-    "lodash": "~4.3.0"
+    "lodash": "~4.5.1"
   }
 }

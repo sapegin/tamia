@@ -1,121 +1,137 @@
-modules_default_skin = true
-content_max_width = 1024px
+// FIXME
+modules_default_skin = true;
+content_max_width = 1024px;
 
-@import "tamia"
-@import "../modules/*"
+@import '../src/styles/core';
 
-body
-	font: 16px/1.4 "Helvetica Neue", Arial, sans-serif
+body {
+	font: 16px/1.4 "Helvetica Neue", Arial, sans-serif;
+}
 
-.content
-	padding: 0 4*spacer
+.content {
+	padding: 0 4*spacer;
+}
 
-.page-content
-	padding-top: spacer
-	padding-bottom: spacer
+.page-content {
+	padding-top: spacer;
+	padding-bottom: spacer;
+}
 
-.dash-content
-	padding: spacer 4*spacer
+.dash-content {
+	padding: spacer 4*spacer;
+}
 
-.header
-	tweak-inverted-text()
-	background: #222
-	color: #fff
+.header {
+	tweak-inverted-text();
+	background: #222;
+	color: #fff;
 
-	a
+	a {
 		&,
 		&:link,
 		&:visited,
 		&:hover,
 		&:active,
-		&:focus
-			color: #fff
+		&:focus {
+			color: #fff;
+		}
+	}
+}
 
-.logo
-	display: inline-block
-	margin-right: 2em
-	padding: 4px 0 10px
-	font-size: 24px
+.logo {
+	display: inline-block;
+	margin-right: 2em;
+	padding: 4px 0 10px;
+	font-size: 24px;
+}
 
-.nav
-	display: inline-block
-	list-style-type: none
+.nav {
+	display: inline-block;
+	list-style-type: none;
 
-	&__item
-		display: inline-block
+	&__item {
+		display: inline-block;
+	}
 
-	&__link
-		display: block
-		padding: 12px .75em 13px
+	&__link {
+		display: block;
+		padding: 12px .75em 13px;
+	}
 
-	&__link_active
-		background: #555
-		background: linear-gradient(to bottom, #555, #3f3f3f)
-		text-decoration: none
+	&__link_active {
+		background: #555;
+		background: linear-gradient(to bottom, #555, #3f3f3f);
+		text-decoration: none;
+	}
+}
 
-.github-link
-	display: block
-	padding: 12px .75em 13px
+.github-link {
+	display: block;
+	padding: 12px .75em 13px;
+}
 
-.splash
-	space(4)
+.splash {
+	space(4);
 
-	&__title
-		font-size: 56px
-		font-weight: normal
+	&__title {
+		font-size: 56px;
+		font-weight: normal;
+	}
 
-	&__subtitle
-		font-size: 28px
+	&__subtitle {
+		font-size: 28px;
+	}
+}
 
-.example
-	_border_size = 5px
-	space(1)
+.example {
+	_border_size = 5px;
+	space(1);
 	margin-left: (-(spacer + _border_size));
-	padding: 5px 0 5px spacer
+	padding: 5px 0 5px spacer;
 	border-left: _border_size solid hsl(92, 28%, 65%);
 
-	.dash-content &
-		display: none
+	.dash-content & {
+		display: none;
+	}
+}
 
-.example-code
-	space(3)
+.example-code {
+	space(3);
 
-	&__link
-		space()
+	&__link {
+		space();
+	}
 
-	.dash-content &
-		display: block !important
+	.dash-content & {
+		display: block !important;
+	}
 
-	.dash-content &__link
-		display: none
+	.dash-content &__link {
+		display: none;
+	}
+}
 
-.button
-	text-transform: capitalize
+.toc {
+	clearfix();
+	position: -webkit-sticky;
+	position: sticky;
+	top: 5px;
+	//padding: spacer 0;
+	//height: 100vh;
+	//overflow-y: auto;
 
-.toc-holder
-	padding-top: 2*spacer + 3px
+	&__item {
+		margin-bottom: .3em;
+		font-size: 14px;
+		list-style-type: none;
+	}
 
-.toc
-	margin-top: spacer
-
-	&__item
-		margin-bottom: .3em
-		font-size: 14px
-		list-style-type: none
-
-		&_h3
-			margin-left: 1em
-
-		&_h3 + &_h2
-			margin-top: 1em
-
-		a
-			@extend .link
-
-		&.is-active a
-			+link-all-states()
-				no-underline()
-				font-weight: bold
-				color: base_color
-				cursor: default
-
+	&__link.is-active {
+		+link-all-states() {
+			no-underline();
+			font-weight: bold;
+			color: base_color;
+			cursor: default;
+		}
+	}
+}

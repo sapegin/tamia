@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<%
+		menu = @option('menu')
+	%>
 	<meta charset="utf-8">
-	<title><% if (page !== 'index') { %><%= menu[page] %> — <% } %>Tâmia</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title><% unless @page is 'index': %><%= @title %> — <% end %>Tâmia</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="shortcut icon" href="/tamia/favicon.ico" type="image/x-icon">
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
-
 	<header class="header">
 		<div class="content">
 			<div class="l-row">
 				<div class="l-left">
 					<div class="logo">
-						<% if (page === 'index') { %>
+						<% if @page is 'index': %>
 							Tâmia
-						<% } else { %>
+						<% else: %>
 							<a href="/tamia/" class="logo__link">Tâmia</a>
-						<% } %>
+						<% end %>
 					</div>
 					<nav class="nav">
-						<% for (var name in menu) { %>
-							<li class="nav__item">
-								<a href="<%= name %>.html" class="nav__link <% if (name === page) { %>nav__link_active<% } %>">
+						<% for name of menu: %>
+							<span class="nav__item">
+								<a href="<%= name %>.html" class="nav__link <% if name is @page: %>nav__link_active<% end %>">
 									<%= menu[name] %>
 								</a>
-							</li>
-						<% } %>
+							</span>
+						<% end %>
 					</nav>
 				</div>
 				<div class="l-right">
@@ -37,35 +39,29 @@
 		</div>
 	</header>
 
-
 	<div class="page-content content">
-		<% if (page === 'index') { %>
+		<% if @page is 'index': %>
 			<div class="splash">
 				<h1 class="splash__title">Tâmia</h1>
 				<div class="splash__subtitle">Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/" class="link">Artem Sapegin</a>.</div>
 			</div>
 			<div class="text">
-				<%= html %>
+				<%- @content %>
 			</div>
-		<% } else { %>
+		<% else: %>
 			<div class="l-row js-content-container">
 				<div class="l-three-quarters text js-content">
-					<%= html %>
+					<%- @content %>
 				</div>
-				<div class="toc-holder l-quarter">
-					<div class="toc" data-component="toc" data-page="<%= page %>"></div>
+				<div class="l-quarter">
+					<u-toc class="toc" data-page="<%= @page %>"></u-toc>
 				</div>
 			</div>
-		<% } %>
+		<% end %>
 	</div>
 
-	<!--[if lt IE 9]>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<![endif]-->
-	<!--[if gte IE 9]><!-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-	<!--<![endif]-->
-	<script src="scripts.js"></script>
+	<script src="bundle.js"></script>
 
 	<!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter6395488 = new Ya.Metrika({id:6395488, webvisor:true, clickmap:true, trackLinks:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/6395488" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>

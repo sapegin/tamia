@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<%
+		menu = @option('menu')
+	%>
 	<meta charset="utf-8">
-	<title><% if (page !== 'index') { %><%= menu[page] %> — <% } %>Tâmia</title>
+	<title><% unless @page is 'index': %><%= @title %> — <% end %>Tâmia</title>
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
-
 	<div class="dash-content text">
-		<% if (page === 'index') { %>
+		<% if @page is 'index': %>
 			<h1>Tâmia</h1>
 			<p>Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/">Artem Sapegin</a>.</p>
-		<% } %>
-		<%= html %>
+		<% end %>
+		<%- @content %>
 	</div>
-
 </body>
 </html>
