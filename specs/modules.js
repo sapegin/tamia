@@ -1,0 +1,17 @@
+import '../src/modules/checkbox';
+import '../src/modules/code';
+import '../src/modules/fade';
+import '../src/modules/list';
+import '../src/modules/media';
+import '../src/modules/modal';
+import '../src/modules/password';
+import '../src/modules/print';
+import '../src/modules/richtypo';
+import '../src/modules/rouble';
+import '../src/modules/select';
+import '../src/modules/spinner';
+import '../src/modules/switcher';
+import '../src/modules/table';
+import '../src/modules/text';
+import '../src/modules/tooltip';
+import '../src/modules/track';
