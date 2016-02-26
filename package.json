@@ -44,7 +44,7 @@
     "babel-preset-stage-1": "~6.5.0",
     "chai": "~3.5.0",
     "css-loader": "~0.23.1",
-    "documentation": "git+ssh://git@github.com/documentationjs/documentation.git",
+    "documentation": "github:documentationjs/documentation",
     "domino": "~1.0.23",
     "eslint": "~1.10.3",
     "eslint-config-tamia": "~1.0.0",
