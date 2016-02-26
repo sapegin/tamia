@@ -16,13 +16,16 @@ import slugify from 'underscore.string/slugify';
 const blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^.*?$)?/mg;
 
 const stylusModules = [
-	'classes',
-	'layout',
-	'links',
-	'images',
-	'mediaqueries',
-	'misc',
-	'functions',
+	'skin/layout',
+	'skin/links',
+	'skin/misc',
+	'core/layout',
+	'core/links',
+	'core/images',
+	'core/mediaqueries',
+	'core/functions',
+	'core/misc',
+	'config',
 ];
 
 start('Building the docs...');
@@ -37,7 +40,7 @@ const config = {
 	base: {
 		lang: 'en',
 		menu: {
-			api: 'JavaScript',
+			javascript: 'JavaScript',
 			styles: 'Styles',
 			modules: 'Modules',
 		},
@@ -122,8 +125,8 @@ function generateApi() {
 }
 
 function generateStyles() {
-	return stylusModules.map(name => {
-		let contents = readFile(path.resolve(__dirname, `../src/styles/${name}.styl`));
+	return stylusModules.map(module => {
+		let contents = readFile(path.resolve(__dirname, `../src/styles/${module}.styl`));
 		let m = contents.match(/^\/\/ (.*?)$/m);
 		contents = processStylus(contents);
 		let slug = slugify(m[1]);
@@ -189,7 +192,9 @@ function processStylus(code) {
 			// dashList.push([title, 'Style', `styles.html#${m[1]}`]);
 		}
 
-		docs.push(`<h3 id="${title}">${title}</h3>\n\n${text}`);
+		if (title && text) {
+			docs.push(`<h3 id="${title}">${title}</h3>\n\n${text}`);
+		}
 	}
 	return docs.join('\n\n');
 }
