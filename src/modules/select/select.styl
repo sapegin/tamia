@@ -58,7 +58,7 @@ select_default_skin ?= false;
 
 if (modules_default_skin or select_default_skin) {
 	.select {
-		border: 1px solid #bbb;
+		border: 1px solid form_border_color;
 		border-bottom-color: #aaa;
 		border-radius: form_border_radius;
 		transition: border-color .1s ease-in-out, box-shadow .1s ease-in-out;
@@ -66,8 +66,7 @@ if (modules_default_skin or select_default_skin) {
 		&__box {
 			height: 2em;
 			padding: .5em 1.5em .5em .5em;
-			background: #f4f4f4;
-			background: linear-gradient(to bottom, #fefefe, #f4f4f4);
+			background: linear-gradient(to bottom, #fefefe, form_dark_bg_color);
 			line-height: 1;
 			color: #555;
 		}

@@ -5,13 +5,18 @@
 modules_default_skin ?= true;
 code_default_skin ?= false;
 code_class_prefix ?= "hljs-";
+code_font ?= Consolas, "Lucida Console", Monaco, "DejaVu Sans Mono", monospace;
+code_base_color ?= #4d4d4c;
+code_bg_color ?= white(.7);
+code_border ?= 1px solid black(.2);
+code_border_radius ?= 3px;
 
 .code,
 .text code,
 .text kbd,
 .text pre,
 .text pre * {
-	font-family: Consolas, "Lucida Console", Monaco, "DejaVu Sans Mono", monospace
+	font-family: code_font;
 }
 
 .code {
@@ -38,12 +43,10 @@ code_class_prefix ?= "hljs-";
 
 		code {
 			padding: spacer;
-			color: #4d4d4c;
-			background: #fff;
-			background: white(.7);
-			border-radius: 3px;
-			border: 1px solid;
-			border-color: black(.2);
+			color: code_base_color;
+			background: code_bg_color;
+			border-radius: code_border_radius;
+			border: code_border;
 
 			@media print {
 				border: 0;
