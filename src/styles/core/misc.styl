@@ -180,28 +180,3 @@ triangle(direction=up, size=10px, color=#000) {
 debug() {
 	outline: 1px solid pop(_debug_colors) if DEBUG;
 }
-
-
-///
-/// Internal stuff
-///
-
-/// Sticky footer wrapper.
-///
-/// h - Footer height.
-sticky-footer-wrapper(h) {
-	position: relative;
-	min-height: 100%;
-	margin-bottom: h;
-}
-
-/// Sticky footer.
-///
-/// h - Footer height.
-sticky-footer(h) {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: h;
-}

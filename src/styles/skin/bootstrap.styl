@@ -16,7 +16,7 @@ legend {
 	border: 0;
 }
 
-// Hide the spin-button from input[type="number"]
+// Hide the spin-button from input[type="number"].
 input[type="number"] {
 	-moz-appearance: textfield;
 }
@@ -24,30 +24,6 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
-}
-
-// Sticky footer: mystrd.at/modern-clean-css-sticky-footer/
-if sticky_footer_height {
-	html {
-		position: relative;
-		min-height: 100%;
-	}
-	body {
-		padding-bottom: sticky_footer_height;
-	}
-	.footer {
-		sticky-footer(sticky_footer_height);
-		if max_width {
-			&-i {
-				max-width: max_width;
-				margin-side: auto;
-				padding: 0 spacer;
-			}
-		}
-		else {
-			padding: 0 spacer;
-		}
-	}
 }
 
 // www.aestheticallyloyal.com/public/optimize-legibility/
