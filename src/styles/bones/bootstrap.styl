@@ -1,7 +1,7 @@
 // Base CSS
 
 // Text selection background color.
-selection_color ?= null;
+selection_color ?= #ffed75;
 
 // Global reset.
 * {
@@ -66,20 +66,11 @@ pre {
 }
 
 // Text selection and iOS tap highlighting.
-if selection_color {
-	_selection_color = selection_color;
-}
-else if light(bg_color) {
-	_selection_color = rgba(darken(bg_color, 60), .5);
-}
-else {
-	_selection_color = rgba(lighten(bg_color, 60), .5);
-}
 ::selection {
 	color: base_color;
-	background: _selection_color;
+	background: selection_color;
 	text-shadow: none;
 }
 a:link {
-	-webkit-tap-highlight-color: rgba(_selection_color, .25);
+	-webkit-tap-highlight-color: rgba(selection_color, .25);
 }
