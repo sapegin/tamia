@@ -59,11 +59,11 @@ Messages:
 
 ## States
 
-### .is-disabled
+### .field.is-disabled / .button.is-disabled / .disablable.is-disabled
 
 Disabled state of a control. Should be combined with `disabled` attribute where appropriate.
 
-### .is-success / .is-error
+### .form.is-success / .form.is-error
 
 Shows/hides success/error messages:
 
@@ -74,7 +74,9 @@ Shows/hides success/error messages:
 </form>
 ```
 
-## Auto disable submit button
+## HTML attributes
+
+### data-autolock
 
 Disable submit button on form submit:
 

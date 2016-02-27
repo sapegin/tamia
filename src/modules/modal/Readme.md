@@ -21,40 +21,27 @@ Modal popup.
 </t-modal>
 ```
 
-To disable modal closing by click on a shade use `data-modal-close-on-shade="no"` attribute:
-
-```html
-<t-modal class="modal is-hidden" data-modal-close-on-shade="no">
-```
-
-## How to open
-
-Auto open:
-
-```html
-<t-modal class="modal is-hidden" data-modal-open="yes">...</t-modal>
-```
-
-Open via JavaScript:
-
-```html
-<t-modal class="modal pony is-hidden">...</t-modal>
-```
-
-```javascript
-triggerEvent($('.pony'), 'tamia.modal.open');
-```
-
-Open via link:
-
-	<a href="#" class="" data-fire="tamia.modal.open" data-target=".js-popup">Open</a>
-
-
 ## Events
 
 ### tamia.modal.open
 
 Fire this event on `t-modal` DOM element to open popup.
+
+```html
+<t-modal class="modal pony is-hidden">...</t-modal>
+```
+
+From JavaScript:
+
+```javascript
+triggerEvent($('.pony'), 'tamia.modal.open');
+```
+
+Or via link:
+
+```html
+<a href="#" class="" data-fire="tamia.modal.open" data-target=".js-popup">Open</a>
+```
 
 ### tamia.modal.close
 
@@ -75,6 +62,24 @@ onEvent($('.js-popup', 'tamia.modal.commit', () => {
 ### tamia.modal.dismiss
 
 Fires when user click Cancel button.
+
+## HTML attributes
+
+### data-modal-close-on-shade
+
+Disable modal closing by clicking on a shade.
+
+```html
+<t-modal class="modal is-hidden" data-modal-close-on-shade="no">
+```
+
+### data-modal-open
+
+Automatically open modal on page load.
+
+```html
+<t-modal class="modal is-hidden" data-modal-open="yes">...</t-modal>
+```
 
 
 ## Skin
