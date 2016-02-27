@@ -1,4 +1,4 @@
-import { Component, registerComponent, onEvent } from '../../src';
+import { Component, registerComponent, onEvent } from '../../../src';
 import throttle from 'lodash/throttle';
 import 'Stickyfill/dist/stickyfill';
 

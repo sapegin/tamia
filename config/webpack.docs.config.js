@@ -8,10 +8,10 @@ var baseConfig = require('./webpack.config');
 module.exports = merge.smart(baseConfig, {
 	devtool: false,
 
-	entry: './docs_src/docs.js',
+	entry: './docs/src/docs.js',
 
 	output: {
-		path: path.resolve(__dirname, '../docs'),
+		path: path.resolve(__dirname, '../docs/public'),
 		publicPath: '/build/',
 		filename: 'bundle.js',
 	},
@@ -37,7 +37,7 @@ module.exports = merge.smart(baseConfig, {
 
 	stylus: {
 		import: [
-			path.resolve(__dirname, '../docs_src/styles/config.styl'),
+			path.resolve(__dirname, '../docs/src/styles/config.styl'),
 		],
 	},
 });

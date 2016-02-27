@@ -35,7 +35,7 @@ module.exports = {
 				include: [
 					path.resolve(__dirname, '../src'),
 					path.resolve(__dirname, '../test/specs'),
-					path.resolve(__dirname, '../docs_src'),
+					path.resolve(__dirname, '../docs/src'),
 				],
 				loader: 'babel',
 			},

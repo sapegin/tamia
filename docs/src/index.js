@@ -49,8 +49,8 @@ const config = {
 };
 
 const dashPath = p => path.resolve(__dirname, `../Tamia.docset/${p}`);
-const publicPath = p => path.resolve(__dirname, `../docs/${p}`);
-const sourcePath = p => path.resolve(__dirname, `../src/${p}`);
+const publicPath = p => path.resolve(__dirname, `../public/${p}`);
+const sourcePath = p => path.resolve(__dirname, `../../src/${p}`);
 
 let renderMarkdown = createMarkdownRenderer();
 let renderTemplate = createTemplateRenderer({
@@ -102,8 +102,8 @@ const filesToCopy = [
 	['favicon.ico', publicPath('')],
 	['icon.png', dashPath('')],
 	['Info.plist', dashPath('Contents')],
-	['../docs/styles.css', dashPath('Contents/Resources/Documents')],
-	['../docs/bundle.js', dashPath('Contents/Resources/Documents')],
+	['../public/styles.css', dashPath('Contents/Resources/Documents')],
+	['../public/bundle.js', dashPath('Contents/Resources/Documents')],
 ];
 filesToCopy.forEach(file => {
 	let filename = path.basename(file[0]);
@@ -124,7 +124,7 @@ function generateWithTemplate(documents, template, folder) {
 }
 
 function generateIndex() {
-	let readme = readFile(path.resolve(__dirname, '../Readme.md'));
+	let readme = readFile(path.resolve(__dirname, '../../Readme.md'));
 	readme = readme.replace(/^[\S\s]*?##/, '##');
 	readme = readme.replace(
 		/The MIT License, see the included `License.md` file./,
@@ -134,7 +134,7 @@ function generateIndex() {
 }
 
 function generateApi() {
-	let api = readFile(publicPath('md/api.md'));
+	let api = readFile(publicPath('../md/api.md'));
 
 	// Add IDs to headings and decrease their level
 	api = api.replace(/^## (.*?)$/gm, (m, name) => {

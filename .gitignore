@@ -1,4 +1,5 @@
 node_modules
-docs
+docs/public
+docs/md
+docs/Tamia.docset
 *.map
-Tamia.docset
