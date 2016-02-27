@@ -22,7 +22,7 @@ class Toc extends Component {
 			});
 		};
 
-		let headers = [...document.querySelectorAll('h1[id], h2[id]')];
+		let headers = [...document.querySelectorAll('[data-toc]')];
 
 		// TOC
 		let links = headers.map(headerElem => {

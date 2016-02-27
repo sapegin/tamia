@@ -139,12 +139,12 @@ function generateApi() {
 	// Add IDs to headings and decrease their level
 	api = api.replace(/^## (.*?)$/gm, (m, name) => {
 		dashList.push([name, 'Method', `javascript.html#${name}`]);
-		return `<h3 id="${name}">${name}</h3>`;
+		return `<h3 id="${name}" data-toc>${name}</h3>`;
 	});
 	api = api.replace(/^# (.*?)$/gm, (m, name) => {
 		let type = name[0] === name[0].toUpperCase() ? 'Class' : 'Function';
 		dashList.push([name, type, `javascript.html#${name}`]);
-		return `<h2 id="${name}">${name}</h2>`;
+		return `<h2 id="${name}" data-toc>${name}</h2>`;
 	});
 
 	// Fix language in fenced code blocks
@@ -164,7 +164,7 @@ function generateStyles() {
 		let m = contents.match(/^\/\/ (.*?)$/m);
 		contents = processStylus(contents);
 		let slug = slugify(m[1]);
-		return `<h1 id="${slug}">${m[1]}</h1>\n\n${contents}`;
+		return `<h1 id="${slug}" data-toc>${m[1]}</h1>\n\n${contents}`;
 	}).join('\n\n');
 }
 
@@ -245,7 +245,7 @@ function generateModules() {
 		// Main heading
 		moduleDoc = moduleDoc.replace(/^# (.*?)$/gm, (m, title) => {
 			dashList.push([title, 'Package', `modules.html#${name}`]);
-			return `<h1 id="${name}">${title}</h1>`;
+			return `<h1 id="${name}" data-toc>${title}</h1>`;
 		});
 
 		// Increase headings level
