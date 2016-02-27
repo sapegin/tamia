@@ -3,11 +3,33 @@
 // Text selection background color.
 selection_color ?= #ffed75;
 
-// Global reset.
-* {
-	padding: 0;
-	margin: 0;
+// Set box-sizing to border-box initially.
+// Based on https://github.com/marxo/Canonical.css
+:root {
 	box-sizing: border-box;
+}
+
+// 1. Inherit border-box on all elements.
+// 2. Align inline and inline-block elements to the middle.
+// 3. Remove padding and margins on all elements.
+*,
+*:before,
+*:after {
+	box-sizing: inherit; // 1
+	vertical-align: middle; // 2
+	padding: 0; // 3
+	margin: 0;
+}
+
+// Normalize vertical alignment of inline-elements in Chrome, Firefox, and Opera.
+a,
+b,
+em,
+i,
+progress,
+span,
+strong {
+	vertical-align: baseline;
 }
 
 // Remove borders.
