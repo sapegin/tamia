@@ -12,8 +12,9 @@ import fs from 'fs-extra';
 import glob from 'glob';
 import hljs from 'highlight.js';
 import Sequelize from 'sequelize';
-import sqlite from 'sqlite3';
 import slugify from 'underscore.string/slugify';
+
+/* eslint-disable no-console */
 
 const blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^.*?$)?/mg;
 
@@ -87,10 +88,14 @@ let documents = [
 // Site
 generateWithTemplate(documents, 'template', publicPath(''));
 
+console.log('Building Dash docset...');
+
 // Dash
 documents.shift();  // Exclude index page
 generateWithTemplate(documents, 'dash', dashPath('Contents/Resources/Documents'));
 docsDashIndexDb();
+
+console.log('Copying files...');
 
 // Copy files
 const filesToCopy = [
@@ -238,7 +243,10 @@ function generateModules() {
 		let moduleDoc = readFile(path.join(folder, 'Readme.md'));
 
 		// Main heading
-		moduleDoc = moduleDoc.replace(/^# (.*?)$/gm, `<h1 id="${name}">$1</h1>`);
+		moduleDoc = moduleDoc.replace(/^# (.*?)$/gm, (m, title) => {
+			dashList.push([title, 'Package', `modules.html#${name}`]);
+			return `<h1 id="${name}">${title}</h1>`;
+		});
 
 		// Increase headings level
 		moduleDoc = moduleDoc.replace(/^#/gm, '##');
@@ -304,7 +312,6 @@ function generateModules() {
 				`;
 			});
 			moduleDoc += examples.join('\n\n');
-			dashList.push([name, 'Package', `modules.html${name}`]);
 		}
 		return moduleDoc;
 	}).join('\n\n');
@@ -322,7 +329,7 @@ function docsDashIndexDb() {
 
 	let sequelize = new Sequelize('database', 'username', 'password', {
 		dialect: 'sqlite',
-		connection: new sqlite.Database(dashPath('Contents/Resources/docSet.dsidx')),
+		storage: dashPath('Contents/Resources/docSet.dsidx'),
 		logging: false,
 	});
 
@@ -348,7 +355,7 @@ function docsDashIndexDb() {
 
 	sequelize.sync({ force: true }).then(() => {
 		searchIndex.bulkCreate(rows)
-			.catch(message => console.log(`Error when saving Dash index: ${message}`))  // eslint-disable-line no-console
+			.catch(message => console.log(`Error when saving Dash index: ${message}`))
 		;
 	});
 }

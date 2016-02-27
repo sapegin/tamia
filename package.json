@@ -9,7 +9,7 @@
     "mocha:watch": "mocha --watch --reporter min test src/**/*.spec.js",
     "lint": "eslint src",
     "start": "webpack-dev-server --inline --content-base specs --config config/webpack.config.js --no-info",
-    "docs": "npm run docs:api && npm run docs:bunle && npm run docs:build",
+    "docs": "npm run docs:api && npm run docs:bundle && npm run docs:build",
     "docs:api": "mkdirp docs/md && documentation build -c docs_src/config.json --format md --output docs/md/api.md src/*.js",
     "docs:bundle": "webpack --config config/webpack.docs.config.js --no-info",
     "docs:build": "babel-node docs_src"
