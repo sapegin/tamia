@@ -15,13 +15,19 @@ text_default_headings ?= true;
 	ol,
 	li,
 	pre,
-	blockquote {
+	blockquote,
+	hr {
 		space(2);
 	}
 
 	blockquote {
 		font-size: .8em;
 		padding: 0 2em;
+	}
+
+	hr {
+		border: solid form_border_color;
+		border-width: 1px 0 0 0;
 	}
 }
 
