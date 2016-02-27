@@ -17,7 +17,7 @@
 //
 // min - Min width.
 above(min) {
-	_condition = 'only screen and (min-width: %s)' % min;
+	_condition = "only screen and (min-width: %s)" % min;
 	@media _condition {
 		{block}
 	}
@@ -27,7 +27,7 @@ above(min) {
 //
 // max - Max width.
 below(max) {
-	_condition = 'only screen and (max-width: %s)' % max;
+	_condition = "only screen and (max-width: %s)" % max;
 	@media _condition {
 		{block}
 	}
@@ -38,7 +38,7 @@ below(max) {
 // min - Min width.
 // max - Max width.
 between(min, max) {
-	_condition = 'only screen and (min-width: %s) and (max-width: %s)' % (min max);
+	_condition = "only screen and (min-width: %s) and (max-width: %s)" % (min max);
 	@media _condition {
 		{block}
 	}
@@ -58,7 +58,7 @@ between(min, max) {
 // ```
 // min - Min height.
 higher(min) {
-	_condition = 'only screen and (min-height: %s)' % min;
+	_condition = "only screen and (min-height: %s)" % min;
 	@media _condition {
 		{block}
 	}
@@ -68,7 +68,7 @@ higher(min) {
 //
 // max - Max height.
 lower(max) {
-	_condition = 'only screen and (max-height: %s)' % max;
+	_condition = "only screen and (max-height: %s)" % max;
 	@media _condition {
 		{block}
 	}

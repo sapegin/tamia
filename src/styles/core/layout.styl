@@ -23,7 +23,7 @@ grid_columns ?= 12;
 grid-row() {
 	clearfix();
 	grid-margin();
-	content: "tamia__grid-row"  if DEBUG;
+	content: "tamia__grid-row" if DEBUG;
 }
 
 // Column (grid).
@@ -111,7 +111,7 @@ grid-explode(full=false) {
 //
 // Returns percent.
 grid-width(span=1, context=null) {
-	context = grid_columns  if not context;
+	context = grid_columns if not context;
 	_unit-width = 100% / context;
 	span * _unit-width;
 }
@@ -136,11 +136,11 @@ grid-margin() {
 }
 
 _grid-column(position=1, span=1, context=null) {
-	context = grid_columns  if not context;
+	context = grid_columns if not context;
 	_unit-width = 100% / context;
 	width: span * _unit-width;
 	margin-left: (position - 1) * _unit-width;
-	content: "tamia__grid-col"  if DEBUG;
+	content: "tamia__grid-col" if DEBUG;
 }
 
 _grid-float() {
@@ -157,7 +157,7 @@ _grid-float() {
 layout-wrapper() {
 	display: flex;
 	flex-flow: row wrap;
-	content: "tamia__layout-row"  if DEBUG;
+	content: "tamia__layout-row" if DEBUG;
 }
 
 // Layout row wrapper (with margins).
@@ -212,7 +212,7 @@ layout-stop() {
 _layout-col() {
 	display: block;
 	grid-padding();
-	content: "tamia__layout-col"  if DEBUG;
+	content: "tamia__layout-col" if DEBUG;
 }
 
 _layout-part(part) {

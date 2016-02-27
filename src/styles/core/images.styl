@@ -8,7 +8,7 @@
 retinafy ?= false;
 
 // Path to calculate file system image path based on CSS path (default: .).
-images_relative_root ?= '.';
+images_relative_root ?= ".";
 
 //
 // Functions
@@ -26,7 +26,7 @@ image(path, x=0, y=0) {
 	if retinafy {
 		+retina() {
 			_ext = extname(path);
-			_hdpath = dirname(path) + '/' + basename(path, _ext) + '@2x' + _ext;
+			_hdpath = dirname(path) + "/" + basename(path, _ext) + "@2x" + _ext;
 			background: url(_hdpath) x y;
 			background-size: image-size(pathjoin(images_relative_root, path));
 		}

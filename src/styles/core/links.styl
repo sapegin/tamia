@@ -19,7 +19,7 @@ link_color ?= #1978c8;
 
 // Visited link color (only for underline links because image backgrounds don’t work on :visited links).
 visited_color ?= #a963b8;
-visited_color = link_color  if link_style == "gradient";
+visited_color = link_color if link_style == "gradient";
 
 // Hovered link color.
 hover_color ?= #f28a25;
@@ -32,7 +32,7 @@ hover_underline_color ?= currentColor;
 
 // Link underline position (only for gradient links, default: 90%)
 link_underline_position ?= 90%;
-link_underline_position = 85%  if link_style == "underline";
+link_underline_position = 85% if link_style == "underline";
 
 
 //
