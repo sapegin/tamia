@@ -8,9 +8,11 @@ import {
 	helpers,
 } from 'fledermaus';
 import { readFile } from 'fledermaus/lib/util';
-import fs from 'fs';
+import fs from 'fs-extra';
 import glob from 'glob';
 import hljs from 'highlight.js';
+import Sequelize from 'sequelize';
+import sqlite from 'sqlite3';
 import slugify from 'underscore.string/slugify';
 
 const blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^.*?$)?/mg;
@@ -30,8 +32,6 @@ const stylusModules = [
 
 start('Building the docs...');
 
-const DOCS_DIR = path.resolve(__dirname, '../docs');
-
 hljs.configure({
 	tabReplace: '<span class="indent">\t</span>',
 });
@@ -47,48 +47,76 @@ const config = {
 	},
 };
 
+const dashPath = p => path.resolve(__dirname, `../Tamia.docset/${p}`);
+const publicPath = p => path.resolve(__dirname, `../docs/${p}`);
+const sourcePath = p => path.resolve(__dirname, `../src/${p}`);
+
 let renderMarkdown = createMarkdownRenderer();
 let renderTemplate = createTemplateRenderer({
 	root: path.join(__dirname, 'templates'),
 });
 
+let dashList = [];
+
 let documents = [
 	{
 		page: 'index',
 		sourcePath: 'index.md',
-		layout: 'template',
 		content: renderMarkdown(generateIndex()),
 	},
 	{
 		page: 'styles',
 		sourcePath: 'styles.md',
-		layout: 'template',
 		content: renderMarkdown(generateStyles()),
 		title: 'Styles: CSS classes and Stylus mixins',
 	},
 	{
 		page: 'javascript',
 		sourcePath: 'javascript.md',
-		layout: 'template',
 		content: renderMarkdown(generateApi()),
 		title: 'JavaScript API',
 	},
 	{
 		page: 'modules',
 		sourcePath: 'modules.md',
-		layout: 'template',
 		content: generateModules(),
 		title: 'Modules',
 	},
 ];
 
-let pages = generatePages(documents, config, helpers, { ect: renderTemplate });
-savePages(pages, DOCS_DIR);
+// Site
+generateWithTemplate(documents, 'template', publicPath(''));
 
+// Dash
+documents.shift();  // Exclude index page
+generateWithTemplate(documents, 'dash', dashPath('Contents/Resources/Documents'));
+docsDashIndexDb();
+
+// Copy files
+const filesToCopy = [
+	['favicon.ico', publicPath('')],
+	['icon.png', dashPath('')],
+	['Info.plist', dashPath('Contents')],
+	['../docs/styles.css', dashPath('Contents/Resources/Documents')],
+	['../docs/bundle.js', dashPath('Contents/Resources/Documents')],
+];
+filesToCopy.forEach(file => {
+	let filename = path.basename(file[0]);
+	fs.copySync(path.resolve(__dirname, file[0]), path.join(file[1], filename));
+});
 
 /*
  * Functions
  */
+
+function generateWithTemplate(documents, template, folder) {
+	documents = documents.map(doc => {
+		doc.layout = template;
+		return doc;
+	});
+	let pages = generatePages(documents, config, helpers, { ect: renderTemplate });
+	savePages(pages, folder);
+}
 
 function generateIndex() {
 	let readme = readFile(path.resolve(__dirname, '../Readme.md'));
@@ -101,15 +129,16 @@ function generateIndex() {
 }
 
 function generateApi() {
-	let api = readFile(path.join(DOCS_DIR, 'md/api.md'));
+	let api = readFile(publicPath('md/api.md'));
 
 	// Add IDs to headings and decrease their level
 	api = api.replace(/^## (.*?)$/gm, (m, name) => {
-		// dashList.push([name, 'Function', `api.html#${name}`]);
+		dashList.push([name, 'Method', `javascript.html#${name}`]);
 		return `<h3 id="${name}">${name}</h3>`;
 	});
 	api = api.replace(/^# (.*?)$/gm, (m, name) => {
-		// dashList.push([name, 'Function', `api.html#${name}`]);
+		let type = name[0] === name[0].toUpperCase() ? 'Class' : 'Function';
+		dashList.push([name, type, `javascript.html#${name}`]);
 		return `<h2 id="${name}">${name}</h2>`;
 	});
 
@@ -126,7 +155,7 @@ function generateApi() {
 
 function generateStyles() {
 	return stylusModules.map(module => {
-		let contents = readFile(path.resolve(__dirname, `../src/styles/${module}.styl`));
+		let contents = readFile(sourcePath(`styles/${module}.styl`));
 		let m = contents.match(/^\/\/ (.*?)$/m);
 		contents = processStylus(contents);
 		let slug = slugify(m[1]);
@@ -175,21 +204,21 @@ function processStylus(code) {
 			text = text.replace(/\n\n(\* `[a-z]+)/gi, '\n\n#### Parameters\n\n$1');
 
 			title = `${m[1]}()`;
-			// dashList.push([name, 'Mixin', `styles.html#${m[1]}`]);
+			dashList.push([title.replace('()', ''), 'Mixin', `styles.html#${m[1]}`]);
 		}
 
 		// Variable
 		m = /^\s*([-\w]+) \??=/m.exec(firstLine);
 		if (!title && m) {
 			title = m[1];
-			// dashList.push([title, 'Global', `styles.html#${m[1]}`]);
+			dashList.push([title, 'Define', `styles.html#${m[1]}`]);
 		}
 
 		// Class
 		m = /^\s*(\.[-\w]+)(,| \{)?$/m.exec(firstLine);
 		if (!title && m) {
 			title = m[1];
-			// dashList.push([title, 'Style', `styles.html#${m[1]}`]);
+			dashList.push([title, 'Style', `styles.html#${m[1]}`]);
 		}
 
 		if (title && text) {
@@ -200,7 +229,7 @@ function processStylus(code) {
 }
 
 function generateModules() {
-	let modules = glob.sync(path.resolve(__dirname, '../src/modules/*'));
+	let modules = glob.sync(sourcePath('modules/*'));
 
 	let exampleId = 0;
 
@@ -213,6 +242,33 @@ function generateModules() {
 
 		// Increase headings level
 		moduleDoc = moduleDoc.replace(/^#/gm, '##');
+
+		moduleDoc = moduleDoc.replace(/^([#]*) (.*?)$/gm, (m, level, title) => {
+			let slug = slugify(title);
+			let names = title.split(' / ');
+			names.forEach(name => {
+				name = name.replace(/\\/g, '');
+				let type;
+				if (name[0] === '.') {
+					type = 'Style';
+				}
+				else if (/^tamia\./.test(name)) {
+					type = 'Event';
+				}
+				else if (/^data-/.test(name)) {
+					type = 'Attribute';
+				}
+				else if (/_/.test(name)) {
+					type = 'Define';
+				}
+				if (type) {
+					dashList.push([name, type, `modules.html#${slug}`]);
+				}
+			});
+
+			level = level.length - 1;
+			return `<h${level} id="${slug}">${title}</h${level}>`;
+		});
 
 		moduleDoc = renderMarkdown(moduleDoc);
 
@@ -248,7 +304,7 @@ function generateModules() {
 				`;
 			});
 			moduleDoc += examples.join('\n\n');
-			// dashList.push([name, 'Package', "modules.html#" + name]);
+			dashList.push([name, 'Package', `modules.html${name}`]);
 		}
 		return moduleDoc;
 	}).join('\n\n');
@@ -259,4 +315,40 @@ function highlightHtml(code) {
 	return `
 		<pre><code class="lang-html">${hl.value}</code></pre>
 	`;
+}
+
+function docsDashIndexDb() {
+	let rows = dashList.map(item => ({ name: item[0], type: item[1], path: item[2] }));
+
+	let sequelize = new Sequelize('database', 'username', 'password', {
+		dialect: 'sqlite',
+		connection: new sqlite.Database(dashPath('Contents/Resources/docSet.dsidx')),
+		logging: false,
+	});
+
+	let searchIndex = sequelize.define('searchIndex', {
+		id: {
+			type: Sequelize.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		name: {
+			type: Sequelize.STRING,
+		},
+		type: {
+			type: Sequelize.STRING,
+		},
+		path: {
+			type: Sequelize.STRING,
+		},
+	}, {
+		freezeTableName: true,
+		timestamps: false,
+	});
+
+	sequelize.sync({ force: true }).then(() => {
+		searchIndex.bulkCreate(rows)
+			.catch(message => console.log(`Error when saving Dash index: ${message}`))  // eslint-disable-line no-console
+		;
+	});
 }
