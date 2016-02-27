@@ -9,57 +9,29 @@ selection_color ?= null;
 	margin: 0;
 	box-sizing: border-box;
 }
-article,
-aside,
-canvas,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section,
-summary {
-	display: block;
-}
-sup,
-sub,
-small,
-code {
-	line-height: 0;
-}
-img {
-	vertical-align: middle;
-}
-a img,
-a.img {
-	border: none !important;
-	background-image: none !important;
-}
-abbr {
-	border-bottom: none;
-}
-ul {
-	list-style: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+// Remove borders.
+fieldset,
+legend {
+	border: 0;
 }
 
-html {
-	// Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
-	text-size-adjust: 100%;
-	if sticky_footer_height {
+// Hide the spin-button from input[type="number"]
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+// Sticky footer: mystrd.at/modern-clean-css-sticky-footer/
+if sticky_footer_height {
+	html {
 		position: relative;
 		min-height: 100%;
 	}
-}
-
-// Sticky footer: mystrd.at/modern-clean-css-sticky-footer/.
-if sticky_footer_height {
 	body {
 		padding-bottom: sticky_footer_height;
 	}
@@ -85,87 +57,36 @@ h3 {
 	text-rendering: optimizeLegibility;
 }
 
-// Hand cursor on clickable input elements
-input[type="button"],
-input[type="submit"],
-input[type="image"],
-button {
-	cursor: pointer;
-}
-button[disabled],
-input[disabled] {
-	cursor: default;
+// Remove ugly bottom border.
+abbr {
+	border-bottom: none;
 }
 
-// Forms: github.com/necolas/normalize.css/blob/master/normalize.css.
-button {
-	overflow: visible;
+// Remove markers.
+ul {
+	list-style: none;
 }
-button,
-input {
-	line-height: normal;
+
+// Sane default values
+img {
+	vertical-align: middle;
 }
-button,
-input,
-select,
+
+// Collapse table borders.
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+// Do not allow horizontal resizing because it breaks layout.
 textarea {
-	font: inherit;
-	color: inherit;
-}
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-	-webkit-appearance: button;
-}
-input[type="search"] {
-	-webkit-appearance: textfield;
-}
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button {
-	-webkit-appearance: none;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-	border: 0;
-}
-textarea {
-	overflow: auto;
-	vertical-align: top;
 	resize: vertical;
-}
-fieldset,
-legend {
-	border: 0;
-}
-[hidden] {
-	display: none
-}
-
-// Hide the spin-button from input[type="number"]
-input[type="number"] {
-	-moz-appearance: textfield;
-}
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
 }
 
 // Pre with wrapping.
 pre {
 	white-space: pre-wrap;
-}
-
-// Addresses outline inconsistency between Chrome and other browsers.
-a:focus {
-	outline: thin dotted;
-}
-
-// Improve readability when focused and also mouse hovered in all browsers.
-a:hover,
-a:active {
-	outline: 0;
+	overflow: auto;
 }
 
 // Text selection and iOS tap highlighting.
@@ -187,6 +108,7 @@ a:link {
 	-webkit-tap-highlight-color: rgba(_selection_color, .25);
 }
 
+// Content max width.
 if content_max_width {
 	.content {
 		max-width: content_max_width;
