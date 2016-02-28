@@ -19,16 +19,15 @@ import slugify from 'underscore.string/slugify';
 const blocksRegEx = /\n((?:^[\t ]*\/\/.*?$\n)+)(^.*?$)?/mg;
 
 const stylusModules = [
-	'skin/layout',
-	'skin/links',
-	'skin/misc',
+	'classes/layout',
+	'classes/links',
+	'classes/misc',
 	'core/layout',
 	'core/links',
 	'core/images',
 	'core/mediaqueries',
 	'core/functions',
 	'core/misc',
-	'config',
 ];
 
 start('Building the docs...');
