@@ -76,14 +76,16 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 	// Classes
 	let newClasses = oporClass(json, true);
 	if (newClasses) {
-		newClasses.forEach(cls => elem.classList.add(cls));
+		newClasses.forEach(
+			cls => elem.classList.add(cls)
+		);
 	}
 
 	// Attributes
 	if (json.attrs) {
-		for (let name in json.attrs) {
-			elem.setAttribute(name, json.attrs[name]);
-		}
+		Object.keys(json.attrs).forEach(
+			name => elem.setAttribute(name, json.attrs[name])
+		);
 	}
 
 	// Store link
@@ -99,9 +101,9 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 		let container;
 		if (Array.isArray(json.content)) {
 			container = document.createDocumentFragment();
-			for (let childIdx = 0; childIdx < json.content.length; childIdx++) {
-				container.appendChild(createChildElement(json.content[childIdx], rootElem, links));
-			}
+			json.content.forEach(
+				children => container.appendChild(createChildElement(children, rootElem, links))
+			);
 		}
 		else {
 			container = createChildElement(json.content, rootElem, links);
@@ -138,33 +140,28 @@ export function oporClass(json, returnArray = false) {
 		classes.push(base);
 
 		if (json.mods) {
-			let mods = castArray(json.mods);
-			for (let modIdx = 0; modIdx < mods.length; modIdx++) {
-				classes.push(base + MOD_SEPARATOR + mods[modIdx]);
-			}
+			castArray(json.mods).forEach(
+				mod => classes.push(base + MOD_SEPARATOR + mod)
+			);
 		}
 	}
 
 	if (json.mix) {
-		let mixes = castArray(json.mix);
-		for (let mixIdx = 0; mixIdx < mixes.length; mixIdx++) {
-			let mix = mixes[mixIdx];
-			classes.push(typeof mix === 'string' ? mix : oporClass(mix));
-		}
+		castArray(json.mix).forEach(
+			mix => classes.push(typeof mix === 'string' ? mix : oporClass(mix))
+		);
 	}
 
 	if (json.states) {
-		let states = castArray(json.states);
-		for (let stateIdx = 0; stateIdx < states.length; stateIdx++) {
-			classes.push(STATE_PREFIX + states[stateIdx]);
-		}
+		castArray(json.states).forEach(
+			state => classes.push(STATE_PREFIX + state)
+		);
 	}
 
 	if (json.js) {
-		let js = castArray(json.js);
-		for (let jsIdx = 0; jsIdx < js.length; jsIdx++) {
-			classes.push(JS_PREFIX + js[jsIdx]);
-		}
+		castArray(json.js).forEach(
+			js => classes.push(JS_PREFIX + js)
+		);
 	}
 
 	if (returnArray) {
