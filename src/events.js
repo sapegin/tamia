@@ -111,12 +111,20 @@ export function triggerEvent(elem, eventName, ...detail) {
 		}
 	}
 
-	let params = {
-		bubbles: true,
-		cancelable: true,
-		detail,
-	};
-	return elem.dispatchEvent(new CustomEvent(eventName, params));
+	let event;
+	try {
+		event = new window.CustomEvent(eventName, {
+			bubbles: true,
+			cancelable: true,
+			detail,
+		});
+	}
+	catch (e) {
+		event = document.createEvent('CustomEvent');
+		event.initCustomEvent(eventName, true, true, detail);
+	}
+
+	return elem.dispatchEvent(event);
 }
 
 /**
