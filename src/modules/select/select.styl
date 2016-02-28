@@ -1,15 +1,15 @@
 // Select with custom design
 
 @import "../../styles/core";
+@import "../form/mixins";
 
 // Bones
 
 .select {
+	field-bones();
 	no-select();
 	position: relative;
 	display: block;
-	overflow: hidden;
-	font-size: 1em;
 
 	&_inline {
 		display: inline-block;
@@ -28,12 +28,7 @@
 	}
 
 	&__box {
-		display: block;
-		vertical-align: middle;
-		line-height: 1;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		ellipsis();
 	}
 
 	&:after {
@@ -58,17 +53,15 @@ select_default_skin ?= false;
 
 if (modules_default_skin or select_default_skin) {
 	.select {
-		border: 1px solid form_border_color;
-		border-bottom-color: #aaa;
+		button-skin();
 		border-radius: form_border_radius;
-		transition: border-color .1s ease-in-out, box-shadow .1s ease-in-out;
+		padding: 0;
 
 		&__box {
-			height: 2em;
 			padding: .5em 1.5em .5em .5em;
-			background: linear-gradient(to bottom, #fefefe, form_dark_bg_color);
 			line-height: 1;
-			color: form_button_color;
+			height: inherit;
+			color: inherit;
 		}
 
 		&:after {
@@ -83,7 +76,7 @@ if (modules_default_skin or select_default_skin) {
 
 		&.is-focused {
 			border-color: form_focus_color;
-			box-shadow: 0 0 .4em rgba(form_focus_color, .75);
+			box-shadow: form_focus_shadow;
 		}
 	}
 }

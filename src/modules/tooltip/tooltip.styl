@@ -2,6 +2,9 @@
 
 @import "../../styles/core";
 
+tooltip_base_color = #fff;
+tooltip_bg_color = black(0.9);
+
 // Bones
 
 .tooltip,
@@ -48,20 +51,19 @@ tooltip_default_skin ?= false;
 
 if (modules_default_skin or tooltip_default_skin) {
 	_tooltip_arrow = 5px;
-	_tooltip_bg = black(0.9);
 
 	.tooltip,
 	.has-tooltip:before {
 		padding: .2em .5em;
-		background: _tooltip_bg;
-		color: #fff;
+		background: tooltip_bg_color;
+		color: tooltip_base_color;
 		font-size: 14px;
 		border-radius: form_border_radius;
 	}
 
 	.tooltip:after,
 	.has-tooltip:after {
-		triangle("up", _tooltip_arrow, _tooltip_bg);
+		triangle("up", _tooltip_arrow, tooltip_bg_color);
 	}
 
 	.tooltip:after {

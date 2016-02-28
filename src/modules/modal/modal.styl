@@ -56,7 +56,7 @@ modal_default_skin ?= false;
 if (modules_default_skin or modal_default_skin) {
 	.modal {
 		background: bg_color;
-		border: 1px solid #ccc;
+		border: 1px solid form_border_color;
 		border-radius: .3em;
 		box-shadow: 0 0 3em black(.3);
 
@@ -64,7 +64,7 @@ if (modules_default_skin or modal_default_skin) {
 		&__body,
 		&__footer {
 			padding: 3*spacer 2*spacer;
-			border: 0 solid #ddd;
+			border: 0 solid border_color;
 		}
 
 		&__header {
@@ -81,7 +81,7 @@ if (modules_default_skin or modal_default_skin) {
 
 		&__footer {
 			text-align: right;
-			background: #fafafa;
+			background: form_very_light_bg_color;
 			border-top-width: 1px;
 		}
 
