@@ -76,7 +76,7 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 	// Classes
 	let newClasses = oporClass(json, true);
 	if (newClasses) {
-		elem.classList.add(...newClasses);
+		newClasses.forEach(cls => elem.classList.add(cls));
 	}
 
 	// Attributes
