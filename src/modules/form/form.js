@@ -1,6 +1,5 @@
 // Basic form controls
 
-import toArray from 'lodash/toArray';
 import { onEvent } from '../../events';
 import { toggleState } from '../../states';
 
@@ -32,7 +31,7 @@ export function toggleElem(elem, enable) {
  * @param {boolean} enable Enable or disable.
  */
 export function toggleAll(container, selector, enable) {
-	let elements = toArray(container.querySelectorAll(selector));
+	let elements = Array.from(container.querySelectorAll(selector));
 	elements.forEach(elem => toggleElem(elem, enable));
 
 	if (container.matches(selector)) {
