@@ -2,6 +2,7 @@ import capitalize from 'lodash/capitalize';
 import random from 'lodash/random';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
+import toArray from 'lodash/toArray';
 
 // Based on https://github.com/cezary/bullshit
 
@@ -18,7 +19,7 @@ const header = () => capitalize(verb()) + ' ' + adjective() + ' ' + noun();
 const sentence = () => header() + '.';
 const paragraph = (number = random(4, 12)) => range(number).map(() => sentence()).join(' ');
 
-[...document.querySelectorAll('.fixie')].forEach(elem => {
+toArray(document.querySelectorAll('.fixie')).forEach(elem => {
 	switch (elem.nodeName) {
 		case 'P':
 			elem.innerHTML = paragraph();

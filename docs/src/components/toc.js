@@ -1,5 +1,6 @@
 import { Component, registerComponent, onEvent } from '../../../src';
 import throttle from 'lodash/throttle';
+import toArray from 'lodash/toArray';
 import 'Stickyfill/dist/stickyfill';
 
 class Toc extends Component {
@@ -22,7 +23,7 @@ class Toc extends Component {
 			});
 		};
 
-		let headers = [...document.querySelectorAll('[data-toc]')];
+		let headers = toArray(document.querySelectorAll('[data-toc]'));
 
 		// TOC
 		let links = headers.map(headerElem => {

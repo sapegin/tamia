@@ -1,3 +1,4 @@
+import toArray from 'lodash/toArray';
 import { toggle } from '../appear';
 import { onEvent } from '../events';
 
@@ -58,7 +59,7 @@ function addLayoutClasses() {
 	if (layoutClassesAdded) {
 		return;
 	}
-	[...document.querySelectorAll('*')].forEach((elem) => {
+	toArray(document.querySelectorAll('*')).forEach((elem) => {
 		let content = getComputedStyle(elem).content;
 		if (/^"tamia__/.test(content)) {
 			elem.classList.add(content.replace(/"(.*?)"/, '$1'));
@@ -91,7 +92,7 @@ function addGrid() {
 }
 
 function getFirstRow() {
-	let rows = [...document.querySelectorAll('.tamia__grid-row, .tamia__layout-row')];
+	let rows = toArray(document.querySelectorAll('.tamia__grid-row, .tamia__layout-row'));
 	for (let row of rows) {
 		if (row.offsetHeight || row.offsetWidth) {
 			return row;
