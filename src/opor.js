@@ -1,7 +1,7 @@
-import { isElement } from './util';
-import isEmpty from 'lodash/isEmpty';
 import camelCase from 'lodash/camelCase';
 import castArray from 'lodash/castArray';
+import isElement from 'lodash/isElement';
+import isEmpty from 'lodash/isEmpty';
 
 const DEFAULT_TAG = 'div';
 const ELEM_SEPARATOR = '__';

@@ -1,4 +1,4 @@
-import { isElement } from './util';
+import isElement from 'lodash/isElement';
 
 /*
  * States management

@@ -1,6 +1,6 @@
 import assignIn from 'lodash/assignIn';
+import isElement from 'lodash/isElement';
 import isFunction from 'lodash/isFunction';
-import { isElement } from './util';
 import { addState } from './states';
 import { oporElement } from './opor';
 
