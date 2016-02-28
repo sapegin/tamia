@@ -1,3 +1,10 @@
+import toArray from 'lodash/toArray';
+
+// Cheap “polyfill” for IE11
+if (!Array.from) {
+	Array.from = toArray;
+}
+
 const ELEMENT = Element.prototype;
 
 // Unprefix Element.matches
