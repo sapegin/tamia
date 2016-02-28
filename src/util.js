@@ -1,15 +1,4 @@
 /**
- * Convert a value to an array if it is not an array.
- *
- * @param {*} array Array or not.
- * @returns {Array}
- * @private
- */
-export function ensureArray(array) {
-	return Array.isArray(array) ? array : [array];
-}
-
-/**
  * Check if a value is DOM element.
  *
  * @param {*} value A value to check.

@@ -1,16 +1,6 @@
 import * as util from '../src/util';
 
 describe('util', () => {
-	it('ensureArray() should return a value if it is an array', () => {
-		let result = util.ensureArray([1, 2]);
-		expect(result).to.eql([1, 2]);
-	});
-
-	it('ensureArray() should wrap a value in an array if it is not an array', () => {
-		let result = util.ensureArray('foo');
-		expect(result).to.eql(['foo']);
-	});
-
 	it('isElement() should return true if a value is an DOM element', () => {
 		let result = util.isElement(document.createElement('div'));
 		expect(result).to.be.true;

@@ -1,6 +1,7 @@
-import { ensureArray, isElement } from './util';
+import { isElement } from './util';
 import isEmpty from 'lodash/isEmpty';
 import camelCase from 'lodash/camelCase';
+import castArray from 'lodash/castArray';
 
 const DEFAULT_TAG = 'div';
 const ELEM_SEPARATOR = '__';
@@ -137,7 +138,7 @@ export function oporClass(json, returnArray = false) {
 		classes.push(base);
 
 		if (json.mods) {
-			let mods = ensureArray(json.mods);
+			let mods = castArray(json.mods);
 			for (let modIdx = 0; modIdx < mods.length; modIdx++) {
 				classes.push(base + MOD_SEPARATOR + mods[modIdx]);
 			}
@@ -145,7 +146,7 @@ export function oporClass(json, returnArray = false) {
 	}
 
 	if (json.mix) {
-		let mixes = ensureArray(json.mix);
+		let mixes = castArray(json.mix);
 		for (let mixIdx = 0; mixIdx < mixes.length; mixIdx++) {
 			let mix = mixes[mixIdx];
 			classes.push(typeof mix === 'string' ? mix : oporClass(mix));
@@ -153,14 +154,14 @@ export function oporClass(json, returnArray = false) {
 	}
 
 	if (json.states) {
-		let states = ensureArray(json.states);
+		let states = castArray(json.states);
 		for (let stateIdx = 0; stateIdx < states.length; stateIdx++) {
 			classes.push(STATE_PREFIX + states[stateIdx]);
 		}
 	}
 
 	if (json.js) {
-		let js = ensureArray(json.js);
+		let js = castArray(json.js);
 		for (let jsIdx = 0; jsIdx < js.length; jsIdx++) {
 			classes.push(JS_PREFIX + js[jsIdx]);
 		}
