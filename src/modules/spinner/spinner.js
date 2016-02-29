@@ -10,11 +10,8 @@ const TEMPLATE = {
 	content: {
 		block: 'l-center',
 		content: {
-			block: 'l-center-i',
-			content: {
-				block: 'spinner',
-				mods: 'big',
-			},
+			block: 'spinner',
+			mods: 'big',
 		},
 	},
 };

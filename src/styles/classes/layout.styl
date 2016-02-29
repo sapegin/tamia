@@ -88,24 +88,24 @@
 //
 // ```html
 // <div class="l-center">
-//   <div class="l-center-i">
-//     <span>Centered content</span>
-//     <!-- <div class="l-center__wrap">Centered content</span> -->
+//   <div>Centered content</div>
+// </div>
+// ```
+//
+// ```html
+// <div class="l-center">
+//   <div>
+//     <div>Centered content</div>
+//     <div>More content</div>
 //   </div>
 // </div>
 // ```
 .l-center {
-	display: table;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
-	&-i {
-		display: table-cell;
-		text-align: center;
-		vertical-align: middle;
-	}
-	&__wrap {
-		display: inline-block;
-	}
 }
 
 // Horizontally centered block.

@@ -22,12 +22,9 @@ export class Modal extends Component {
 		states: 'hidden',
 		content: {
 			block: 'l-center',
+			js: 'modal',
 			content: {
-				block: 'l-center-i',
-				js: 'modal',
-				content: {
-					element: '@root',
-				},
+				element: '@root',
 			},
 		},
 	};
