@@ -16,7 +16,7 @@
     "docs:bundle": "webpack --config config/webpack.docs.config.js --no-info",
     "docs:build": "babel-node docs/src"
   },
-  "homepage": "https://github.com/tamiadev/tamia",
+  "homepage": "http://tamiadev.github.io/tamia/",
   "author": {
     "name": "Artem Sapegin",
     "url": "http://sapegin.me/"
@@ -43,8 +43,7 @@
     "babel-core": "~6.5.2",
     "babel-eslint": "~5.0.0",
     "babel-loader": "~6.2.3",
-    "babel-preset-es2015": "~6.5.0",
-    "babel-preset-stage-1": "~6.5.0",
+    "babel-preset-tamia": "~6.5.0",
     "chai": "~3.5.0",
     "css-loader": "~0.23.1",
     "documentation": "github:documentationjs/documentation",

@@ -115,6 +115,7 @@ There are a few other things made specifically for Tâmia:
 
 * tamia-build: Webpack-based build tool.
 * [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config.
+* [babel-preset-tamia](https://github.com/tamiadev/babel-preset-tamia): Babel preset with ES2015, etc.
 
 
 ## Documentation
