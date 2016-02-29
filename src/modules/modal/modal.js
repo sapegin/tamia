@@ -1,6 +1,6 @@
 // Modal dialog
 
-import { onEvent, offEvent, triggerEvent, registerGlobalEvents } from '../../events';
+import { onEvent, offEvent, triggerEvent } from '../../events';
 import { addState, removeState } from '../../states';
 import { appear, disappear } from '../../appear';
 import { oporElement } from '../../opor';
@@ -13,7 +13,7 @@ const BODY_MODAL_OPENED_CLASS = 'modal-is-opened';
 const SWITCHING_STATE = 'switching';
 const HIDDEN_STATE = 'hidden';
 
-let openedInstance = null;
+let openedInstance;
 
 export class Modal extends Component {
 	static binded = 'commit dismiss keyup shadeClick';
@@ -129,20 +129,17 @@ export class Modal extends Component {
 registerComponent('t-modal', Modal);
 
 // Events
-registerGlobalEvents({
-	'tamia.modal.open': (event) => {
-		let modal = data(event.target, INSTANCE_KEY);
-		if (!modal) {
-			throw new Error('Modal component was not initialized at this element.');
-		}
-		modal.open();
-	},
-
-	'tamia.modal.close': (event) => {
-		let modal = data(event.target, INSTANCE_KEY);
-		if (!modal) {
-			return;
-		}
-		modal.close();
-	},
+onEvent(document, 'tamia.modal.open', (event) => {
+	let modal = data(event.target, INSTANCE_KEY);
+	if (!modal) {
+		throw new Error('Modal component was not initialized at this element.');
+	}
+	modal.open();
+});
+onEvent(document, 'tamia.modal.close', (event) => {
+	let modal = data(event.target, INSTANCE_KEY);
+	if (!modal) {
+		return;
+	}
+	modal.close();
 });

@@ -146,23 +146,6 @@ export function triggerNativeEvent(elem, eventName) {
 }
 
 /**
- * Register events on the document.
- *
- * @param {object} handlers Handlers list.
- *
- * @example
- *
- * registerGlobalEvents({
- *    'tamia.foo.bar': (event, ...details) => { ... },
- * });
- */
-export function registerGlobalEvents(handlers) {
-	for (let eventName in handlers) {
-		onEvent(document, eventName, handlers[eventName]);
-	}
-}
-
-/**
  * Event delegation.
  * Based on https://github.com/fat/bean
  *

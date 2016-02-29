@@ -22,7 +22,6 @@ export {
 	offEvent,
 	triggerEvent,
 	triggerNativeEvent,
-	registerGlobalEvents,
 } from './events';
 export {
 	oporElement,

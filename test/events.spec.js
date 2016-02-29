@@ -143,19 +143,6 @@ describe('events', () => {
 		expect(result).to.be.true;
 	});
 
-	it('registerGlobalEvents() should attach event handlers to document', () => {
-		let elem = document.createElement('div');
-		document.body.appendChild(elem);
-		let handler = sinon.spy();
-
-		events.registerGlobalEvents({
-			'tamia.foo': handler,
-		});
-		events.triggerEvent(elem, 'tamia.foo');
-
-		expect(handler.called).to.be.true;
-	});
-
 	it('data-fire should trigger an event on an element', () => {
 		let elem1 = document.createElement('div');
 		elem1.setAttribute('id', 'elem1');

@@ -1,4 +1,4 @@
-import { triggerEvent, registerGlobalEvents } from './events';
+import { onEvent, triggerEvent } from './events';
 import { addState, removeState, hasState } from './states';
 import { animateToState, animateFromState } from './animation';
 
@@ -80,8 +80,6 @@ export function toggle(elem) {
 	}
 }
 
-registerGlobalEvents({
-	'tamia.appear': event => appear(event.target),
-	'tamia.disappear': event => disappear(event.target),
-	'tamia.toggle': event => toggle(event.target),
-});
+onEvent(document, 'tamia.appear', event => appear(event.target));
+onEvent(document, 'tamia.disappear', event => disappear(event.target));
+onEvent(document, 'tamia.toggle', event => toggle(event.target));
