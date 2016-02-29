@@ -1,6 +1,8 @@
 import '../../src/modules/checkbox';
 import '../../src/modules/code';
+import '../../src/modules/form';
 import '../../src/modules/fade';
+import '../../src/modules/fire';
 import '../../src/modules/list';
 import '../../src/modules/media';
 import '../../src/modules/modal';
