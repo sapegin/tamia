@@ -60,7 +60,7 @@ function addLayoutClasses() {
 	}
 	Array.from(document.querySelectorAll('*')).forEach((elem) => {
 		let content = getComputedStyle(elem).content;
-		if (/^"tamia__/.test(content)) {
+		if (/^"?tamia__/.test(content)) {
 			elem.classList.add(content.replace(/"(.*?)"/, '$1'));
 		}
 	});
