@@ -6,8 +6,8 @@
 // Bones
 
 .switcher {
-	clearfix();
 	no-select();
+	display: flex;
 
 	&__input:checked,
 	&__input:not(:checked) {
@@ -19,7 +19,6 @@
 	&__input:not(:checked) + &__label {
 		field-bones();
 		position: relative;
-		float: left;
 		cursor: pointer;
 		z-index: 1;
 		margin-left: -1px;
