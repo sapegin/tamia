@@ -98,6 +98,7 @@ if DEBUG {
 	}
 
 	.tamia__grid-debugger {
+		display: flex;
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -108,11 +109,13 @@ if DEBUG {
 		&.is-hidden {
 			opacity: 0;
 		}
+		&.is-transit {
+			display: flex !important;
+		}
 	}
 
 	.tamia__grid-debugger-col {
-		grid-padding();
-		float: left;
+		grid-col-padding();
 		width: grid-width();
 		height: inherit;
 		&:before {

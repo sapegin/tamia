@@ -1,0 +1,143 @@
+// Grid
+
+@import "../config";
+
+//
+// Configuration
+//
+
+// Grid gutter size, in pixels (default: 2×spacer).
+grid_gutter ?= 2*spacer;
+
+// Number of columns in grid (default: 12).
+grid_columns ?= 12;
+
+
+/// Inspired by flexgridframework.com.
+
+// Columns wrapper.
+grid-row() {
+	grid-row-base();
+	grid-row-margin();
+}
+
+// Columns wrapper (without gutter).
+grid-row-base() {
+	display: flex;
+	flex-wrap: wrap;
+	content: "tamia__grid-row" if DEBUG;
+}
+
+// Column (grid).
+//
+// span - Width in culumns (default: all available width).
+// context - Width of parent column (default: 12).
+//
+// Examples:
+//
+// ```html
+// <div class="row">
+//   <div class="col1"></div>
+//   <div class="col2"></div>
+// </div>
+// ```
+//
+// ```scss
+// .row {
+//   grid-row();
+// }
+// .col1 {
+//   grid-col(2);
+// }
+// .col2 {
+//   grid-col();
+// }
+// ```
+grid-col(span=null, context=grid_columns) {
+	grid-col-base(span, context);
+	grid-col-padding();
+}
+
+// Column (grid, no gutter).
+//
+// span - Width in culumns (default: all available width).
+// context - Width of parent column (default: 12).
+grid-col-base(span=null, context=grid_columns) {
+	if (span) {
+		width: grid-width(span, context);
+	}
+	else {
+		flex: auto;
+	}
+	content: "tamia__grid-col" if DEBUG;
+}
+
+// Offset column (grid).
+//
+// offset - Number of columns to skip.
+// context - Width of parent column (default: 12).
+//
+// Examples:
+//
+// ```html
+// <div class="row">
+//   <div class="col1"></div>
+//   <div class="col2"></div>
+// </div>
+// ```
+//
+// ```scss
+// .row {
+//   grid-row();
+// }
+// .col1 {
+//   grid-col(2);
+// }
+// .col2 {
+//   grid-col(10);
+// }
+// ```
+grid-offset(offset, context=grid_columns) {
+	margin-left: grid-width(offset, context);
+}
+
+// Gutter size negative margin to make column with different background.
+//
+// full - Explode to all sides if true, left/right otherwise (default: false).
+grid-explode(full=false) {
+	grid-col-padding(full);
+	if full {
+		margin: -(grid_gutter);
+	}
+	else {
+		margin-side: -(grid_gutter);
+	}
+}
+
+// Width of column, in percent.
+//
+// span - Width, in culumns (default: 1).
+// context - Width of parent column (default: null).
+//
+// Returns percent.
+grid-width(span=1, context=grid_columns) {
+	span * (100% / context);
+}
+
+// Column wrapper left/right negative margin.
+grid-row-margin() {
+	margin-side: (-(grid_gutter / 2));
+}
+
+// Column left/right padding.
+//
+// full - Padding on all sides if true, left/right otherwise (default: false).
+grid-col-padding(full=false) {
+	_side-gutter = grid_gutter / 2;
+	if full {
+		padding: _side-gutter;
+	}
+	else {
+		padding-side: _side-gutter;
+	}
+}

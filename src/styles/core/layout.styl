@@ -1,157 +1,4 @@
-// Grids and layouts
-
-@import "../config";
-
-//
-// Configuration
-//
-
-// Grid gutter size, in pixels (default: 2×spacer).
-grid_gutter ?= 2*spacer;
-
-// Number of columns in grid (default: 12).
-grid_columns ?= 12;
-
-
-//
-// Grid
-//
-
-/// Inspired by http://zengrids.com
-
-// Columns wrapper.
-grid-row() {
-	clearfix();
-	grid-margin();
-	content: "tamia__grid-row" if DEBUG;
-}
-
-// Column (grid).
-//
-// position - Start column number (default: 1).
-// span - Width, in culumns (default: 1).
-// context - Width of parent column (default: null).
-//
-// Examples:
-//
-// ```html
-// <div class="row">
-//   <div class="col1"></div>
-//   <div class="col2"></div>
-// </div>
-// ```
-//
-// ```scss
-// .row {
-//   grid-row();
-// }
-// .col1 {
-//   grid-col(1,2);
-// }
-// .col2 {
-//   grid-col(3,10);
-// }
-// ```
-grid-col(position=1, span=1, context=null) {
-	_grid-column(position, span, context);
-	_grid-float();
-	grid-padding();
-}
-
-// Column and wrapper for nested columns (grid).
-//
-// position - Start column number (default: 1).
-// span - Width, in culumns (default: 1).
-// context - Width of parent column (default: null).
-//
-// Examples:
-//
-// ```html
-// <div class="row">
-//	 <div class="col1">
-//	   <div class="col3"></div>
-//	   <div class="col4"></div>
-//	 </div>
-//	 <div class="col2"></div>
-// </div>
-// ```
-//
-// ```scss
-// .row {
-//   grid-row();
-// }
-// .col1 {
-//   grid-col-row(1,8);
-// }
-// .col2, .col3, .col4 {
-//   grid-col(...);
-// }
-// ```
-grid-col-row(position=1, span=1, context=null) {
-	_grid-column(position, span, context);
-}
-
-// Gutter size negative margin to make column with different background.
-//
-// full - Explode to all sides if true, left/right otherwise (default: false).
-grid-explode(full=false) {
-	grid-padding(full);
-	if full {
-		margin: -(grid_gutter);
-	}
-	else {
-		margin-side: -(grid_gutter);
-	}
-}
-
-// Width of column, in percent.
-//
-// span - Width, in culumns (default: 1).
-// context - Width of parent column (default: null).
-//
-// Returns percent.
-grid-width(span=1, context=null) {
-	context = grid_columns if not context;
-	_unit-width = 100% / context;
-	span * _unit-width;
-}
-
-// Column left/right padding.
-//
-// full - Padding on all sides if true, left/right otherwise (default: false).
-grid-padding(full=false) {
-	_side-gutter = grid_gutter / 2;
-	if full {
-		padding: _side-gutter;
-	}
-	else {
-		padding-side: _side-gutter;
-	}
-}
-
-// Column wrapper left/right negative margin.
-grid-margin() {
-	_side-gutter = (-(grid_gutter / 2));
-	margin-side: _side-gutter;
-}
-
-_grid-column(position=1, span=1, context=null) {
-	context = grid_columns if not context;
-	_unit-width = 100% / context;
-	width: span * _unit-width;
-	margin-left: (position - 1) * _unit-width;
-	content: "tamia__grid-col" if DEBUG;
-}
-
-_grid-float() {
-	float: left;
-	margin-right: -100%;
-}
-
-
-//
-// Layouts
-//
+// Layout
 
 // Layout wrapper (without margins).
 layout-wrapper() {
@@ -162,10 +9,9 @@ layout-wrapper() {
 
 // Layout row wrapper (with margins).
 layout-row() {
-	grid-margin();
+	grid-row-margin();
 	layout-wrapper();
 }
-
 
 // Column (simple layout).
 //
@@ -208,20 +54,6 @@ layout-change(part) {
 layout-stop() {
 	_layout-part(1);
 }
-
-_layout-col() {
-	display: block;
-	grid-padding();
-	content: "tamia__layout-col" if DEBUG;
-}
-
-_layout-part(part) {
-	width: (100% / (1 / part));
-}
-
-//
-// Misc
-//
 
 // Center element with specified width and hegith.
 //
@@ -269,13 +101,19 @@ layout-right() {
 	text-align: right;
 }
 
-//
-// Spacing
-//
-
 // Space after block.
 //
 // rows - Number of “rows” (one row = default spacer).
 space(rows=1) {
 	margin-bottom: rows*spacer;
+}
+
+_layout-col() {
+	grid-col-padding();
+	display: block;
+	content: "tamia__layout-col" if DEBUG;
+}
+
+_layout-part(part) {
+	width: (100% / (1 / part));
 }
