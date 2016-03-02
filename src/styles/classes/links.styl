@@ -94,7 +94,9 @@ _is_gradient = (link_style == "gradient");
 // <a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
 // ```
 .link_quoted {
-	no-underline();
+	+link-all-states() {
+		no-underline();
+	}
 }
 
 .text {
