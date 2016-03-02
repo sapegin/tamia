@@ -44,17 +44,12 @@ link-underline(color) {
 	background-image: linear-gradient(to left, color 50%, color 50%);
 }
 
-// Adds fake link underline
-link-fake-underline(color) {
-	background-image: linear-gradient(to right, color, color 50%, transparent 50%);
-}
-
-// Link underline position (for gradient and fake links).
+// Link underline position (for gradient links).
 link-underline-position(position) {
 	background-position: 0 position;
 }
 
-// Link underline size (for gradient and fake links).
+// Link underline size (for gradient links).
 link-underline-size(height, step=1px) {
 	background-size: step height;
 }

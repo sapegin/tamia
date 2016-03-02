@@ -60,32 +60,6 @@ _is_gradient = (link_style == "gradient");
 	}
 }
 
-// Pseudo link with dashed underline.
-.link_fake {
-	link-underline-size: 1px 5px;
-	if _is_underline {
-		text-decoration: none;
-		background-repeat: repeat-x;
-		link-underline-position: link_underline_position;
-	}
-
-	&,
-	&:link,
-	&:visited {
-		link-fake-underline(link_underline_color);
-		color: link_color;
-	}
-
-	&:hover,
-	&:active,
-	&:focus {
-		if hover_underline_color != currentColor {
-			link-fake-underline(hover_underline_color);
-		}
-		color: hover_color;
-	}
-}
-
 // Link in quotes (quotes should be colored but not underlined).
 //
 // Examples:
@@ -107,8 +81,7 @@ _is_gradient = (link_style == "gradient");
 
 @media print {
 	.link,
-	.link u,
-	.link_fake {
+	.link u {
 		background-image: none;
 		text-decoration: underline;
 	}
