@@ -1,23 +1,20 @@
 // Media object
-// Based on https://github.com/csswizardry/inuit.css/blob/master/objects/_media.scss
-
-@import "../../styles/core";
+// Based on https://philipwalton.github.io/solved-by-flexbox/demos/media-object/
+// More info: http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
 
 .media {
-	clearfix();
-	display: block;
+	display: flex;
+	align-items: flex-start;
 
 	&__img {
-		float: left;
 		margin-right: spacer;
 	}
 	&__img_rev {
-		float: right;
 		margin-right: 0;
 		margin-left: spacer;
 	}
 
 	&__body {
-		overflow: hidden;
+		flex: 1;
 	}
 }
