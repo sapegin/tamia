@@ -11,10 +11,10 @@ _is_gradient = (link_style == "gradient");
 .link {
 	&,
 	& u {
-		transition: color .2s ease-in-out, background .2s ease-in-out;
 		cursor: pointer;
 		if _is_underline {
 			text-decoration: underline;
+			transition: color .2s ease-in-out;
 		}
 		else {
 			text-decoration: none;
@@ -25,9 +25,11 @@ _is_gradient = (link_style == "gradient");
 			link-underline-size: 1px;
 		}
 	}
-	&:hover,
-	&:hover u {
-		transition: none;
+	if _is_underline {
+		&:hover,
+		&:hover u {
+			transition: none;
+		}
 	}
 
 	&,
@@ -54,7 +56,7 @@ _is_gradient = (link_style == "gradient");
 	&:active u,
 	&:focus u {
 		color: hover_color;
-		if _is_gradient and hover_underline_color != currentColor {
+		if _is_gradient {
 			link-underline(hover_underline_color);
 		}
 	}
