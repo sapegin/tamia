@@ -20,7 +20,9 @@ let gridDebugger;
 function toggleGrid() {
 	addLayoutClasses();
 	addGrid();
-	toggle(gridDebugger);
+	if (gridDebugger) {
+		toggle(gridDebugger);
+	}
 }
 
 function toggleOutline() {
@@ -74,7 +76,6 @@ function addGrid() {
 	}
 
 	if (!gridDebugger) {
-		// let columns = new Array(NUMBER_OF_COLUMNS + 1).join('<b class="tamia__grid-debugger-col"></b>');
 		let columns = '<b class="tamia__grid-debugger-col"></b>'.repeat(NUMBER_OF_COLUMNS);
 		firstRow.insertAdjacentHTML('afterbegin', `
 			<div class="tamia__grid-debugger is-hidden">
@@ -92,12 +93,11 @@ function addGrid() {
 
 function getFirstRow() {
 	let rows = Array.from(document.querySelectorAll('.tamia__grid-row, .tamia__layout-row'));
-	for (let row of rows) {
+	return rows.reduce((_, row) => {
 		if (row.offsetHeight || row.offsetWidth) {
 			return row;
 		}
-	}
-	return null;
+	}, null);
 }
 
 onEvent(document, 'keydown', (event) => {
