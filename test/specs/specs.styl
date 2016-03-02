@@ -40,19 +40,30 @@ link_style = "gradient"
 }
 
 
-.dialog {
+.dialog-holder {
 	position: fixed;
-	left: 50%;
-	top: 50%;
-	padding: 2*spacer;
-	transform: translate(-50%, -50%);
-	background: #fff;
-	box-shadow: 0 0 10px black(.2);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
 	transition: opacity .5s ease-in-out;
 
 	&.is-hidden {
 		opacity: 0;
 	}
+	&.is-transit {
+		display: flex !important;
+	}
+}
+.dialog {
+	padding: 2*spacer;
+	background: #fff;
+	box-shadow: 0 0 10px black(.2);
+	pointer-events: initial;
 }
 
 body {
