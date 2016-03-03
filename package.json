@@ -34,7 +34,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=5.0.0"
   },
   "devDependencies": {
     "Stickyfill": "github:wilddeer/stickyfill",
@@ -51,7 +51,7 @@
     "eslint": "~1.10.3",
     "eslint-config-tamia": "~1.0.0",
     "extract-text-webpack-plugin": "~1.0.1",
-    "fledermaus": "~3.0.0",
+    "fledermaus": "~4.0.0",
     "fs-extra": "~0.26.5",
     "glob": "~7.0.0",
     "highlight.js": "~9.2.0",

@@ -1,9 +1,8 @@
 import { onEvent, triggerEvent } from './events';
-import { addState, removeState, hasState } from './states';
+import { hasState } from './states';
 import { animateToState, animateFromState } from './animation';
 
 const HIDDEN_STATE = 'hidden';
-const TRANSITION_STATE = 'transit';
 const APPEARED_EVENT = 'tamia.appeared';
 const DISAPPEARED_EVENT = 'tamia.disappeared';
 const TOGGLED_EVENT = 'tamia.toggled';
@@ -33,13 +32,14 @@ const TOGGLED_EVENT = 'tamia.toggled';
  * @param {HTMLElement} elem DOM element.
  */
 export function appear(elem) {
-	addState(elem, TRANSITION_STATE);
+	// Set initial display property
+	elem.style.setProperty('display', getInitialDisplay(elem), 'important');
 
 	// Force repaint
 	elem.offsetHeight;  // eslint-disable-line no-unused-expressions
 
 	animateFromState(elem, HIDDEN_STATE, () => {
-		removeState(elem, TRANSITION_STATE);
+		elem.style.setProperty('display', '');  // Remove display property
 		triggerEvent(elem, APPEARED_EVENT);
 		triggerEvent(elem, TOGGLED_EVENT, true);
 	});
@@ -53,13 +53,11 @@ export function appear(elem) {
  * @param {HTMLElement} elem DOM element.
  */
 export function disappear(elem) {
-	addState(elem, TRANSITION_STATE);
-
-	// Force repaint
-	elem.offsetHeight;  // eslint-disable-line no-unused-expressions
+	// Fix display property
+	elem.style.setProperty('display', getComputedStyle(elem).display || 'block', 'important');
 
 	animateToState(elem, HIDDEN_STATE, () => {
-		removeState(elem, TRANSITION_STATE);
+		elem.style.setProperty('display', '');  // Remove display property
 		triggerEvent(elem, DISAPPEARED_EVENT);
 		triggerEvent(elem, TOGGLED_EVENT, false);
 	});
@@ -78,6 +76,21 @@ export function toggle(elem) {
 	else {
 		disappear(elem);
 	}
+}
+
+/**
+ * Return initial (before applying .is-hidden state) display property.
+ *
+ * @param {HTMLElement} elem DOM element.
+ * @returns {string}
+ */
+function getInitialDisplay(elem) {
+	let fakeElem = document.createElement(elem.nodeName);
+	fakeElem.className = elem.className.replace(/\bis-hidden\b/g, '');
+	document.body.appendChild(fakeElem);
+	let display = getComputedStyle(fakeElem).display;
+	fakeElem.parentNode.removeChild(fakeElem);
+	return display || 'block';
 }
 
 onEvent(document, 'tamia.appear', event => appear(event.target));

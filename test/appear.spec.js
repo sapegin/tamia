@@ -7,9 +7,11 @@ describe('appear', () => {
 
 		appear(elem);
 
-		expect(elem.className).to.be.eql('is-transit');
+		expect(elem.className).to.be.eql('');
+		expect(elem.style.display).to.be.eql('block');
 		setTimeout(() => {
 			expect(elem.className).to.eql('');
+			expect(elem.style.display).to.be.eql(undefined);
 			done();
 		}, 1);
 	});
@@ -19,35 +21,29 @@ describe('appear', () => {
 
 		disappear(elem);
 
-		expect(elem.className).to.be.eql('is-transit is-hidden');
+		expect(elem.className).to.be.eql('is-hidden');
+		expect(elem.style.display).to.be.eql('block');
 		setTimeout(() => {
 			expect(elem.className).to.eql('is-hidden');
+			expect(elem.style.display).to.be.eql(undefined);
 			done();
 		}, 1);
 	});
 
-	it('toggle() should show hidden element', (done) => {
+	it('toggle() should show hidden element', () => {
 		let elem = document.createElement('div');
 		elem.classList.add('is-hidden');
 
 		toggle(elem);
 
-		expect(elem.className).to.be.eql('is-transit');
-		setTimeout(() => {
-			expect(elem.className).to.eql('');
-			done();
-		}, 1);
+		expect(elem.className).to.be.eql('');
 	});
 
-	it('toggle() should show hide visible element', (done) => {
+	it('toggle() should show hide visible element', () => {
 		let elem = document.createElement('div');
 
 		toggle(elem);
 
-		expect(elem.className).to.be.eql('is-transit is-hidden');
-		setTimeout(() => {
-			expect(elem.className).to.eql('is-hidden');
-			done();
-		}, 1);
+		expect(elem.className).to.be.eql('is-hidden');
 	});
 });
