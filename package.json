@@ -11,10 +11,11 @@
     "lint:eslint": "eslint src",
     "lint:stylint": "stylint src",
     "start": "webpack-dev-server --inline --content-base test/specs --config config/webpack.config.js --host 0.0.0.0 --no-info",
-    "docs": "npm run docs:api && npm run docs:bundle && npm run docs:build",
+    "docs": "npm run docs:api && npm run docs:bundle && npm run docs:build && npm run docs:publish",
     "docs:api": "mkdirp docs/md && documentation build -c docs/src/config.json --format md --output docs/md/api.md src/*.js",
     "docs:bundle": "webpack --config config/webpack.docs.config.js --no-info",
-    "docs:build": "babel-node docs/src"
+    "docs:build": "babel-node docs/src",
+    "docs:publish": "gh-pages -d docs/public"
   },
   "homepage": "http://tamiadev.github.io/tamia/",
   "author": {
@@ -53,6 +54,7 @@
     "extract-text-webpack-plugin": "~1.0.1",
     "fledermaus": "~4.0.0",
     "fs-extra": "~0.26.5",
+    "gh-pages": "~0.11.0",
     "glob": "~7.0.0",
     "highlight.js": "~9.2.0",
     "mkdirp": "~0.5.1",
