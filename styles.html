@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="utf-8">
+	<title>Styles: CSS classes and Stylus mixins — Tâmia</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="/tamia/favicon.ico" type="image/x-icon">
+	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+	<header class="header">
+		<div class="content">
+			<div class="l-row">
+				<div class="l-left">
+					<div class="logo">
+													<a href="/tamia/" class="logo__link">Tâmia</a>
+											</div>
+					<nav class="nav">
+													<span class="nav__item">
+								<a href="javascript.html" class="nav__link ">
+									JavaScript								</a>
+							</span>
+													<span class="nav__item">
+								<a href="styles.html" class="nav__link nav__link_active">
+									Styles								</a>
+							</span>
+													<span class="nav__item">
+								<a href="modules.html" class="nav__link ">
+									Modules								</a>
+							</span>
+											</nav>
+				</div>
+				<div class="l-right">
+					<a href="https://github.com/tamiadev/tamia" class="github-link">View on GitHub</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="page-content content">
+					<div class="l-row js-content-container">
+				<div class="l-three-quarters text js-content">
+					<h1 id="layout-classes" data-toc>Layout classes</h1>
+<h3 id=".l-row">.l-row</h3>
+<p>Column wrapper.</p>
+<h3 id=".l-sixth">.l-sixth</h3>
+<p>Sixth (to use inside <code>.l-row</code>).</p>
+<h3 id=".l-quarter">.l-quarter</h3>
+<p>Quarter (to use inside <code>.l-row</code>).</p>
+<h3 id=".l-three-quarters">.l-three-quarters</h3>
+<p>Three quarters (to use inside <code>.l-row</code>).</p>
+<h3 id=".l-third">.l-third</h3>
+<p>Third (to use inside <code>.l-row</code>).</p>
+<h3 id=".l-two-thirds">.l-two-thirds</h3>
+<p>Two thirds (to use inside <code>.l-row</code>).</p>
+<h3 id=".l-half">.l-half</h3>
+<p>Half (to use inside <code>.l-row</code>).</p>
+<h3 id=".l-wrap">.l-wrap</h3>
+<p>Wrapper for <code>.l-left</code>/<code>.l-right</code>.</p>
+<h3 id=".l-left">.l-left</h3>
+<p>Flexible columns with left text alignment (to use inside <code>.l-wrap</code>).</p>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-wrap"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-left"</span>&gt;</span>Left<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-right"</span>&gt;</span>Left<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<h3 id=".l-right">.l-right</h3>
+<p>Flexible columns with right text alignment (to use inside <code>.l-wrap</code>).</p>
+<h3 id=".l-center">.l-center</h3>
+<p>Centered content (vertically and horizontally).</p>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Centered content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Centered content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>More content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<h3 id=".l-centered">.l-centered</h3>
+<p>Horizontally centered block.</p>
+<h3 id=".l-text-centered">.l-text-centered</h3>
+<p>Centered text.</p>
+<h3 id=".l-panel">.l-panel</h3>
+<p>Panel with a header (sticked to top) and a body (occupies all available space).</p>
+<p><code>.l-panel__centered</code> can be applied to either header or body and will center content horizontally and vertically.</p>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-panel"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-panel__header"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"l-panel__body l-panel__centered"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<h2>Spacing</h2>
+<h3 id=".l-space">.l-space</h3>
+<p>Standard bottom margin.</p>
+<h3 id=".l-double-space">.l-double-space</h3>
+<p>Double bottom margin.</p>
+<h3 id=".l-triple-space">.l-triple-space</h3>
+<p>Triple bottom margin.</p>
+<h3 id=".l-quad-space">.l-quad-space</h3>
+<p>Quadruple bottom margin.</p>
+<h3 id=".l-quint-space">.l-quint-space</h3>
+<p>Quintuple bottom margin.</p>
+<h3 id=".l-sext-space">.l-sext-space</h3>
+<p>Sextuple bottom margin.</p>
+<h1 id="link-classes" data-toc>Link classes</h1>
+<h3 id=".link">.link</h3>
+<p>Link.</p>
+<h3 id=".link_quoted">.link_quoted</h3>
+<p>Link in quotes (quotes should be colored but not underlined).</p>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link link_quoted"</span>&gt;</span>“<span class="hljs-tag">&lt;<span class="hljs-name">u</span>&gt;</span>My Little Pony<span class="hljs-tag">&lt;/<span class="hljs-name">u</span>&gt;</span>”<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
+<h1 id="misc-classes" data-toc>Misc classes</h1>
+<h3 id=".is-hidden">.is-hidden</h3>
+<p>Element is hidden.</p>
+<h3 id=".is-invisible">.is-invisible</h3>
+<p>Element is invisible (but occupies place on page).</p>
+<h1 id="layout" data-toc>Layout</h1>
+<h3 id="layout-wrapper()">layout-wrapper()</h3>
+<p>Layout wrapper (without margins).</p>
+<h3 id="layout-row()">layout-row()</h3>
+<p>Layout row wrapper (with margins).</p>
+<h3 id="layout-nth()">layout-nth()</h3>
+<p>Column (simple layout).</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>part</code> 1/Nth part of wrapper.</li>
+</ul>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre><code class="language-scss">.row {
+    layout-row();
+}
+.col {
+    layout-nth(1/2);  // Half
+}</code></pre>
+<h3 id="layout-change()">layout-change()</h3>
+<p>Change number of columns.</p>
+<p>Use it to change number of columns (defined via layout-nth()) inside media queries.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>part</code> 1/Nth part of wrapper.</li>
+</ul>
+<h3 id="layout-stop()">layout-stop()</h3>
+<p>Disable columns.</p>
+<p>Alias for layout-change(1).</p>
+<h3 id="center()">center()</h3>
+<p>Center element with specified width and hegith.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>width</code> Width of an element.</li>
+<li><code>height</code> Height of an element (default: null).</li>
+</ul>
+<h4>Examples</h4>
+<pre><code class="language-scss"><span class="hljs-selector-class">.checkbox</span>:before {
+    center(<span class="hljs-selector-class">.8em</span>, <span class="hljs-selector-class">.65em</span>);
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">"check.svg"</span>);
+}</code></pre>
+<h3 id="layout-left()">layout-left()</h3>
+<p>Flexible columns with left text alignment (to use inside .l-wrap).</p>
+<h4>Examples</h4>
+<pre><code class="language-scss"><span class="hljs-selector-class">.block</span> {
+    layout-wrapper();
+    &amp;__first {
+      layout-<span class="hljs-attribute">left</span>();
+    }
+    &amp;__second {
+      layout-<span class="hljs-attribute">right</span>();
+    }
+}</code></pre>
+<h3 id="layout-right()">layout-right()</h3>
+<p>Flexible columns with right text alignment (to use inside .l-wrap).</p>
+<h3 id="space()">space()</h3>
+<p>Space after block.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>rows</code> Number of “rows” (one row = default spacer).</li>
+</ul>
+<h1 id="links" data-toc>Links</h1>
+<h2>Configuration</h2>
+<h3 id="link_style">link_style</h3>
+<p>Link underline style (default: underline).</p>
+<h4>Values</h4>
+<ul>
+<li>none - no underline.</li>
+<li>underline - text-decoration:underline.</li>
+<li>gradient - Uses CSS gradients to position line under text (cannot change line color on hover).</li>
+</ul>
+<h3 id="link_color">link_color</h3>
+<p>Link color.</p>
+<h3 id="visited_color">visited_color</h3>
+<p>Visited link color (only for underline links because image backgrounds don’t work on :visited links).</p>
+<h3 id="hover_color">hover_color</h3>
+<p>Hovered link color.</p>
+<h3 id="link_underline_color">link_underline_color</h3>
+<p>Link underline color (for gradient links).</p>
+<h3 id="hover_underline_color">hover_underline_color</h3>
+<p>Hovered link underline color (for gradient links).</p>
+<h3 id="link_underline_position">link_underline_position</h3>
+<p>Link underline position (only for gradient links, default: 90%)</p>
+<h2>Mixins</h2>
+<h3 id="link-underline()">link-underline()</h3>
+<p>Adds link underline (for gradient links).</p>
+<h3 id="link-underline-position()">link-underline-position()</h3>
+<p>Link underline position (for gradient links).</p>
+<h3 id="link-underline-size()">link-underline-size()</h3>
+<p>Link underline size (for gradient links).</p>
+<h3 id="link-hovers()">link-hovers()</h3>
+<p>:hover, :active and :focus states of the link.</p>
+<h4>Examples</h4>
+<pre><code class="language-scss">+<span class="hljs-selector-tag">link</span>-hovers() {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#bada55</span>;
+}</code></pre>
+<h3 id="link-non-hovers()">link-non-hovers()</h3>
+<p>:link and :visited states of the link.</p>
+<h4>Examples</h4>
+<pre><code class="language-scss">+<span class="hljs-selector-tag">link</span>-non-hovers() {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#bada55</span>;
+}</code></pre>
+<h3 id="link-all-states()">link-all-states()</h3>
+<p>All states of the link.</p>
+<h4>Examples</h4>
+<pre><code class="language-scss">+<span class="hljs-selector-tag">link</span>-all-states() {
+    <span class="hljs-attribute">color</span>: @color;
+}</code></pre>
+<h3 id="link-clear-descenders()">link-clear-descenders()</h3>
+<p>Clear link descenders.</p>
+<h3 id="pressable()">pressable()</h3>
+<p>Pressable element: pointer cursor and disabled text selection.</p>
+<h3 id="no-pressable()">no-pressable()</h3>
+<p>Non-pressable element: cancels .pressable.</p>
+<h3 id="no-underline()">no-underline()</h3>
+<p>Remove underline.</p>
+<h1 id="images-with-retina-support" data-toc>Images with Retina support</h1>
+<h2>Configuration</h2>
+<h3 id="retinafy">retinafy</h3>
+<p>Enable Retina support (default: false).</p>
+<h3 id="images_relative_root">images_relative_root</h3>
+<p>Path to calculate file system image path based on CSS path (default: .).</p>
+<h2>Functions</h2>
+<h3 id="image()">image()</h3>
+<p>background-image with Retina variant.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>path</code> Image file path.</li>
+<li><code>x</code> background-position x (default: 0).</li>
+<li><code>y</code> background-position y (default: 0).</li>
+</ul>
+<p>Retina image file should be named path@2x.png.</p>
+<h1 id="media-queries" data-toc>Media queries</h1>
+<h3 id="above()">above()</h3>
+<p>Media query shortcut: viewport width is greater than or equal to specified value.</p>
+<h4>Examples</h4>
+<pre><code class="language-scss"><span class="hljs-selector-class">.pony</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#c0ffee</span>;
+    +above(320px) {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#bada55</span>;
+    }
+}</code></pre>
+<h4>Parameters</h4>
+<ul>
+<li><code>min</code> Min width.</li>
+</ul>
+<h3 id="below()">below()</h3>
+<p>Media query shortcut: viewport width is less than or equal to specified value.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>max</code> Max width.</li>
+</ul>
+<h3 id="between()">between()</h3>
+<p>Media query shortcut: viewport width is in between specified values.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>min</code> Min width.</li>
+<li><code>max</code> Max width.</li>
+</ul>
+<h3 id="higher()">higher()</h3>
+<p>Media query shortcut: viewport height is greater than or equal to specified value.</p>
+<h4>Examples</h4>
+<pre><code class="language-scss"><span class="hljs-selector-class">.pony</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#c0ffee</span>;
+    +higher(320px) {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#bada55</span>;
+    }
+}</code></pre>
+<ul>
+<li><code>min</code> Min height.</li>
+</ul>
+<h3 id="lower()">lower()</h3>
+<p>Media query shortcut: viewport height is less than or equal to specified value.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>max</code> Max height.</li>
+</ul>
+<h3 id="retina()">retina()</h3>
+<p>Media query shortcut: retina screen.</p>
+<h1 id="functions" data-toc>Functions</h1>
+<h3 id="white()">white()</h3>
+<p>White color with transparency.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>opacity</code> Opacity value (0—1).</li>
+</ul>
+<p>Returns color.</p>
+<h3 id="black()">black()</h3>
+<p>Black color with transparency.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>opacity</code> Opacity value (0—1).</li>
+</ul>
+<p>Returns color.</p>
+<h1 id="misc-functions-and-mixins" data-toc>Misc functions and mixins</h1>
+<h2>Easings</h2>
+<h3 id="ease-in-sine">ease-in-sine</h3>
+<p>Ease in sine.</p>
+<h3 id="ease-in-quint">ease-in-quint</h3>
+<p>Ease in quint.</p>
+<h3 id="ease-out-quint">ease-out-quint</h3>
+<p>Ease out quint.</p>
+<h3 id="ease-out-back">ease-out-back</h3>
+<p>Ease out back.</p>
+<h3 id="ease-in-out-cubic">ease-in-out-cubic</h3>
+<p>Ease in out cubic.</p>
+<h2>Typography and text</h2>
+<h3 id="ellipsis()">ellipsis()</h3>
+<p>Ellipsis text overflow.</p>
+<h3 id="tweak-inverted-text()">tweak-inverted-text()</h3>
+<p>Tweak inverted text (light on dark) for OS X.</p>
+<h3 id="no-select()">no-select()</h3>
+<p>Disables text selection.</p>
+<h3 id="enable-select()">enable-select()</h3>
+<p>Enables text selection.</p>
+<h3 id="hide-text()">hide-text()</h3>
+<p>Hides text (for image replacement).</p>
+<h3 id="heading-font-size()">heading-font-size()</h3>
+<p>Heading font size with negative left margin to better align it with the column.</p>
+<h2>Misc.</h2>
+<h3 id="size()">size()</h3>
+<p>Set element width and height.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>width</code> Width.
+[height] - Height (the same as width if not passed).</li>
+</ul>
+<h3 id="margin-side()">margin-side()</h3>
+<p>Set element’s left and right margins.</p>
+<h3 id="padding-side()">padding-side()</h3>
+<p>Set element’s left and right paddings.</p>
+<h3 id="responsive-images()">responsive-images()</h3>
+<p>Make all images inside responsive.</p>
+<h3 id="no-transition()">no-transition()</h3>
+<p>Disables transitions.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>imp</code> Important? (default: false).</li>
+</ul>
+<h3 id="appear-fade()">appear-fade()</h3>
+<p>Appear .is-hidden element with a fade animation.</p>
+<h3 id="appear-slide()">appear-slide()</h3>
+<p>Appear .is-hidden element with a slide animation.</p>
+<h3 id="triangle()">triangle()</h3>
+<p>Draws triangle.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>direction</code> Triangle direction (up, down, left, right).</li>
+<li><code>size</code> Size (default: 10px).</li>
+<li><code>color</code> Color (default: black).</li>
+</ul>
+<h3 id="debug()">debug()</h3>
+<p>Draws color outline around an element.</p>
+<p>Works only when <code>DEBUG == true</code>.</p>
+				</div>
+				<div class="l-quarter">
+					<u-toc class="toc" data-page="styles"></u-toc>
+				</div>
+			</div>
+			</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="bundle.js"></script>
+
+	<!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter6395488 = new Ya.Metrika({id:6395488, webvisor:true, clickmap:true, trackLinks:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/6395488" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+</body>
+</html>

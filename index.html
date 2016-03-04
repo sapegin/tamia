@@ -1,39 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
+		<meta charset="utf-8">
 	<title>Tâmia</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="shortcut icon" href="/tamia/favicon.ico" type="image/x-icon">
-	<script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
-
 	<header class="header">
 		<div class="content">
 			<div class="l-row">
 				<div class="l-left">
 					<div class="logo">
-						
-							Tâmia
-						
-					</div>
+													Tâmia
+											</div>
 					<nav class="nav">
-						
-							<li class="nav__item">
-								<a href="docs.html" class="nav__link ">
-									Documentation
-								</a>
-							</li>
-						
-							<li class="nav__item">
+													<span class="nav__item">
+								<a href="javascript.html" class="nav__link ">
+									JavaScript								</a>
+							</span>
+													<span class="nav__item">
+								<a href="styles.html" class="nav__link ">
+									Styles								</a>
+							</span>
+													<span class="nav__item">
 								<a href="modules.html" class="nav__link ">
-									Modules
-								</a>
-							</li>
-						
-					</nav>
+									Modules								</a>
+							</span>
+											</nav>
 				</div>
 				<div class="l-right">
 					<a href="https://github.com/tamiadev/tamia" class="github-link">View on GitHub</a>
@@ -42,122 +37,119 @@
 		</div>
 	</header>
 
-
 	<div class="page-content content">
-		
-			<div class="splash">
+					<div class="splash">
 				<h1 class="splash__title">Tâmia</h1>
 				<div class="splash__subtitle">Tiny but extremely opinionated front-end framework by <a href="http://sapegin.me/" class="link">Artem Sapegin</a>.</div>
 			</div>
 			<div class="text">
-				<h2 id="based-on">Based On</h2>
+				<h2>Based On</h2>
 <ul>
-<li>Autoprefixer.</li>
-<li>Modernizr.</li>
-<li>jQuery.</li>
-<li>Stylus.</li>
-<li>Grunt.</li>
-<li>Yo.</li>
+<li><a href="https://github.com/WebReflection/document-register-element">Web Components</a></li>
+<li><a href="https://github.com/postcss/autoprefixer">Autoprefixer</a></li>
+<li>ECMAScript6</li>
+<li>Webpack</li>
+<li>Stylus</li>
+<li>ESLint</li>
+<li>Lodash</li>
+<li>Babel</li>
 </ul>
-<h2 id="why-another-framework">Why Another Framework</h2>
+<h2>Why Another Framework</h2>
 <p>Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.</p>
-<p>Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project few years ago.</p>
-<h2 id="browser-support">Browser Support</h2>
-<p>I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE8 (and probably not all features will work fine there).</p>
-<h2 id="workflow">Workflow</h2>
-<p>I use <a href="https://github.com/tamiadev/generator-tamia">Yeomen generator</a> for scaffolding new projects: create folders and all required files.</p>
-<p>I use Grunt as much as possible: run Stylus, combine and minify JavaScript, optimize images, generate sprites, generate web fonts, pre-compile JavaScript templates, etc.</p>
+<p>Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project in 2000s.</p>
+<h2>Browser Support</h2>
+<p>I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE11.</p>
+<h2>Workflow</h2>
+<p>I use Webpack to bundle JavaScript and Stylus.</p>
 <p>For CSS I use kinda <a href="http://bem.info/">BEM</a> light methodology—<a href="http://blog.sapegin.me/all/opor-methodology">OPOR</a> (One Page of Rules).</p>
-<p>And then I use BitBucket and Fabric to deploy website to a server.</p>
-<h2 id="definitions-blocks-components-modules">Definitions: blocks, components, modules</h2>
+<p>And then I use <a href="https://github.com/sapegin/shipit">shipit</a> to deploy a site to a server from GitHub or BitBucket or using rsync.</p>
+<h2>Definitions: blocks, components, modules</h2>
 <p><strong>Block</strong> is an independent entity with some appearance (Stylus). You could read more about blocks <a href="http://bem.info/method/definitions/">on bem.info</a>.</p>
 <p><strong>Component</strong> is a JavaScript “class” inherited from <code>tamia.Component</code> base “class”. You could mix blocks and components in any same combination.</p>
-<p><strong>Module</strong> is combination of block (appearance) and component (behaviour) that can be used on many websites. Some modules have only blocks, some modules have default skin that you can disable if you want.</p>
-<h2 id="stylus-bootstap">Stylus Bootstap</h2>
-<p>It’s a base CSS rules (like Normalize.css but a quite different) and a lot of useful Stylus mixins:</p>
+<p><strong>Module</strong> is combination of block (appearance) and component (behaviour) that can be used on many sites. Some modules have only blocks, some modules have default skin that you can disable if you want.</p>
+<h2>Stylus Bootstap</h2>
+<p>It’s a base CSS rules (like <a href="https://necolas.github.io/normalize.css/">Normalize.css</a> but quite different) and a lot of useful Stylus mixins:</p>
 <ul>
 <li>Fluid grid.</li>
-<li>Sprites (manual or generated) with Retina support.</li>
+<li>Images with Retina support.</li>
 <li>Links with three types of underlining: text-decoration, border-bottom and linear-gradient.</li>
+<li>Media query helpers.</li>
 <li>Sticky footer.</li>
 <li>Debug helpers.</li>
 <li>Lot of useful mixins.</li>
 </ul>
-<h2 id="component-base-class">Component Base Class</h2>
+<h2>Component Base Class</h2>
 <p>Simple example:</p>
-<pre><code class="javascript"><span class="keyword">var</span> Pony = tamia.extend(tamia.Component, {
-  binded: <span class="string">'toggle'</span>,
-  init: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">this</span>.elem.on(<span class="string">'click'</span>, <span class="string">'.js-toggle'</span>, <span class="keyword">this</span>.toggle_);
-  },
-  toggle: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">this</span>.elem.toggleState(<span class="string">'pink'</span>);
-  }
-});</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Component, registerComponent, onEvent, toggleState } <span class="hljs-keyword">from</span> <span class="hljs-string">'tamia'</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pony</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">static</span> binded = <span class="hljs-string">'toggle'</span>;
 
-<pre><code class="css"><span class="tag">tamia</span><span class="class">.initComponents</span>(<span class="rules">{<span class="rule"><span class="attribute">pony</span>:<span class="value"> Pony</span></span></span>});</code></pre><pre><code class="html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pink-pony is-pink"</span> <span class="attribute">data-component</span>=<span class="value">"pony"</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"pink-pony__button js-toggle"</span>&gt;</span>To pink or not to pink?<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre><p>See documentation <a href="http://tamiadev.github.io/tamia/docs.html">for details</a>.</p>
-<h2 id="javascript-helpers">JavaScript Helpers</h2>
+  init() {
+    onEvent(<span class="hljs-keyword">this</span>.elem, <span class="hljs-string">'click'</span>, <span class="hljs-string">'.js-toggle'</span>, <span class="hljs-keyword">this</span>.toggle);
+  }
+
+  toggle() {
+    toggleState(<span class="hljs-keyword">this</span>.elem, <span class="hljs-string">'pink'</span>);
+  }
+}
+
+registerComponent(<span class="hljs-string">'u-pony'</span>, Pony);</code></pre>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">u-pony</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pink-pony is-pink"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pink-pony__button js-toggle"</span>&gt;</span>To pink or not to pink?<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">u-pony</span>&gt;</span></code></pre>
+<p>See documentation <a href="http://tamiadev.github.io/tamia/api.html#Component">for details</a>.</p>
+<h2>JavaScript Helpers</h2>
 <p>Useful events and other stuff.</p>
-<p>See documentation <a href="http://tamiadev.github.io/tamia/docs.html">for details</a>.</p>
-<h2 id="modules-library">Modules library</h2>
-<p>Form controls, basic text styles, <a href="https://github.com/tamiadev/tamia/tree/master/modules">etc</a>.</p>
+<p>See documentation <a href="http://tamiadev.github.io/tamia/api.html">for details</a>.</p>
+<h2>Modules library</h2>
+<p>Form controls, basic text styles, <a href="http://tamiadev.github.io/tamia/modules.html">etc</a>.</p>
 <p>All modules are disabled by default. See <em>Using Modules</em> below for details.</p>
-<h2 id="tools">Tools</h2>
-<p>There are few other things made specifically for Tâmia:</p>
+<h2>Tools</h2>
+<p>There are a few other things made specifically for Tâmia:</p>
 <ul>
-<li><a href="https://github.com/tamiadev/generator-tamia">Yeomen project generator</a>;</li>
-<li><a href="https://github.com/tamiadev/grunt-tamia-sprite">Grunt task</a> for generating sprites.</li>
+<li>tamia-build: Webpack-based build tool.</li>
+<li><a href="https://github.com/tamiadev/eslint-config-tamia">eslint-config-tamia</a>: ESLint config.</li>
+<li><a href="https://github.com/tamiadev/babel-preset-tamia">babel-preset-tamia</a>: Babel preset with ES2015, etc.</li>
 </ul>
-<h2 id="documentation">Documentation</h2>
-<p>See <a href="http://tamiadev.github.io/tamia/">here</a>.</p>
-<h2 id="installation">Installation</h2>
-<p>The easiest way to install Tâmia is to use Yeomen generator:</p>
-<pre><code class="undefined">$ npm install -g yo generator-tamia
-$ yo tamia</code></pre><p>(You can use <code>yo tamia:framework</code> to update Tâmia to the latest version.)</p>
-<p>You can also install manually:</p>
-<ol>
-<li><p>Download and unzip repository to <code>tamia</code> folder inside your project.</p>
-</li>
-<li><p>Include Stylus bootstrap to your main Stylus stylesheet: <code>import &quot;tamia/tamia&quot;</code>.</p>
-</li>
-<li><p>Include JavaScript helpers to your page: <code>&lt;script src=&quot;tamia/tamia/tamia.js&quot;&gt;&lt;/script&gt;</code>.</p>
-</li>
-</ol>
-<h2 id="getting-started">Getting Started</h2>
-<h3 id="configuration">Configuration</h3>
+<h2>Documentation</h2>
+<p><a href="http://tamiadev.github.io/tamia/">See here</a>.</p>
+<h2>Installation</h2>
+<pre><code>npm <span class="hljs-keyword">install</span> <span class="hljs-comment">--save tamia</span></code></pre>
+<p>Add to your main JavaScript module:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-string">'tamia'</span>;</code></pre>
+<p>It will import all base styles as well.</p>
+<h2>Getting Started</h2>
+<h3>Configuration</h3>
 <p>Stylus bootstrap has a lot of parameters you can change.</p>
 <p>Add all parameters to your main Stylus stylesheet, before <code>tamia/tamia</code> import:</p>
-<pre><code class="javascript">link_style = <span class="string">"gradient"</span>
-link_color = #c0ffee
-...</code></pre><h3 id="using-modules">Using Modules</h3>
-<p>To add module to the project:</p>
-<pre><code class="css">$ <span class="tag">yo</span> <span class="tag">tamia</span><span class="pseudo">:module</span></code></pre><p>Then select module you want and it’ll be added .</p>
+<pre><code><span class="hljs-attr">link_style</span> = <span class="hljs-string">"gradient"</span>
+<span class="hljs-attr">link_color</span> = <span class="hljs-comment">#c0ffee</span>
+...</code></pre>
+<h3>Using Modules</h3>
+<p>To add module to the project add this to you main JavaScript module:</p>
+<pre><code><span class="hljs-keyword">import</span><span class="hljs-string"> 'tamia/src/modules/modulename';</span></code></pre>
 <p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
-<pre><code class="javascript">modules_default_skin = <span class="literal">true</span>;</code></pre><h3 id="debug-mode">Debug Mode</h3>
+<pre><code><span class="hljs-attr">modules_default_skin</span> = <span class="hljs-literal">true</span>;</code></pre>
+<h3>Debug Mode</h3>
 <p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
-<pre><code class="scss"><span class="tag">div</span>
-    <span class="attribute">outline</span><span class="value">: <span class="number">1</span>px solid <span class="hexcolor">#c0ffee</span> if DEBUG</span></code></pre><p>JavaScript:</p>
-<pre><code class="javascript"><span class="keyword">if</span> (DEBUG) console.log(<span class="string">'Debug info'</span>);</code></pre><p>To enable debug mode in Stylus just run Grunt with <code>--debug</code> command line option. Debug mode in JavaScript enabled by default in unminified code.</p>
-<h2 id="the-name">The Name</h2>
+<pre><code><span class="hljs-selector-tag">div</span> {
+	<span class="hljs-attribute">outline</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#c0ffee</span> if DEBUG;
+}</code></pre>
+<p>JavaScript:</p>
+<pre><code><span class="hljs-keyword">if</span> (DEBUG) {
+	console.<span class="hljs-built_in">log</span>(<span class="hljs-string">'Debug info'</span>)<span class="hljs-comment">;</span>
+}</code></pre>
+<h2>The Name</h2>
 <p>Tâmia is a chipmunk in Portuguese. It refers to <a href="https://github.com/sapegin/squirrelstrap">Squirrelstrap</a>, my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).</p>
 <hr>
-<h2 id="license">License</h2>
+<h2>License</h2>
 <p>The <a href="https://github.com/tamiadev/tamia/blob/master/License.md">MIT License</a>.</p>
-
 			</div>
-		
-	</div>
+			</div>
 
-	<!--[if lt IE 9]>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<![endif]-->
-	<!--[if gte IE 9]><!-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-	<!--<![endif]-->
-	<script src="scripts.js"></script>
+	<script src="bundle.js"></script>
 
 	<!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter6395488 = new Ya.Metrika({id:6395488, webvisor:true, clickmap:true, trackLinks:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/6395488" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
