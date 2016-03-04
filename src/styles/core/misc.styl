@@ -121,6 +121,27 @@ no-transition(imp=false) {
 	}
 }
 
+// Appear .is-hidden element with a fade animation.
+appear-fade(duration=.25s) {
+	transition: opacity duration ease-in-out;
+
+	&.is-hidden {
+		opacity: 0;
+	}
+}
+
+// Appear .is-hidden element with a slide animation.
+appear-slide(h, duration=.4s) {
+	overflow: hidden;
+	max-height: h;
+	transition: all duration ease-in-quint;
+
+	&.is-hidden {
+		display: block !important;
+		max-height: 0;
+	}
+}
+
 // Draws triangle.
 //
 // direction - Triangle direction (up, down, left, right).

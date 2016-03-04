@@ -257,10 +257,18 @@
 	<div class="dialog-holder js-dialog is-hidden">
 		<div class="dialog">
 			<p>Hello!</p>
-			<p><span class="link js-disappear" data-fire="tamia.disappear" data-closest=".js-dialog">Disappear</span></p>
+			<p><span class="link" data-fire="tamia.disappear" data-closest=".js-dialog">Disappear</span></p>
 		</div>
 	</div>
-	<p><span class="link js-appear" data-fire="tamia.appear" data-target=".js-dialog">Appear</span> or <span class="link js-toggle" data-fire="tamia.toggle" data-target=".js-dialog">Toggle</span></p>
+	<p><span class="link" data-fire="tamia.appear" data-target=".js-dialog">Appear (fade)</span> or <span class="link js-toggle" data-fire="tamia.toggle" data-target=".js-dialog">Toggle</span></p>
+</div>
+
+<div class="spec">
+	<p><span class="link" data-fire="tamia.appear" data-target=".js-slide">Appear (slide)</span> or <span class="link js-toggle" data-fire="tamia.toggle" data-target=".js-slide">Toggle</span></p>
+	<div class="sliding-block js-slide is-hidden">
+		<p>Hello!</p>
+		<p><span class="link" data-fire="tamia.disappear" data-closest=".js-slide">Disappear</span></p>
+	</div>
 </div>
 
 <script src="/build/bundle.js"></script>

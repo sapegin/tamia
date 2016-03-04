@@ -15,10 +15,7 @@ const TOGGLED_EVENT = 'tamia.toggled';
  * @example
  *
  * .dialog {
- *   transition:opacity .5s ease-in-out;
- *   &.is-hidden {
- *     opacity: 0;
- *   }
+ *   appear-fade();
  * }
  *
  * @example
