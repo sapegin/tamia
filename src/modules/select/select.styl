@@ -8,23 +8,22 @@
 .select {
 	field-bones();
 	no-select();
+	overflow: hidden;
 	position: relative;
-	display: block;
 
-	&_inline {
-		display: inline-block;
+	&_block {
+		display: block;
 	}
 
 	&__select {
 		position: absolute;
 		bottom: 0;
-		left: 0;
-		width: 100%;
+		left: -1px;
+		width: calc(100% + 2px);
 		opacity: 0;
 		z-index: 2;
 		cursor: default;
-		transform: scaleY(2);  // Select height could be smaller than box height
-		transform-origin: 0 100%;  // Fixes dropdown position on Windows
+		transform: scaleY(3);  // Select height could be smaller than box height
 	}
 
 	&__box {

@@ -7,6 +7,7 @@ import registerComponent from '../../registerComponent';
 import { toggleFields } from '../form';
 
 const DISABLED_STATE = 'disabled';
+const WIDTH_EXTRA = 30;
 
 export default class Select extends Component {
 	static binded = 'focus blur change';
@@ -38,6 +39,13 @@ export default class Select extends Component {
 		}
 
 		this.change();
+
+		// Set the width of native select
+		if (!this.elem.classList.contains('select_block')) {
+			setTimeout(() => {
+				this.elem.style.width = (this.selectElem.offsetWidth + WIDTH_EXTRA) + 'px';
+			});
+		}
 	}
 
 	focus() {
