@@ -2,7 +2,6 @@
   "name": "tamia",
   "description": "Tiny but extremely opinionated front-end framework",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test src/**/*.spec.js",
