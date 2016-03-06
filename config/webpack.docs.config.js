@@ -31,6 +31,9 @@ module.exports = merge.smart(baseConfig, {
 			compress: {
 				warnings: false,
 			},
+			output: {
+				comments: false,
+			},
 		}),
 		new ExtractTextPlugin('styles.css'),
 	],
