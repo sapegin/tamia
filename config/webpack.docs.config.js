@@ -20,7 +20,10 @@ module.exports = merge.smart(baseConfig, {
 		loaders: [
 			{
 				test: /\.styl$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader'),
+				loader: ExtractTextPlugin.extract(
+					'style',
+					['css', 'postcss', 'stylus']
+				),
 			},
 		],
 	},
