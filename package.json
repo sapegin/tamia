@@ -6,6 +6,7 @@
     "test": "npm run lint && npm run mocha",
     "start": "webpack-dev-server --inline --content-base test/specs --config config/webpack.config.js --host 0.0.0.0 --no-info",
     "prepublish": "npm run compile",
+    "postpublish": "npm run docs",
     "mocha": "mocha test src/**/*.spec.js",
     "mocha:watch": "mocha --watch --reporter min test src/**/*.spec.js",
     "lint": "npm run lint:eslint && npm run lint:stylint",
