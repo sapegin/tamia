@@ -4,12 +4,18 @@
   "version": "0.0.0",
   "scripts": {
     "test": "npm run lint && npm run mocha",
+    "prepublish": "npm run compile",
     "mocha": "mocha test src/**/*.spec.js",
     "mocha:watch": "mocha --watch --reporter min test src/**/*.spec.js",
     "lint": "npm run lint:eslint && npm run lint:stylint",
     "lint:eslint": "eslint src",
     "lint:stylint": "stylint src",
     "start": "webpack-dev-server --inline --content-base test/specs --config config/webpack.config.js --host 0.0.0.0 --no-info",
+    "compile": "npm run compile:clean && npm run compile:copy && npm run compile:transpile",
+    "compile:clean": "rimraf lib",
+    "compile:copy": "cpy '**/*.{styl,svg,woff}' '../lib' --cwd src --parents",
+    "compile:transpile": "babel -d lib/ src/",
+    "compile:watch": "babel --watch -d lib/ src/",
     "docs": "npm run docs:api && npm run docs:bundle && npm run docs:build && npm run docs:publish",
     "docs:api": "mkdirp docs/md && documentation build -c docs/src/config.json --format md --output docs/md/api.md src/*.js",
     "docs:bundle": "webpack --config config/webpack.docs.config.js --no-info",
@@ -29,9 +35,9 @@
     "url": "https://github.com/tamiadev/tamia/issues"
   },
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "files": [
-    "src"
+    "lib"
   ],
   "engines": {
     "node": ">=5.0.0"
@@ -45,6 +51,7 @@
     "babel-loader": "~6.2.3",
     "babel-preset-tamia": "~6.5.0",
     "chai": "~3.5.0",
+    "cpy-cli": "~1.0.0",
     "css-loader": "~0.23.1",
     "documentation": "github:documentationjs/documentation",
     "domino": "~1.0.23",
@@ -59,6 +66,7 @@
     "mkdirp": "~0.5.1",
     "mocha": "~2.4.5",
     "postcss-loader": "~0.8.1",
+    "rimraf": "~2.5.2",
     "sequelize": "~3.19.3",
     "sinon": "~1.17.3",
     "sqlite3": "~3.1.1",
