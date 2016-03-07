@@ -127,7 +127,7 @@ There are a few other things made specifically for Tâmia:
 
 It’s recommended to use Tâmia with a Webpack builder, [tamia-build](https://github.com/tamiadev/tamia-build).
 
-```
+```bash
 npm install --save tamia
 npm install --save-dev tamia-build
 ./node_modules/.bin/tamia init
@@ -148,7 +148,7 @@ It also creates two npm scripts:
 
 Stylus bootstrap has a lot of parameters you can change via `styles/config.styl` file:
 
-```
+```scss
 link_style = "gradient"
 link_color = #c0ffee
 ...
@@ -158,13 +158,13 @@ link_color = #c0ffee
 
 To add module to the project add this to you main JavaScript module:
 
-```
+```javascript
 import 'tamia/src/modules/modulename';
 ```
 
 Default skin is enabled by default. To disable it add to project‘s Stylus config:
 
-```
+```scss
 modules_default_skin = false;
 ```
 
@@ -174,7 +174,7 @@ Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude
 
 Stylus:
 
-```
+```scss
 div {
 	outline: 1px solid #c0ffee if DEBUG;
 }
@@ -182,7 +182,7 @@ div {
 
 JavaScript:
 
-```
+```javascript
 if (DEBUG) {
 	console.log('Debug info');
 }
