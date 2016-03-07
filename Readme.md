@@ -14,12 +14,12 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 
 * [Web Components](https://github.com/WebReflection/document-register-element)
 * [Autoprefixer](https://github.com/postcss/autoprefixer)
-* ECMAScript6
-* Webpack
-* Stylus
-* ESLint
-* Lodash
-* Babel
+* [ECMAScript 6](http://es6-features.org/)
+* [Webpack](http://webpack.github.io/)
+* [Stylus](http://stylus-lang.com/)
+* [ESLint](http://eslint.org/)
+* [Lodash](https://lodash.com/)
+* [Babel](http://babeljs.io/)
 
 
 ## Why Another Framework
@@ -113,7 +113,7 @@ All modules are disabled by default. See *Using Modules* below for details.
 
 There are a few other things made specifically for Tâmia:
 
-* tamia-build: Webpack-based build tool.
+* [tamia-build](https://github.com/tamiadev/tamia-build): Webpack-based build tool.
 * [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config.
 * [babel-preset-tamia](https://github.com/tamiadev/babel-preset-tamia): Babel preset with ES2015, etc.
 
@@ -123,27 +123,30 @@ There are a few other things made specifically for Tâmia:
 [See here](http://tamiadev.github.io/tamia/).
 
 
-## Installation
+## Getting Started
+
+It’s recommended to use Tâmia with a Webpack builder, [tamia-build](https://github.com/tamiadev/tamia-build).
 
 ```
 npm install --save tamia
+npm install --save-dev tamia-build
+./node_modules/.bin/tamia init
 ```
 
-Add to your main JavaScript module:
+The `init` script will create:
 
-```javascript
-import 'tamia';
-```
+1. Main JavaScript entry point at `js/main.js`.
+2. Main Stylus file at `styles/index.styl`.
+3. Stylus config at `styles/config.styl`.
 
-It will import all base styles as well.
+It also creates two npm scripts:
 
-## Getting Started
+* `npm start` to start a dev server.
+* `npm run bundle` to make a production build of JavaScript and CSS.
 
 ### Configuration
 
-Stylus bootstrap has a lot of parameters you can change.
-
-Add all parameters to your main Stylus stylesheet, before `tamia/tamia` import:
+Stylus bootstrap has a lot of parameters you can change via `styles/config.styl` file:
 
 ```
 link_style = "gradient"
@@ -159,12 +162,11 @@ To add module to the project add this to you main JavaScript module:
 import 'tamia/src/modules/modulename';
 ```
 
-Default skin is disabled by default. To enable it add to project’s `index.styl`:
+Default skin is enabled by default. To disable it add to project‘s Stylus config:
 
 ```
-modules_default_skin = true;
+modules_default_skin = false;
 ```
-
 
 ### Debug Mode
 
