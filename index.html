@@ -47,12 +47,12 @@
 <ul>
 <li><a href="https://github.com/WebReflection/document-register-element">Web Components</a></li>
 <li><a href="https://github.com/postcss/autoprefixer">Autoprefixer</a></li>
-<li>ECMAScript6</li>
-<li>Webpack</li>
-<li>Stylus</li>
-<li>ESLint</li>
-<li>Lodash</li>
-<li>Babel</li>
+<li><a href="http://es6-features.org/">ECMAScript 6</a></li>
+<li><a href="http://webpack.github.io/">Webpack</a></li>
+<li><a href="http://stylus-lang.com/">Stylus</a></li>
+<li><a href="http://eslint.org/">ESLint</a></li>
+<li><a href="https://lodash.com/">Lodash</a></li>
+<li><a href="http://babeljs.io/">Babel</a></li>
 </ul>
 <h2>Why Another Framework</h2>
 <p>Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.</p>
@@ -107,38 +107,47 @@ registerComponent(<span class="hljs-string">'u-pony'</span>, Pony);</code></pre>
 <h2>Tools</h2>
 <p>There are a few other things made specifically for Tâmia:</p>
 <ul>
-<li>tamia-build: Webpack-based build tool.</li>
+<li><a href="https://github.com/tamiadev/tamia-build">tamia-build</a>: Webpack-based build tool.</li>
 <li><a href="https://github.com/tamiadev/eslint-config-tamia">eslint-config-tamia</a>: ESLint config.</li>
 <li><a href="https://github.com/tamiadev/babel-preset-tamia">babel-preset-tamia</a>: Babel preset with ES2015, etc.</li>
 </ul>
 <h2>Documentation</h2>
 <p><a href="http://tamiadev.github.io/tamia/">See here</a>.</p>
-<h2>Installation</h2>
-<pre><code>npm <span class="hljs-keyword">install</span> <span class="hljs-comment">--save tamia</span></code></pre>
-<p>Add to your main JavaScript module:</p>
-<pre><code class="language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-string">'tamia'</span>;</code></pre>
-<p>It will import all base styles as well.</p>
 <h2>Getting Started</h2>
+<p>It’s recommended to use Tâmia with a Webpack builder, <a href="https://github.com/tamiadev/tamia-build">tamia-build</a>.</p>
+<pre><code class="language-bash">npm install --save tamia
+npm install --save-dev tamia-build
+./node_modules/.bin/tamia init</code></pre>
+<p>The <code>init</code> script will create:</p>
+<ol>
+<li>Main JavaScript entry point at <code>js/main.js</code>.</li>
+<li>Main Stylus file at <code>styles/index.styl</code>.</li>
+<li>Stylus config at <code>styles/config.styl</code>.</li>
+</ol>
+<p>It also creates two npm scripts:</p>
+<ul>
+<li><code>npm start</code> to start a dev server.</li>
+<li><code>npm run bundle</code> to make a production build of JavaScript and CSS.</li>
+</ul>
 <h3>Configuration</h3>
-<p>Stylus bootstrap has a lot of parameters you can change.</p>
-<p>Add all parameters to your main Stylus stylesheet, before <code>tamia/tamia</code> import:</p>
-<pre><code><span class="hljs-attr">link_style</span> = <span class="hljs-string">"gradient"</span>
-<span class="hljs-attr">link_color</span> = <span class="hljs-comment">#c0ffee</span>
+<p>Stylus bootstrap has a lot of parameters you can change via <code>styles/config.styl</code> file:</p>
+<pre><code class="language-scss">link_style = "gradient"
+link_color = #c0ffee
 ...</code></pre>
 <h3>Using Modules</h3>
 <p>To add module to the project add this to you main JavaScript module:</p>
-<pre><code><span class="hljs-keyword">import</span><span class="hljs-string"> 'tamia/src/modules/modulename';</span></code></pre>
-<p>Default skin is disabled by default. To enable it add to project’s <code>index.styl</code>:</p>
-<pre><code><span class="hljs-attr">modules_default_skin</span> = <span class="hljs-literal">true</span>;</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-string">'tamia/src/modules/modulename'</span>;</code></pre>
+<p>Default skin is enabled by default. To disable it add to project‘s Stylus config:</p>
+<pre><code class="language-scss">modules_default_skin = false;</code></pre>
 <h3>Debug Mode</h3>
 <p>Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.</p>
 <p>Stylus:</p>
-<pre><code><span class="hljs-selector-tag">div</span> {
+<pre><code class="language-scss"><span class="hljs-selector-tag">div</span> {
 	<span class="hljs-attribute">outline</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#c0ffee</span> if DEBUG;
 }</code></pre>
 <p>JavaScript:</p>
-<pre><code><span class="hljs-keyword">if</span> (DEBUG) {
-	console.<span class="hljs-built_in">log</span>(<span class="hljs-string">'Debug info'</span>)<span class="hljs-comment">;</span>
+<pre><code class="language-javascript"><span class="hljs-keyword">if</span> (DEBUG) {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Debug info'</span>);
 }</code></pre>
 <h2>The Name</h2>
 <p>Tâmia is a chipmunk in Portuguese. It refers to <a href="https://github.com/sapegin/squirrelstrap">Squirrelstrap</a>, my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).</p>
