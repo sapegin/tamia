@@ -34,12 +34,15 @@ tooltip_bg_color = black(0.9);
 	&:before,
 	&:after {
 		top: 100%;
-		display: none;
+		visibility: hidden;
+		opacity: 0;
+		transition: visibility 0s, opacity 0.1s ease-in-out;
 	}
 
 	&:hover:before,
 	&:hover:after {
-		display: block;
+		visibility: visible;
+		opacity: 1;
 	}
 }
 
