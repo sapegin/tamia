@@ -9,28 +9,13 @@ selection_color ?= #ffed75;
 	box-sizing: border-box;
 }
 
-// 1. Inherit border-box on all elements.
-// 2. Align inline and inline-block elements to the middle.
-// 3. Remove padding and margins on all elements.
+// Inherit border-box on all elements and remove padding and margins on all elements.
 *,
 *:before,
 *:after {
-	box-sizing: inherit; // 1
-	vertical-align: middle; // 2
-	padding: 0; // 3
+	box-sizing: inherit;
+	padding: 0;
 	margin: 0;
-}
-
-// Normalize vertical alignment of inline-elements in Chrome, Firefox, and Opera.
-a,
-abbr,
-b,
-em,
-i,
-progress,
-span,
-strong {
-	vertical-align: baseline;
 }
 
 // Remove borders.
