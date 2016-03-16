@@ -80,6 +80,7 @@ export function toggle(elem) {
  *
  * @param {HTMLElement} elem DOM element.
  * @returns {string}
+ * @ignore
  */
 function getInitialDisplay(elem) {
 	let fakeElem = document.createElement(elem.nodeName);
