@@ -159,7 +159,7 @@ link_color = #c0ffee
 To add module to the project add this to you main JavaScript module:
 
 ```javascript
-import 'tamia/src/modules/modulename';
+import 'tamia/lib/modules/modulename';
 ```
 
 Default skin is enabled by default. To disable it add to project‘s Stylus config:
