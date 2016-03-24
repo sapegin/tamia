@@ -16,9 +16,6 @@ richtypo_extra_features ?= false;
 // Figures type: proportional, oldstyle (richtypo_global_ligatures should be enabled).
 richtypo_figures ?= "proportional";
 
-// Enables small caps in abbreviations.
-richtypo_proper_abbr ?= true;
-
 _ligatures = common-ligatures discretionary-ligatures contextual historical-ligatures;
 _base_features = "kern", "liga", "dlig", "hlig", "clig";
 if (richtypo_extra_features) {
@@ -56,10 +53,6 @@ if (richtypo_global_ligatures) {
 .text abbr {
 	letter-spacing: 0.1em;
 	margin-right: -0.1em;
-	if (richtypo_proper_abbr) {
-		font-variant-caps: all-small-caps;
-		font-feature-settings: _base_features, "c2sc", "smcp";
-	}
 }
 
 // The best ampersand.
