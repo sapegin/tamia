@@ -23,6 +23,7 @@ const stylusModules = [
 	'classes/links',
 	'classes/misc',
 	'core/layout',
+	'core/grid',
 	'core/links',
 	'core/images',
 	'core/mediaqueries',
