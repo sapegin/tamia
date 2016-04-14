@@ -179,6 +179,87 @@
 <ul>
 <li><code>rows</code> Number of “rows” (one row = default spacer).</li>
 </ul>
+<h1 id="grid" data-toc>Grid</h1>
+<h2>Configuration</h2>
+<h3 id="grid_gutter">grid_gutter</h3>
+<p>Grid gutter size, in pixels (default: 2×spacer).</p>
+<h3 id="grid_columns">grid_columns</h3>
+<p>Number of columns in grid (default: 12).</p>
+<h3 id="grid-row()">grid-row()</h3>
+<p>Columns wrapper.</p>
+<h3 id="grid-row-base()">grid-row-base()</h3>
+<p>Columns wrapper (without gutter).</p>
+<h3 id="grid-col()">grid-col()</h3>
+<p>Column (grid).</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>span</code> Width in culumns (default: all available width).</li>
+<li><code>context</code> Width of parent column (default: 12).</li>
+</ul>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre><code class="language-scss"><span class="hljs-selector-class">.row</span> {
+    grid-row();
+}
+<span class="hljs-selector-class">.col1</span> {
+    grid-<span class="hljs-selector-tag">col</span>(2);
+}
+<span class="hljs-selector-class">.col2</span> {
+    grid-<span class="hljs-selector-tag">col</span>();
+}</code></pre>
+<h3 id="grid-col-base()">grid-col-base()</h3>
+<p>Column (grid, no gutter).</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>span</code> Width in culumns (default: all available width).</li>
+<li><code>context</code> Width of parent column (default: 12).</li>
+</ul>
+<h3 id="grid-offset()">grid-offset()</h3>
+<p>Offset column (grid).</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>offset</code> Number of columns to skip.</li>
+<li><code>context</code> Width of parent column (default: 12).</li>
+</ul>
+<h4>Examples</h4>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre><code class="language-scss"><span class="hljs-selector-class">.row</span> {
+    grid-row();
+}
+<span class="hljs-selector-class">.col1</span> {
+    grid-<span class="hljs-selector-tag">col</span>(2);
+}
+<span class="hljs-selector-class">.col2</span> {
+    grid-<span class="hljs-selector-tag">col</span>(10);
+}</code></pre>
+<h3 id="grid-explode()">grid-explode()</h3>
+<p>Gutter size negative margin to make column with different background.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>full</code> Explode to all sides if true, left/right otherwise (default: false).</li>
+</ul>
+<h3 id="grid-width()">grid-width()</h3>
+<p>Width of column, in percent.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>span</code> Width, in culumns (default: 1).</li>
+<li><code>context</code> Width of parent column (default: null).</li>
+</ul>
+<p>Returns percent.</p>
+<h3 id="grid-row-margin()">grid-row-margin()</h3>
+<p>Column wrapper left/right negative margin.</p>
+<h3 id="grid-col-padding()">grid-col-padding()</h3>
+<p>Column left/right padding.</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>full</code> Padding on all sides if true, left/right otherwise (default: false).</li>
+</ul>
 <h1 id="links" data-toc>Links</h1>
 <h2>Configuration</h2>
 <h3 id="link_style">link_style</h3>
