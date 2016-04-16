@@ -92,21 +92,21 @@ registerComponent('u-pony', Pony);
 </u-pony>
 ```
 
-See documentation [for details](http://tamiadev.github.io/tamia/api.html#Component).
+See documentation [for details](http://tamiadev.github.io/tamia/javascript.html#Component).
 
 
 ## JavaScript Helpers
 
 Useful events and other stuff.
 
-See documentation [for details](http://tamiadev.github.io/tamia/api.html).
+See documentation [for details](http://tamiadev.github.io/tamia/javascript.html).
 
 
 ## Modules library
 
 Form controls, basic text styles, [etc](http://tamiadev.github.io/tamia/modules.html).
 
-All modules are disabled by default. See *Using Modules* below for details.
+All modules are disabled by default. See [*Using Modules*](#using-modules) below for details.
 
 
 ## Tools
@@ -120,7 +120,7 @@ There are a few other things made specifically for Tâmia:
 
 ## Documentation
 
-[See here](http://tamiadev.github.io/tamia/).
+[Can be found in here](http://tamiadev.github.io/tamia/).
 
 
 ## Getting Started
@@ -156,13 +156,13 @@ link_color = #c0ffee
 
 ### Using Modules
 
-To add module to the project add this to you main JavaScript module:
+To add module to the project add this to your main JavaScript module:
 
 ```javascript
 import 'tamia/lib/modules/modulename';
 ```
 
-Default skin is enabled by default. To disable it add to project‘s Stylus config:
+Default skin is enabled by default. To disable it, add the following to the project‘s Stylus config:
 
 ```scss
 modules_default_skin = false;
@@ -198,4 +198,4 @@ Tâmia is a chipmunk in Portuguese. It refers to [Squirrelstrap](https://github.
 
 ## License
 
-The MIT License, see the included `License.md` file.
+The MIT License, see the included [`License.md`](License.md) file.
