@@ -10,6 +10,7 @@ code_base_color ?= #4d4d4c;
 code_bg_color ?= white(.7);
 code_border ?= 1px solid black(.2);
 code_border_radius ?= 3px;
+code_padding ?= spacer;
 
 .code,
 .text code,
@@ -37,10 +38,10 @@ code_border_radius ?= 3px;
 	}
 
 	if (modules_default_skin or code_default_skin) {
-		@import "./tomorrow";
+		@import "./theme";
 
 		code {
-			padding: spacer;
+			padding: code_padding;
 			color: code_base_color;
 			background: code_bg_color;
 			border-radius: code_border_radius;
