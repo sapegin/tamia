@@ -1,6 +1,6 @@
 import { Component, registerComponent, onEvent } from '../../../src';
 import throttle from 'lodash/throttle';
-import 'Stickyfill/dist/stickyfill';
+import Stickyfill from 'stickyfill';
 
 class Toc extends Component {
 	init() {
@@ -42,7 +42,7 @@ class Toc extends Component {
 		`;
 
 		// position:sticky ponyfill
-		window.Stickyfill.add(this.elem);
+		Stickyfill.add(this.elem);
 
 		// Scroll spy
 		onEvent(window, 'scroll', throttle(checkScroll, 50));
