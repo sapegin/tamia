@@ -1,7 +1,7 @@
 {
   "name": "tamia",
   "description": "Tiny but extremely opinionated front-end framework",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "scripts": {
     "test": "npm run lint && npm run mocha",
     "start": "webpack-dev-server --inline --content-base test/specs --config config/webpack.config.js --host 0.0.0.0 --no-info",
