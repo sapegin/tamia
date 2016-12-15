@@ -26,8 +26,7 @@ _prefix = code_class_prefix;
 .{_prefix}name,
 .{_prefix}selector-id,
 .{_prefix}selector-class,
-.{_prefix}regexp,
-.{_prefix}deletion {
+.{_prefix}regexp {
 	color: code_theme_1;
 	@media print {
 		font-weight: bold;
@@ -52,7 +51,7 @@ _prefix = code_class_prefix;
 .{_prefix}string,
 .{_prefix}symbol,
 .{_prefix}bullet,
-.{_prefix}addition {
+.{_prefix}deletion {
 	color: code_theme_4;
 }
 
@@ -62,7 +61,8 @@ _prefix = code_class_prefix;
 }
 
 .{_prefix}keyword,
-.{_prefix}selector-tag {
+.{_prefix}selector-tag,
+.{_prefix}addition {
 	color: code_theme_6;
 }
 
