@@ -5,7 +5,6 @@
   "scripts": {
     "test": "npm run lint",
     "start": "webpack-dev-server --inline --content-base test/specs --config config/webpack.config.js --host 0.0.0.0 --no-info",
-    "postpublish": "npm run docs",
     "mocha": "mocha test src/**/*.spec.js",
     "mocha:watch": "mocha --watch --reporter min test src/**/*.spec.js",
     "lint": "npm run lint:js && npm run lint:css",
