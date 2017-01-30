@@ -83,10 +83,10 @@ export function toggle(elem) {
  * @ignore
  */
 function getInitialDisplay(elem) {
-	let fakeElem = document.createElement(elem.nodeName);
+	const fakeElem = document.createElement(elem.nodeName);
 	fakeElem.className = elem.className.replace(/\bis-hidden\b/g, '');
 	document.body.appendChild(fakeElem);
-	let display = getComputedStyle(fakeElem).display;
+	const display = getComputedStyle(fakeElem).display;
 	fakeElem.parentNode.removeChild(fakeElem);
 	return display || 'block';
 }

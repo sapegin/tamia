@@ -4,7 +4,7 @@
 
 Tâmia is a tiny but extremely opinionated framework for front-end developers (hmm… just for me now). It consists of four parts:
 
-1. Stylus bootstrap.
+1. CSS bootstrap.
 2. Component base class.
 3. JavaScript helpers.
 4. Modules library.
@@ -13,20 +13,18 @@ Tâmia is a tiny but extremely opinionated framework for front-end developers (h
 ## Based On
 
 * [Web Components](https://github.com/WebReflection/document-register-element)
-* [Autoprefixer](https://github.com/postcss/autoprefixer)
+* [CSS Modules](https://github.com/css-modules/css-modules), [PostCSS](http://postcss.org/) and [cssnext](http://cssnext.io/)
 * [ECMAScript 6](http://es6-features.org/)
-* [Webpack](http://webpack.github.io/)
-* [Stylus](http://stylus-lang.com/)
-* [ESLint](http://eslint.org/)
+* [Webpack 2](http://webpack.js.org/)
 * [Lodash](https://lodash.com/)
 * [Babel](http://babeljs.io/)
 
 
 ## Why Another Framework
 
-Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. They also don’t like Stylus as much as I do.
+Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and way of working. I also use it to try new technologies and ways of making sites.
 
-Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my HDD with a few CSS and JS files that I copypasted to every new project in 2000s.
+Tâmia is a new cool name for what I use every day in my own and freelance projects. It’s evolved from a folder on my disk with a few CSS and JS files that I copypasted to every new project in 2000s.
 
 
 ## Browser Support
@@ -36,33 +34,25 @@ I love new technologies so I spend as little time as possible on old browsers. T
 
 ## Workflow
 
-I use Webpack to bundle JavaScript and Stylus.
+I use Webpack-based [tamia-build](https://github.com/tamiadev/tamia-build) to bundle JavaScript and CSS.
 
-For CSS I use kinda [BEM](http://bem.info/) light methodology—[OPOR](http://blog.sapegin.me/all/opor-methodology) (One Page of Rules).
+For CSS I use [CSS Modules](https://github.com/css-modules/css-modules) with [cssnext](http://cssnext.io/).
 
 And then I use [shipit](https://github.com/sapegin/shipit) to deploy a site to a server from GitHub or BitBucket or using rsync.
 
 
 ## Definitions: blocks, components, modules
 
-**Block** is an independent entity with some appearance (Stylus). You could read more about blocks [on bem.info](http://bem.info/method/definitions/).
+**Block** is an independent entity with some appearance. You could read more about blocks [on bem.info](http://bem.info/method/definitions/).
 
 **Component** is a JavaScript “class” inherited from `tamia.Component` base “class”. You could mix blocks and components in any same combination.
 
 **Module** is combination of block (appearance) and component (behaviour) that can be used on many sites. Some modules have only blocks, some modules have default skin that you can disable if you want.
 
 
-## Stylus Bootstap
+## CSS Bootstap
 
-It’s a base CSS rules (like [Normalize.css](https://necolas.github.io/normalize.css/) but quite different) and a lot of useful Stylus mixins:
-
-* Fluid grid.
-* Images with Retina support.
-* Links with three types of underlining: text-decoration, border-bottom and linear-gradient.
-* Media query helpers.
-* Sticky footer.
-* Debug helpers.
-* Lot of useful mixins.
+It has base CSS rules (like [Normalize.css](https://necolas.github.io/normalize.css/)) and some sane default styles for typography, etc.
 
 
 ## Component Base Class
@@ -115,7 +105,6 @@ There are a few other things made specifically for Tâmia:
 
 * [tamia-build](https://github.com/tamiadev/tamia-build): Webpack-based build tool.
 * [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config.
-* [babel-preset-tamia](https://github.com/tamiadev/babel-preset-tamia): Babel preset with ES2015, etc.
 
 
 ## Documentation
@@ -128,9 +117,8 @@ There are a few other things made specifically for Tâmia:
 It’s recommended to use Tâmia with a Webpack builder, [tamia-build](https://github.com/tamiadev/tamia-build).
 
 ```bash
-npm install --save tamia
-npm install --save-dev tamia-build
-./node_modules/.bin/tamia init
+yarn add tamia
+yarn add --dev tamia-build
 ```
 
 The `init` script will create:
@@ -146,12 +134,14 @@ It also creates two npm scripts:
 
 ### Configuration
 
-Stylus bootstrap has a lot of parameters you can change via `styles/config.styl` file:
+CSS bootstrap has a lot of parameters you can change via `styles/config.css` file:
 
-```scss
-link_style = "gradient"
-link_color = #c0ffee
-...
+```css
+:root {
+	--linkColor: #e08c3b;
+	--hoverColor: #d37135;
+	--baseFontSize: 18px;
+}
 ```
 
 ### Using Modules
@@ -170,17 +160,7 @@ modules_default_skin = false;
 
 ### Debug Mode
 
-Both Stylus and JavaScript in Tâmia have debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
-
-Stylus:
-
-```scss
-div {
-	outline: 1px solid #c0ffee if DEBUG;
-}
-```
-
-JavaScript:
+JavaScript in Tâmia has debug mode which allows you to exclude from minified production code stuff you need only for development purposes.
 
 ```javascript
 if (DEBUG) {

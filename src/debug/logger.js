@@ -7,7 +7,7 @@ if (DEBUG) {
 		// Color console badge
 		// Based on https://github.com/jbail/lumberjack
 		if (navigator.userAgent.indexOf('Chrome') !== -1 || navigator.userAgent.indexOf('Firefox') !== -1) {
-			let format = '%c %s %c ' + args.shift();
+			const format = '%c %s %c ' + args.shift();
 			args.unshift(format, `background:${background}; color:#fff`, name, 'background:inherit; color:inherit');
 		}
 		else {

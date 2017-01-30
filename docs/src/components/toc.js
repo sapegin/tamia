@@ -6,13 +6,13 @@ class Toc extends Component {
 	init() {
 		const checkScroll = () => {
 			headers.forEach(headerElem => {
-				let topOffset = headerElem.offsetTop - (headerElem.offsetHeight / 3) - 50;
-				let lowOffset = headerElem.offsetTop + headerElem.offsetHeight;
+				const topOffset = headerElem.offsetTop - (headerElem.offsetHeight / 3) - 50;
+				const lowOffset = headerElem.offsetTop + headerElem.offsetHeight;
 
 				if (window.pageYOffset >= topOffset && window.pageYOffset < lowOffset) {
-					let linkElem = this.elem.querySelector(`a[href="#${headerElem.id}"]`);
+					const linkElem = this.elem.querySelector(`a[href="#${headerElem.id}"]`);
 					if (linkElem && !linkElem.classList.contains('is-active')) {
-						let activeLinkElem = this.elem.querySelector(`.is-active`);
+						const activeLinkElem = this.elem.querySelector('.is-active');
 						if (activeLinkElem) {
 							activeLinkElem.classList.remove('is-active');
 						}
@@ -22,10 +22,10 @@ class Toc extends Component {
 			});
 		};
 
-		let headers = Array.from(document.querySelectorAll('[data-toc]'));
+		const headers = Array.from(document.querySelectorAll('[data-toc]'));
 
 		// TOC
-		let links = headers.map(headerElem => {
+		const links = headers.map(headerElem => {
 			return `
 				<li class="toc__item">
 					<a href="#${headerElem.id}" class="toc__link link">

@@ -21,7 +21,7 @@ export function toggleState(elem, name, value) {
 		throw new Error(`Cannot toggle state "${name}": element not found.`);
 	}
 
-	let cls = STATE_PREFIX + name;
+	const cls = STATE_PREFIX + name;
 	if (value === undefined || elem.classList.contains(cls) !== value) {
 		return elem.classList.toggle(cls);
 	}

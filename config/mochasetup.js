@@ -29,7 +29,7 @@ var propDescriptor = {
 		var HTML5DOMStringMap = {};
 		for (var attrName in this.attributes) {
 			var attribute = this.attributes[attrName];
-			if ((/^data-\w[\w\-]*$/).test(attrName)) {
+			if ((/^data-\w[\w-]*$/).test(attrName)) {
 				var attrVal = attribute.value;
 				// Change to CamelCase
 				var propName = attrName.substr(5).replace(/-./g, toUpperCase);

@@ -1,0 +1,109 @@
+:root {
+	/* Default spacer. */
+	--spacer: 10px;
+
+	/* Grid gutter. */
+	--gridGutter: calc(2 * var(--spacer));
+
+	/* Max page with. */
+	--maxWidth: none;
+
+	/* Max content width (<Container>) with. */
+	--contentMaxWidth: none;
+
+	/* Sticky footer height (<StickyFooter>). */
+	--stickyFooterHeight: auto;
+
+	/* Background color. */
+	--bgColor: #fff;
+
+	/* Base text color. */
+	--baseColor: #111;
+
+	/* Generic border color. */
+	--borderColor: #ddd;
+
+	/* Link color. */
+	--linkColor: #1978c8;
+
+	/* Hovered link color. */
+	--hoverColor: #f28a25;
+
+	/* Link underline position. */
+	--linkUnderlinePosition: 90%;
+
+	/* Headers */
+	--headerMarginTop: calc(4 * var(--spacer));
+	--headerMarginBottom: calc(2 * var(--spacer));
+	--headerLineHeight: 1.2;
+	--headerAlphaSize: 44px;
+	--headerAlphaWeight: normal;
+	--headerBetaSize: 34px;
+	--headerBetaWeight: normal;
+	--headerGammaSize: 28px;
+	--headerGammaWeight: normal;
+	--headerDeltaSize: 20px;
+	--headerDeltaWeight: normal;
+	--headerEpsilonSize: 1em;
+	--headerEpsilonWeight: bold;
+
+	/* Fonts */
+	--baseFont: Helvetica, sans-serif;
+	--headingFont: var(--baseFont);
+	--baseFontSize: 16px;
+	--bigFontSize: 20px;
+	--smallFontSize: 14px;
+
+	/* Space after block tags in .text (p, blockquote, ol, etc.) */
+	--textBlockSpace: var(--spacer);
+
+	/* Text selection background color. */
+	--selectionColor: #ffed75;
+
+	/* Form background color. */
+	--formBgColor: #fff;
+
+	/* Form button color. */
+	--formButtonColor: #555;
+
+	/* Form button hover color. */
+	--formButtonHoverColor: #333;
+
+	/* Form focus outline color. */
+	--formFocusColor: hsl(204, 68%, 69%);
+
+	/* Form focus shadow color. */
+	--formFocusShadowColor: color(var(--formFocusColor) alpha(0.75));
+
+	/* Form focus shadow. */
+	--formFocusShadow: 0 0 0.4em var(--formFocusShadowColor);
+
+	/* Form border color. */
+	--formBorderColor: #bbb;
+
+	/* Form border color. */
+	--formLightBorderColor: #aaa;
+
+	/* Form light background color. */
+	--formLightBgColor: #fefefe;
+
+	/* Form lighter background color. */
+	--formLighterBgColor: #f0f0f0;
+
+	/* Form very light background color. */
+	--formVeryLightBgColor: #fafafa;
+
+	/* Form dark background color. */
+	--formDarkBgColor: #eaeaea;
+
+	/* Form border radius. */
+	--formBorderRadius: 0.15em;
+
+	/* Easings.
+	   More here: https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_timing-functions.scss */
+	--easeInSine: cubic-bezier(0.47, 0, 0.745, 0.715);
+	--easeInQuint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+	--easeOutQuint: cubic-bezier(0.23, 1, 0.32, 1);
+	--easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	--easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+}

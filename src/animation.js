@@ -62,7 +62,7 @@ export function animateFromState(elem, state, done) {
  */
 export function afterTransitions(elem, callback) {
 	// Based on https://github.com/ai/transition-events
-	let after = getTransitionsEndTime(elem);
+	const after = getTransitionsEndTime(elem);
 	setTimeout(() => requestAnimationFrame(callback), after);
 }
 
@@ -89,9 +89,9 @@ export function afterTransitionsOrAnimations(elem, callback) {
  * @private
  */
 function parseTimes(string) {
-	let times = string.split(/,\s*/);
+	const times = string.split(/,\s*/);
 	return times.map((value) => {
-		let number = parseFloat(value);
+		const number = parseFloat(value);
 		if (value.match(/\ds/)) {
 			return number * 1000;
 		}
@@ -107,21 +107,21 @@ function parseTimes(string) {
  * @private
  */
 function getTransitionsEndTime(elem) {
-	let styles = getComputedStyle(elem);
+	const styles = getComputedStyle(elem);
 	let props = styles['transition-property'];
 	if (!props) {
 		return 0;
 	}
 
 	props = props.split(/,\s*/);
-	let durations = parseTimes(styles['transition-duration']);
-	let delays = parseTimes(styles['transition-delay']);
+	const durations = parseTimes(styles['transition-duration']);
+	const delays = parseTimes(styles['transition-delay']);
 
 	return props.reduce((after, prop, propIdx) => {
-		let duration = durations[durations.length === 1 ? 0 : propIdx];
-		let delay = delays[delays.length === 1 ? 0 : propIdx];
+		const duration = durations[durations.length === 1 ? 0 : propIdx];
+		const delay = delays[delays.length === 1 ? 0 : propIdx];
 		return after + delay + duration;
 	}, 0);
 }
 
-export let _test = { parseTimes, getTransitionsEndTime };
+export const _test = { parseTimes, getTransitionsEndTime };

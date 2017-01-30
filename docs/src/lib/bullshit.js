@@ -16,7 +16,11 @@ const adjective = () => sample(ADJECTIVES);
 const noun = () => sample(NOUNS);
 const header = () => capitalize(verb()) + ' ' + adjective() + ' ' + noun();
 const sentence = () => header() + '.';
-const paragraph = (number = random(4, 12)) => range(number).map(() => sentence()).join(' ');
+const paragraph = (number = random(4, 12)) =>
+	range(number)
+		.map(() => sentence())
+		.join(' ')
+	;
 
 Array.from(document.querySelectorAll('.fixie')).forEach(elem => {
 	switch (elem.nodeName) {

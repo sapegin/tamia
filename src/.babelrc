@@ -1,0 +1,13 @@
+{
+	"presets": [
+		["babel-preset-latest", {
+			"modules": false
+		}]
+	],
+	"plugins": [
+		"transform-class-properties",
+		["transform-object-rest-spread", {
+			"useBuiltIns": true
+		}]
+	]
+}

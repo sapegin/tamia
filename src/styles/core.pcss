@@ -1,0 +1,82 @@
+/* Custom media queries. */
+@custom-media --small (min-width: 576px);
+@custom-media --medium (min-width: 768px);
+@custom-media --large (min-width: 992px);
+@custom-media --huge (min-width: 1200px);
+
+/*
+:hover, :active and :focus states of the link.
+Examples:
+```scss
++link-hovers() {
+color: #bada55;
+}
+```
+*/
+@custom-selector :--link-hovers :hover, :active, :focus;
+
+/*
+All states of the link.
+Examples:
+```scss
++link-all-states() {
+color: @color;
+}
+```
+*/
+@custom-selector :--link-all-states :link, :visited, :hover, :active, :focus;
+
+:root {
+	/* Make image responsive. */
+	--responsive-image: {
+		max-width: 100%;
+		height: auto;
+	};
+
+	/* Ellipsis text overflow. */
+	--ellipsis: {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	};
+
+	/* Tweak inverted text (light on dark) for OS X. */
+	--tweak-inverted-text: {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	};
+
+	/* Disable text selection. */
+	--no-select: {
+		-webkit-touch-callout: none;
+		user-select: none;
+	};
+
+	/* Enable text selection. */
+	--enable-select: {
+		-webkit-touch-callout: default;
+		user-select: all;
+	};
+
+	/* TODO: Appear .is-hidden element with a fade animation.
+	appear-fade(duration=.25s) {
+		transition: opacity duration ease-in-out;
+
+		&.is-hidden {
+			opacity: 0;
+		}
+	}
+	*/
+
+	/* TODO: Appear .is-hidden element with a slide animation.
+	appear-slide(h, duration=.4s) {
+		overflow: hidden;
+		max-height: h;
+		transition: max-height duration ease-in-quint;
+
+		&.is-hidden {
+			display: block !important;
+			max-height: 0;
+		}
+	} */
+}

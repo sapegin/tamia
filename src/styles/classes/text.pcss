@@ -1,0 +1,109 @@
+/*
+Base text styles
+*/
+
+:global(.text) {
+	word-wrap: break-word;
+}
+
+:global(.text) p,
+:global(.text) ul,
+:global(.text) ol,
+:global(.text) li,
+:global(.text) pre,
+:global(.text) blockquote,
+:global(.text) hr {
+	margin-bottom: var(--textBlockSpace);
+}
+
+:global(.text) blockquote {
+	font-size: 0.8em;
+	padding: 0 2em;
+}
+
+:global(.text) cite {
+	font-style: italic;
+}
+
+:global(.text) hr {
+	border: solid var(--borderColor);
+	border-width: 1px 0 0;
+}
+
+:global(.text) img {
+	@apply --responsive-image;
+}
+
+/*
+Type settings
+
+Death to typewriters by Medium. Technical supplement:
+  https://medium.com/@mwichary/death-to-typewriters-technical-supplement-8f3c754626f2
+*/
+
+/* Global settings. */
+body {
+	background: var(--bgColor);
+	color: var(--baseColor);
+	font-size: var(--baseFontSize);
+	font-family: var(--baseFont);
+	font-kerning: normal;
+	font-variant-numeric: proportional-nums;
+	font-variant-ligatures: common-ligatures discretionary-ligatures contextual historical-ligatures;
+	hyphens: auto;
+}
+
+/* Disable ligatures for tables and code, enable tabular figures. */
+table,
+code,
+pre {
+	font-variant-numeric: tabular-nums;
+	font-variant-ligatures: none;
+}
+
+/* Abbreviations with spacing. */
+abbr {
+	letter-spacing: 0.1em;
+	margin-right: -0.1em;
+}
+
+/* Hanging punctuation. */
+:global(.sbrace) {
+	margin-right: 0.3em;
+}
+
+:global(.hbrace) {
+	margin-left: -0.3em;
+}
+
+:global(.slaquo) {
+	margin-right: 0.42em;
+}
+
+:global(.hlaquo) {
+	margin-left: -0.42em;
+}
+
+:global(.sbdquo) {
+	margin-right: 0.42em;
+}
+
+:global(.hbdquo) {
+	margin-left: -0.42em;
+}
+
+:global(.sldquo) {
+	margin-right: 0.42em;
+}
+
+:global(.hldquo) {
+	margin-left: -0.42em;
+}
+
+:global(.slsquo) {
+	margin-right: 0.42em;
+}
+
+:global(.hlsquo) {
+	margin-left: -0.42em;
+}

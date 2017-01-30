@@ -2,7 +2,7 @@ import { appear, disappear, toggle } from '../src/appear';
 
 describe('appear', () => {
 	it('appear() should remove is-hidden state', (done) => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 		elem.classList.add('is-hidden');
 
 		appear(elem);
@@ -17,7 +17,7 @@ describe('appear', () => {
 	});
 
 	it('disappear() should add is-hidden state', (done) => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 
 		disappear(elem);
 
@@ -31,7 +31,7 @@ describe('appear', () => {
 	});
 
 	it('toggle() should show hidden element', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 		elem.classList.add('is-hidden');
 
 		toggle(elem);
@@ -40,7 +40,7 @@ describe('appear', () => {
 	});
 
 	it('toggle() should show hide visible element', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 
 		toggle(elem);
 

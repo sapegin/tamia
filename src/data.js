@@ -1,4 +1,4 @@
-let cache = new WeakMap();
+const cache = new WeakMap();
 
 /**
  * Read data-attributes, set values to a cache.
@@ -8,7 +8,7 @@ let cache = new WeakMap();
  * @param {*} [value] Attribute value (if you want to set a new value).
  * @returns {*} Current value if the `value` param if missed.
  */
-export default function data(elem, attr, value) {
+export default function data(elem, attr, value) {  // eslint-disable-line consistent-return
 	let cached = cache.get(elem);
 	if (!cached) {
 		cached = toObject(elem.dataset);
@@ -38,8 +38,8 @@ export default function data(elem, attr, value) {
  * @private
  */
 function toObject(map) {
-	let object = {};
-	for (let attr in map) {
+	const object = {};
+	for (const attr in map) {
 		let value = map[attr];
 		if (value === 'true') {
 			value = true;
@@ -58,4 +58,4 @@ function toObject(map) {
 	return object;
 }
 
-export let _test = { toObject };
+export const _test = { toObject };

@@ -52,14 +52,14 @@ const dashPath = p => path.resolve(__dirname, `../Tamia.docset/${p}`);
 const publicPath = p => path.resolve(__dirname, `../public/${p}`);
 const sourcePath = p => path.resolve(__dirname, `../../src/${p}`);
 
-let renderMarkdown = createMarkdownRenderer();
-let renderTemplate = createTemplateRenderer({
+const renderMarkdown = createMarkdownRenderer();
+const renderTemplate = createTemplateRenderer({
 	root: path.join(__dirname, 'templates'),
 });
 
-let dashList = [];
+const dashList = [];
 
-let documents = [
+const documents = [
 	{
 		page: 'index',
 		sourcePath: 'index.md',
@@ -106,7 +106,7 @@ const filesToCopy = [
 	['../public/bundle.js', dashPath('Contents/Resources/Documents')],
 ];
 filesToCopy.forEach(file => {
-	let filename = path.basename(file[0]);
+	const filename = path.basename(file[0]);
 	fs.copySync(path.resolve(__dirname, file[0]), path.join(file[1], filename));
 });
 
@@ -119,7 +119,7 @@ function generateWithTemplate(documents, template, folder) {
 		doc.layout = template;
 		return doc;
 	});
-	let pages = generatePages(documents, config, helpers, { ect: renderTemplate });
+	const pages = generatePages(documents, config, helpers, { ect: renderTemplate });
 	savePages(pages, folder);
 }
 
@@ -142,14 +142,14 @@ function generateApi() {
 		return `<h3 id="${name}" data-toc>${name}</h3>`;
 	});
 	api = api.replace(/^# (.*?)$/gm, (m, name) => {
-		let type = name[0] === name[0].toUpperCase() ? 'Class' : 'Function';
+		const type = name[0] === name[0].toUpperCase() ? 'Class' : 'Function';
 		dashList.push([name, type, `javascript.html#${name}`]);
 		return `<h2 id="${name}" data-toc>${name}</h2>`;
 	});
 
 	// Fix language in fenced code blocks
-	api = api.replace(/```javascript\n</g, '\`\`\`html\n<');
-	api = api.replace(/```javascript\n\./g, '\`\`\`scss\n.');
+	api = api.replace(/```javascript\n</g, '```html\n<');
+	api = api.replace(/```javascript\n\./g, '```scss\n.');
 
 	// Make “Parameters” and “Examples” real headings
 	api = api.replace(/\*\*Parameters\*\*/g, '#### Parameters');
@@ -161,9 +161,9 @@ function generateApi() {
 function generateStyles() {
 	return stylusModules.map(module => {
 		let contents = readFile(sourcePath(`styles/${module}.styl`));
-		let m = contents.match(/^\/\/ (.*?)$/m);
+		const m = contents.match(/^\/\/ (.*?)$/m);
 		contents = processStylus(contents);
-		let slug = slugify(m[1]);
+		const slug = slugify(m[1]);
 		return `<h1 id="${slug}" data-toc>${m[1]}</h1>\n\n${contents}`;
 	}).join('\n\n');
 }
@@ -175,18 +175,18 @@ function processStylus(code) {
 	// Remove ///... comments
 	code = code.replace(/^\s*\/\/\/.*?$/mg, '');
 
-	let docs = [];
+	const docs = [];
 	while (true) {  // eslint-disable-line no-constant-condition
-		let matches = blocksRegEx.exec(code);
+		const matches = blocksRegEx.exec(code);
 		if (!matches) {
 			break;
 		}
 
 		let text = matches[1];
-		let firstLine = matches[2] ? matches[2].split('\n')[0] : null;
+		const firstLine = matches[2] ? matches[2].split('\n')[0] : null;
 
 		// Heading
-		let m = text.match(/^\s*\/\/\n\/\/\s*([-\. \w]+)\n\/\/\s*/);
+		let m = text.match(/^\s*\/\/\n\/\/\s*([-. \w]+)\n\/\/\s*/);
 		if (m) {
 			docs.push(`## ${m[1]}`);
 			continue;
@@ -195,7 +195,7 @@ function processStylus(code) {
 		text = text
 			.replace(/^\s*\/\/ ?/mg, '')
 			.replace(/^\s*/, '')
-			.replace(/^([-_\.a-z]+) - (.*?\.)/mgi, '* `$1` $2')  // Parameters
+			.replace(/^([-_.a-z]+) - (.*?\.)/mgi, '* `$1` $2')  // Parameters
 			.replace(/^(.*?):$/mg, '#### $1')
 			.replace(/^ {2}/mg, '    ')
 		;
@@ -234,12 +234,12 @@ function processStylus(code) {
 }
 
 function generateModules() {
-	let modules = glob.sync(sourcePath('modules/*'));
+	const modules = glob.sync(sourcePath('modules/*'));
 
 	let exampleId = 0;
 
 	return modules.map((folder) => {
-		let name = path.basename(folder);
+		const name = path.basename(folder);
 		let moduleDoc = readFile(path.join(folder, 'Readme.md'));
 
 		// Main heading
@@ -252,8 +252,8 @@ function generateModules() {
 		moduleDoc = moduleDoc.replace(/^#/gm, '##');
 
 		moduleDoc = moduleDoc.replace(/^([#]*) (.*?)$/gm, (m, level, title) => {
-			let slug = slugify(title);
-			let names = title.split(' / ');
+			const slug = slugify(title);
+			const names = title.split(' / ');
 			names.forEach(name => {
 				name = name.replace(/\\/g, '');
 				let type;
@@ -281,14 +281,14 @@ function generateModules() {
 		moduleDoc = renderMarkdown(moduleDoc);
 
 		// Examples
-		let examplesFile = path.join(folder, 'example.html');
+		const examplesFile = path.join(folder, 'example.html');
 		if (fs.existsSync(examplesFile)) {
 			moduleDoc += '\n\n<h3>Examples</h3>\n\n';
 			let examples = readFile(examplesFile);
 			examples = examples.split('\n\n');
 			examples = examples.map((example) => {
 				exampleId++;
-				let exampleHtml = example;
+				const exampleHtml = example;
 				let exampleCode = example
 					.replace(/\s?fixie([^>]+>)</g, '$1...<')
 					.replace(/\s?fixie/g, '')
@@ -318,22 +318,22 @@ function generateModules() {
 }
 
 function highlightHtml(code) {
-	let hl = hljs.highlight('html', code);
+	const hl = hljs.highlight('html', code);
 	return `
 		<pre><code class="lang-html">${hl.value}</code></pre>
 	`;
 }
 
 function docsDashIndexDb() {
-	let rows = dashList.map(item => ({ name: item[0], type: item[1], path: item[2] }));
+	const rows = dashList.map(item => ({ name: item[0], type: item[1], path: item[2] }));
 
-	let sequelize = new Sequelize('database', 'username', 'password', {
+	const sequelize = new Sequelize('database', 'username', 'password', {
 		dialect: 'sqlite',
 		storage: dashPath('Contents/Resources/docSet.dsidx'),
 		logging: false,
 	});
 
-	let searchIndex = sequelize.define('searchIndex', {
+	const searchIndex = sequelize.define('searchIndex', {
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,

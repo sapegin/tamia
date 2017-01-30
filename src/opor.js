@@ -74,7 +74,7 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
 	}
 
 	// Classes
-	let newClasses = oporClass(json, true);
+	const newClasses = oporClass(json, true);
 	if (newClasses) {
 		newClasses.forEach(
 			cls => elem.classList.add(cls)
@@ -132,10 +132,10 @@ export function oporElement(json, rootElem, links = {}, isChildren = false) {
  * @return {string|Array}
  */
 export function oporClass(json, returnArray = false) {
-	let classes = [];
+	const classes = [];
 
 	if (json.block) {
-		let base = json.block + (json.elem ? ELEM_SEPARATOR + json.elem : '');
+		const base = json.block + (json.elem ? ELEM_SEPARATOR + json.elem : '');
 
 		classes.push(base);
 

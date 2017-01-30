@@ -107,7 +107,7 @@ export default class Component {
 		methods.forEach(method => {
 			if (DEBUG && !isFunction(this[method])) {
 				throw new Error(`${this.constructor.name}.bindAll: method "${method}" ` +
-					`does not exists or not a function.`);
+					'does not exists or not a function.');
 			}
 			this[method] = this[method].bind(this);
 		});
@@ -135,7 +135,7 @@ export default class Component {
 		if (!this.constructor.template) {
 			return;
 		}
-		let opor = oporElement(this.constructor.template, this.elem);
+		const opor = oporElement(this.constructor.template, this.elem);
 		if (Array.isArray(opor)) {
 			assignIn(this, opor[1]);
 		}

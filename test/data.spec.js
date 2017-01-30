@@ -2,7 +2,7 @@ import data, { _test } from '../src/data';
 
 describe('data', () => {
 	it('toObject() should convert string to numbers, boolean and null', () => {
-		let result = _test.toObject({
+		const result = _test.toObject({
 			true: 'true',
 			false: 'false',
 			null: 'null',
@@ -20,35 +20,35 @@ describe('data', () => {
 	});
 
 	it('data() should return undefined for non-existent data-attributes', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 
-		let result = data(elem, 'foo');
+		const result = data(elem, 'foo');
 
 		expect(result).to.be.undefined;
 	});
 
 	it('data() should return a value for existent data-attributes', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 		elem.setAttribute('data-foo', 'bar');
 
-		let result = data(elem, 'foo');
+		const result = data(elem, 'foo');
 
 		expect(result).to.eql('bar');
 	});
 
 	it('data() should set a value to a cache, should not update data-attribute', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 		elem.setAttribute('data-foo', 'bar');
 
 		data(elem, 'foo', 'baz');
-		let result = data(elem, 'foo');
+		const result = data(elem, 'foo');
 
 		expect(result).to.eql('baz');
 		expect(elem.getAttribute('data-foo')).to.eql('bar');
 	});
 
 	it('data() should convert string to numbers, boolean and null', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 		elem.setAttribute('data-true', 'true');
 		elem.setAttribute('data-false', 'false');
 		elem.setAttribute('data-null', 'null');

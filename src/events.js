@@ -3,7 +3,7 @@ import { log } from './debug/logger';
 import { isEventReceiver } from './util';
 import isFunction from 'lodash/isFunction';
 
-let cache = new WeakMap();
+const cache = new WeakMap();
 
 // TODO: store originalHandler as handler.__TamiaOriginalHandler ?
 
@@ -38,8 +38,8 @@ export function onEvent(elem, eventName, selector, handler, originalHandler) {
 		}
 		handler.displayName = `${eventName} event handler`;
 	}
-	let wrappedHandler = (event) => {
-		let details = event.detail || [];
+	const wrappedHandler = (event) => {
+		const details = event.detail || [];
 		if (DEBUG && !selector && event.type !== 'scroll') {
 			log(`Event ${event.type} on`, event.target, 'Details:', details);
 		}
@@ -66,7 +66,7 @@ export function offEvent(elem, eventName, handler) {
 		}
 	}
 
-	let wrappedHandler = cache.get(handler);
+	const wrappedHandler = cache.get(handler);
 	elem.removeEventListener(eventName, wrappedHandler, false);
 	cache.delete(handler);
 }
@@ -88,7 +88,7 @@ export function oneEvent(elem, eventName, handler) {
 		}
 	}
 
-	let wrappedHandler = (...args) => {
+	const wrappedHandler = (...args) => {
 		handler(...args);
 		offEvent(elem, eventName, handler);
 	};
@@ -118,7 +118,7 @@ export function triggerEvent(elem, eventName, ...detail) {
 			detail,
 		});
 	}
-	catch (e) {
+	catch (err) {
 		event = document.createEvent('CustomEvent');
 		event.initCustomEvent(eventName, true, true, detail);
 	}
@@ -140,7 +140,7 @@ export function triggerNativeEvent(elem, eventName) {
 		}
 	}
 
-	let event = document.createEvent('HTMLEvents');
+	const event = document.createEvent('HTMLEvents');
 	event.initEvent(eventName, true, false);
 	return elem.dispatchEvent(event);
 }
@@ -156,19 +156,20 @@ export function triggerNativeEvent(elem, eventName) {
  * @private
  */
 function delegate(func, selector, root) {
-	let findTarget = (target) => {
-		let array = root.querySelectorAll(selector);
+	const findTarget = (target) => {
+		const elems = root.querySelectorAll(selector);
 		for (; target && target !== root; target = target.parentNode) {
-			for (let i = array.length; i--;) {
-				if (array[i] === target) {
+			for (let elemIdx = elems.length; elemIdx--;) {
+				if (elems[elemIdx] === target) {
 					return target;
 				}
 			}
 		}
+		return undefined;
 	};
 
 	return (event, ...details) => {
-		let match = findTarget(event.target);
+		const match = findTarget(event.target);
 		if (match) {
 			if (DEBUG) {
 				log(`Event ${event.type} on`, match, `Delegated: ${selector}.`, 'Details:', details);

@@ -4,8 +4,5 @@
 	"globals": {
 		"DEBUG": false,
 		"expect": false
-	},
-	"rules": {
-		"no-use-before-define": 0
 	}
 }

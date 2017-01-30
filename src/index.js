@@ -1,4 +1,4 @@
-import './styles/index.styl';
+import './styles/index.pcss';
 
 // Expose public API
 export {
@@ -36,8 +36,3 @@ export {
 	removeState,
 	hasState,
 } from './states';
-
-// Debug modules
-if (DEBUG) {
-	require('./debug/layout');
-}

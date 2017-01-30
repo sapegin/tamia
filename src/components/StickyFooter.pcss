@@ -1,0 +1,25 @@
+/* Based on mystrd.at/modern-clean-css-sticky-footer/ */
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	padding-bottom: var(--stickyFooterHeight);
+}
+
+.footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: var(--stickyFooterHeight);
+}
+
+.inner {
+	max-width: var(--maxWidth);
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 var(--spacer);
+}

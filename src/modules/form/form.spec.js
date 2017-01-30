@@ -2,7 +2,7 @@ import { toggleElem, toggleAll, toggleFields, toggleSubmit } from './form';
 
 describe('modules/form', () => {
 	it('toggleElem() should disable enabled form element', () => {
-		let elem = document.createElement('input');
+		const elem = document.createElement('input');
 		elem.classList.add('foo');
 		toggleElem(elem, false);
 
@@ -11,7 +11,7 @@ describe('modules/form', () => {
 	});
 
 	it('toggleElem() should enable disabled form element', () => {
-		let elem = document.createElement('input');
+		const elem = document.createElement('input');
 		elem.setAttribute('disabled', 'disabled');
 		elem.classList.add('foo', 'is-disabled');
 		toggleElem(elem, true);
@@ -21,12 +21,12 @@ describe('modules/form', () => {
 	});
 
 	it('toggleAll() should disable all elements that match selector in a container', () => {
-		let form = document.createElement('form');
-		let input = document.createElement('input');
+		const form = document.createElement('form');
+		const input = document.createElement('input');
 		form.appendChild(input);
-		let button = document.createElement('button');
+		const button = document.createElement('button');
 		form.appendChild(button);
-		let div = document.createElement('div');
+		const div = document.createElement('div');
 		form.appendChild(div);
 		toggleAll(form, 'input, button', false);
 
@@ -39,7 +39,7 @@ describe('modules/form', () => {
 	});
 
 	it('toggleAll() should disable container if it matches selector', () => {
-		let form = document.createElement('form');
+		const form = document.createElement('form');
 		toggleAll(form, 'form', false);
 
 		expect(form.className).to.eql('is-disabled');
@@ -47,8 +47,8 @@ describe('modules/form', () => {
 	});
 
 	it('toggleFields() should disable all fields in a form', () => {
-		let form = document.createElement('form');
-		let input = document.createElement('input');
+		const form = document.createElement('form');
+		const input = document.createElement('input');
 		input.classList.add('field');
 		form.appendChild(input);
 		toggleFields(form, false);
@@ -58,8 +58,8 @@ describe('modules/form', () => {
 	});
 
 	it('toggleSubmit() should disable submit button', () => {
-		let form = document.createElement('form');
-		let button = document.createElement('button');
+		const form = document.createElement('form');
+		const button = document.createElement('button');
 		button.setAttribute('type', 'submit');
 		form.appendChild(button);
 		toggleSubmit(form, false);

@@ -2,14 +2,14 @@ import * as opor from '../src/opor';
 
 describe('OPOR', () => {
 	it('oporClass() should return a class name', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 		});
 		expect(result).to.eql('select');
 	});
 
 	it('oporClass() should accept an element name', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			elem: 'box',
 		});
@@ -17,7 +17,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept a modifier name', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			mods: 'big',
 		});
@@ -25,7 +25,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept an element and a modifier names', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			elem: 'box',
 			mods: 'big',
@@ -34,7 +34,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept multiple modifiers', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			mods: ['big', 'green'],
 		});
@@ -42,7 +42,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept a mix as a string', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			mix: 'foo',
 		});
@@ -50,7 +50,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept a mix as an OPORJSON', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			mix: {
 				block: 'foo',
@@ -61,7 +61,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept multiple mixes', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			mix: [
 				'foo',
@@ -75,7 +75,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept a state', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			states: 'visible',
 		});
@@ -83,7 +83,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept multiple states', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			states: ['visible', 'hidden'],
 		});
@@ -91,7 +91,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept a JS class', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			js: 'select',
 		});
@@ -99,7 +99,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should accept multiple JS classes', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			js: ['select', 'button'],
 		});
@@ -107,7 +107,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporClass() should return an array if the second argument is true', () => {
-		let result = opor.oporClass({
+		const result = opor.oporClass({
 			block: 'select',
 			mods: 'blue',
 		}, true);
@@ -115,7 +115,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should return a DOM element with attached class name', () => {
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			elem: 'box',
 		});
@@ -124,7 +124,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should be able to create an element with a custom tag', () => {
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			tag: 'span',
 		});
@@ -132,9 +132,9 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should be able to use existing DOM elements', () => {
-		let elem = document.createElement('div');
+		const elem = document.createElement('div');
 		elem.className = 'was-here';
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			element: '@root',
 		}, elem);
@@ -143,11 +143,11 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should be able to use existing DOM elements', () => {
-		let elem = document.createElement('div');
-		let inner = document.createElement('span');
+		const elem = document.createElement('div');
+		const inner = document.createElement('span');
 		inner.className = 'js-foo';
 		elem.appendChild(inner);
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			content: {
 				block: 'select',
@@ -159,10 +159,10 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should be able to attach custom attributes', () => {
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			attrs: {
-				'title': 'Hello',
+				title: 'Hello',
 				'data-foo': 42,
 			},
 		});
@@ -171,7 +171,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should return links object', () => {
-		let [elem, links] = opor.oporElement({
+		const [elem, links] = opor.oporElement({
 			block: 'select',
 			content: {
 				block: 'select',
@@ -184,7 +184,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should accept content as an array', () => {
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			content: [
 				{
@@ -202,7 +202,7 @@ describe('OPOR', () => {
 	});
 
 	it('oporElement() should accept content as a string', () => {
-		let result = opor.oporElement({
+		const result = opor.oporElement({
 			block: 'select',
 			content: 'Hello world',
 		});

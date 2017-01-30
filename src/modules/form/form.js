@@ -31,7 +31,7 @@ export function toggleElem(elem, enable) {
  * @param {boolean} enable Enable or disable.
  */
 export function toggleAll(container, selector, enable) {
-	let elements = Array.from(container.querySelectorAll(selector));
+	const elements = Array.from(container.querySelectorAll(selector));
 	elements.forEach(elem => toggleElem(elem, enable));
 
 	if (container.matches(selector)) {

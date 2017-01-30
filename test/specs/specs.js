@@ -8,14 +8,14 @@ import { toggleSubmit, toggleFields } from '../../src/modules/form';
 import attachSpinner from '../../src/modules/spinner';
 
 // Form
-let form = $('.js-form');
+const form = $('.js-form');
 onEvent(document, 'click', '.js-disable', () => toggleFields(form, false));
 onEvent(document, 'click', '.js-enable', () => toggleFields(form, true));
 onEvent(document, 'click', '.js-lock', () => toggleSubmit(form, false));
 onEvent(document, 'click', '.js-unlock', () => toggleSubmit(form, true));
 
 // Spinner
-let loaders = $('.js-loaders');
+const loaders = $('.js-loaders');
 let hideSpinner;
 onEvent(document, 'click', '.js-loading-start', () => {
 	hideSpinner = attachSpinner(loaders);
