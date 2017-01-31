@@ -37,7 +37,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "files": [
-    "src"
+    "lib"
   ],
   "engines": {
     "node": ">=7"
