@@ -3,7 +3,7 @@ import s from './Layout.pcss';
 
 // TODO: check params
 
-export default component(({ size, sm, md, lg, xl }) => {
+export default component(({ size, sm, md, lg, xl, right }) => {
 	const isColumn = size || sm || md || lg || xl;
 	return {
 		[s.row]: !isColumn,
@@ -48,5 +48,8 @@ export default component(({ size, sm, md, lg, xl }) => {
 		[s.hugeThird]: xl === 1 / 3,
 		[s.hugeTwoThirds]: xl === 2 / 3,
 		[s.hugeHalf]: xl === 1 / 2,
+
+		// Misc
+		[s.right]: right,
 	};
 });
