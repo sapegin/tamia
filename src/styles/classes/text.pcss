@@ -2,6 +2,10 @@
 Base text styles
 */
 
+:root {
+	--list-margin: 1.3em;
+}
+
 :global(.text) {
 	word-wrap: break-word;
 }
@@ -34,6 +38,58 @@ Base text styles
 	@apply --responsive-image;
 }
 
+@media (--less-than-max-width) {
+	:global(.text) img {
+		max-width: calc(100% + calc(var(--pageSidePadding) * 2));
+		margin-left: calc(var(--pageSidePadding) * -1);
+		margin-right: calc(var(--pageSidePadding) * -1);
+	}
+}
+
+/* Unordered list with dashes (—) as bullets and basic ordered list */
+
+:global(.text) ol {
+	padding-left: 0;
+}
+
+:global(.text) li > ul,
+:global(.text) li > ol {
+	margin-bottom: 0;
+}
+
+:global(.text) ul > ul,
+:global(.text) ul > ol {
+	margin-left: var(--list-margin);
+}
+
+:global(.text) ul > li {
+	position: relative;
+	padding-left: var(--list-margin);
+	margin-left: calc(var(--list-margin) * -1);
+}
+
+:global(.text) ul > li:before {
+	position: absolute;
+	left: 0;
+	content: "\2014\a0";
+}
+
+@media(--less-than-max-width) {
+	:global(.text) ul > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	:global(.text) ul > li:before {
+		position: static;
+	}
+
+	:global(.text) ol {
+		list-style-position: inside;
+		padding-left: 0;
+	}
+}
+
 /*
 Type settings
 
@@ -43,8 +99,6 @@ Death to typewriters by Medium. Technical supplement:
 
 /* Global settings. */
 body {
-	background: var(--bgColor);
-	color: var(--baseColor);
 	font-size: var(--baseFontSize);
 	font-family: var(--baseFont);
 	font-kerning: normal;

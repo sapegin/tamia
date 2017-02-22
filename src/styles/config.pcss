@@ -5,8 +5,10 @@
 	/* Grid gutter. */
 	--gridGutter: calc(2 * var(--spacer));
 
-	/* Max page with. */
-	--maxWidth: none;
+	/* Max page with (don’t forget to update --less-than-max-width custom media query). */
+	--maxWidth: 1200px;
+
+	--pageSidePadding: var(--gridGutter);
 
 	/* Max content width (<Container>) with. */
 	--contentMaxWidth: none;
