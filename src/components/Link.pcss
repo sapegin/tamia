@@ -1,5 +1,5 @@
 .link,
-.link u {
+.isQuoted u {
 	cursor: pointer;
 	text-decoration: none;
 	background-repeat: repeat-x;
@@ -10,38 +10,47 @@
 }
 
 .link:hover,
-.link:hover u {
+.isQuoted:hover u {
 	transition: none;
 }
 
 .link,
-.link:link,
-.link u,
-.link:link u {
+.link:link {
 	color: var(--linkColor);
-	background-image: linear-gradient(to left, var(--linkColor) 50%, var(--linkColor) 50%);
 }
 
-.link u {
+.link,
+.link:link,
+.isQuoted u,
+.isQuoted:link u {
+	background-image: linear-gradient(to left, currentColor 50%, currentColor 50%);
+}
+
+.isQuoted u {
 	vertical-align: baseline;
 }
 
 .link:hover,
 .link:active,
-.link:focus,
-.link:hover u,
-.link:active u,
-.link:focus u {
+.link:focus {
 	color: var(--hoverColor);
+}
+
+.link:hover,
+.link:active,
+.link:focus,
+.isQuoted:hover u,
+.isQuoted:active u,
+.isQuoted:focus u {
 	background-image: linear-gradient(to left, var(--hoverColor) 50%, var(--hoverColor) 50%);
 }
 
 /*
 Link in quotes (quotes should be colored but not underlined).
+
 Examples:
-```html
-<a href="/" class="link link_quoted">“<u>My Little Pony</u>”</a>
-```
+
+  <Link href="/" quoted>“<u>My Little Pony</u>”</Link>
 */
 .isQuoted:--link-all-states {
 	background-image: none;
@@ -49,7 +58,7 @@ Examples:
 
 @media print {
 	.link,
-	.link u {
+	.isQuoted u {
 		background-image: none;
 		text-decoration: underline;
 	}
