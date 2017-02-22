@@ -13,7 +13,7 @@ import pickBy from 'lodash/pickBy';
 export default (className, defaultTag = 'div') => ($ = {}, children) => {
 	const Tag = $.component || defaultTag;  // eslint-disable-line no-unused-vars
 	const classes = isFunction(className) ? className($) : className;
-	const attrs = pickBy($, (value, key) => htmlAttrs.includes(key));
+	const attrs = pickBy($, (value, key) => key.startsWith('on') || htmlAttrs.includes(key));
 	return (
 		<Tag {...attrs} class={cx(classes, $.class)}>
 			{children}
