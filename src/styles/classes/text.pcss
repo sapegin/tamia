@@ -68,13 +68,13 @@ Base text styles
 	margin-left: calc(var(--list-margin) * -1);
 }
 
-:global(.text) ul > li:before {
+:global(.text) ul > li::before {
 	position: absolute;
 	left: 0;
 	content: "\2014\a0";
 }
 
-@media(--less-than-max-width) {
+@media (--less-than-max-width) {
 	:global(.text) ul > li {
 		margin-left: 0;
 	}
