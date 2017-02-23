@@ -13,9 +13,6 @@
 	/* Max content width (<Container>) with. */
 	--contentMaxWidth: none;
 
-	/* Sticky footer height (<StickyFooter>). */
-	--stickyFooterHeight: auto;
-
 	/* Background color. */
 	--bgColor: #fff;
 
@@ -51,10 +48,13 @@
 
 	/* Fonts */
 	--baseFont: Helvetica, sans-serif;
+	--monospaceFont: Consolas, "Lucida Console", Monaco, "DejaVu Sans Mono", monospace;
+	--codeBlockFont: var(--monospaceFont);
 	--headingFont: var(--baseFont);
 	--baseFontSize: 16px;
 	--bigFontSize: 20px;
 	--smallFontSize: 14px;
+	--codeBlockFontSize: 14px;
 
 	/* Space after block tags in .text (p, blockquote, ol, etc.) */
 	--textBlockSpace: var(--spacer);
@@ -108,4 +108,13 @@
 	--easeOutQuint: cubic-bezier(0.23, 1, 0.32, 1);
 	--easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	--easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+	/* Tomorrow theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow.css */
+	--codeTheme0: #8e908c;  /* Comment */
+	--codeTheme1: #c82829;  /* Red */
+	--codeTheme2: #f5871f;  /* Orange */
+	--codeTheme3: #eab700;  /* Yellow */
+	--codeTheme4: #718c00;  /* Green */
+	--codeTheme5: #4271ae;  /* Blue */
+	--codeTheme6: #8959a8;  /* Purple */
 }

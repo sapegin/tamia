@@ -1,0 +1,23 @@
+:global(.text) code,
+:global(.text) kbd {
+	font-family: var(--monospaceFont);
+}
+
+:global(.text) pre,
+:global(.text) pre * {
+	font-family: var(--codeBlockFont);
+}
+
+:global(.text) pre {
+	display: block;
+	white-space: pre-wrap;
+	tab-size: 4;
+	text-size-adjust: none;
+}
+
+:global(.text) pre code {
+	display: block;
+	font-size: var(--codeBlockFontSize);
+	line-height: 1.3;
+	color: var(--codeBaseColor);
+}
