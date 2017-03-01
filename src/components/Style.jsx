@@ -3,20 +3,16 @@ import vdo from 'vdo';
 /*
  * Add a fingerprinted or inlined stylesheet (use with Fledermaus).
  */
-export default function Style({ src, inline }, children, { inlineFile, fingerprint }) {
+export default function Style({ entry = 'styles', src, inline }, children, { inlineFile, fingerprint }) {
+	const url = src || `/build/${entry}.css`;
+
 	const attrs = {};
 	let content;
 	if (inline) {
-		content = inlineFile(src);
+		content = inlineFile(url);
 	}
 	else {
-		if (src) {
-			attrs.href = src;
-		}
-		else {
-			attrs.href = '/build/styles.css';
-		}
-		attrs.href = fingerprint(attrs.href);
+		attrs.href = fingerprint(url);
 		attrs.rel = 'stylesheet';
 	}
 	const Tag = content ? 'style' : 'link';

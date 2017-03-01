@@ -3,17 +3,8 @@ import vdo from 'vdo';
 /*
  * Add a fingerprinted or inlined script (use with Fledermaus).
  */
-export default function Script({ entry, src, inline }, children, { inlineFile, fingerprint }) {
-	let url;
-	if (entry) {
-		url = `/build/${entry}.js`;
-	}
-	else if (src) {
-		url = src;
-	}
-	else {
-		url = '/build/main.js';
-	}
+export default function Script({ entry = 'main', src, inline }, children, { inlineFile, fingerprint }) {
+	const url = src || `/build/${entry}.js`;
 
 	const attrs = {};
 	let content;
