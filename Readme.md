@@ -50,7 +50,7 @@ And then I use [shipit](https://github.com/sapegin/shipit) to deploy a site to a
 **Module** is combination of block (appearance) and component (behaviour) that can be used on many sites. Some modules have only blocks, some modules have default skin that you can disable if you want.
 
 
-## CSS Bootstap
+## CSS Bootstrap
 
 It has base CSS rules (like [Normalize.css](https://necolas.github.io/normalize.css/)) and some sane default styles for typography, etc.
 
