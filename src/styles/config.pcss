@@ -1,9 +1,19 @@
 :root {
 	/* Default spacer. */
-	--spacer: 10px;
+	--spacer: 8px;
+
+	/* Spacers */
+	--spacer0: calc(0.5 * var(--spacer));
+	--spacer1: var(--spacer);
+	--spacer1-5: var(1.5 * --spacer);
+	--spacer2: calc(2 * var(--spacer));
+	--spacer3: calc(3 * var(--spacer));
+	--spacer4: calc(4 * var(--spacer));
+	--spacer5: calc(5 * var(--spacer));
+	--spacer6: calc(6 * var(--spacer));
 
 	/* Grid gutter. */
-	--gridGutter: calc(2 * var(--spacer));
+	--gridGutter: var(--spacer2);
 
 	/* Max page with (don’t forget to update --less-than-max-width custom media query). */
 	--maxWidth: 1200px;
@@ -33,8 +43,8 @@
 	--linkUnderlinePosition: 90%;
 
 	/* Headers */
-	--headerMarginTop: calc(4 * var(--spacer));
-	--headerMarginBottom: calc(2 * var(--spacer));
+	--headerMarginTop: var(--spacer4);
+	--headerMarginBottom: var(--spacer2);
 	--headerLineHeight: 1.2;
 	--headerAlphaSize: 44px;
 	--headerAlphaWeight: normal;
