@@ -3,19 +3,19 @@ import s from './Layout.pcss';
 
 // TODO: check params
 
-export default component(({ size, sm, md, lg, xl, right }) => {
-	const isColumn = size || sm || md || lg || xl;
+export default component(({ xs, sm, md, lg, xl, right }) => {
+	const isColumn = xs || sm || md || lg || xl;
 	return {
 		[s.row]: !isColumn,
 		[s.column]: isColumn,
 
 		// Default
-		[s.sixth]: size === 1 / 6,
-		[s.quarter]: size === 1 / 4,
-		[s.threeQuarters]: size === 3 / 4,
-		[s.third]: size === 1 / 3,
-		[s.twoThirds]: size === 2 / 3,
-		[s.half]: size === 1 / 2,
+		[s.sixth]: xs === 1 / 6,
+		[s.quarter]: xs === 1 / 4,
+		[s.threeQuarters]: xs === 3 / 4,
+		[s.third]: xs === 1 / 3,
+		[s.twoThirds]: xs === 2 / 3,
+		[s.half]: xs === 1 / 2,
 
 		// Small
 		[s.smallSixth]: sm === 1 / 6,
