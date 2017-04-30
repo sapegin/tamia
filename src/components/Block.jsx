@@ -11,4 +11,6 @@ export default component(({ bottom = 1 }) => ({
 	[s.bottom4]: bottom === 4,
 	[s.bottom5]: bottom === 5,
 	[s.bottom6]: bottom === 6,
+	[s.bottom7]: bottom === 7,
+	[s.bottom8]: bottom === 8,
 }));
