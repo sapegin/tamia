@@ -3,7 +3,7 @@ import s from './Layout.pcss';
 
 // TODO: check params
 
-export default component(({ xs, sm, md, lg, xl, right }) => {
+export default component(({ xs, sm, md, lg, xl, right, spacious }) => {
 	const isColumn = xs || sm || md || lg || xl;
 	return {
 		[s.row]: !isColumn,
@@ -51,5 +51,6 @@ export default component(({ xs, sm, md, lg, xl, right }) => {
 
 		// Misc
 		[s.right]: right,
+		[s.spacious]: spacious,
 	};
 });
