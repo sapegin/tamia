@@ -1,7 +1,7 @@
 {
   "name": "tamia",
   "description": "Tiny but extremely opinionated front-end framework",
-  "version": "3.0.0-aplha.11",
+  "version": "3.0.0-aplha.12",
   "scripts": {
     "test": "npm run lint",
     "start": "webpack-dev-server --inline --content-base test/specs --config config/webpack.config.js --host 0.0.0.0 --no-info",
