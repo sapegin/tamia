@@ -24,7 +24,10 @@ if (DEBUG) {
 	warn = logger('warn');
 }
 else {
-	log = warn = addBadge = function() {};
+	const fn = function() {};
+	log = fn;
+	warn = fn;
+	addBadge = fn;
 }
 
 export {

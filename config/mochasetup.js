@@ -46,6 +46,7 @@ var propDescriptor = {
 Object.defineProperty(window.Element.prototype, 'dataset', propDescriptor);
 
 // requestAnimationFrame mock
-global.requestAnimationFrame = window.requestAnimationFrame = function(callback) {
+global.requestAnimationFrame = function(callback) {
 	callback();
 };
+window.requestAnimationFrame = global.requestAnimationFrame;
