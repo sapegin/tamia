@@ -5,8 +5,7 @@
 				"node": 6,
 				"uglify": true
 			},
-			"useBuiltIns": true,
-			"modules": false
+			"useBuiltIns": true
 		}]
 	],
 	"plugins": [
