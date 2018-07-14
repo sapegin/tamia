@@ -2,21 +2,24 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import themeGet from '../styles/themeGet';
 
-const Link = styled.a`
-	&,
-	&:link,
-	&:visited {
+const QuotedLink = styled.a`
+	color: inherit;
+	text-decoration: none;
+	& u,
+	&:link u,
+	&:visited u {
+		text-decoration: underline;
 		color: ${themeGet('colors.primary')};
 	}
-	&:hover,
-	&:active,
-	&:focus {
+	&:hover u,
+	&:active u,
+	&:focus u {
 		color: ${themeGet('colors.hover')};
 	}
 `;
 
-Link.propTypes = {
+QuotedLink.propTypes = {
 	children: PropTypes.node,
 };
 
-export default Link;
+export default QuotedLink;

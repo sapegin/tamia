@@ -1,4 +1,12 @@
-import component from './component';
-import s from './Container.pcss';
+import styled from 'styled-components';
 
-export default component(s.container, 'div');
+/**
+ * Content container with max width (`theme.page.contentMaxWidth`).
+ */
+const Container = styled.div`
+	max-width: ${theme => theme.page.contentMaxWidth};
+	margin: 0 auto;
+`;
+
+/** @component */
+export default Container;

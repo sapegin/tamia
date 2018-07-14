@@ -1,8 +1,0 @@
-{
- "order": [
- 	"Component",
- 	"component.init",
- 	"component.destroy",
- 	"component.attributeChanged"
- ]
-}

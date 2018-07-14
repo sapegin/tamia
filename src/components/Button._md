@@ -1,0 +1,12 @@
+```jsx
+<Group>
+  <Button>Eat me!</Button>
+  <Button disabled>Can’t touch this</Button>
+</Group>
+```
+
+Full width:
+
+```jsx
+  <Button block>[:||||||||:]</Button>
+```

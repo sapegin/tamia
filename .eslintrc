@@ -1,8 +1,9 @@
 {
-	"parser": "babel-eslint",
 	"extends": "tamia",
 	"globals": {
-		"DEBUG": false,
-		"expect": false
+		"DEBUG": false
+	},
+	"rules": {
+		"valid-jsdoc": 0
 	}
 }
