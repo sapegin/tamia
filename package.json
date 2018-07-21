@@ -50,6 +50,7 @@
     "@babel/preset-react": "^7.0.0-beta.53",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.0-beta.4",
+    "babel-plugin-polished": "^1.1.0",
     "emotion": "^9.2.5",
     "emotion-theming": "^9.2.5",
     "eslint": "^5.1.0",
