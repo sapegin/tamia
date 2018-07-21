@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled from 'react-emotion';
 import Base from './Base';
 
 const SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'];
@@ -33,8 +33,9 @@ Box.propTypes = {
 	pr: PropTypes.oneOf(SIZES),
 	pb: PropTypes.oneOf(SIZES),
 	pl: PropTypes.oneOf(SIZES),
-	is: PropTypes.element,
+	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	children: PropTypes.node,
 };
 
+/** @component */
 export default Box;

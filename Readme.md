@@ -10,8 +10,8 @@ Tâmia is a tiny but extremely opinionated framework for frontend developers (hm
 ## Based on
 
 * [React](https://reactjs.org/)
-* [styled-components](https://www.styled-components.com/)
-* [Typography.js](https://github.com/KyleAMathews/typography.js/)
+* [Emotion](https://emotion.sh/)
+* [polished](https://polished.js.org/)
 * [Normalize.css](https://necolas.github.io/normalize.css/)
 * [ECMAScript 6](http://es6-features.org/)
 
@@ -30,7 +30,7 @@ I love new technologies so I spend as little time as possible on old browsers. T
 
 ## Workflow
 
-For styles I use [styled-components](https://www.styled-components.com/).
+For styles I use [Emotion](https://emotion.sh/).
 
 I usually use [Gatsby](https://www.gatsbyjs.org/) as a static site generator.
 
@@ -39,7 +39,7 @@ And then I use [shipit](https://github.com/sapegin/shipit) to deploy a site to a
 
 ## CSS bootstrap
 
-It has base and typography CSS rules, based on [Typography.js](https://github.com/KyleAMathews/typography.js/) and [Normalize.css](https://necolas.github.io/normalize.css/)).
+It has base and typography CSS rules and [Normalize.css](https://necolas.github.io/normalize.css/)).
 
 
 ## Component library
@@ -64,7 +64,7 @@ There are a few other things made specifically for Tâmia:
 1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia styled-components typography
+npm install tamia emotion emotion-theming react-emotion
 ```
 
 2. Create a theme at `src/theme.js`:
@@ -82,12 +82,12 @@ npm install tamia styled-components typography
   export default theme;
   ```
 
-3. Create a Typography.js instance:
+3. Add global styles:
 
   ```js static
-  import getTypography from 'tamia/lib/typography';
-  import theme from './theme';
-  export default getTypography(theme);
+  import injectStyles from 'tamia/lib/styles';
+  import getTheme from './theme';
+  injectStyles(getTheme());
   ```
 
 

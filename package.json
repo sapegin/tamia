@@ -1,7 +1,7 @@
 {
   "name": "tamia",
-  "description": "Tiny but extremely opinionated front-end framework",
-  "version": "5.0.0-aplha.1",
+  "description": "Tiny but extremely opinionated frontend framework",
+  "version": "4.0.0-aplha.2",
   "scripts": {
     "test": "npm run lint",
     "prepublishOnly": "npm run compile",
@@ -34,11 +34,13 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
+    "polished": "^1.9.3",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
-    "styled-components": ">=3",
-    "typography": ">=0.16"
+    "emotion": ">=9",
+    "emotion-theming": ">=9",
+    "react-emotion": ">=9"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.53",
@@ -48,6 +50,8 @@
     "@babel/preset-react": "^7.0.0-beta.53",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.0-beta.4",
+    "emotion": "^9.2.5",
+    "emotion-theming": "^9.2.5",
     "eslint": "^5.1.0",
     "eslint-config-tamia": "^6.0.0",
     "eslint-plugin-react": "^7.10.0",
@@ -58,9 +62,8 @@
     "prettier": "^1.13.7",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-styleguidist": "^7.0.20",
-    "react-typography": "^0.16.13",
-    "styled-components": "^3.3.3",
+    "react-emotion": "^9.2.5",
+    "react-styleguidist": "^7.1.0",
     "webpack": "^4.16.0",
     "webpack-blocks": "^2.0.0-alpha"
   }

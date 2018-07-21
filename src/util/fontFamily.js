@@ -18,4 +18,4 @@ export const wrapFontFamily = fontFamily =>
 		? fontFamily
 		: `'${fontFamily}'`;
 
-export const buildFontFamily = fonts => fonts.map(wrapFontFamily).join(',');
+export const getFontFamilyCss = fonts => fonts.map(wrapFontFamily).join(',');
