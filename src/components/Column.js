@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled, { css } from 'react-emotion';
 import Base from './Base';
 
 const BREAKPOINTS = {
@@ -9,10 +9,9 @@ const BREAKPOINTS = {
 	large: 3,
 	huge: 4,
 };
+const BREAKPOINT_NAMES = Object.keys(BREAKPOINTS);
 
 const push = direction => props => props.push === direction && 'auto';
-const breakpoint = breakpoint => props =>
-	`min-width: ${props.theme.breakpoints[breakpoint]}`;
 const size = breakpoint => props => {
 	const width = props.width[BREAKPOINTS[breakpoint]];
 	return width && `${width * 100}%`;
@@ -23,18 +22,18 @@ const Column = styled(Base)`
 	margin-right: ${push('left')};
 	text-align: ${props => props.align};
 	width: ${size('default')};
-	@media (${breakpoint('small')}) {
-		width: ${size('small')};
-	}
-	@media (${breakpoint('medium')}) {
-		width: ${size('medium')};
-	}
-	@media (${breakpoint('large')}) {
-		width: ${size('large')};
-	}
-	@media (${breakpoint('huge')}) {
-		width: ${size('huge')};
-	}
+	${props =>
+		BREAKPOINT_NAMES.map(breakpoint => {
+			const width = size(breakpoint)(props);
+			return (
+				width &&
+				css`
+					@media (min-width: ${props.theme.breakpoints[breakpoint]}) {
+						width: ${width};
+					}
+				`
+			);
+		})};
 `;
 
 Column.propTypes = {
