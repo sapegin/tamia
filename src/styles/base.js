@@ -4,6 +4,8 @@ const getBaseStyles = theme => ({
 	html: {
 		boxSizing: 'border-box',
 		overflowY: 'scroll',
+		fontSize: theme.baseFontSize,
+		fontFamily: getFontFamilyCss(theme.fonts.base),
 	},
 	// box-sizing reset
 	'*, *:before, *:after': {
@@ -13,11 +15,9 @@ const getBaseStyles = theme => ({
 		maxWidth: theme.page.maxWidth,
 		marginLeft: 'auto',
 		marginRight: 'auto',
-		padding: `${theme.page.yPadding} ${theme.page.xPadding}`,
+		padding: `0 ${theme.page.xPadding}`,
 		color: theme.colors.base,
 		background: theme.colors.bg,
-		fontSize: theme.baseFontSize,
-		fontFamily: getFontFamilyCss(theme.fonts.base),
 		lineHeight: theme.lineHeights.base,
 		fontWeight: theme.fontWeights.base,
 		wordWrap: 'break-word',
