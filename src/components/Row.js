@@ -24,6 +24,7 @@ Row.propTypes = {
 
 Row.defaultProps = {
 	is: 'div',
+	blacklist: Object.keys(Row.propTypes),
 };
 
 /** @component */

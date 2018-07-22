@@ -18,9 +18,6 @@ const Box = styled(Base)`
 	padding-bottom: ${size('pb')};
 	padding-left: ${size('pl')};
 `;
-Box.defaultProps = {
-	is: 'div',
-};
 
 Box.propTypes = {
 	m: PropTypes.oneOf(SIZES),
@@ -35,6 +32,11 @@ Box.propTypes = {
 	pl: PropTypes.oneOf(SIZES),
 	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	children: PropTypes.node,
+};
+
+Box.defaultProps = {
+	is: 'div',
+	blacklist: Object.keys(Box.propTypes),
 };
 
 /** @component */

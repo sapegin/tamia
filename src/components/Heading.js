@@ -27,6 +27,7 @@ Heading.propTypes = {
 
 Heading.defaultProps = {
 	level: 1,
+	blacklist: Object.keys(Heading.propTypes),
 };
 
 /** @component */

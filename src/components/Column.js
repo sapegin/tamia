@@ -51,6 +51,7 @@ Column.propTypes = {
 Column.defaultProps = {
 	width: [],
 	is: 'div',
+	blacklist: Object.keys(Column.propTypes),
 };
 
 /** @component */

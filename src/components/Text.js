@@ -22,6 +22,7 @@ Text.propTypes = {
 Text.defaultProps = {
 	size: 'm',
 	is: 'p',
+	blacklist: Object.keys(Text.propTypes),
 };
 
 /** @component */
