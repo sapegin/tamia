@@ -1,12 +1,23 @@
+import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import themeGet from '../util/themeGet';
+import Base from './Base';
 
-const Page = styled('div')`
+const Page = styled(Base)`
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	padding: ${themeGet('page.yPadding')} 0;
+	padding-left: ${themeGet('page.yPadding')};
+	padding-right: ${themeGet('page.yPadding')};
 `;
+
+Page.propTypes = {
+	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+};
+
+Page.defaultProps = {
+	is: 'div',
+};
 
 const Footer = styled('footer')`
 	margin-top: auto;

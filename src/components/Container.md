@@ -1,3 +1,3 @@
-```jsx static
+```html static
 <Container>foo</Container>
 ```
