@@ -19,11 +19,19 @@ Page.defaultProps = {
 	is: 'div',
 };
 
-const Footer = styled('footer')`
+const Footer = styled(Base)`
 	margin-top: auto;
 	margin-bottom: -${themeGet('page.yPadding')};
 	padding-bottom: ${themeGet('space.s')};
 `;
+
+Footer.propTypes = {
+	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+};
+
+Footer.defaultProps = {
+	is: 'footer',
+};
 
 Page.Footer = Footer;
 
