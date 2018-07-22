@@ -7,8 +7,8 @@ const Page = styled(Base)`
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	padding-left: ${themeGet('page.yPadding')};
-	padding-right: ${themeGet('page.yPadding')};
+	padding-top: ${themeGet('page.yPadding')};
+	padding-top: ${themeGet('page.yPadding')};
 `;
 
 Page.propTypes = {
