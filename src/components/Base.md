@@ -6,5 +6,5 @@ Tomato.defaultProps = {
   is: 'div'
 };
 
-<Tomato is="p">🍅</Tomato>
+<Tomato is="p">🍅</Tomato>;
 ```
