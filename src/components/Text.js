@@ -17,6 +17,8 @@ Text.propTypes = {
 	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	mt: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
+	/** @ignore */
+	blacklist: PropTypes.array,
 };
 
 Text.defaultProps = {

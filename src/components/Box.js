@@ -32,6 +32,8 @@ Box.propTypes = {
 	pl: PropTypes.oneOf(SIZES),
 	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	children: PropTypes.node,
+	/** @ignore */
+	blacklist: PropTypes.array,
 };
 
 Box.defaultProps = {

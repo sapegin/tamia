@@ -46,6 +46,8 @@ Column.propTypes = {
 	className: PropTypes.string,
 	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	children: PropTypes.node,
+	/** @ignore */
+	blacklist: PropTypes.array,
 };
 
 Column.defaultProps = {

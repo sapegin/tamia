@@ -20,6 +20,8 @@ Row.propTypes = {
 	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	narrow: PropTypes.bool,
 	children: PropTypes.node,
+	/** @ignore */
+	blacklist: PropTypes.array,
 };
 
 Row.defaultProps = {
