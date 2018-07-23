@@ -55,6 +55,7 @@
     "emotion-theming": "^9.2.5",
     "eslint": "^5.1.0",
     "eslint-config-tamia": "^6.0.0",
+    "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
     "gh-pages": "^1.2.0",
     "preact": "^8.2.9",
