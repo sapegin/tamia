@@ -65,13 +65,14 @@ const TextContent = styled(Base)`
 		background: ${themeGet('colors.border')};
 	}
 
-	/* Responsive images and full beed images */
+	/* Responsive images and full bleed images */
 	& img {
 		height: auto;
 		max-width: calc(100% + ${themeGet('page.xPadding')} * 2);
 		margin-left: -${themeGet('page.xPadding')};
 		margin-right: -${themeGet('page.xPadding')};
-		@media (min-width: ${themeGet('page.maxWidth')}) {
+		@media (min-width: ${props =>
+				props.theme.page.contentMaxWidth || props.theme.page.maxWidth}) {
 			max-width: 100%;
 			margin-left: auto;
 			margin-right: auto;
