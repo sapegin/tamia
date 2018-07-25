@@ -114,9 +114,9 @@ const getTheme = ({
 			// Fonts
 			fonts: {
 				base: baseFont,
-				monospace: monospaceFont,
-				codeBlock: monospaceFont,
 				heading: baseFont,
+				pre: monospaceFont,
+				code: monospaceFont,
 			},
 
 			fontWeights: {
@@ -130,6 +130,7 @@ const getTheme = ({
 			lineHeights: {
 				base: 1.45,
 				heading: 1.1,
+				pre: 1.3,
 			},
 
 			// Breakpoints

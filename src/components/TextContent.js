@@ -6,6 +6,8 @@ import Base from './Base';
 
 // Inspired by Bootstrap and Typography.js
 
+const fontGet = font => props => getFontFamilyCss(props.theme.fonts[font]);
+
 const TextContent = styled(Base)`
 	& h1,
 	& h2,
@@ -116,7 +118,7 @@ const TextContent = styled(Base)`
 	& h5,
 	& h6 {
 		margin-top: ${themeGet('headingMarginTop')};
-		font-family: ${props => getFontFamilyCss(props.theme.fonts.heading)};
+		font-family: ${fontGet('heading')};
 		line-height: ${themeGet('lineHeights.heading')};
 		font-weight: ${themeGet('fontWeights.heading')};
 	}
@@ -188,6 +190,26 @@ const TextContent = styled(Base)`
 		& ul > li {
 			margin-left: -${themeGet('listMargin')};
 		}
+	}
+
+	/* Code */
+	& code,
+	& kbd {
+		font-family: ${fontGet('code')};
+	}
+	& pre {
+		display: block;
+		line-height: ${themeGet('lineHeights.pre')};
+		font-size: ${themeGet('fontSizes.s')};
+		font-family: ${fontGet('pre')};
+		white-space: pre-wrap;
+		tab-size: 4;
+		text-size-adjust: none;
+	}
+	& pre code {
+		display: block;
+		font-size: inherit;
+		color: inherit;
 	}
 `;
 

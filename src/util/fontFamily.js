@@ -18,4 +18,9 @@ export const wrapFontFamily = fontFamily =>
 		? fontFamily
 		: `'${fontFamily}'`;
 
-export const getFontFamilyCss = fonts => fonts.map(wrapFontFamily).join(',');
+export const getFontFamilyCss = fonts => {
+	if (fonts) {
+		return fonts.map(wrapFontFamily).join(',');
+	}
+	return 'inherit';
+};

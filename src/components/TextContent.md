@@ -72,5 +72,21 @@
       </tr>
     </tbody>
   </table>
+  <p>To begin, copy everything from the program below into a text editor or into the QBasic <abbr>IDE</abbr> (Integrated Development Interface) itself and save it as <code>99BTLS.BAS</code>. Next open the file in QBasic and press <kbd>F5</kbd>.</p>
+  {/* 99 Bottles of Beer on the Wall */}
+  {/* Patrick Fleming http://chem-www.mps.ohio-state.edu/~pfleming/ */}
+  <pre><code>CLS{'\n'}{'\n'}n = 100{'\n'}DO UNTIL n = 1{'\n'}
+{'    '}n = n - 1{'\n'}
+{'    '}PRINT n; "bottle";{'\n'}
+{'    '}IF n &lt;&gt; 1 THEN PRINT "s";{'\n'}
+{'    '}PRINT " of beer on the wall . . ."{'\n'}
+{'    '}PRINT n; "bottle";{'\n'}
+{'    '}IF n &lt;&gt; 1 THEN PRINT "s";{'\n'}
+{'    '}PRINT " of beer!"{'\n'}
+{'    '}PRINT "Take one down, pass it around . . ."v
+{'    '}PRINT n - 1; "bottle";{'\n'}
+{'    '}IF n - 1 &lt;&gt; 1 THEN PRINT "s";{'\n'}
+{'    '}PRINT " of beer on the wall!"{'\n'}
+{'    '}PRINT{'\n'}LOOP{'\n'}{'\n'}END</code></pre>
 </TextContent>
 ```
