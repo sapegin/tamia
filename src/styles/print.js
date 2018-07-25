@@ -1,4 +1,4 @@
-import { injectGlobal } from 'emotion-vdo';
+import { injectGlobal } from 'emotion';
 
 /* Print stylesheet */
 
