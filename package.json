@@ -9,6 +9,8 @@
     "compile": "babel --delete-dir-on-start -d lib/ src/",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
+    "deploy": "gh-pages -d styleguide/public",
+    "docs": "npm run styleguide:build && npm run deploy",
     "format": "prettier --write '**/*.{js,md}'",
     "posttest": "npm run format"
   },

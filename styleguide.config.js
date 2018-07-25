@@ -24,4 +24,7 @@ module.exports = {
 			components: 'src/components/*.js',
 		},
 	],
+	ribbon: {
+		url: 'https://github.com/tamiadev/tamia/',
+	},
 };

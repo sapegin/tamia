@@ -1,7 +1,4 @@
-node_modules
-docs/public
-docs/md
-docs/Tamia.docset
+node_modules/
+lib/
+styleguide/public/
 Changelog.md
-*.map
-lib
