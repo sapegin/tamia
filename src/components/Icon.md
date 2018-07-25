@@ -6,7 +6,7 @@
     width: 640,
     height: 520
   }}
-  width="80"
-  height="80"
+  width={80}
+  height={80}
 />
 ```
