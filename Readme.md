@@ -61,7 +61,6 @@ npm install tamia emotion emotion-theming react-emotion
 
 2.  Create a theme at `src/theme.js`:
 
-
 ```js static
 import merge from 'lodash/merge';
 import defaultTheme from 'tamia/lib/theme';
@@ -76,7 +75,6 @@ export default theme;
 ```
 
 3.  Add global styles:
-
 
 ```js static
 import injectStyles from 'tamia/lib/styles';
