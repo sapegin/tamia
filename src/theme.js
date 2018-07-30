@@ -48,13 +48,7 @@ const getTheme = ({
 		'Segoe UI Emoji',
 		'Segoe UI Symbol',
 	],
-	monospaceFont = [
-		'Consolas',
-		'Lucida Console',
-		'Monaco',
-		'DejaVu Sans Mono',
-		'monospace',
-	],
+	monospaceFont = ['Monaco', 'DejaVu Sans Mono', 'Lucida Console', 'monospace'],
 	...rest
 } = {}) =>
 	merge(
