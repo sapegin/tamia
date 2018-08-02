@@ -34,6 +34,12 @@
   "engines": {
     "node": ">=8.9"
   },
+  "browserslist": [
+    ">1%",
+    "last 1 version",
+    "Firefox ESR",
+    "not dead"
+  ],
   "dependencies": {
     "lodash": "^4.17.10",
     "polished": "^1.9.3",
