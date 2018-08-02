@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import themeGet from '../util/themeGet';
+import Base from './Base';
 
-const QuotedLink = styled('a')`
+const QuotedLink = styled(Base)`
+	padding: 0;
+	background: none;
+	border: 0;
 	color: inherit;
 	text-decoration: none;
 	& u,
@@ -16,6 +20,9 @@ const QuotedLink = styled('a')`
 	&:focus u {
 		color: ${themeGet('colors.hover')};
 	}
+	&:hover {
+		cursor: pointer;
+	}
 	&:focus {
 		outline: 1px dotted ${themeGet('colors.hover')};
 		outline-offset: 1px;
@@ -24,6 +31,14 @@ const QuotedLink = styled('a')`
 
 QuotedLink.propTypes = {
 	children: PropTypes.node,
+	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+	/** @ignore */
+	blacklist: PropTypes.array,
+};
+
+QuotedLink.defaultProps = {
+	is: 'a',
+	blacklist: Object.keys(QuotedLink.propTypes),
 };
 
 /** @component */
