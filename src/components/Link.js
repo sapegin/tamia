@@ -10,6 +10,7 @@ const Link = styled(Base)`
 		padding: 0;
 		background: none;
 		border: 0;
+		font-family: inherit;
 		color: ${themeGet('colors.primary')};
 		text-decoration: underline;
 	}
