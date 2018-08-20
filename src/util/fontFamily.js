@@ -1,5 +1,7 @@
 // Borrowed from Typography.js
 
+import get from 'lodash/get';
+
 // Wrap font names in quotes, unless the font name is actually a keyword.
 // See https://stackoverflow.com/a/13752149 and https://www.w3.org/TR/CSS2/fonts.html#font-family-prop
 const genericFontFamilies = [
@@ -24,3 +26,6 @@ export const getFontFamilyCss = fonts => {
 	}
 	return 'inherit';
 };
+
+export const themeFontFamily = addr => props =>
+	getFontFamilyCss(get(props.theme, addr));
