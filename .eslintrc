@@ -10,5 +10,10 @@
 	],
 	"rules": {
 		"valid-jsdoc": 0
+	},
+	"settings": {
+		"react": {
+			"version": "16.4"
+		}
 	}
 }
