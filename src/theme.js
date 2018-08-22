@@ -36,19 +36,24 @@ const getTheme = ({
 		// Safari for OS X and iOS (San Francisco)
 		'-apple-system',
 		// Windows
-		'Segoe UI',
+		'"Segoe UI"',
 		// Android
 		'Roboto',
 		// Basic web fallback
-		'Helvetica Neue',
+		'"Helvetica Neue"',
 		'Arial',
 		'sans-serif',
 		// Emoji fonts
-		'Apple Color Emoji',
-		'Segoe UI Emoji',
-		'Segoe UI Symbol',
-	],
-	monospaceFont = ['Monaco', 'DejaVu Sans Mono', 'Lucida Console', 'monospace'],
+		'"Apple Color Emoji"',
+		'"Segoe UI Emoji"',
+		'"Segoe UI Symbol"',
+	].join(', '),
+	monospaceFont = [
+		'Monaco',
+		'"DejaVu Sans Mono"',
+		'"Lucida Console"',
+		'monospace',
+	].join(', '),
 	...rest
 } = {}) =>
 	merge(

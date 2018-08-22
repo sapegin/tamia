@@ -1,11 +1,9 @@
-import { getFontFamilyCss } from '../util/fontFamily';
-
 const getBaseStyles = theme => ({
 	html: {
 		boxSizing: 'border-box',
 		overflowY: 'scroll',
 		fontSize: theme.baseFontSize,
-		fontFamily: getFontFamilyCss(theme.fonts.base),
+		fontFamily: theme.fonts.base,
 	},
 	// box-sizing reset
 	'*, *:before, *:after': {

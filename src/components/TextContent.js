@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
-import { getFontFamilyCss } from '../util/fontFamily';
 import themeGet from '../util/themeGet';
 import Base from './Base';
 
 // Inspired by Bootstrap and Typography.js
-
-const fontGet = font => props => getFontFamilyCss(props.theme.fonts[font]);
 
 const TextContent = styled(Base)`
 	& h1,
@@ -118,7 +115,7 @@ const TextContent = styled(Base)`
 	& h5,
 	& h6 {
 		margin-top: ${themeGet('headingMarginTop')};
-		font-family: ${fontGet('heading')};
+		font-family: ${themeGet('fonts.heading')};
 		line-height: ${themeGet('lineHeights.heading')};
 		font-weight: ${themeGet('fontWeights.heading')};
 	}
@@ -195,13 +192,13 @@ const TextContent = styled(Base)`
 	/* Code */
 	& code,
 	& kbd {
-		font-family: ${fontGet('code')};
+		font-family: ${themeGet('fonts.code')};
 	}
 	& pre {
 		display: block;
 		line-height: ${themeGet('lineHeights.pre')};
 		font-size: ${themeGet('fontSizes.s')};
-		font-family: ${fontGet('pre')};
+		font-family: ${themeGet('fonts.pre')};
 		white-space: pre-wrap;
 		tab-size: 4;
 		text-size-adjust: none;
