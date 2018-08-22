@@ -42,7 +42,7 @@
   ],
   "dependencies": {
     "lodash": "^4.17.10",
-    "polished": "^1.9.3",
+    "polished": "^2.0.0",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
@@ -51,11 +51,11 @@
     "react-emotion": ">=9"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-rc.1",
-    "@babel/core": "^7.0.0-rc.1",
-    "@babel/preset-env": "^7.0.0-rc.1",
-    "@babel/preset-flow": "^7.0.0-rc.1",
-    "@babel/preset-react": "^7.0.0-rc.1",
+    "@babel/cli": "^7.0.0-rc.2",
+    "@babel/core": "^7.0.0-rc.2",
+    "@babel/preset-env": "^7.0.0-rc.2",
+    "@babel/preset-flow": "^7.0.0-rc.2",
+    "@babel/preset-react": "^7.0.0-rc.2",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.0-beta.4",
     "babel-plugin-polished": "^1.1.0",
@@ -70,8 +70,8 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-emotion": "^9.2.6",
-    "react-styleguidist": "^7.2.4",
-    "webpack": "^4.16.5",
+    "react-styleguidist": "^7.2.5",
+    "webpack": "^4.17.0",
     "webpack-blocks": "^2.0.0-alpha"
   }
 }
