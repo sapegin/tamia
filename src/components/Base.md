@@ -3,8 +3,8 @@ const Tomato = styled(Base)`
   color: tomato;
 `;
 Tomato.defaultProps = {
-  is: 'div'
+  as: 'div'
 };
 
-<Tomato is="p">🍅</Tomato>;
+<Tomato as="p">🍅</Tomato>;
 ```

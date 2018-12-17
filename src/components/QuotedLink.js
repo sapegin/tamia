@@ -32,13 +32,13 @@ const QuotedLink = styled(Base)`
 
 QuotedLink.propTypes = {
 	children: PropTypes.node,
-	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+	as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 QuotedLink.defaultProps = {
-	is: 'a',
+	as: 'a',
 	blacklist: Object.keys(QuotedLink.propTypes),
 };
 

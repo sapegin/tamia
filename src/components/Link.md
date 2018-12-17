@@ -7,7 +7,7 @@ Regular link:
 As a button:
 
 ```jsx
-<Link is="button" onClick={() => console.log('Click!')}>
+<Link as="button" onClick={() => console.log('Click!')}>
   Drink me!
 </Link>
 ```

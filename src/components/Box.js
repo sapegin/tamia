@@ -30,14 +30,14 @@ Box.propTypes = {
 	pr: PropTypes.oneOf(SIZES),
 	pb: PropTypes.oneOf(SIZES),
 	pl: PropTypes.oneOf(SIZES),
-	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+	as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	children: PropTypes.node,
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 Box.defaultProps = {
-	is: 'div',
+	as: 'div',
 	blacklist: Object.keys(Box.propTypes),
 };
 

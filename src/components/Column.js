@@ -56,7 +56,7 @@ Column.propTypes = {
 	align: PropTypes.oneOf(['center', 'right']),
 	push: PropTypes.oneOf(['left', 'right']),
 	className: PropTypes.string,
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	children: PropTypes.node,
 	/** @ignore */
 	blacklist: PropTypes.array,
@@ -64,7 +64,7 @@ Column.propTypes = {
 
 Column.defaultProps = {
 	width: [],
-	is: 'div',
+	as: 'div',
 	blacklist: Object.keys(Column.propTypes),
 };
 

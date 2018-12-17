@@ -28,13 +28,13 @@ const Link = styled(Base)`
 
 Link.propTypes = {
 	children: PropTypes.node,
-	is: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+	as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 Link.defaultProps = {
-	is: 'a',
+	as: 'a',
 	blacklist: Object.keys(Link.propTypes),
 };
 

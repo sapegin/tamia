@@ -211,13 +211,13 @@ const TextContent = styled(Base)`
 `;
 
 TextContent.propTypes = {
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 TextContent.defaultProps = {
-	is: 'div',
+	as: 'div',
 };
 
 /** @component */

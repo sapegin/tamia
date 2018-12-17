@@ -17,7 +17,7 @@ const Row = styled(Base)`
 `;
 
 Row.propTypes = {
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	narrow: PropTypes.bool,
 	children: PropTypes.node,
 	/** @ignore */
@@ -25,7 +25,7 @@ Row.propTypes = {
 };
 
 Row.defaultProps = {
-	is: 'div',
+	as: 'div',
 	blacklist: Object.keys(Row.propTypes),
 };
 

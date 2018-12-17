@@ -11,13 +11,13 @@ const VisuallyHidden = styled(Base)`
 `;
 
 VisuallyHidden.propTypes = {
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 VisuallyHidden.defaultProps = {
-	is: 'p',
+	as: 'p',
 	blacklist: Object.keys(VisuallyHidden.propTypes),
 };
 

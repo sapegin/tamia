@@ -13,11 +13,11 @@ const Html = ({ children, ...props }) => (
 
 Html.propTypes = {
 	children: PropTypes.string,
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 Html.defaultProps = {
-	is: 'div',
+	as: 'div',
 };
 
 export default Html;

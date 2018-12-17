@@ -14,7 +14,7 @@ const Text = styled(Base)`
 Text.propTypes = {
 	size: PropTypes.oneOf(SIZES),
 	color: PropTypes.string,
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	mt: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
 	/** @ignore */
@@ -23,7 +23,7 @@ Text.propTypes = {
 
 Text.defaultProps = {
 	size: 'm',
-	is: 'p',
+	as: 'p',
 	blacklist: Object.keys(Text.propTypes),
 };
 

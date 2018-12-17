@@ -6,8 +6,8 @@ import Base from './Base';
 const SIZES = ['xxl', 'xl', 'l', 'm', 's', 'xs'];
 
 // eslint-disable-next-line react/prop-types
-const HeadingBase = ({ is, level, ...props }) => (
-	<Base is={is || `h${level}`} {...props} />
+const HeadingBase = ({ as, level, ...props }) => (
+	<Base as={as || `h${level}`} {...props} />
 );
 
 const Heading = styled(HeadingBase)`
@@ -20,7 +20,7 @@ const Heading = styled(HeadingBase)`
 
 Heading.propTypes = {
 	level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	mt: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
 	/** @ignore */

@@ -11,13 +11,13 @@ const Page = styled(Base)`
 `;
 
 Page.propTypes = {
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 Page.defaultProps = {
-	is: 'div',
+	as: 'div',
 };
 
 const Footer = styled(Base)`
@@ -27,13 +27,13 @@ const Footer = styled(Base)`
 `;
 
 Footer.propTypes = {
-	is: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	/** @ignore */
 	blacklist: PropTypes.array,
 };
 
 Footer.defaultProps = {
-	is: 'footer',
+	as: 'footer',
 };
 
 Page.Footer = Footer;

@@ -16,7 +16,7 @@ import Row from './Row';
 
 ```jsx
 import Row from './Row';
-<Row is="footer">
+<Row as="footer">
   <Column width={[1, null, 'auto']} mb="s" align="center">
     © Artem Sapegin, 2018
   </Column>
