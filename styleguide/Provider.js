@@ -1,10 +1,13 @@
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming';
 import getTheme from '../src/theme';
-import './styles';
+import TamiaProvider from '../src/components/TamiaProvider';
+
+const theme = getTheme();
 
 const Provider = ({ children }) => (
-	<ThemeProvider theme={getTheme()}>{children}</ThemeProvider>
+	<>
+		<TamiaProvider theme={theme}>{children}</TamiaProvider>
+	</>
 );
 
 export default Provider;

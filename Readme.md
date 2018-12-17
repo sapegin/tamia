@@ -53,13 +53,13 @@ There are a few other things made specifically for Tâmia:
 
 ## Getting started
 
-1.  Install Tâmia and peer dependencies:
+1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia emotion emotion-theming react-emotion
+npm install tamia @emotion/core @emotin/styled emotion-theming
 ```
 
-2.  Create a theme at `src/theme.js`:
+2. Create a theme at `src/theme.js`:
 
 ```js static
 import merge from 'lodash/merge';
@@ -74,12 +74,18 @@ const theme = merge(defaultTheme, {
 export default theme;
 ```
 
-3.  Add global styles:
+3. Wrap your app in a provider:
 
 ```js static
-import injectStyles from 'tamia/lib/styles';
+import React from 'react';
+import { TamiaProvider } from 'tamia';
 import theme from './theme';
-injectStyles(theme);
+
+const Provider = ({ children }) => (
+  <TamiaProvider theme={theme}>{children}</ThemeProvider>
+);
+
+export default Provider;
 ```
 
 ## The Name

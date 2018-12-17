@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import themeGet from '../util/themeGet';
 import Base from './Base';
 
@@ -94,8 +94,8 @@ const TextContent = styled(Base)`
 		border-bottom: 1px solid ${themeGet('colors.border')};
 		padding: calc(${themeGet('blockMarginBottom')} / 2);
 	}
-	& th:first-child,
-	& td:first-child {
+	& th:first-of-type,
+	& td:first-of-type {
 		padding-left: 0;
 	}
 	& th:last-child,
@@ -125,12 +125,12 @@ const TextContent = styled(Base)`
 	& h3 + h4,
 	& h4 + h5,
 	& h5 + h6,
-	& h1:first-child,
-	& h2:first-child,
-	& h3:first-child,
-	& h4:first-child,
-	& h5:first-child,
-	& h6:first-child {
+	& h1:first-of-type,
+	& h2:first-of-type,
+	& h3:first-of-type,
+	& h4:first-of-type,
+	& h5:first-of-type,
+	& h6:first-of-type {
 		margin-top: 0;
 	}
 	& h1 {

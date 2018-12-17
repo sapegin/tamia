@@ -6,10 +6,15 @@
 		"plugin:import/warnings"
 	],
 	"plugins": [
-		"import"
+		"import",
+		"emotion"
 	],
 	"rules": {
-		"valid-jsdoc": 0
+		"valid-jsdoc": 0,
+		"emotion/jsx-import": "error",
+		"emotion/no-vanilla": "error",
+		"emotion/import-from-emotion": "error",
+		"emotion/styled-import": "error"
 	},
 	"settings": {
 		"react": {

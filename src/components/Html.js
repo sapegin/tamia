@@ -20,5 +20,4 @@ Html.defaultProps = {
 	is: 'div',
 };
 
-/** @component */
 export default Html;

@@ -1,18 +1,21 @@
 ```jsx
+import Row from './Row';
 <Row>
   <Column width={[1, 1 / 2]}>foo</Column>
   <Column width={[1, 1 / 2]}>bar</Column>
-</Row>
+</Row>;
 ```
 
 ```jsx
+import Row from './Row';
 <Row narrow>
   <Column>foo</Column>
   <Column push="right">bar</Column>
-</Row>
+</Row>;
 ```
 
 ```jsx
+import Row from './Row';
 <Row is="footer">
   <Column width={[1, null, 'auto']} mb="s" align="center">
     © Artem Sapegin, 2018
@@ -25,5 +28,5 @@
   >
     Have a nice day!
   </Column>
-</Row>
+</Row>;
 ```

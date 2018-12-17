@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import Base from './Base';
 
 const SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'];
