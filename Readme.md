@@ -56,7 +56,7 @@ There are a few other things made specifically for Tâmia:
 1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia @emotion/core @emotin/styled emotion-theming
+npm install tamia @emotion/core @emotion/styled emotion-theming
 ```
 
 2. Create a theme at `src/theme.js`:
