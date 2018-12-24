@@ -21,22 +21,25 @@ const size = breakpoint => props => {
 	return width && `${width * 100}%`;
 };
 
-const column = props => breakpoint => {
+const widthStyle = (props, breakpoint) => {
 	const width = size(breakpoint)(props);
 	if (!width) {
 		return null;
 	}
+	return `width: ${width};`;
+};
 
-	const widthStyle = `width: ${width};`;
+const column = props => breakpoint => {
+	const styles = [widthStyle(props, breakpoint)].filter(Boolean).join('');
 
 	const minWidth = props.theme.breakpoints[breakpoint];
 	if (!minWidth) {
-		return widthStyle;
+		return styles;
 	}
 
 	return `
 		@media (min-width: ${minWidth}) {
-			${widthStyle};
+			${styles};
 		}
 	`;
 };
@@ -53,7 +56,7 @@ Column.propTypes = {
 	width: PropTypes.arrayOf(
 		PropTypes.oneOf([1 / 6, 1 / 4, 3 / 4, 1 / 3, 2 / 3, 1 / 2, 1, 'auto'])
 	),
-	align: PropTypes.oneOf(['center', 'right']),
+	align: PropTypes.oneOf(['left', 'center', 'right']),
 	push: PropTypes.oneOf(['left', 'right']),
 	className: PropTypes.string,
 	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

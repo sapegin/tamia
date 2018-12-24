@@ -10,6 +10,9 @@ const Row = styled(Base)`
 	margin-right: -${space};
 	display: flex;
 	flex-flow: row wrap;
+	align-items: ${props => props.alignItems};
+	align-content: ${props => props.alignContent};
+	justify-content: ${props => props.justifyContent};
 	& > * {
 		padding-left: ${space};
 		padding-right: ${space};
@@ -19,6 +22,9 @@ const Row = styled(Base)`
 Row.propTypes = {
 	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	narrow: PropTypes.bool,
+	alignItems: PropTypes.string,
+	alignContent: PropTypes.string,
+	justifyContent: PropTypes.string,
 	children: PropTypes.node,
 	/** @ignore */
 	blacklist: PropTypes.array,
