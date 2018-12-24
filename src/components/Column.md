@@ -6,6 +6,16 @@ import Row from './Row';
 </Row>;
 ```
 
+
+```jsx
+import Row from './Row';
+<Row narrow>
+  <Column>foo</Column>
+  <Column>bar</Column>
+  <Column>baz</Column>
+</Row>;
+```
+
 ```jsx
 import Row from './Row';
 <Row narrow>
