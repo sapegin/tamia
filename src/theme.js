@@ -4,17 +4,6 @@ const getTheme = ({
 	// Base font size (applied to body)
 	baseFontSize = '1em', // 1em = 16px
 	// Font sizes
-	fontSizes = {
-		base: '1rem',
-		xxxxl: '4.2rem',
-		xxxl: '3.2rem',
-		xxl: '2.4rem',
-		xl: '1.8rem',
-		l: '1.3rem',
-		m: '1rem',
-		s: '0.85rem',
-		xs: '0.75rem',
-	},
 	// Spacers
 	xxs = '0.125rem',
 	xs = '0.25rem',
@@ -57,11 +46,23 @@ const getTheme = ({
 	merge(
 		{
 			baseFontSize,
-			fontSizes,
 
 			blockMarginBottom: m,
 			headingMarginTop: l,
 			listMargin: '1.3em',
+
+			// Font sizes
+			fontSizes: {
+				base: '1rem',
+				xxxxl: '4.2rem',
+				xxxl: '3.2rem',
+				xxl: '2.4rem',
+				xl: '1.8rem',
+				l: '1.3rem',
+				m: '1rem',
+				s: '0.85rem',
+				xs: '0.75rem',
+			},
 
 			// Spacers
 			space: {
