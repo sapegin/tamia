@@ -1,22 +1,20 @@
 import merge from 'lodash/merge';
-import getTypeScale from './util/typeScale';
 
 const getTheme = ({
 	// Base font size (applied to body)
 	baseFontSize = '1em', // 1em = 16px
-	// Typography scale
-	typographyScale = {
-		base: 0,
-		xxxxl: 5,
-		xxxl: 4,
-		xxl: 3,
-		xl: 2,
-		l: 1,
-		m: 0,
-		s: -0.5,
-		xs: -1,
+	// Font sizes
+	fontSizes = {
+		base: '1rem',
+		xxxxl: '4.2rem',
+		xxxl: '3.2rem',
+		xxl: '2.4rem',
+		xl: '1.8rem',
+		l: '1.3rem',
+		m: '1rem',
+		s: '0.85rem',
+		xs: '0.75rem',
 	},
-	scaleRatio = 'perfectFourth',
 	// Spacers
 	xxs = '0.125rem',
 	xs = '0.25rem',
@@ -59,8 +57,7 @@ const getTheme = ({
 	merge(
 		{
 			baseFontSize,
-			scaleRatio,
-			typographyScale,
+			fontSizes,
 
 			blockMarginBottom: m,
 			headingMarginTop: l,
@@ -123,8 +120,6 @@ const getTheme = ({
 				heading: 'normal',
 				bold: 'bold',
 			},
-
-			fontSizes: getTypeScale(typographyScale, scaleRatio),
 
 			lineHeights: {
 				base: 1.45,
