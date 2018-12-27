@@ -11,6 +11,7 @@ export { default as QuotedLink } from './components/QuotedLink';
 export { default as Row } from './components/Row';
 export { default as TamiaRoot } from './components/TamiaRoot';
 export { default as Text } from './components/Text';
+export { default as TextContainer } from './components/TextContainer';
 export { default as TextContent } from './components/TextContent';
 export { default as VisuallyHidden } from './components/VisuallyHidden';
 export { default as themeGet } from './util/themeGet';
