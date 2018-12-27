@@ -74,18 +74,18 @@ const theme = merge(defaultTheme, {
 export default theme;
 ```
 
-3. Wrap your app in a provider:
+3. Wrap your app in a root container:
 
 ```js static
 import React from 'react';
-import { TamiaProvider } from 'tamia';
+import { TamiaRoot } from 'tamia';
 import theme from './theme';
 
-const Provider = ({ children }) => (
-  <TamiaProvider theme={theme}>{children}</ThemeProvider>
+const Root = ({ children }) => (
+  <TamiaRoot theme={theme}>{children}</ThemeRoot>
 );
 
-export default Provider;
+export default Root;
 ```
 
 ## The Name

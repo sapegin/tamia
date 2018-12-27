@@ -9,7 +9,7 @@ export { default as Link } from './components/Link';
 export { default as Page } from './components/Page';
 export { default as QuotedLink } from './components/QuotedLink';
 export { default as Row } from './components/Row';
-export { default as TamiaProvider } from './components/TamiaProvider';
+export { default as TamiaRoot } from './components/TamiaRoot';
 export { default as Text } from './components/Text';
 export { default as TextContent } from './components/TextContent';
 export { default as VisuallyHidden } from './components/VisuallyHidden';
