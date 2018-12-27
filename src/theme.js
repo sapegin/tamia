@@ -87,7 +87,7 @@ const getTheme = ({
 				contentMaxWidth: null,
 
 				// Max text column width (<TextContainer>)
-				textMaxWidth: '40em',
+				textMaxWidth: '40rem',
 			},
 
 			colors: {
