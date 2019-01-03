@@ -8,15 +8,15 @@ const size = value => props => props.theme.space[props[value]];
 
 const Box = styled(Base)`
 	margin: ${size('m')};
-	margin-top: ${size('mt')};
-	margin-right: ${size('mr')};
-	margin-bottom: ${size('mb')};
-	margin-left: ${size('ml')};
+	margin-top: ${size('mt') || size('my')};
+	margin-right: ${size('mr') || size('mx')};
+	margin-bottom: ${size('mb') || size('my')};
+	margin-left: ${size('ml') || size('mx')};
 	padding: ${size('p')};
-	padding-top: ${size('pt')};
-	padding-right: ${size('pr')};
-	padding-bottom: ${size('pb')};
-	padding-left: ${size('pl')};
+	padding-top: ${size('pt') || size('py')};
+	padding-right: ${size('pr') || size('px')};
+	padding-bottom: ${size('pb') || size('py')};
+	padding-left: ${size('pl') || size('px')};
 `;
 
 Box.propTypes = {
@@ -25,11 +25,15 @@ Box.propTypes = {
 	mr: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
 	ml: PropTypes.oneOf(SIZES),
+	mx: PropTypes.oneOf(SIZES),
+	my: PropTypes.oneOf(SIZES),
 	p: PropTypes.oneOf(SIZES),
 	pt: PropTypes.oneOf(SIZES),
 	pr: PropTypes.oneOf(SIZES),
 	pb: PropTypes.oneOf(SIZES),
 	pl: PropTypes.oneOf(SIZES),
+	px: PropTypes.oneOf(SIZES),
+	py: PropTypes.oneOf(SIZES),
 	as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	children: PropTypes.node,
 	/** @ignore */
