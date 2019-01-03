@@ -4,19 +4,20 @@ import Base from './Base';
 
 const SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'];
 
-const size = value => props => props.theme.space[props[value]];
+const size = (prop, fallback) => props =>
+	props.theme.space[props[prop]] || props.theme.space[props[fallback]];
 
 const Box = styled(Base)`
 	margin: ${size('m')};
-	margin-top: ${size('mt') || size('my')};
-	margin-right: ${size('mr') || size('mx')};
-	margin-bottom: ${size('mb') || size('my')};
-	margin-left: ${size('ml') || size('mx')};
+	margin-top: ${size('mt', 'my')};
+	margin-right: ${size('mr', 'mx')};
+	margin-bottom: ${size('mb', 'my')};
+	margin-left: ${size('ml', 'mx')};
 	padding: ${size('p')};
-	padding-top: ${size('pt') || size('py')};
-	padding-right: ${size('pr') || size('px')};
-	padding-bottom: ${size('pb') || size('py')};
-	padding-left: ${size('pl') || size('px')};
+	padding-top: ${size('pt', 'py')};
+	padding-right: ${size('pr', 'px')};
+	padding-bottom: ${size('pb', 'py')};
+	padding-left: ${size('pl', 'px')};
 `;
 
 Box.propTypes = {
