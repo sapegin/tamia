@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
+const SIZES = ['xxl', 'xl', 'l', 'm', 's', 'xs'];
+
 const Svg = styled('svg')`
+	margin: ${props => props.theme.space[props.m]};
 	display: inline-block;
 	vertical-align: middle;
 `;
@@ -30,6 +33,7 @@ Icon.propTypes = {
 	}).isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
+	m: PropTypes.oneOf(SIZES),
 };
 
 export default Icon;
