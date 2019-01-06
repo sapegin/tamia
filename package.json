@@ -70,7 +70,6 @@
     "prettier": "^1.15.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-emotion": "^10.0.0",
     "react-styleguidist": "^9.0.0-beta4",
     "webpack": "^4.27.1",
     "webpack-blocks": "^2.0.0-alpha"
