@@ -136,24 +136,24 @@ const TextContent = styled(Base)`
 		margin-top: 0;
 	}
 	& h1 {
-		font-size: ${themeGet('fontSizes.xxxl')};
-	}
-	& h2 {
 		font-size: ${themeGet('fontSizes.xxl')};
 	}
-	& h3 {
+	& h2 {
 		font-size: ${themeGet('fontSizes.xl')};
 	}
-	& h4 {
+	& h3 {
 		font-size: ${themeGet('fontSizes.l')};
 	}
-	& h5 {
+	& h4 {
 		font-size: ${themeGet('fontSizes.m')};
 		font-weight: bold;
 	}
-	& h6 {
+	& h5 {
 		font-size: ${themeGet('fontSizes.m')};
 		font-style: italic;
+	}
+	& h6 {
+		font-size: ${themeGet('fontSizes.m')};
 	}
 
 	/* Unordered list with dashes (—) as bullets and basic ordered list */
