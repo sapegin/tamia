@@ -6,7 +6,6 @@ import Row from './Row';
 </Row>;
 ```
 
-
 ```jsx
 import Row from './Row';
 <Row narrow>

@@ -41,9 +41,9 @@
     "not dead"
   ],
   "dependencies": {
-    "emotion-theming": ">=9",
+    "emotion-theming": ">=10",
     "lodash": "^4.17.11",
-    "polished": "^2.3.1",
+    "polished": "^2.3.3",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
@@ -51,27 +51,26 @@
     "@emotion/styled": ">=10"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@emotion/core": "^10.0.5",
-    "@emotion/styled": "^10.0.5",
+    "@emotion/core": "^10.0.6",
+    "@emotion/styled": "^10.0.6",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "babel-plugin-polished": "^1.1.0",
-    "eslint": "^5.10.0",
+    "eslint": "^5.12.1",
     "eslint-config-tamia": "^6.0.2",
-    "eslint-plugin-emotion": "^10.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-emotion": "^10.0.6",
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-react": "^7.12.4",
     "gh-pages": "^2.0.1",
-    "prettier": "^1.15.3",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "prettier": "^1.16.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-styleguidist": "^9.0.0-beta4",
-    "webpack": "^4.27.1",
-    "webpack-blocks": "^2.0.0-alpha"
+    "webpack": "^4.29.0"
   }
 }
