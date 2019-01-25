@@ -6,8 +6,6 @@ import Base from './Base';
 // Inspired by Bootstrap and Typography.js
 
 const TextContent = styled(Base)`
-	max-width: ${themeGet('page.textMaxWidth')};
-
 	& h1,
 	& h2,
 	& h3,
