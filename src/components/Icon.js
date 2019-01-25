@@ -10,7 +10,7 @@ const Svg = styled('svg')`
 	vertical-align: middle;
 `;
 
-const Icon = ({ icon, width, height, ...props }) => {
+const Icon = ({ icon, width, height, children, ...props }) => {
 	return (
 		<Svg
 			{...props}
@@ -21,6 +21,7 @@ const Icon = ({ icon, width, height, ...props }) => {
 			preserveAspectRatio="xMidYMid meet"
 		>
 			<path d={icon.path} />
+			{children}
 		</Svg>
 	);
 };
@@ -33,6 +34,7 @@ Icon.propTypes = {
 	}).isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
+	children: PropTypes.node,
 	m: PropTypes.oneOf(SIZES),
 };
 
