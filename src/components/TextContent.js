@@ -128,12 +128,12 @@ const TextContent = styled(Base)`
 	& h3 + h4,
 	& h4 + h5,
 	& h5 + h6,
-	& h1:first-of-type,
-	& h2:first-of-type,
-	& h3:first-of-type,
-	& h4:first-of-type,
-	& h5:first-of-type,
-	& h6:first-of-type {
+	& h1:first-child,
+	& h2:first-child,
+	& h3:first-child,
+	& h4:first-child,
+	& h5:first-child,
+	& h6:first-child {
 		margin-top: 0;
 	}
 	& h1 {
@@ -146,14 +146,17 @@ const TextContent = styled(Base)`
 		font-size: ${themeGet('fontSizes.l')};
 	}
 	& h4 {
+		line-height: ${themeGet('lineHeights.base')};
 		font-size: ${themeGet('fontSizes.m')};
 		font-weight: bold;
 	}
 	& h5 {
+		line-height: ${themeGet('lineHeights.base')};
 		font-size: ${themeGet('fontSizes.m')};
 		font-style: italic;
 	}
 	& h6 {
+		line-height: ${themeGet('lineHeights.base')};
 		font-size: ${themeGet('fontSizes.m')};
 	}
 
