@@ -13,7 +13,7 @@ const getTheme = ({
 	xl = '4rem',
 	xxl = '8rem',
 	// Breakpoints
-	small = '36rem', // ~575px
+	small = '32rem', // ~512px
 	medium = '48rem', // ~768px
 	large = '62rem', // ~992px
 	huge = '75rem', // ~1200px
