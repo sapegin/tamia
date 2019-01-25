@@ -34,6 +34,19 @@ const TextContent = styled(Base)`
 		margin-bottom: ${themeGet('blockMarginBottom')};
 	}
 
+	& h1,
+	& h2,
+	& h3,
+	& h4,
+	& h5,
+	& h6,
+	& ul,
+	& ol,
+	& p,
+	& blockquote {
+		max-width: ${themeGet('page.textMaxWidth')};
+	}
+
 	/* Links */
 	& a,
 	& a:link,
