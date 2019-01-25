@@ -63,6 +63,7 @@ const TextContent = styled(Base)`
 		font-style: italic;
 	}
 	& hr {
+		border: 0;
 		background: ${themeGet('colors.border')};
 	}
 
