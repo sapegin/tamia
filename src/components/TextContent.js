@@ -83,7 +83,7 @@ const TextContent = styled(Base)`
 		margin-right: -${themeGet('page.xPadding')};
 		@media (min-width: ${props =>
 				props.theme.page.contentMaxWidth || props.theme.page.maxWidth}) {
-			max-width: 100%;
+			max-width: 100vw;
 			margin-left: auto;
 			margin-right: auto;
 		}
