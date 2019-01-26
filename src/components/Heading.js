@@ -20,7 +20,7 @@ const Heading = styled(HeadingBase)`
 
 Heading.propTypes = {
 	level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 	mt: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
 	/** @ignore */

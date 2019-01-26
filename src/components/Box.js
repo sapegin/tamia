@@ -35,7 +35,7 @@ Box.propTypes = {
 	pl: PropTypes.oneOf(SIZES),
 	px: PropTypes.oneOf(SIZES),
 	py: PropTypes.oneOf(SIZES),
-	as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+	as: PropTypes.any,
 	children: PropTypes.node,
 	/** @ignore */
 	blacklist: PropTypes.array,

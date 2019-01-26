@@ -11,7 +11,7 @@ const Base = ({ as: Component, className, children, blacklist, ...props }) => {
 };
 
 Base.propTypes = {
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 	blacklist: PropTypes.arrayOf(PropTypes.string),
 	className: PropTypes.string,
 	children: PropTypes.node,

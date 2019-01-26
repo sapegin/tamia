@@ -20,7 +20,7 @@ const Row = styled(Base)`
 `;
 
 Row.propTypes = {
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 	narrow: PropTypes.bool,
 	alignItems: PropTypes.string,
 	alignContent: PropTypes.string,

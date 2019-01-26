@@ -12,7 +12,7 @@ const TextContainer = styled(Base)`
 `;
 
 TextContainer.propTypes = {
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 };
 
 TextContainer.defaultProps = {

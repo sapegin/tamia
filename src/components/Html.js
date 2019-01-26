@@ -13,7 +13,7 @@ const Html = ({ children, ...props }) => (
 
 Html.propTypes = {
 	children: PropTypes.string,
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 };
 
 Html.defaultProps = {

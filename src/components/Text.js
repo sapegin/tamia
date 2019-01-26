@@ -18,7 +18,7 @@ Text.propTypes = {
 	color: PropTypes.string,
 	style: PropTypes.oneOf(['italic']),
 	weight: PropTypes.string,
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 	mt: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
 	/** @ignore */

@@ -225,7 +225,7 @@ const TextContent = styled(Base)`
 `;
 
 TextContent.propTypes = {
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 	/** @ignore */
 	blacklist: PropTypes.array,
 };

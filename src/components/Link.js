@@ -28,7 +28,7 @@ const Link = styled(Base)`
 
 Link.propTypes = {
 	children: PropTypes.node,
-	as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+	as: PropTypes.any,
 	/** @ignore */
 	blacklist: PropTypes.array,
 };

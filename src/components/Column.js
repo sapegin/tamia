@@ -52,14 +52,24 @@ const Column = styled(Base)`
 `;
 
 Column.propTypes = {
-	/** Array of 1/6, 1/4, 3/3, 1/3, 2/3, 1/2, 1, auto */
+	/** Array of 1/6, 5/6, 1/4, 3/3, 1/3, 2/3, 1/2, 1, auto */
 	width: PropTypes.arrayOf(
-		PropTypes.oneOf([1 / 6, 1 / 4, 3 / 4, 1 / 3, 2 / 3, 1 / 2, 1, 'auto'])
+		PropTypes.oneOf([
+			1 / 6,
+			5 / 6,
+			1 / 4,
+			3 / 4,
+			1 / 3,
+			2 / 3,
+			1 / 2,
+			1,
+			'auto',
+		])
 	),
 	align: PropTypes.oneOf(['left', 'center', 'right']),
 	push: PropTypes.oneOf(['left', 'right']),
 	className: PropTypes.string,
-	as: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	as: PropTypes.any,
 	children: PropTypes.node,
 	/** @ignore */
 	blacklist: PropTypes.array,
