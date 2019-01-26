@@ -76,7 +76,8 @@ const TextContent = styled(Base)`
 	}
 
 	/* Responsive images and full bleed images */
-	& p img {
+	& p > img,
+	& figure > img {
 		height: auto;
 		max-width: calc(100% + ${themeGet('page.xPadding')} * 2);
 		margin-left: -${themeGet('page.xPadding')};
