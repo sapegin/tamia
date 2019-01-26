@@ -93,7 +93,7 @@ const getBaseStyles = theme => ({
 	},
 	// iOS tap highlighting
 	'a:link': {
-		'-webkit-tap-highlight-color': theme.colors.selectionAlpha,
+		WebkitTapHighlightColor: theme.colors.selectionAlpha,
 	},
 });
 
