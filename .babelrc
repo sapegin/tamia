@@ -8,8 +8,5 @@
 			}
 		],
 		"@babel/react"
-	],
-	"plugins": [
-		"polished"
 	]
 }
