@@ -48,6 +48,7 @@ const Column = styled(Base)`
 	margin-left: ${push('right')};
 	margin-right: ${push('left')};
 	text-align: ${props => props.align};
+	order: ${props => props.order};
 	${props => BREAKPOINT_NAMES.map(column(props))};
 `;
 
@@ -68,6 +69,7 @@ Column.propTypes = {
 	),
 	align: PropTypes.oneOf(['left', 'center', 'right']),
 	push: PropTypes.oneOf(['left', 'right']),
+	order: PropTypes.number,
 	className: PropTypes.string,
 	as: PropTypes.any,
 	children: PropTypes.node,
