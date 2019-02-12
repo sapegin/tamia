@@ -9,6 +9,7 @@ const BREAKPOINTS = {
 	large: 3,
 	huge: 4,
 };
+const SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'];
 const BREAKPOINT_NAMES = Object.keys(BREAKPOINTS);
 
 const push = direction => props => props.push === direction && 'auto';
@@ -47,6 +48,11 @@ const column = props => breakpoint => {
 const Column = styled(Base)`
 	margin-left: ${push('right')};
 	margin-right: ${push('left')};
+	padding: ${size('p')};
+	padding-top: ${size('pt', 'py')};
+	padding-right: ${size('pr', 'px')};
+	padding-bottom: ${size('pb', 'py')};
+	padding-left: ${size('pl', 'px')};
 	text-align: ${props => props.align};
 	order: ${props => props.order};
 	${props => BREAKPOINT_NAMES.map(column(props))};
@@ -67,6 +73,13 @@ Column.propTypes = {
 			'auto',
 		])
 	),
+	p: PropTypes.oneOf(SIZES),
+	pt: PropTypes.oneOf(SIZES),
+	pr: PropTypes.oneOf(SIZES),
+	pb: PropTypes.oneOf(SIZES),
+	pl: PropTypes.oneOf(SIZES),
+	px: PropTypes.oneOf(SIZES),
+	py: PropTypes.oneOf(SIZES),
 	align: PropTypes.oneOf(['left', 'center', 'right']),
 	push: PropTypes.oneOf(['left', 'right']),
 	order: PropTypes.number,
