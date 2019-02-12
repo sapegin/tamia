@@ -18,6 +18,7 @@ const Box = styled(Base)`
 	padding-right: ${size('pr', 'px')};
 	padding-bottom: ${size('pb', 'py')};
 	padding-left: ${size('pl', 'px')};
+	position: ${props => props.position};
 `;
 
 Box.propTypes = {
@@ -35,6 +36,13 @@ Box.propTypes = {
 	pl: PropTypes.oneOf(SIZES),
 	px: PropTypes.oneOf(SIZES),
 	py: PropTypes.oneOf(SIZES),
+	position: PropTypes.oneOf([
+		'absolute',
+		'relative',
+		'static',
+		'fixed',
+		'sticky',
+	]),
 	as: PropTypes.any,
 	children: PropTypes.node,
 	/** @ignore */
