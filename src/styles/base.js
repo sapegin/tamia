@@ -15,7 +15,7 @@ const getBaseStyles = theme => ({
 		marginRight: 'auto',
 		padding: `0 ${theme.page.xPadding}`,
 		color: theme.colors.base,
-		background: theme.colors.bg,
+		backgroundColor: theme.colors.bg,
 		lineHeight: theme.lineHeights.base,
 		fontWeight: theme.fontWeights.base,
 		wordWrap: 'break-word',
