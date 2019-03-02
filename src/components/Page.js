@@ -23,7 +23,7 @@ Page.defaultProps = {
 const Footer = styled(Base)`
 	margin-top: auto;
 	margin-bottom: -${themeGet('page.yPadding')};
-	padding-bottom: ${themeGet('space.s')};
+	padding-bottom: ${themeGet('space.yPadding')};
 `;
 
 Footer.propTypes = {
