@@ -84,6 +84,7 @@ const TextContent = styled(Base)`
 		max-width: calc(100% + ${themeGet('page.xPadding')} * 2);
 		margin-left: -${themeGet('page.xPadding')};
 		margin-right: -${themeGet('page.xPadding')};
+		margin-top: calc(${themeGet('blockMarginBottom')} / 2);
 		@media (min-width: ${props =>
 				props.theme.page.contentMaxWidth || props.theme.page.maxWidth}) {
 			max-width: 100%;
