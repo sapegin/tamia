@@ -8,16 +8,16 @@ const Text = styled(Base)`
 	margin-top: ${props => props.theme.space[props.mt]};
 	margin-bottom: ${props => props.theme.space[props.mb]};
 	font-size: ${props => props.theme.fontSizes[props.size]};
-	font-weight: ${props => props.theme.fontWeights[props.weight]};
-	font-style: ${props => props.style};
+	font-weight: ${props => props.theme.fontWeights[props.fontStyle]};
+	font-style: ${props => props.fontStyle};
 	color: ${props => props.theme.colors[props.color]};
 `;
 
 Text.propTypes = {
 	size: PropTypes.oneOf(SIZES),
 	color: PropTypes.string,
-	style: PropTypes.oneOf(['italic']),
-	weight: PropTypes.string,
+	fontStyle: PropTypes.oneOf(['italic']),
+	fontWeight: PropTypes.string,
 	as: PropTypes.any,
 	mt: PropTypes.oneOf(SIZES),
 	mb: PropTypes.oneOf(SIZES),
@@ -27,7 +27,7 @@ Text.propTypes = {
 
 Text.defaultProps = {
 	size: 'm',
-	weight: 'base',
+	fontWeight: 'base',
 	as: 'p',
 	blacklist: Object.keys(Text.propTypes),
 };
