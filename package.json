@@ -3,15 +3,17 @@
   "description": "Tiny but extremely opinionated frontend framework",
   "version": "4.0.0-alpha.49",
   "scripts": {
-    "test": "npm run lint",
+    "pretest": "npm run lint",
+    "test": "npm run typecheck",
     "prepublishOnly": "npm run compile",
-    "lint": "eslint . --fix",
-    "compile": "babel --delete-dir-on-start -d lib/ src/",
+    "lint": "eslint . --ext .tsx --fix",
+    "typecheck": "tsc",
+    "compile": "babel --delete-dir-on-start --extensions '.tsx' -d lib/ src/",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "deploy": "gh-pages -d styleguide/public",
     "docs": "npm run styleguide:build && npm run deploy",
-    "format": "prettier --write '**/*.{js,md}'",
+    "format": "prettier --write '**/*.{tsx,md}'",
     "posttest": "npm run format"
   },
   "homepage": "http://tamiadev.github.io/tamia/",
@@ -41,7 +43,10 @@
     "not dead"
   ],
   "dependencies": {
-    "emotion-theming": ">=10",
+    "@types/lodash": "^4.14.133",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "emotion-theming": "^10.0.10",
     "lodash": "^4.17.11",
     "polished": "^3.4.0",
     "prop-types": "^15.7.2"
@@ -56,8 +61,11 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
     "eslint": "^5.16.0",
@@ -69,7 +77,9 @@
     "prettier": "^1.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-js-to-ts": "^1.4.0",
     "react-styleguidist": "^9.1.2",
+    "typescript": "^3.5.1",
     "webpack": "^4.32.2"
   }
 }

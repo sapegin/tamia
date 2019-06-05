@@ -1,4 +1,10 @@
-const getBaseStyles = theme => ({
+import { Theme } from '../types';
+
+declare interface Styles {
+	[ruleOrSelector: string]: string | number | null | Styles;
+}
+
+const getBaseStyles = (theme: Theme): Styles => ({
 	html: {
 		boxSizing: 'border-box',
 		overflowY: 'scroll',

@@ -1,20 +1,53 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import Base from './Base';
+import { Size, Theme } from '../types';
 
-const BREAKPOINTS = {
+const BREAKPOINTS: { [key: string]: number } = {
 	default: 0,
 	small: 1,
 	medium: 2,
 	large: 3,
 	huge: 4,
 };
-const SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'];
 const BREAKPOINT_NAMES = Object.keys(BREAKPOINTS);
 
-const push = direction => props => props.push === direction && 'auto';
+const WIDTHS = [
+	1 / 6,
+	5 / 6,
+	1 / 4,
+	3 / 3,
+	1 / 3,
+	2 / 3,
+	1 / 2,
+	1,
+	'auto',
+] as const;
 
-const size = breakpoint => props => {
+type Direction = 'left' | 'right';
+
+type Breakpoint = keyof typeof BREAKPOINTS;
+
+type Width = typeof WIDTHS[number];
+
+interface Props {
+	/** Array of 1/6, 5/6, 1/4, 3/3, 1/3, 2/3, 1/2, 1, auto */
+	width: Width[];
+	p?: Size;
+	pt?: Size;
+	pb?: Size;
+	py?: Size;
+	align?: 'left' | 'center' | 'right';
+	push?: Direction;
+	order?: number;
+}
+
+interface PropsWithTheme extends Props {
+	theme: Theme;
+}
+
+const push = (direction: Direction) => (props: Props) =>
+	props.push === direction && 'auto';
+
+const size = (breakpoint: Breakpoint) => (props: Props) => {
 	const width = props.width[BREAKPOINTS[breakpoint]];
 	if (width === 'auto') {
 		return width;
@@ -22,7 +55,7 @@ const size = breakpoint => props => {
 	return width && `${width * 100}%`;
 };
 
-const widthStyle = (props, breakpoint) => {
+const widthStyle = (props: Props, breakpoint: Breakpoint) => {
 	const width = size(breakpoint)(props);
 	if (!width) {
 		return null;
@@ -30,7 +63,7 @@ const widthStyle = (props, breakpoint) => {
 	return `width: ${width};`;
 };
 
-const column = props => breakpoint => {
+const column = (props: PropsWithTheme) => (breakpoint: Breakpoint) => {
 	const styles = [widthStyle(props, breakpoint)].filter(Boolean).join('');
 
 	const minWidth = props.theme.breakpoints[breakpoint];
@@ -45,10 +78,12 @@ const column = props => breakpoint => {
 	`;
 };
 
-const padding = (prop, fallback) => props =>
-	props.theme.space[props[prop]] || props.theme.space[props[fallback]];
+const padding = (prop: string, fallback?: string) => (props: {
+	[key: string]: any;
+}) =>
+	props.theme.space[props[prop]] || props.theme.space[props[fallback || '']];
 
-const Column = styled(Base)`
+const Column = styled('div')<Props>`
 	margin-left: ${push('right')};
 	margin-right: ${push('left')};
 	padding: ${padding('p')};
@@ -59,39 +94,8 @@ const Column = styled(Base)`
 	${props => BREAKPOINT_NAMES.map(column(props))};
 `;
 
-Column.propTypes = {
-	/** Array of 1/6, 5/6, 1/4, 3/3, 1/3, 2/3, 1/2, 1, auto */
-	width: PropTypes.arrayOf(
-		PropTypes.oneOf([
-			1 / 6,
-			5 / 6,
-			1 / 4,
-			3 / 4,
-			1 / 3,
-			2 / 3,
-			1 / 2,
-			1,
-			'auto',
-		])
-	),
-	p: PropTypes.oneOf(SIZES),
-	pt: PropTypes.oneOf(SIZES),
-	pb: PropTypes.oneOf(SIZES),
-	py: PropTypes.oneOf(SIZES),
-	align: PropTypes.oneOf(['left', 'center', 'right']),
-	push: PropTypes.oneOf(['left', 'right']),
-	order: PropTypes.number,
-	className: PropTypes.string,
-	as: PropTypes.any,
-	children: PropTypes.node,
-	/** @ignore */
-	blacklist: PropTypes.array,
-};
-
 Column.defaultProps = {
 	width: [],
-	as: 'div',
-	blacklist: Object.keys(Column.propTypes),
 };
 
 /** @component */

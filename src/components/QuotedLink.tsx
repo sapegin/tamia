@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import themeGet from '../util/themeGet';
-import Base from './Base';
 
-const QuotedLink = styled(Base)`
+const QuotedLink = styled('a')`
 	padding: 0;
 	background: none;
 	border: 0;
@@ -29,18 +27,6 @@ const QuotedLink = styled(Base)`
 		outline-offset: 1px;
 	}
 `;
-
-QuotedLink.propTypes = {
-	children: PropTypes.node,
-	as: PropTypes.any,
-	/** @ignore */
-	blacklist: PropTypes.array,
-};
-
-QuotedLink.defaultProps = {
-	as: 'a',
-	blacklist: Object.keys(QuotedLink.propTypes),
-};
 
 /** @component */
 export default QuotedLink;

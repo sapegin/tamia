@@ -1,13 +1,34 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import Base from './Base';
+import { Size } from '../types';
 
-const SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'];
+interface Props {
+	m?: Size;
+	mt?: Size;
+	mr?: Size;
+	mb?: Size;
+	ml?: Size;
+	mx?: Size;
+	my?: Size;
+	p?: Size;
+	pt?: Size;
+	pr?: Size;
+	pb?: Size;
+	pl?: Size;
+	px?: Size;
+	py?: Size;
+	position?: 'absolute' | 'relative' | 'static' | 'fixed' | 'sticky';
+}
 
-const size = (prop, fallback) => props =>
-	props.theme.space[props[prop]] || props.theme.space[props[fallback]];
+interface PropsWithTheme {
+	[key: string]: any;
+}
 
-const Box = styled(Base)`
+const size = (prop: string, fallback?: string) => (
+	props: PropsWithTheme
+): string =>
+	props.theme.space[props[prop]] || props.theme.space[props[fallback || '']];
+
+const Box = styled('div')<Props>`
 	margin: ${size('m')};
 	margin-top: ${size('mt', 'my')};
 	margin-right: ${size('mr', 'mx')};
@@ -20,39 +41,6 @@ const Box = styled(Base)`
 	padding-left: ${size('pl', 'px')};
 	position: ${props => props.position};
 `;
-
-Box.propTypes = {
-	m: PropTypes.oneOf(SIZES),
-	mt: PropTypes.oneOf(SIZES),
-	mr: PropTypes.oneOf(SIZES),
-	mb: PropTypes.oneOf(SIZES),
-	ml: PropTypes.oneOf(SIZES),
-	mx: PropTypes.oneOf(SIZES),
-	my: PropTypes.oneOf(SIZES),
-	p: PropTypes.oneOf(SIZES),
-	pt: PropTypes.oneOf(SIZES),
-	pr: PropTypes.oneOf(SIZES),
-	pb: PropTypes.oneOf(SIZES),
-	pl: PropTypes.oneOf(SIZES),
-	px: PropTypes.oneOf(SIZES),
-	py: PropTypes.oneOf(SIZES),
-	position: PropTypes.oneOf([
-		'absolute',
-		'relative',
-		'static',
-		'fixed',
-		'sticky',
-	]),
-	as: PropTypes.any,
-	children: PropTypes.node,
-	/** @ignore */
-	blacklist: PropTypes.array,
-};
-
-Box.defaultProps = {
-	as: 'div',
-	blacklist: Object.keys(Box.propTypes),
-};
 
 /** @component */
 export default Box;

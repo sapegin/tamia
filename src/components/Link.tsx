@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import themeGet from '../util/themeGet';
-import Base from './Base';
 
-const Link = styled(Base)`
+const Link = styled('a')`
 	&,
 	&:link,
 	&:visited {
@@ -25,18 +23,6 @@ const Link = styled(Base)`
 		outline-offset: 1px;
 	}
 `;
-
-Link.propTypes = {
-	children: PropTypes.node,
-	as: PropTypes.any,
-	/** @ignore */
-	blacklist: PropTypes.array,
-};
-
-Link.defaultProps = {
-	as: 'a',
-	blacklist: Object.keys(Link.propTypes),
-};
 
 /** @component */
 export default Link;

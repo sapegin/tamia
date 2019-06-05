@@ -1,16 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { Size } from '../types';
 
-const SIZES = ['xxl', 'xl', 'l', 'm', 's', 'xs'];
+interface SvgProps {
+	m?: Size;
+}
 
-const Svg = styled('svg')`
-	margin: ${props => props.theme.space[props.m]};
+const Svg = styled('svg')<SvgProps>`
+	margin: ${props => props.m && props.theme.space[props.m]};
 	display: inline-block;
 	vertical-align: middle;
 `;
 
-const Icon = ({ icon, width, height, children, ...props }) => {
+interface Props {
+	icon: {
+		path: string;
+		width: number;
+		height: number;
+	};
+	width: number;
+	height: number;
+	m?: Size;
+}
+
+const Icon: React.FunctionComponent<Props> = ({
+	icon,
+	width,
+	height,
+	children,
+	...props
+}) => {
 	return (
 		<Svg
 			{...props}
@@ -24,18 +43,6 @@ const Icon = ({ icon, width, height, children, ...props }) => {
 			{children}
 		</Svg>
 	);
-};
-
-Icon.propTypes = {
-	icon: PropTypes.shape({
-		path: PropTypes.string.isRequired,
-		width: PropTypes.number.isRequired,
-		height: PropTypes.number.isRequired,
-	}).isRequired,
-	width: PropTypes.number.isRequired,
-	height: PropTypes.number.isRequired,
-	children: PropTypes.node,
-	m: PropTypes.oneOf(SIZES),
 };
 
 export default Icon;

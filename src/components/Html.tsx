@@ -1,23 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Base from './Base';
 
-const Html = ({ children, ...props }) => (
-	<Base
+interface Props {
+	as?: React.FunctionComponent<any> | React.ComponentClass<any> | string;
+}
+
+const Html: React.FunctionComponent<Props> = ({
+	children,
+	as: Component = 'div',
+	...props
+}) => (
+	<Component
 		dangerouslySetInnerHTML={{
 			__html: children,
 		}}
 		{...props}
 	/>
 );
-
-Html.propTypes = {
-	children: PropTypes.string,
-	as: PropTypes.any,
-};
-
-Html.defaultProps = {
-	as: 'div',
-};
 
 export default Html;

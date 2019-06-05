@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import themeGet from '../util/themeGet';
-import Base from './Base';
 
 // Inspired by Bootstrap and Typography.js
 
-const TextContent = styled(Base)`
+const TextContent = styled('div')`
 	& h1,
 	& h2,
 	& h3,
@@ -227,16 +225,6 @@ const TextContent = styled(Base)`
 		color: inherit;
 	}
 `;
-
-TextContent.propTypes = {
-	as: PropTypes.any,
-	/** @ignore */
-	blacklist: PropTypes.array,
-};
-
-TextContent.defaultProps = {
-	as: 'div',
-};
 
 /** @component */
 export default TextContent;

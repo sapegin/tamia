@@ -1,18 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Global } from '@emotion/core';
 import { normalize } from 'polished';
 import getBaseStyles from '../styles/base';
+import { Theme } from '../types';
 
-const GlobalStyles = ({ theme }) => (
+interface Props {
+	theme: Theme;
+}
+
+const GlobalStyles: React.FunctionComponent<Props> = ({ theme }) => (
 	<>
 		<Global styles={normalize()} />
 		<Global styles={getBaseStyles(theme)} />
 	</>
 );
-
-GlobalStyles.propTypes = {
-	theme: PropTypes.object.isRequired,
-};
 
 export default GlobalStyles;

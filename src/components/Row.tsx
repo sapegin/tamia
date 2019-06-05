@@ -1,11 +1,21 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import Base from './Base';
+import { Theme } from '../types';
 
-const space = props =>
+interface Props {
+	narrow?: boolean;
+	alignItems?: string;
+	alignContent?: string;
+	justifyContent?: string;
+}
+
+interface PropsWithTheme extends Props {
+	theme: Theme;
+}
+
+const space = (props: PropsWithTheme) =>
 	props.narrow ? props.theme.space.s : props.theme.space.m;
 
-const Row = styled(Base)`
+const Row = styled('div')<Props>`
 	margin-left: -${space};
 	margin-right: -${space};
 	display: flex;
@@ -18,22 +28,6 @@ const Row = styled(Base)`
 		padding-right: ${space};
 	}
 `;
-
-Row.propTypes = {
-	as: PropTypes.any,
-	narrow: PropTypes.bool,
-	alignItems: PropTypes.string,
-	alignContent: PropTypes.string,
-	justifyContent: PropTypes.string,
-	children: PropTypes.node,
-	/** @ignore */
-	blacklist: PropTypes.array,
-};
-
-Row.defaultProps = {
-	as: 'div',
-	blacklist: Object.keys(Row.propTypes),
-};
 
 /** @component */
 export default Row;
