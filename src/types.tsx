@@ -1,6 +1,18 @@
 export interface Sizes {
-	base: string;
 	xxs: string;
+	xs: string;
+	s: string;
+	m: string;
+	l: string;
+	xl: string;
+	xxl: string;
+	[key: string]: string;
+}
+
+export type Size = keyof Sizes;
+
+export interface FontSizes {
+	base: string;
 	xs: string;
 	s: string;
 	m: string;
@@ -12,14 +24,14 @@ export interface Sizes {
 	[key: string]: string;
 }
 
-export type Size = 0 | keyof Sizes;
+export type FontSize = keyof FontSizes;
 
 export interface Theme {
 	baseFontSize: string;
 	blockMarginBottom: Size;
 	headingMarginTop: Size;
 	listMargin: string;
-	fontSizes: Sizes;
+	fontSizes: FontSizes;
 	space: Sizes;
 	page: {
 		maxWidth: string | null;

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { Size } from '../types';
+import { Size, FontSize } from '../types';
 
 interface Props {
-	size?: Size;
+	size?: FontSize;
 	color?: string;
 	fontStyle?: 'italic';
 	fontWeight?: string;

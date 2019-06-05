@@ -4,7 +4,7 @@ import TamiaRoot from '../src/components/TamiaRoot';
 
 const theme = getTheme();
 
-const Provider = ({ children }) => (
+const Provider: React.FunctionComponent<{}> = ({ children }) => (
 	<TamiaRoot theme={theme}>{children}</TamiaRoot>
 );
 
