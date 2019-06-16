@@ -1,10 +1,8 @@
-import { Theme } from '../types';
-
-declare interface Styles {
+interface Styles {
 	[ruleOrSelector: string]: string | number | null | Styles;
 }
 
-const getBaseStyles = (theme: Theme): Styles => ({
+const getBaseStyles = (theme: { [key: string]: any }): Styles => ({
 	html: {
 		boxSizing: 'border-box',
 		overflowY: 'scroll',

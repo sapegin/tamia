@@ -1,10 +1,9 @@
 import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import GlobalStyles from '../styles';
-import { Theme } from '../types';
 
 interface Props {
-	theme: Theme;
+	theme: { [key: string]: any };
 }
 
 const Root: React.FunctionComponent<Props> = ({ children, theme }) => (

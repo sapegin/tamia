@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Size } from '../types';
+import { space, textAlign, variant } from 'styled-system';
+import { TextAlignProperty } from 'csstype';
+import { BaseProps, SpaceProps } from '../types';
 
-const SIZES = ['', 'xxl', 'xl', 'l', 'm', 's', 'xs'];
+type Level = 1 | 2 | 3 | 4 | 5 | 6;
 
-interface Props {
-	level: 1 | 2 | 3 | 4 | 5 | 6;
-	mt?: Size;
-	mb?: Size;
-	as?: React.FunctionComponent<any> | React.ComponentClass<any> | string;
+interface Props extends BaseProps, SpaceProps {
+	level?: Level | Level[];
+	textAlign?: TextAlignProperty | TextAlignProperty[];
 }
 
 const HeadingBase: React.FunctionComponent<Props> = ({
@@ -17,13 +17,14 @@ const HeadingBase: React.FunctionComponent<Props> = ({
 	...props
 }) => <Component {...props} />;
 
-const Heading = styled(HeadingBase)<Props>`
-	margin-top: ${props => (props.mt ? props.theme.space[props.mt] : 0)};
-	margin-bottom: ${props => (props.mb ? props.theme.space[props.mb] : 0)};
-	font-size: ${props => props.theme.fontSizes[SIZES[props.level]]};
-	line-height: ${props => props.theme.lineHeights.heading};
-	font-weight: ${props => props.theme.fontWeights.heading};
-`;
+const Heading: React.FunctionComponent<Props> = styled(HeadingBase)<{}>(
+	space,
+	textAlign,
+	variant({
+		scale: 'headingStyles',
+		prop: 'level',
+	})
+);
 
 Heading.defaultProps = {
 	level: 1,

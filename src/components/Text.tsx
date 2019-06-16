@@ -1,27 +1,27 @@
 import styled from '@emotion/styled';
-import { Size, FontSize } from '../types';
+import { space, color, typography, variant } from 'styled-system';
+import { BaseProps, SpaceProps, ColorProps, TypographyProps } from '../types';
 
-interface Props {
-	size?: FontSize;
-	color?: string;
-	fontStyle?: 'italic';
-	fontWeight?: string;
-	mt?: Size;
-	mb?: Size;
+// TODO: Remove low lever props and keep only variant?
+
+interface Props extends BaseProps, SpaceProps, ColorProps, TypographyProps {
+	variant?: string | string[];
 }
 
-const Text = styled('p')<Props>`
-	margin-top: ${props => props.mt && props.theme.space[props.mt]};
-	margin-bottom: ${props => props.mb && props.theme.space[props.mb]};
-	font-size: ${props => props.size && props.theme.fontSizes[props.size]};
-	font-weight: ${props =>
-		props.fontStyle && props.theme.fontWeights[props.fontStyle]};
-	font-style: ${props => props.fontStyle};
-	color: ${props => props.color && props.theme.colors[props.color]};
-`;
+const Text: React.FunctionComponent<Props> = styled('p')<{}>(
+	space,
+	color,
+	typography,
+	variant({
+		scale: 'textStyles',
+		prop: 'variant',
+	})
+);
 
 Text.defaultProps = {
-	size: 'm',
+	color: 'base',
+	fontFamily: 'base',
+	fontSize: 'm',
 	fontWeight: 'base',
 };
 
