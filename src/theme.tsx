@@ -178,7 +178,14 @@ const getTheme = ({
 				},
 			},
 
-			textStyles: {},
+			textStyles: {
+				base: {
+					color: colors.base,
+					fontFamily: fonts.base,
+					fontSize: fontSizes.m,
+					fontWeight: fontWeights.base,
+				},
+			},
 
 			// Breakpoints
 			breakpoints: [small, medium, large, huge],
