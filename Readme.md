@@ -68,11 +68,11 @@ Tâmia is a chipmunk in Portuguese. It refers to [Squirrelstrap](https://github.
 
 Tâmia has evolved from a folder on my disk with a few CSS and JS files that I copypasted to every new project in 2000s. Notable iterations are:
 
-* Grunt + Stylus + jQuery (2013)
-* Webpack + browser-sync + ES6/Babel + Web Components + Stylus (2016)
-* Webpack 2 + browser-sync + PostCSS + cssnext + CSS Modules + ES6/Babel (2017)
-* React + Emotion + ES6/Babel (2018)
-* React + Emotion + styled-system + TypeScript (2019)
+- Grunt + Stylus + jQuery (2013)
+- Webpack + browser-sync + ES6/Babel + Web Components + Stylus (2016)
+- Webpack 2 + browser-sync + PostCSS + cssnext + CSS Modules + ES6/Babel (2017)
+- React + Emotion + ES6/Babel (2018)
+- React + Emotion + styled-system + TypeScript (2019)
 
 ---
 
