@@ -68,28 +68,6 @@ export interface FontSizes {
 
 export type FontSize = keyof FontSizes;
 
-export interface Theme {
-	baseFontSize: string;
-	blockMarginBottom: Size;
-	headingMarginTop: Size;
-	listMargin: string;
-	fontSizes: FontSizes;
-	space: Sizes;
-	page: {
-		maxWidth: string | null;
-		contentMaxWidth: string | null;
-		textMaxWidth: string | null;
-		xPadding: Size;
-		yPadding: Size;
-	};
-	colors: { [key: string]: string };
-	fonts: { [key: string]: string };
-	fontWeights: { [key: string]: string };
-	lineHeights: { [key: string]: number };
-	letterSpacings: { [key: string]: number };
-	breakpoints: { [key: string]: number };
-}
-
 export type Length = string | number;
 
 export type SizeProp = Size | Size[];

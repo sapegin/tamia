@@ -1,7 +1,6 @@
 import get from 'lodash/get';
-import { Theme } from '../types';
 
-const themeGet = (addr: string) => (props: { theme: Theme }) =>
+const themeGet = (addr: string) => (props: { theme: any }) =>
 	get(props.theme, addr);
 
 export default themeGet;
