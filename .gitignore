@@ -2,3 +2,12 @@ node_modules/
 lib/
 styleguide/public/
 Changelog.md
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.log
+yarn.lock
+.eslintcache
