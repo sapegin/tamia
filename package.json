@@ -4,12 +4,14 @@
   "version": "5.0.0-alpha.1",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "npm run types",
+    "test": "npm run typecheck",
     "posttest": "npm run format",
     "prepublishOnly": "npm run compile",
     "lint": "eslint . --cache --fix --ext .tsx",
-    "types": "tsc",
-    "compile": "babel --delete-dir-on-start --extensions '.tsx' -d lib/ src/",
+    "typecheck": "tsc --noEmit",
+    "compile": "npm run compile:babel && npm run compile:types",
+    "compile:babel": "babel --delete-dir-on-start --extensions '.tsx' -d lib/ src/",
+    "compile:types": "tsc --emitDeclarationOnly",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "deploy": "gh-pages -d styleguide/public",
@@ -32,7 +34,8 @@
   "main": "lib/index.js",
   "types": "types/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "engines": {
     "node": ">=8.9"
