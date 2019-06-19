@@ -4,17 +4,17 @@
   "version": "5.0.0-alpha.1",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "npm run typecheck",
+    "test": "npm run types",
+    "posttest": "npm run format",
     "prepublishOnly": "npm run compile",
     "lint": "eslint . --cache --fix --ext .tsx",
-    "typecheck": "tsc",
+    "types": "tsc",
     "compile": "babel --delete-dir-on-start --extensions '.tsx' -d lib/ src/",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "deploy": "gh-pages -d styleguide/public",
     "docs": "npm run styleguide:build && npm run deploy",
-    "format": "prettier --write '**/*.{tsx,md}'",
-    "posttest": "npm run format"
+    "format": "prettier --write '**/*.{tsx,md}'"
   },
   "homepage": "http://tamiadev.github.io/tamia/",
   "author": {
@@ -30,6 +30,7 @@
   },
   "license": "MIT",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "files": [
     "lib"
   ],
