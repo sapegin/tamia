@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import themeGet from '../util/themeGet';
 
-const QuotedLink = styled('a')`
+const QuotedLink: React.FunctionComponent<JSX.IntrinsicElements['a']> = styled(
+	'a'
+)`
 	padding: 0;
 	background: none;
 	border: 0;

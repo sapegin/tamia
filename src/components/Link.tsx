@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import themeGet from '../util/themeGet';
 
-const Link = styled('a')`
+const Link: React.FunctionComponent<JSX.IntrinsicElements['a']> = styled('a')`
 	&,
 	&:link,
 	&:visited {
