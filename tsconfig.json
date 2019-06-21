@@ -8,7 +8,8 @@
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "declarationDir": "types"
+    "declarationDir": "types",
+    "types": ["react"]
   },
   "include": [
     "src"

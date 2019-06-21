@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import { DefaultTheme } from 'styled-components';
 
 const getTheme = ({
 	// Base font size (applied to body)
@@ -92,7 +93,7 @@ const getTheme = ({
 		heading: 0,
 	},
 	...rest
-}: { [key: string]: any } = {}) => {
+}: { [key: string]: any } = {}): DefaultTheme => {
 	const headingBaseStyles = {
 		color: colors.base,
 		fontFamily: fonts.heading,

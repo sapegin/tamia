@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import { Size } from '../types';
 
 interface SvgProps {
@@ -21,15 +21,10 @@ interface Props {
 	width: number;
 	height: number;
 	m?: Size;
+	children: React.ReactNode;
 }
 
-const Icon: React.FunctionComponent<Props> = ({
-	icon,
-	width,
-	height,
-	children,
-	...props
-}) => {
+const Icon = ({ icon, width, height, children, ...props }: Props) => {
 	return (
 		<Svg
 			{...props}

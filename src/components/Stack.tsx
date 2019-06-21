@@ -1,17 +1,18 @@
-import styled from '@emotion/styled';
-import { grid, system } from 'styled-system';
-import { GridGapProperty } from 'csstype';
-import Box from './Box';
+import styled from 'styled-components';
 import {
-	Length,
-	NumberProp,
-	BaseProps,
+	grid,
+	system,
 	SpaceProps,
 	ColorProps,
 	LayoutProps,
 	FlexboxProps,
 	GridProps,
-} from '../types';
+	ResponsiveValue,
+	TLengthStyledSystem,
+} from 'styled-system';
+import Box from './Box';
+import { GridGapProperty } from 'csstype';
+import { Length, NumberProp } from '../types';
 
 const px = (value: Length): string =>
 	typeof value === 'number' ? `${value}px` : value;
@@ -19,20 +20,18 @@ const px = (value: Length): string =>
 const getMinMaxValue = (value: Length, scale: Length[] = []): string =>
 	px(scale[value as any] || value);
 
-interface Props
-	extends BaseProps,
-		SpaceProps,
-		ColorProps,
-		LayoutProps,
-		FlexboxProps,
-		GridProps {
-	/** Gap between children */
-	gap?: GridGapProperty<Length> | GridGapProperty<Length>[];
-	/** Minimum width of a child */
-	minColumnWidth?: NumberProp;
-}
+type Props = SpaceProps &
+	ColorProps &
+	LayoutProps &
+	FlexboxProps &
+	GridProps & {
+		/** Gap between children */
+		gap?: ResponsiveValue<GridGapProperty<TLengthStyledSystem>>;
+		/** Minimum width of a child */
+		minColumnWidth?: NumberProp;
+	};
 
-const Stack: React.FunctionComponent<Props> = styled(Box)<{}>(
+const Stack = styled(Box)<Props>(
 	{
 		display: 'grid',
 	},

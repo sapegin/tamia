@@ -48,19 +48,15 @@
   ],
   "dependencies": {
     "@types/lodash": "^4.14.134",
-    "@types/react": "^16.8.20",
-    "@types/react-dom": "^16.8.4",
     "core-js": "^3.1.4",
     "csstype": "^2.6.5",
-    "emotion-theming": "^10.0.10",
     "lodash": "^4.17.11",
     "polished": "^3.4.1",
     "prop-types": "^15.7.2",
-    "styled-system": "^5.0.6"
+    "styled-system": "^5.0.10"
   },
   "peerDependencies": {
-    "@emotion/core": ">=10",
-    "@emotion/styled": ">=10"
+    "styled-components": ">=4"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -69,15 +65,14 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
-    "@emotion/core": "^10.0.10",
-    "@emotion/styled": "^10.0.12",
+    "styled-components": "^4.1.16",
+    "@types/styled-components": "^4.1.16",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "eslint": "^5.16.0",
-    "eslint-config-tamia": "^6.2.0",
-    "eslint-plugin-emotion": "^10.0.7",
+    "eslint-config-tamia": "^6.2.1",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-react": "^7.13.0",
     "gh-pages": "^2.0.1",
@@ -86,8 +81,8 @@
     "react-docgen-typescript": "^1.12.5",
     "react-dom": "^16.8.6",
     "react-js-to-ts": "^1.4.0",
-    "react-styleguidist": "^9.1.7",
+    "react-styleguidist": "9.1.7",
     "typescript": "^3.5.2",
-    "webpack": "^4.34.0"
+    "webpack": "^4.35.0"
   }
 }

@@ -1,23 +1,24 @@
-import styled from '@emotion/styled';
-import { space, color, layout, position, flexbox } from 'styled-system';
+import styled from 'styled-components';
 import {
-	BaseProps,
+	space,
+	color,
+	layout,
+	position,
+	flexbox,
 	SpaceProps,
-	ColorProps,
 	LayoutProps,
 	PositionProps,
 	FlexboxProps,
-} from '../types';
+	ColorProps,
+} from 'styled-system';
 
-interface Props
-	extends BaseProps,
-		SpaceProps,
-		ColorProps,
-		LayoutProps,
-		PositionProps,
-		FlexboxProps {}
+type Props = SpaceProps &
+	ColorProps &
+	LayoutProps &
+	PositionProps &
+	FlexboxProps;
 
-const Box: React.FunctionComponent<Props> = styled('div')<{}>(
+const Box = styled.div<Props>(
 	{
 		boxSizing: 'border-box',
 	},

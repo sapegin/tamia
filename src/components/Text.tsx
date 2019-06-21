@@ -1,14 +1,19 @@
-import styled from '@emotion/styled';
-import { space, textAlign, variant } from 'styled-system';
-import { TextAlignProperty } from 'csstype';
-import { BaseProps, SpaceProps } from '../types';
+import styled from 'styled-components';
+import {
+	space,
+	textAlign,
+	variant,
+	SpaceProps,
+	TextAlignProps,
+	ResponsiveValue,
+} from 'styled-system';
 
-interface Props extends BaseProps, SpaceProps {
-	variant?: string | string[];
-	textAlign?: TextAlignProperty | TextAlignProperty[];
-}
+type Props = SpaceProps &
+	TextAlignProps & {
+		variant?: ResponsiveValue<string>;
+	};
 
-const Text: React.FunctionComponent<Props> = styled('p')<any>(
+const Text = styled('p')<Props>(
 	space,
 	textAlign,
 	variant({

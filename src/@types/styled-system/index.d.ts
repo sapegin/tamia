@@ -1145,6 +1145,52 @@ declare module 'styled-system' {
 
 	// HACK: Make it work with styled-system 5
 
+	export interface FlexboxProps<TLength = TLengthStyledSystem> {
+		alignItems?: ResponsiveValue<CSS.AlignItemsProperty>;
+		alignContent?: ResponsiveValue<CSS.AlignContentProperty>;
+		justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
+		justifyContent?: ResponsiveValue<CSS.JustifyContentProperty>;
+		flexWrap?: ResponsiveValue<CSS.FlexWrapProperty>;
+		flexBasis?: ResponsiveValue<CSS.FlexBasisProperty<TLength>>;
+		flexDirection?: ResponsiveValue<CSS.FlexDirectionProperty>;
+		flex?: ResponsiveValue<CSS.FlexProperty<TLength>>;
+		justifySelf?: ResponsiveValue<CSS.JustifySelfProperty>;
+		alignSelf?: ResponsiveValue<CSS.AlignSelfProperty>;
+		order?: ResponsiveValue<CSS.GlobalsNumber>;
+		flexGrow?: ResponsiveValue<string | number>;
+		flexShrink?: ResponsiveValue<string | number>;
+	}
+
+	export interface GridProps<TLength = TLengthStyledSystem> {
+		gridGap?: ResponsiveValue<CSS.GridGapProperty<TLength>>;
+		gridColumnGap?: ResponsiveValue<CSS.GridColumnGapProperty<TLength>>;
+		gridRowGap?: ResponsiveValue<CSS.GridRowGapProperty<TLength>>;
+		gridColumn?: ResponsiveValue<CSS.GridColumnProperty>;
+		gridRow?: ResponsiveValue<CSS.GridRowProperty>;
+		gridAutoFlow?: ResponsiveValue<CSS.GridAutoFlowProperty>;
+		gridAutoColumns?: ResponsiveValue<CSS.GridAutoColumnsProperty<TLength>>;
+		gridAutoRows?: ResponsiveValue<CSS.GridAutoRowsProperty<TLength>>;
+		gridTemplateColumns?: ResponsiveValue<
+			CSS.GridTemplateColumnsProperty<TLength>
+		>;
+		gridTemplateRows?: ResponsiveValue<CSS.GridTemplateRowsProperty<TLength>>;
+		gridTemplateAreas?: ResponsiveValue<CSS.GridTemplateAreasProperty>;
+		gridArea?: ResponsiveValue<CSS.GridAreaProperty>;
+	}
+
+	export interface LayoutProps<TLength = TLengthStyledSystem> {
+		display?: ResponsiveValue<CSS.DisplayProperty>;
+		width?: ResponsiveValue<CSS.WidthProperty<TLength>>;
+		maxWidth?: ResponsiveValue<CSS.MaxWidthProperty<TLength>>;
+		minWidth?: ResponsiveValue<CSS.MinWidthProperty<TLength>>;
+		height?: ResponsiveValue<CSS.HeightProperty<TLength>>;
+		maxHeight?: ResponsiveValue<CSS.MaxHeightProperty<TLength>>;
+		minHeight?: ResponsiveValue<CSS.MinHeightProperty<TLength>>;
+		size?: ResponsiveValue<CSS.HeightProperty<TLength>>;
+		verticalAlign?: ResponsiveValue<CSS.VerticalAlignProperty<TLength>>;
+		overflow?: ResponsiveValue<CSS.OverflowProperty>;
+	}
+
 	export const layout: styleFn;
 	export const flexbox: styleFn;
 	export const grid: styleFn;

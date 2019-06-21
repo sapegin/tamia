@@ -6,14 +6,9 @@
 		"plugin:import/typescript"
 	],
 	"plugins": [
-		"import",
-		"emotion"
+		"import"
 	],
 	"rules": {
-		"emotion/jsx-import": "error",
-		"emotion/no-vanilla": "error",
-		"emotion/import-from-emotion": "error",
-		"emotion/styled-import": "error",
 		"import/no-unresolved": [
 			"error",
 			{

@@ -1,12 +1,13 @@
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
 import GlobalStyles from '../styles';
 
 interface Props {
-	theme: { [key: string]: any };
+	theme: DefaultTheme;
+	children: React.ReactChild;
 }
 
-const Root: React.FunctionComponent<Props> = ({ children, theme }) => (
+const Root = ({ children, theme }: Props) => (
 	<>
 		<GlobalStyles theme={theme} />
 		<ThemeProvider theme={theme}>{children}</ThemeProvider>

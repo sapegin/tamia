@@ -7,7 +7,7 @@ Tâmia is a tiny React component library with themable primitives that you can u
 ## Based on
 
 - [React](https://reactjs.org/)
-- [Emotion](https://emotion.sh/)
+- [styled-components](https://www.styled-components.com/)
 - [styled-system](https://styled-system.com/)
 - [polished](https://polished.js.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
@@ -28,7 +28,7 @@ There are a few other things made specifically for Tâmia:
 1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia @emotion/core @emotion/styled emotion-theming
+npm install tamia styled-components
 ```
 
 2. Create a theme at `src/theme.js`:
@@ -72,7 +72,7 @@ Tâmia has evolved from a folder on my disk with a few CSS and JS files that I c
 - Webpack + browser-sync + ES6/Babel + Web Components + Stylus (2016)
 - Webpack 2 + browser-sync + PostCSS + cssnext + CSS Modules + ES6/Babel (2017)
 - React + Emotion + ES6/Babel (2018)
-- React + Emotion + styled-system + TypeScript (2019)
+- React + styled-components + styled-system + TypeScript (2019)
 
 ---
 
