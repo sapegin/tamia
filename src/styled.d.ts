@@ -16,7 +16,15 @@ declare module 'styled-components' {
 			xPadding: Size;
 			yPadding: Size;
 		};
-		colors: { [key: string]: string };
+		colors: {
+			bg: string;
+			base: string;
+			border: string;
+			primary: string;
+			hover: string;
+			selection: string;
+			selectionAlpha: string;
+		};
 		fonts: { [key: string]: string };
 		fontWeights: { [key: string]: string };
 		lineHeights: { [key: string]: number };

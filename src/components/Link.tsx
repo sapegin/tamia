@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import themeGet from '../util/themeGet';
 
 const Link = styled('a')`
 	&,
@@ -9,17 +8,17 @@ const Link = styled('a')`
 		background: none;
 		border: 0;
 		font-family: inherit;
-		color: ${themeGet('colors.primary')};
+		color: ${p => p.theme.colors.primary};
 		text-decoration: underline;
 	}
 	&:hover,
 	&:active,
 	&:focus {
-		color: ${themeGet('colors.hover')};
+		color: ${p => p.theme.colors.hover};
 		cursor: pointer;
 	}
 	&:focus {
-		outline: 1px dotted ${themeGet('colors.hover')};
+		outline: 1px dotted ${p => p.theme.colors.hover};
 		outline-offset: 1px;
 	}
 `;

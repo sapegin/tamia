@@ -13,4 +13,3 @@ export { default as Text } from './components/Text';
 export { default as TextContainer } from './components/TextContainer';
 export { default as TextContent } from './components/TextContent';
 export { default as VisuallyHidden } from './components/VisuallyHidden';
-export { default as themeGet } from './util/themeGet';

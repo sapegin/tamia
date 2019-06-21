@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import themeGet from '../util/themeGet';
 
 // Inspired by Bootstrap and Typography.js
 
-const TextContent = styled('div')`
+const TextContent = styled.div`
 	& h1,
 	& h2,
 	& h3,
@@ -24,7 +23,7 @@ const TextContent = styled('div')`
 	& img,
 	& hr,
 	& address {
-		margin-bottom: ${themeGet('blockMarginBottom')};
+		margin-bottom: ${p => p.theme.blockMarginBottom};
 	}
 
 	& h1,
@@ -37,40 +36,40 @@ const TextContent = styled('div')`
 	& ol,
 	& p,
 	& blockquote {
-		max-width: ${themeGet('page.textMaxWidth')};
+		max-width: ${p => p.theme.page.textMaxWidth};
 	}
 
 	/* Links */
 	& a,
 	& a:link,
 	& a:visited {
-		color: ${themeGet('colors.primary')};
+		color: ${p => p.theme.colors.primary};
 	}
 	& a:hover,
 	& a:active,
 	& a:focus {
-		color: ${themeGet('colors.hover')};
+		color: ${p => p.theme.colors.hover};
 	}
 	& a:focus {
-		outline: 1px dotted ${themeGet('colors.hover')};
+		outline: 1px dotted ${p => p.theme.colors.hover};
 		outline-offset: 1px;
 	}
 
 	/* Blockquotes */
 	& blockquote {
-		margin-left: ${themeGet('space.l')};
-		margin-right: ${themeGet('space.l')};
-		font-size: ${themeGet('fontSizes.s')};
+		margin-left: ${p => p.theme.space.l};
+		margin-right: ${p => p.theme.space.l};
+		font-size: ${p => p.theme.fontSizes.s};
 	}
 	& blockquote p {
-		margin-bottom: calc(${themeGet('blockMarginBottom')} / 2);
+		margin-bottom: calc(${p => p.theme.blockMarginBottom} / 2);
 	}
 	& cite {
 		font-style: italic;
 	}
 	& hr {
 		border: 0;
-		background: ${themeGet('colors.border')};
+		background: ${p => p.theme.colors.border};
 	}
 
 	/* Responsive images and full bleed images */
@@ -79,12 +78,12 @@ const TextContent = styled('div')`
 	& figure > img,
 	& figure > a > img {
 		height: auto;
-		max-width: calc(100% + ${themeGet('page.xPadding')} * 2);
-		margin-left: -${themeGet('page.xPadding')};
-		margin-right: -${themeGet('page.xPadding')};
-		margin-top: calc(${themeGet('blockMarginBottom')} / 2);
-		@media (min-width: ${props =>
-				props.theme.page.contentMaxWidth || props.theme.page.maxWidth}) {
+		max-width: calc(100% + ${p => p.theme.page.xPadding} * 2);
+		margin-left: -${p => p.theme.page.xPadding};
+		margin-right: -${p => p.theme.page.xPadding};
+		margin-top: calc(${p => p.theme.blockMarginBottom} / 2);
+		@media (min-width: ${p =>
+				p.theme.page.contentMaxWidth || p.theme.page.maxWidth}) {
 			max-width: 100%;
 			margin-left: auto;
 			margin-right: auto;
@@ -93,19 +92,19 @@ const TextContent = styled('div')`
 
 	/* Tables */
 	& table {
-		font-size: ${themeGet('fontSizes.s')};
+		font-size: ${p => p.theme.fontSizes.s};
 		border-collapse: collapse;
 		width: 100%;
 	}
 	& thead {
 		text-align: left;
-		border-bottom: 2px solid ${themeGet('colors.border')};
+		border-bottom: 2px solid ${p => p.theme.colors.border};
 	}
 	& td,
 	& th {
 		text-align: left;
-		border-bottom: 1px solid ${themeGet('colors.border')};
-		padding: calc(${themeGet('blockMarginBottom')} / 2);
+		border-bottom: 1px solid ${p => p.theme.colors.border};
+		padding: calc(${p => p.theme.blockMarginBottom} / 2);
 	}
 	& th:first-of-type,
 	& td:first-of-type {
@@ -127,10 +126,10 @@ const TextContent = styled('div')`
 	& h4,
 	& h5,
 	& h6 {
-		margin-top: ${themeGet('headingMarginTop')};
-		font-family: ${themeGet('fonts.heading')};
-		line-height: ${themeGet('lineHeights.heading')};
-		font-weight: ${themeGet('fontWeights.heading')};
+		margin-top: ${p => p.theme.headingMarginTop};
+		font-family: ${p => p.theme.fonts.heading};
+		line-height: ${p => p.theme.lineHeights.heading};
+		font-weight: ${p => p.theme.fontWeights.heading};
 	}
 
 	& h1 + h2,
@@ -147,35 +146,35 @@ const TextContent = styled('div')`
 		margin-top: 0;
 	}
 	& h1 {
-		font-size: ${themeGet('fontSizes.xxl')};
+		font-size: ${p => p.theme.fontSizes.xxl};
 	}
 	& h2 {
-		font-size: ${themeGet('fontSizes.xl')};
+		font-size: ${p => p.theme.fontSizes.xl};
 	}
 	& h3 {
-		font-size: ${themeGet('fontSizes.l')};
+		font-size: ${p => p.theme.fontSizes.l};
 	}
 	& h4 {
-		line-height: ${themeGet('lineHeights.base')};
-		font-size: ${themeGet('fontSizes.m')};
+		line-height: ${p => p.theme.lineHeights.base};
+		font-size: ${p => p.theme.fontSizes.m};
 		font-weight: bold;
 	}
 	& h5 {
-		line-height: ${themeGet('lineHeights.base')};
-		font-size: ${themeGet('fontSizes.m')};
+		line-height: ${p => p.theme.lineHeights.base};
+		font-size: ${p => p.theme.fontSizes.m};
 		font-style: italic;
 	}
 	& h6 {
-		line-height: ${themeGet('lineHeights.base')};
-		font-size: ${themeGet('fontSizes.m')};
+		line-height: ${p => p.theme.lineHeights.base};
+		font-size: ${p => p.theme.fontSizes.m};
 	}
 
 	/* Unordered list with dashes (—) as bullets and basic ordered list */
 	& ol {
-		padding-left: ${themeGet('listMargin')};
+		padding-left: ${p => p.theme.listMargin};
 	}
 	& li {
-		margin-bottom: calc(${themeGet('blockMarginBottom')} / 2);
+		margin-bottom: calc(${p => p.theme.blockMarginBottom} / 2);
 	}
 	& li > ul,
 	& li > ol {
@@ -183,11 +182,11 @@ const TextContent = styled('div')`
 	}
 	& ul > ul,
 	& ul > ol {
-		margin-left: ${themeGet('listMargin')};
+		margin-left: ${p => p.theme.listMargin};
 	}
 	& ul > li {
 		position: relative;
-		padding-left: ${themeGet('listMargin')};
+		padding-left: ${p => p.theme.listMargin};
 		margin-left: 0;
 	}
 	& ul > li::before {
@@ -196,25 +195,25 @@ const TextContent = styled('div')`
 		left: 0;
 	}
 	/* Hanging markers on big screens */
-	@media (min-width: ${themeGet('page.maxWidth')}) {
+	@media (min-width: ${p => p.theme.page.maxWidth}) {
 		& ol {
 			padding-left: 0;
 		}
 		& ul > li {
-			margin-left: -${themeGet('listMargin')};
+			margin-left: -${p => p.theme.listMargin};
 		}
 	}
 
 	/* Code */
 	& code,
 	& kbd {
-		font-family: ${themeGet('fonts.code')};
+		font-family: ${p => p.theme.fonts.code};
 	}
 	& pre {
 		display: block;
-		line-height: ${themeGet('lineHeights.pre')};
-		font-size: ${themeGet('fontSizes.s')};
-		font-family: ${themeGet('fonts.pre')};
+		line-height: ${p => p.theme.lineHeights.pre};
+		font-size: ${p => p.theme.fontSizes.s};
+		font-family: ${p => p.theme.fonts.pre};
 		white-space: pre-wrap;
 		tab-size: 4;
 		text-size-adjust: none;

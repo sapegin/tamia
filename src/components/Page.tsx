@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import themeGet from '../util/themeGet';
 
 const Page = styled('div')`
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	padding: ${themeGet('page.yPadding')} 0;
+	padding: ${p => p.theme.page.yPadding} 0;
 `;
 
 const PageFooter = styled('footer')`
