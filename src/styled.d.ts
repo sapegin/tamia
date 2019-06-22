@@ -25,10 +25,28 @@ declare module 'styled-components' {
 			selection: string;
 			selectionAlpha: string;
 		};
-		fonts: { [key: string]: string };
-		fontWeights: { [key: string]: string };
-		lineHeights: { [key: string]: number };
-		letterSpacings: { [key: string]: number };
+		fonts: {
+			base: string;
+			heading: string;
+			pre: string;
+			code: string;
+		};
+		fontWeights: {
+			base: string;
+			heading: string;
+			bold: string;
+		};
+		lineHeights: {
+			base: number;
+			heading: number;
+			pre: number;
+		};
+		letterSpacings: {
+			base: number;
+			heading: number;
+		};
 		breakpoints: string[];
+		// headingStyles
+		// textStyles
 	}
 }

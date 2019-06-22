@@ -1,17 +1,27 @@
 import React from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
-import GlobalStyles from '../styles';
+import Normalize from '../styles/normalize';
+import BaseStyles from '../styles/base';
+import PrintStyles from '../styles/print';
 
-interface Props {
+type Props = {
 	theme: DefaultTheme;
-	children: React.ReactChild;
-}
+	printStyles: boolean;
+	children: React.ReactNode;
+};
 
-const Root = ({ children, theme }: Props) => (
-	<>
-		<GlobalStyles theme={theme} />
-		<ThemeProvider theme={theme}>{children}</ThemeProvider>
-	</>
+/**
+ * Theme provider, normalize.css, Tâmia base styles and optional print styles
+ */
+const Root = ({ theme, printStyles, children }: Props) => (
+	<ThemeProvider theme={theme}>
+		<>
+			<Normalize />
+			<BaseStyles />
+			{printStyles && <PrintStyles />}
+			{children}
+		</>
+	</ThemeProvider>
 );
 
 export default Root;

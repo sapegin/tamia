@@ -1,16 +1,3 @@
-import {
-	Globals,
-	GlobalsNumber,
-	PositionProperty,
-	ZIndexProperty,
-	TopProperty,
-	RightProperty,
-	BottomProperty,
-	LeftProperty,
-	TextAlignProperty,
-	FontStyleProperty,
-} from 'csstype';
-
 export type Sizes = {
 	xxs: string;
 	xs: string;

@@ -150,6 +150,9 @@ const getTheme = ({
 
 			colors,
 
+			// Breakpoints
+			breakpoints: [small, medium, large, huge],
+
 			headingStyles: {
 				1: {
 					...headingBaseStyles,
@@ -187,9 +190,6 @@ const getTheme = ({
 					fontWeight: fontWeights.base,
 				},
 			},
-
-			// Breakpoints
-			breakpoints: [small, medium, large, huge],
 		},
 		rest
 	);
