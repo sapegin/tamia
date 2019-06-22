@@ -12,13 +12,14 @@ import {
 } from 'styled-system';
 import Box from './Box';
 import { GridGapProperty } from 'csstype';
-import { Length, NumberProp } from '../types';
 
-const px = (value: Length): string =>
+const px = (value: TLengthStyledSystem): string =>
 	typeof value === 'number' ? `${value}px` : value;
 
-const getMinMaxValue = (value: Length, scale: Length[] = []): string =>
-	px(scale[value as any] || value);
+const getMinMaxValue = (
+	value: TLengthStyledSystem,
+	scale: TLengthStyledSystem[] = []
+): string => px(scale[value as any] || value);
 
 type Props = SpaceProps &
 	ColorProps &
@@ -28,7 +29,7 @@ type Props = SpaceProps &
 		/** Gap between children */
 		gap?: ResponsiveValue<GridGapProperty<TLengthStyledSystem>>;
 		/** Minimum width of a child */
-		minColumnWidth?: NumberProp;
+		minColumnWidth?: ResponsiveValue<number | string>;
 	};
 
 const Stack = styled(Box)<Props>(
@@ -48,7 +49,7 @@ const Stack = styled(Box)<Props>(
 				value
 					? `repeat(auto-fit, minmax(${getMinMaxValue(
 							value,
-							scale as Length[]
+							scale as TLengthStyledSystem[]
 					  )}, 1fr))`
 					: null,
 		},
