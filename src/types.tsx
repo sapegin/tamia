@@ -1,3 +1,6 @@
+import { ObjectOrArray } from 'styled-system';
+import { StandardProperties } from 'csstype';
+
 export type Sizes = {
 	xxs: string;
 	xs: string;
@@ -29,3 +32,5 @@ export type FontSize = keyof FontSizes;
 export type AsProps = {
 	as?: React.FunctionComponent<any> | React.ComponentClass<any> | string;
 };
+
+export type Styles = ObjectOrArray<StandardProperties>;

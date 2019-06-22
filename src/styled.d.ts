@@ -1,5 +1,5 @@
 import 'styled-components';
-import { Size, Sizes, FontSizes } from './types';
+import { Size, Sizes, FontSizes, Styles } from './types';
 
 declare module 'styled-components' {
 	export interface DefaultTheme {
@@ -46,7 +46,7 @@ declare module 'styled-components' {
 			heading: number;
 		};
 		breakpoints: string[];
-		// headingStyles
-		// textStyles
+		headingStyles: Styles;
+		textStyles: Styles;
 	}
 }
