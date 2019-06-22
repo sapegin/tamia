@@ -1,21 +1,7 @@
 {
 	"extends": [
-		"tamia/typescript-react",
-		"plugin:import/errors",
-		"plugin:import/warnings",
-		"plugin:import/typescript"
+		"tamia/typescript-react"
 	],
-	"plugins": [
-		"import"
-	],
-	"rules": {
-		"import/no-unresolved": [
-			"error",
-			{
-				"ignore": ["^csstype$"]
-			}
-		]
-	},
 	"parserOptions": {
 		"project": "./tsconfig.json"
 	}
