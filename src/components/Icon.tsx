@@ -1,18 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Size } from '../types';
+import { space, layout, SpaceProps, LayoutProps } from 'styled-system';
 
-interface SvgProps {
-	m?: Size;
-}
+const Svg = styled.svg<SpaceProps & LayoutProps>(space, layout);
 
-const Svg = styled('svg')<SvgProps>`
-	margin: ${props => props.m && props.theme.space[props.m]};
-	display: inline-block;
-	vertical-align: middle;
-`;
-
-interface Props {
+type Props = SpaceProps & {
 	icon: {
 		path: string;
 		width: number;
@@ -20,17 +12,16 @@ interface Props {
 	};
 	width: number;
 	height: number;
-	m?: Size;
+	display: string;
+	verticalAlign: string;
 	children: React.ReactNode;
-}
+};
 
-const Icon = ({ icon, width, height, children, ...props }: Props) => {
+const Icon = ({ icon, children, ...props }: Props) => {
 	return (
 		<Svg
 			{...props}
 			viewBox={`0 0 ${icon.width} ${icon.height}`}
-			width={width}
-			height={height}
 			fill="currentColor"
 			preserveAspectRatio="xMidYMid meet"
 		>
@@ -38,6 +29,11 @@ const Icon = ({ icon, width, height, children, ...props }: Props) => {
 			{children}
 		</Svg>
 	);
+};
+
+Icon.defaultProps = {
+	display: 'inline-block',
+	verticalAlign: 'middle',
 };
 
 export default Icon;

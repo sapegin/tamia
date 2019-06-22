@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Link = styled('a')`
+const Link = styled.a`
 	&,
 	&:link,
 	&:visited {

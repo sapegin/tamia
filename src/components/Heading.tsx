@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 import {
 	space,
 	textAlign,
@@ -10,11 +10,9 @@ import {
 } from 'styled-system';
 import { AsProps } from '../types';
 
-type Level = 1 | 2 | 3 | 4 | 5 | 6;
-
 type Props = SpaceProps &
 	TextAlignProps & {
-		level?: ResponsiveValue<Level>;
+		level?: ResponsiveValue<keyof DefaultTheme['headingStyles']>;
 	};
 
 const HeadingBase: React.FunctionComponent<Props & AsProps> = ({

@@ -6,7 +6,7 @@ import PrintStyles from '../styles/print';
 
 type Props = {
 	theme: DefaultTheme;
-	printStyles: boolean;
+	printStyles?: boolean;
 	children: React.ReactNode;
 };
 

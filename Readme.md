@@ -31,22 +31,26 @@ There are a few other things made specifically for Tâmia:
 npm install tamia styled-components
 ```
 
-2. Create a theme at `src/theme.js`:
+2. Create a theme.
 
-```js static
-import merge from 'lodash/merge';
-import defaultTheme from 'tamia/lib/theme';
+Copy [the default theme](???) to `src/src/theme.tsx` and modify it according to your taste:
 
-const theme = merge(defaultTheme, {
-  colors: {
-    primary: 'salmon'
-  }
-});
+3. Type your theme.
 
-export default theme;
+Create `src/styled.d.ts` and import there your theme:
+
+```ts
+import theme from './theme';
+
+type ThemeInterface = typeof theme;
+
+declare module 'styled-components' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends ThemeInterface {}
+}
 ```
 
-3. Wrap your app in a root container:
+4. Wrap your app in a root container:
 
 ```js static
 import React from 'react';

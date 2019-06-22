@@ -11,7 +11,6 @@ import {
 	TLengthStyledSystem,
 } from 'styled-system';
 import Box from './Box';
-import { GridGapProperty } from 'csstype';
 
 const px = (value: TLengthStyledSystem): string =>
 	typeof value === 'number' ? `${value}px` : value;
@@ -27,7 +26,7 @@ type Props = SpaceProps &
 	FlexboxProps &
 	GridProps & {
 		/** Gap between children */
-		gap?: ResponsiveValue<GridGapProperty<TLengthStyledSystem>>;
+		gap?: GridProps['gridGap'];
 		/** Minimum width of a child */
 		minColumnWidth?: ResponsiveValue<number | string>;
 	};

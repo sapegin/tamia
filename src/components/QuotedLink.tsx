@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const QuotedLink = styled('a')`
+const QuotedLink = styled.a`
 	padding: 0;
 	background: none;
 	border: 0;
