@@ -48,7 +48,6 @@
   ],
   "dependencies": {
     "@types/lodash": "^4.14.134",
-    "core-js": "^3.1.4",
     "csstype": "^2.6.5",
     "lodash": "^4.17.11",
     "polished": "^3.4.1",
