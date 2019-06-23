@@ -12,9 +12,9 @@ type Props = SpaceProps & {
 	};
 	width: number;
 	height: number;
-	display: string;
-	verticalAlign: string;
-	children: React.ReactNode;
+	display?: string;
+	verticalAlign?: string;
+	children?: React.ReactNode;
 };
 
 const Icon = ({ icon, children, ...props }: Props) => {
