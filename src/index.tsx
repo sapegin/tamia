@@ -5,7 +5,7 @@ export { default as Heading } from './components/Heading';
 export { default as Html } from './components/Html';
 export { default as Icon } from './components/Icon';
 export { default as Link } from './components/Link';
-export { Page, PageFooter } from './components/Page';
+export { default as Page } from './components/Page';
 export { default as QuotedLink } from './components/QuotedLink';
 export { default as Stack } from './components/Stack';
 export { default as TamiaRoot } from './components/TamiaRoot';
