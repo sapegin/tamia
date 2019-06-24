@@ -60,11 +60,11 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
-    "styled-components": "^4.1.16",
     "@types/styled-components": "^4.1.16",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
@@ -80,6 +80,7 @@
     "react-dom": "^16.8.6",
     "react-js-to-ts": "^1.4.0",
     "react-styleguidist": "9.1.7",
+    "styled-components": "^4.1.16",
     "typescript": "^3.5.2",
     "webpack": "^4.35.0"
   }
