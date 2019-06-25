@@ -30,12 +30,12 @@ const space = {
 	xxl: '8rem', // 128px
 	xxxl: '16rem', // 256px
 };
-const breakpoints = {
-	small: '32rem', // 512px
-	medium: '48rem', // 768px
-	large: '62rem', // 992px
-	huge: '75rem', // 1200px
-};
+const breakpoints = [
+	'32rem', // 512px
+	'48rem', // 768px
+	'62rem', // 992px
+	'75rem', // 1200px
+];
 const fonts = {
 	base: baseFont,
 	heading: baseFont,
