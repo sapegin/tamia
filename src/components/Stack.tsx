@@ -25,8 +25,6 @@ type Props = SpaceProps &
 	LayoutProps &
 	FlexboxProps &
 	GridProps & {
-		/** Gap between children */
-		gap?: GridProps['gridGap'];
 		/** Minimum width of a child */
 		minColumnWidth?: ResponsiveValue<number | string>;
 	};
@@ -37,10 +35,6 @@ const Stack = styled(Box)<Props>(
 	},
 	grid,
 	system({
-		gap: {
-			property: 'gridGap',
-			scale: 'space',
-		},
 		minColumnWidth: {
 			property: 'gridTemplateColumns',
 			scale: 'space',
@@ -54,10 +48,6 @@ const Stack = styled(Box)<Props>(
 		},
 	})
 );
-
-Stack.defaultProps = {
-	gap: 's',
-};
 
 /** @component */
 export default Stack;
