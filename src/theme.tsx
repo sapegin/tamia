@@ -99,7 +99,7 @@ export default {
 	listMargin: '1.3em',
 	page: {
 		// Max page with
-		maxWidth: breakpoints.huge,
+		maxWidth: '75rem',
 
 		// Body paddings
 		xPadding: space.m,
