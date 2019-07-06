@@ -30,9 +30,6 @@ type Props = SpaceProps &
 	};
 
 const Stack = styled(Box)<Props>(
-	{
-		display: 'grid',
-	},
 	grid,
 	system({
 		minColumnWidth: {
@@ -48,6 +45,10 @@ const Stack = styled(Box)<Props>(
 		},
 	})
 );
+
+Stack.defaultProps = {
+	display: 'grid',
+};
 
 /** @component */
 export default Stack;
