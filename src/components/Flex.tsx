@@ -9,9 +9,13 @@ import {
 
 type Props = SpaceProps & ColorProps & LayoutProps & FlexboxProps;
 
-const Flex = styled(Box)<Props>({
+export const Flex = styled(Box)<Props>({});
+
+Flex.defaultProps = {
 	display: 'flex',
-});
+	justifyContent: 'center',
+	flexDirection: 'row',
+};
 
 /** @component */
 export default Flex;
