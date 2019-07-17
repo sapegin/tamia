@@ -18,7 +18,7 @@ type Props = SpaceProps &
 	PositionProps &
 	FlexboxProps;
 
-const Box = styled.div<Props>(
+export const Box = styled.div<Props>(
 	{
 		boxSizing: 'border-box',
 	},
@@ -29,5 +29,4 @@ const Box = styled.div<Props>(
 	flexbox
 );
 
-/** @component */
 export default Box;

@@ -21,7 +21,7 @@ const HeadingBase: React.FunctionComponent<Props & AsProps> = ({
 	...props
 }) => <Component {...props} />;
 
-const Heading = styled(HeadingBase)<Props>(
+export const Heading = styled(HeadingBase)<Props>(
 	space,
 	textAlign,
 	variant({
@@ -34,5 +34,4 @@ Heading.defaultProps = {
 	level: 1,
 };
 
-/** @component */
 export default Heading;

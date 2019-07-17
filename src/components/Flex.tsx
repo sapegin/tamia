@@ -17,5 +17,4 @@ Flex.defaultProps = {
 	flexDirection: 'row',
 };
 
-/** @component */
 export default Flex;

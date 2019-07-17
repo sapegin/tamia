@@ -29,7 +29,7 @@ type Props = SpaceProps &
 		minColumnWidth?: ResponsiveValue<number | string>;
 	};
 
-const Stack = styled(Box)<Props>(
+export const Stack = styled(Box)<Props>(
 	grid,
 	system({
 		minColumnWidth: {

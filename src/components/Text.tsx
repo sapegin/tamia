@@ -13,7 +13,7 @@ type Props = SpaceProps &
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
 
-const Text = styled('p')<Props>(
+export const Text = styled.p<Props>(
 	space,
 	textAlign,
 	variant({

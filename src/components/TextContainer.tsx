@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextContainer = styled.div`
+export const TextContainer = styled.div`
 	max-width: ${p => p.theme.page.textMaxWidth};
 `;
 
