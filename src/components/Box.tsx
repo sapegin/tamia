@@ -2,18 +2,21 @@ import styled from 'styled-components';
 import {
 	space,
 	color,
+	shadow,
 	layout,
 	position,
 	flexbox,
 	SpaceProps,
+	ColorProps,
+	ShadowProps,
 	LayoutProps,
 	PositionProps,
 	FlexboxProps,
-	ColorProps,
 } from 'styled-system';
 
 type Props = SpaceProps &
 	ColorProps &
+	ShadowProps &
 	LayoutProps &
 	PositionProps &
 	FlexboxProps;
@@ -24,6 +27,7 @@ export const Box = styled.div<Props>(
 	},
 	space,
 	color,
+	shadow,
 	layout,
 	position,
 	flexbox
