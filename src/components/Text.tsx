@@ -1,21 +1,25 @@
 import styled, { DefaultTheme } from 'styled-components';
 import {
 	space,
-	textAlign,
+	layout,
+	typography,
 	variant,
 	SpaceProps,
-	TextAlignProps,
+	LayoutProps,
+	TypographyProps,
 	ResponsiveValue,
 } from 'styled-system';
 
 type Props = SpaceProps &
-	TextAlignProps & {
+	LayoutProps &
+	TypographyProps & {
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
 
 export const Text = styled.p<Props>(
 	space,
-	textAlign,
+	layout,
+	typography,
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',
