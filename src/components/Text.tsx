@@ -23,15 +23,15 @@ type Props = SpaceProps &
 	};
 
 export const Text = styled.p<Props>(
+	variant({
+		scale: 'textStyles',
+		prop: 'variant',
+	}),
 	space,
 	layout,
 	typography,
 	color,
-	shadow,
-	variant({
-		scale: 'textStyles',
-		prop: 'variant',
-	})
+	shadow
 );
 
 Text.defaultProps = {
