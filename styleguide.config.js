@@ -5,12 +5,12 @@ const file = filepath => path.join(__dirname, filepath);
 module.exports = {
 	title: 'Tâmia',
 	propsParser: require('react-docgen-typescript').withCustomConfig(
-		file('tsconfig.json'),
-		{
-			componentNameResolver: (exp, source) =>
-				exp.getName() === 'StyledComponentClass' &&
-				require('react-docgen-typescript').getDefaultExportForFile(source),
-		}
+		file('tsconfig.json')
+		// {
+		// 	componentNameResolver: (exp, source) =>
+		// 		// exp.getName() === 'StyledComponentClass' &&
+		// 		require('react-docgen-typescript').getDefaultExportForFile(source),
+		// }
 	).parse,
 	assetsDir: path.resolve(__dirname, 'styleguide/assets'),
 	styleguideDir: path.resolve(__dirname, 'styleguide/public'),

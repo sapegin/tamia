@@ -1,17 +1,27 @@
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming';
-import GlobalStyles from '../styles';
-import { Theme } from '../types';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
+import Normalize from '../styles/normalize';
+import BaseStyles from '../styles/base';
+import PrintStyles from '../styles/print';
 
-interface Props {
-	theme: Theme;
-}
+type Props = {
+	theme: DefaultTheme;
+	printStyles?: boolean;
+	children: React.ReactNode;
+};
 
-const Root: React.FunctionComponent<Props> = ({ children, theme }) => (
-	<>
-		<GlobalStyles theme={theme} />
-		<ThemeProvider theme={theme}>{children}</ThemeProvider>
-	</>
+/**
+ * Theme provider, normalize.css, Tâmia base styles and optional print styles
+ */
+const Root = ({ theme, printStyles, children }: Props) => (
+	<ThemeProvider theme={theme}>
+		<>
+			<Normalize />
+			<BaseStyles />
+			{printStyles && <PrintStyles />}
+			{children}
+		</>
+	</ThemeProvider>
 );
 
 export default Root;

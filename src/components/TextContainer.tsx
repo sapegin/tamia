@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
-import themeGet from '../util/themeGet';
+import styled from 'styled-components';
 
-const TextContainer = styled('div')`
-	max-width: ${themeGet('page.textMaxWidth')};
+export const TextContainer = styled.div`
+	max-width: ${p => p.theme.page.textMaxWidth};
 `;
 
 /** @component */

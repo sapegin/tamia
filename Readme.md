@@ -2,50 +2,22 @@
 
 [![Build Status](https://travis-ci.org/tamiadev/tamia.png)](https://travis-ci.org/tamiadev/tamia)
 
-Tâmia is a tiny but extremely opinionated framework for frontend developers (hmm… just for me now). It consists of:
-
-1.  CSS bootstrap.
-2.  Component library.
+Tâmia is a tiny React component library with themable primitives that you can use to quickly start working on a new project.
 
 ## Based on
 
 - [React](https://reactjs.org/)
-- [Emotion](https://emotion.sh/)
+- [styled-components](https://www.styled-components.com/)
+- [styled-system](https://styled-system.com/)
 - [polished](https://polished.js.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
-- [ECMAScript 6](http://es6-features.org/)
-
-## Why another framework
-
-Bootstrap, Inuit.css and HTML5 Boilerplate are awesome. I found a lot of inspiration there. But they just don’t suit my needs and a way of working. I also use it to try new technologies and ways of making sites.
-
-Tâmia is a new cool name for what I use every day in my own and freelance projects. It has evolved from a folder on my disk with a few CSS and JS files that I copypasted to every new project in 2000s.
-
-## Browser support
-
-I love new technologies so I spend as little time as possible on old browsers. The minimum supported browser is IE11.
-
-## Workflow
-
-For styles I use [Emotion](https://emotion.sh/).
-
-I usually use [Gatsby](https://www.gatsbyjs.org/) as a static site generator.
-
-And then I use [shipit](https://github.com/sapegin/shipit) to deploy a site to a server using rsync.
-
-## CSS bootstrap
-
-It has base and typography CSS rules and [Normalize.css](https://necolas.github.io/normalize.css/)).
-
-## Component library
-
-Form controls, basic text styles, [etc](http://tamiadev.github.io/tamia/).
 
 ## Tools
 
 There are a few other things made specifically for Tâmia:
 
-- [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config.
+- [tamia-gatsby-link](https://github.com/tamiadev/tamia-gatsby-link): Render Gatsby `Link` component with Tâmia styles
+- [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config
 
 ## Documentation
 
@@ -56,25 +28,29 @@ There are a few other things made specifically for Tâmia:
 1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia @emotion/core @emotion/styled emotion-theming
+npm install tamia styled-components
 ```
 
-2. Create a theme at `src/theme.js`:
+2. Create a theme.
 
-```js static
-import merge from 'lodash/merge';
-import defaultTheme from 'tamia/lib/theme';
+Copy [the default theme](???) to `src/src/theme.tsx` and modify it according to your taste:
 
-const theme = merge(defaultTheme, {
-  colors: {
-    primary: 'salmon'
-  }
-});
+3. Type your theme.
 
-export default theme;
+Create `src/styled.d.ts` and import there your theme:
+
+```ts
+import theme from './theme';
+
+type ThemeInterface = typeof theme;
+
+declare module 'styled-components' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends ThemeInterface {}
+}
 ```
 
-3. Wrap your app in a root container:
+4. Wrap your app in a root container:
 
 ```js static
 import React from 'react';
@@ -91,6 +67,16 @@ export default Root;
 ## The Name
 
 Tâmia is a chipmunk in Portuguese. It refers to [Squirrelstrap](https://github.com/sapegin/squirrelstrap), my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).
+
+## History
+
+Tâmia has evolved from a folder on my disk with a few CSS and JS files that I copypasted to every new project in 2000s. Notable iterations are:
+
+- Grunt + Stylus + jQuery (2013)
+- Webpack + browser-sync + ES6/Babel + Web Components + Stylus (2016)
+- Webpack 2 + browser-sync + PostCSS + cssnext + CSS Modules + ES6/Babel (2017)
+- React + Emotion + ES6/Babel (2018)
+- React + styled-components + styled-system + TypeScript (2019)
 
 ---
 

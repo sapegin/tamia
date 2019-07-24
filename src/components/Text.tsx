@@ -1,28 +1,41 @@
-import styled from '@emotion/styled';
-import { Size, FontSize } from '../types';
+import styled, { DefaultTheme } from 'styled-components';
+import {
+	space,
+	layout,
+	typography,
+	color,
+	shadow,
+	variant,
+	SpaceProps,
+	LayoutProps,
+	TypographyProps,
+	ColorProps,
+	ShadowProps,
+	ResponsiveValue,
+} from 'styled-system';
 
-interface Props {
-	size?: FontSize;
-	color?: string;
-	fontStyle?: 'italic';
-	fontWeight?: string;
-	mt?: Size;
-	mb?: Size;
-}
+type Props = SpaceProps &
+	LayoutProps &
+	TypographyProps &
+	ColorProps &
+	ShadowProps & {
+		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
+	};
 
-const Text = styled('p')<Props>`
-	margin-top: ${props => props.mt && props.theme.space[props.mt]};
-	margin-bottom: ${props => props.mb && props.theme.space[props.mb]};
-	font-size: ${props => props.size && props.theme.fontSizes[props.size]};
-	font-weight: ${props =>
-		props.fontStyle && props.theme.fontWeights[props.fontStyle]};
-	font-style: ${props => props.fontStyle};
-	color: ${props => props.color && props.theme.colors[props.color]};
-`;
+export const Text = styled.p<Props>(
+	variant({
+		scale: 'textStyles',
+		prop: 'variant',
+	}),
+	space,
+	layout,
+	typography,
+	color,
+	shadow
+);
 
 Text.defaultProps = {
-	size: 'm',
-	fontWeight: 'base',
+	variant: 'base',
 };
 
 /** @component */

@@ -4,11 +4,12 @@
 		[
 			"@babel/env",
 			{
-				"modules": false,
-				"useBuiltIns": "usage",
-				"corejs": 3
+				"modules": false
 			}
 		],
 		"@babel/react"
-	]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ]
 }
