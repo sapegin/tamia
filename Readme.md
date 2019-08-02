@@ -21,7 +21,7 @@ There are a few other things made specifically for Tâmia:
 
 ## Documentation
 
-[Documentation is here](http://tamiadev.github.io/tamia/).
+[Documentation is here](https://tamiadev.github.io/tamia/).
 
 ## Getting started
 
@@ -33,7 +33,7 @@ npm install tamia styled-components
 
 2. Create a theme.
 
-Copy [the default theme](???) to `src/src/theme.tsx` and modify it according to your taste:
+Copy [the default theme](https://github.com/tamiadev/tamia/blob/master/src/theme.tsx) to `src/src/theme.tsx` and modify it according to your taste:
 
 3. Type your theme.
 
