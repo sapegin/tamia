@@ -28,6 +28,10 @@ export const Heading = styled(HeadingBase)<Props>(
 	variant({
 		scale: 'headingStyles',
 		prop: 'level',
+		// @ts-ignore
+		// Trigger the new styled-system variants API
+		// Actual variant to be defined in site-specific themes
+		variants: { _: {} },
 	}),
 	space,
 	layout,

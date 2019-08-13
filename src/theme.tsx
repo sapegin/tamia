@@ -77,18 +77,18 @@ const letterSpacings = {
 	heading: 0,
 };
 const headingBaseStyles = {
-	color: colors.base,
-	fontFamily: fonts.base,
-	fontWeight: fontWeights.heading,
-	lineHeight: lineHeights.heading,
-	letterSpacing: letterSpacings.heading,
+	color: 'base',
+	fontFamily: 'base',
+	fontWeight: 'heading',
+	lineHeight: 'heading',
+	letterSpacing: 'heading',
 };
 const textBaseStyles = {
-	color: colors.base,
-	fontFamily: fonts.heading,
-	fontWeight: fontWeights.base,
-	lineHeight: lineHeights.base,
-	letterSpacing: letterSpacings.base,
+	color: 'base',
+	fontFamily: 'heading',
+	fontWeight: 'base',
+	lineHeight: 'base',
+	letterSpacing: 'base',
 };
 
 export default {
@@ -122,29 +122,29 @@ export default {
 	headingStyles: {
 		1: {
 			...headingBaseStyles,
-			fontSize: fontSizes.xxl,
+			fontSize: 'xxl',
 		},
 		2: {
 			...headingBaseStyles,
-			fontSize: fontSizes.xl,
+			fontSize: 'xl',
 		},
 		3: {
 			...headingBaseStyles,
-			fontSize: fontSizes.l,
+			fontSize: 'l',
 		},
 		4: {
 			...headingBaseStyles,
-			fontSize: fontSizes.m,
-			fontWeight: fontWeights.bold,
+			fontSize: 'm',
+			fontWeight: 'bold',
 		},
 		5: {
 			...headingBaseStyles,
-			fontSize: fontSizes.m,
+			fontSize: 'm',
 			fontStyle: 'italic',
 		},
 		6: {
 			...headingBaseStyles,
-			fontSize: fontSizes.m,
+			fontSize: 'm',
 		},
 	},
 	textStyles: {
