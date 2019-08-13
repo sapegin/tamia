@@ -28,31 +28,35 @@ const BaseStyles = createGlobalStyle`
 		hyphens: auto;
 	}
 
-	/* Remove default margins and paddings */
+	/* Disable hyphenation in links */
+	a {
+		hyphens: none;
+	}
 
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6,
-		hgroup,
-		ul,
-		ol,
-		dl,
-		dd,
-		p,
-		figure,
-		pre,
-		table,
-		fieldset,
-		blockquote,
-		form,
-		noscript,
-		iframe,
-		img,
-		hr,
-		address
+	/* Remove default margins and paddings */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	hgroup,
+	ul,
+	ol,
+	dl,
+	dd,
+	p,
+	figure,
+	pre,
+	table,
+	fieldset,
+	blockquote,
+	form,
+	noscript,
+	iframe,
+	img,
+	hr,
+	address
 	 {
 		margin: 0;
 		padding: 0;
