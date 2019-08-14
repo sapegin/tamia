@@ -3,8 +3,12 @@ Basic two column layout:
 ```jsx
 import Box from './Box';
 <Flex>
-  <Box px="m" py="s" bg="hover" width={1/2}>Foo</Box>
-  <Box px="m" py="s" bg="primary" width={1/2}>Bar</Box>
+  <Box px="m" py="s" bg="hover" width={1 / 2}>
+    Foo
+  </Box>
+  <Box px="m" py="s" bg="primary" width={1 / 2}>
+    Bar
+  </Box>
 </Flex>;
 ```
 

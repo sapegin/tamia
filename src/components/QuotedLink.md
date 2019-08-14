@@ -22,9 +22,12 @@ import Flex from './Flex';
 <QuotedLink href="https://sapegin.me/">
   <Flex>
     <Box mr="s">
-      <img src="https://source.unsplash.com/user/sapegin/200x200" alt="" />
+      <img
+        src="https://source.unsplash.com/user/sapegin/200x200"
+        alt=""
+      />
     </Box>
     <u>Drink me</u>
   </Flex>
-</QuotedLink>
+</QuotedLink>;
 ```
