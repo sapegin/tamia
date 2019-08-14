@@ -13,7 +13,7 @@ const FooterStyled = styled.footer`
 `;
 
 /**
- * A page container to create a sticky footer.
+ * Page container with a sticky footer.
  */
 export default class Page extends React.Component<
 	React.ComponentProps<typeof PageStyled>

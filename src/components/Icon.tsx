@@ -17,6 +17,9 @@ type Props = SpaceProps & {
 	children?: React.ReactNode;
 };
 
+/**
+ * Generic SVG icon component.
+ */
 const Icon = ({ icon, children, ...props }: Props) => {
 	return (
 		<Svg

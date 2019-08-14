@@ -78,14 +78,14 @@ const letterSpacings = {
 };
 const headingBaseStyles = {
 	color: 'base',
-	fontFamily: 'base',
+	fontFamily: 'heading',
 	fontWeight: 'heading',
 	lineHeight: 'heading',
 	letterSpacing: 'heading',
 };
 const textBaseStyles = {
 	color: 'base',
-	fontFamily: 'heading',
+	fontFamily: 'base',
 	fontWeight: 'base',
 	lineHeight: 'base',
 	letterSpacing: 'base',

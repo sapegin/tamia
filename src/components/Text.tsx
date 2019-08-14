@@ -22,6 +22,9 @@ type Props = SpaceProps &
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
 
+/**
+ * Text component.
+ */
 export const Text = styled.p<Props>(
 	variant({
 		scale: 'textStyles',

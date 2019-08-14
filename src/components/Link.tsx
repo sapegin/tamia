@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+/**
+ * Link component.
+ */
 export const Link = styled.a`
 	&,
 	&:link,

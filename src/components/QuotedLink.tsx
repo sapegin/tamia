@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+/**
+ * “Quoted” link component, a link where only content inside the `<u>` tag is underlined. Useful for links in quotes or links with images.
+ */
 export const QuotedLink = styled.a`
 	padding: 0;
 	background: none;

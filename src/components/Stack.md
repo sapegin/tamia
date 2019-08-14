@@ -1,3 +1,5 @@
+This component is available as a separate package: [stack-styled](https://github.com/sapegin/stack-styled). See [stack-styled docs](https://sapegin.github.io/stack-styled/) for more examples.
+
 Equal width columns (responsive):
 
 ```jsx

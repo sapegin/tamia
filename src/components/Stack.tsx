@@ -29,6 +29,9 @@ type Props = SpaceProps &
 		minColumnWidth?: ResponsiveValue<number | string>;
 	};
 
+/**
+ * Generic stacking and CSS Grid layout component. Based on the `Box` component but with `display: grid` by default.
+ */
 export const Stack = styled(Box)<Props>(
 	grid,
 	system({

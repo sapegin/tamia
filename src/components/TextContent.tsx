@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 // Inspired by Bootstrap and Typography.js
 
+/**
+ * Container for user generated content with styles for all common HTML elements.
+ */
 const TextContent = styled.div`
 	& h1,
 	& h2,
