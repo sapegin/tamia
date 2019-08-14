@@ -21,6 +21,9 @@ type Props = SpaceProps &
 	PositionProps &
 	FlexboxProps;
 
+/**
+ * Generic container with responsive props to control whitespace, layout, positioning and colors.
+ */
 export const Box = styled.div<Props>(
 	{
 		boxSizing: 'border-box',

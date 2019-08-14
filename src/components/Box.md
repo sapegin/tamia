@@ -1,5 +1,11 @@
 ```jsx
-<Box mb="l">Foo</Box>
-<Box ml="m">Boo</Box>
-<Box p="xs">Boo</Box>
+<Box
+  p="l"
+  fontSize="l"
+  width={[ 1, 1, 1/2 ]}
+  color="bg"
+  bg="hover"
+>
+  Pizza!
+</Box>
 ```
