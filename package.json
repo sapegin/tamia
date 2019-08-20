@@ -47,8 +47,8 @@
     "not dead"
   ],
   "dependencies": {
-    "@types/lodash": "^4.14.136",
-    "@types/styled-system": "^5.0.1",
+    "@types/lodash": "^4.14.137",
+    "@types/styled-system": "^5.1.0",
     "csstype": "^2.6.6",
     "lodash": "^4.17.15",
     "polished": "^3.4.1",
@@ -67,12 +67,12 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/styled-components": "^4.1.18",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
-    "eslint": "^5.16.0",
-    "eslint-config-tamia": "^6.2.1",
+    "eslint": "^6.2.0",
+    "eslint-config-tamia": "^7.0.1",
     "eslint-plugin-react": "^7.14.3",
     "gh-pages": "^2.1.1",
     "prettier": "^1.18.2",
@@ -80,9 +80,9 @@
     "react-docgen-typescript": "^1.12.5",
     "react-dom": "^16.9.0",
     "react-js-to-ts": "^1.4.0",
-    "react-styleguidist": "9.1.14",
+    "react-styleguidist": "9.1.16",
     "styled-components": "^4.3.2",
     "typescript": "^3.5.3",
-    "webpack": "^4.39.1"
+    "webpack": "^4.39.2"
   }
 }
