@@ -211,6 +211,8 @@ const TextContent = styled.div`
 	& code,
 	& kbd {
 		font-family: ${p => p.theme.fonts.code};
+		font-feature-settings: normal;
+		hyphens: none;
 	}
 	& pre {
 		display: block;
