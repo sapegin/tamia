@@ -23,7 +23,7 @@ type Value = string | number;
 const px = (value: Value): string =>
 	typeof value === 'string' ? value : `${value || 0}px`;
 
-const getMarginValue = (margin: Value, gap: Value): Value =>
+const getMarginValue = (margin: Value, gap?: Value): Value =>
 	gap ? `calc(${px(margin)} - ${px(gap)} / 2)` : margin || 0;
 
 const getGapValue = (gap: Value): string => `calc(${px(gap)} / 2)`;
@@ -33,7 +33,7 @@ const getGapValue = (gap: Value): string => `calc(${px(gap)} / 2)`;
  */
 export const Flex = styled(Box)<Props>(p => {
 	const space: { [key: string]: string } = p.theme.space;
-	const gap = space[p.gap];
+	const gap = p.gap && space[p.gap];
 	const marginTop =
 		space[(p.mt as TLength) || (p.my as TLength) || (p.m as TLength)];
 	const marginRight =
@@ -48,7 +48,7 @@ export const Flex = styled(Box)<Props>(p => {
 		marginBottom: getMarginValue(marginBottom, gap),
 		marginLeft: getMarginValue(marginLeft, gap),
 		'> *': {
-			margin: getGapValue(gap),
+			margin: gap && getGapValue(gap),
 		},
 	};
 });
