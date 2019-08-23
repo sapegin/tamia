@@ -15,7 +15,7 @@ type Props = SpaceProps &
 	ColorProps &
 	LayoutProps &
 	FlexboxProps & {
-		gap: GapProperty<TLength>;
+		gap?: GapProperty<TLength>;
 	};
 
 type Value = string | number;
