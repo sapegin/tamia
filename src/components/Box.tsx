@@ -27,6 +27,7 @@ type Props = SpaceProps &
 export const Box = styled.div<Props>(
 	{
 		boxSizing: 'border-box',
+		minWidth: 0,
 	},
 	space,
 	color,
