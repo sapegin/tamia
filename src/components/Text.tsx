@@ -29,6 +29,9 @@ type Props = SpaceProps &
  * Text component.
  */
 export const Text = styled.p<Props>(
+	{
+		boxSizing: 'border-box',
+	},
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',
