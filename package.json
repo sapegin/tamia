@@ -1,7 +1,7 @@
 {
   "name": "tamia",
   "description": "Tiny but extremely opinionated frontend framework",
-  "version": "5.0.18",
+  "version": "5.0.19",
   "scripts": {
     "pretest": "npm run lint",
     "test": "npm run typecheck",
