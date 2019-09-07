@@ -33,7 +33,7 @@ npm install tamia styled-components
 
 2. Create a theme.
 
-Copy [the default theme](https://github.com/tamiadev/tamia/blob/master/src/theme.tsx) to `src/src/theme.tsx` and modify it according to your taste:
+Copy [the default theme](https://github.com/tamiadev/tamia/blob/master/src/theme.tsx) to `src/theme.tsx` and modify it according to your taste:
 
 3. Type your theme.
 
@@ -58,7 +58,7 @@ import { TamiaRoot } from 'tamia';
 import theme from './theme';
 
 const Root = ({ children }) => (
-  <TamiaRoot theme={theme}>{children}</ThemeRoot>
+  <TamiaRoot theme={theme}>{children}</TamiaRoot>
 );
 
 export default Root;
