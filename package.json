@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "@types/lodash": "^4.14.137",
-    "@types/styled-system": "^5.1.0",
+    "@types/styled-system": "^5.1.1",
     "csstype": "^2.6.6",
     "lodash": "^4.17.15",
     "polished": "^3.4.1",

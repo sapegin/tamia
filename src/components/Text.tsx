@@ -4,12 +4,14 @@ import {
 	layout,
 	typography,
 	color,
+	border,
 	shadow,
 	variant,
 	SpaceProps,
 	LayoutProps,
 	TypographyProps,
 	ColorProps,
+	BorderProps,
 	ShadowProps,
 	ResponsiveValue,
 } from 'styled-system';
@@ -18,6 +20,7 @@ type Props = SpaceProps &
 	LayoutProps &
 	TypographyProps &
 	ColorProps &
+	BorderProps &
 	ShadowProps & {
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
@@ -29,7 +32,6 @@ export const Text = styled.p<Props>(
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',
-		// @ts-ignore
 		// Trigger the new styled-system variants API
 		// Actual variant to be defined in site-specific themes
 		variants: { _: {} },
@@ -38,6 +40,7 @@ export const Text = styled.p<Props>(
 	layout,
 	typography,
 	color,
+	border,
 	shadow
 );
 
