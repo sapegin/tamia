@@ -2,12 +2,14 @@ import styled from 'styled-components';
 import {
 	space,
 	color,
+	border,
 	shadow,
 	layout,
 	position,
 	flexbox,
 	SpaceProps,
 	ColorProps,
+	BorderProps,
 	ShadowProps,
 	LayoutProps,
 	PositionProps,
@@ -16,6 +18,7 @@ import {
 
 type Props = SpaceProps &
 	ColorProps &
+	BorderProps &
 	ShadowProps &
 	LayoutProps &
 	PositionProps &
@@ -31,6 +34,7 @@ export const Box = styled.div<Props>(
 	},
 	space,
 	color,
+	border,
 	shadow,
 	layout,
 	position,
