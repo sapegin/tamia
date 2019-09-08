@@ -9,8 +9,9 @@
     "prepublishOnly": "npm run compile",
     "lint": "eslint . --cache --fix --ext .tsx",
     "typecheck": "tsc --noEmit",
-    "compile": "npm run compile:babel && npm run compile:types",
-    "compile:babel": "babel --delete-dir-on-start --extensions '.tsx' -d lib/ src/",
+    "compile": "npm run compile:babel:cjs && npm run compile:babel:esm && npm run compile:types",
+    "compile:babel:cjs": "babel --delete-dir-on-start --extensions '.tsx' -d lib/ src/",
+    "compile:babel:esm": "BABEL_ENV=esm babel --delete-dir-on-start --extensions '.tsx' -d dist/ src/",
     "compile:types": "tsc --emitDeclarationOnly",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
@@ -32,9 +33,11 @@
   },
   "license": "MIT",
   "main": "lib/index.js",
+  "browser": "dist/index.js",
   "types": "types/index.d.ts",
   "files": [
     "lib",
+    "dist",
     "types"
   ],
   "engines": {
