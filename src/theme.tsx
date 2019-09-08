@@ -63,7 +63,7 @@ const colors = {
 	selectionAlpha: 'rgba(255,237,117,0.25)', // TODO
 };
 const fontWeights = {
-	base: 300,
+	base: 400,
 	heading: 300,
 	bold: 800,
 };
