@@ -19,14 +19,14 @@
     "docs": "npm run styleguide:build && npm run deploy",
     "format": "prettier --write '**/*.{tsx,md}'"
   },
-  "homepage": "http://tamiadev.github.io/tamia/",
+  "homepage": "https://tamiadev.github.io/tamia/",
   "author": {
     "name": "Artem Sapegin",
-    "url": "http://sapegin.me/"
+    "url": "https://sapegin.me/"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/tamiadev/tamia.git"
+    "url": "https://github.com/tamiadev/tamia.git"
   },
   "bugs": {
     "url": "https://github.com/tamiadev/tamia/issues"
