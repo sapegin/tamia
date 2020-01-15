@@ -50,12 +50,9 @@
     "not dead"
   ],
   "dependencies": {
-    "@types/lodash": "^4.14.149",
     "@types/styled-system": "^5.1.4",
     "csstype": "^2.6.8",
-    "lodash": "^4.17.15",
     "polished": "^3.4.2",
-    "prop-types": "^15.7.2",
     "styled-system": "^5.1.4"
   },
   "peerDependencies": {
