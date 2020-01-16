@@ -8,7 +8,7 @@ export const QuotedLink = styled.a`
 	background: none;
 	border: 0;
 	color: inherit;
-	font-family: inherit;
+	font: inherit;
 	text-decoration: none;
 	& u,
 	&:link u,

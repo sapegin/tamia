@@ -45,14 +45,13 @@
   },
   "browserslist": [
     ">1%",
-    "last 1 version",
+    "last 2 versions",
     "Firefox ESR",
     "not dead"
   ],
   "dependencies": {
     "@types/styled-system": "^5.1.4",
     "csstype": "^2.6.8",
-    "polished": "^3.4.2",
     "styled-system": "^5.1.4"
   },
   "peerDependencies": {

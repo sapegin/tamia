@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
-import Normalize from '../styles/normalize';
 import BaseStyles from '../styles/base';
 import PrintStyles from '../styles/print';
 
@@ -16,7 +15,6 @@ type Props = {
 const Root = ({ theme, printStyles, children }: Props) => (
 	<ThemeProvider theme={theme}>
 		<>
-			<Normalize />
 			<BaseStyles />
 			{printStyles && <PrintStyles />}
 			{children}

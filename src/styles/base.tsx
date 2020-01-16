@@ -2,18 +2,21 @@ import { createGlobalStyle } from 'styled-components';
 
 const BaseStyles = createGlobalStyle`
 	html {
-		box-sizing: border-box;
-		overflow-y: scroll;
 		font-size: ${p => p.theme.baseFontSize};
 		font-family: ${p => p.theme.fonts.base};
+		/* Prevent adjustments of font size after orientation changes in iOS */
+		-webkit-text-size-adjust: 100%;
 	}
 
 	/* box-sizing reset */
-	*, *:before, *:after {
-		box-sizing: inherit;
+	*,
+	*::before,
+	*::after {
+  		box-sizing: border-box;
 	}
 
 	body {
+		min-height: 100vh;
 		max-width: ${p => p.theme.page.maxWidth};
 		margin-left: auto;
 		margin-right: auto;
@@ -22,7 +25,9 @@ const BaseStyles = createGlobalStyle`
 		background-color: ${p => p.theme.colors.bg};
 		line-height: ${p => p.theme.lineHeights.base};
 		font-weight: ${p => p.theme.fontWeights.base};
+		scroll-behavior: smooth;
 		word-wrap: break-word;
+		text-rendering: optimizeSpeed;
 		font-kerning: normal;
 		font-feature-settings: "kern", "liga", "clig", "calt";
 		hyphens: auto;
@@ -40,24 +45,18 @@ const BaseStyles = createGlobalStyle`
 	h4,
 	h5,
 	h6,
-	hgroup,
 	ul,
 	ol,
 	dl,
 	dd,
 	p,
 	figure,
+	figcaption,
 	pre,
 	table,
 	fieldset,
-	blockquote,
-	form,
-	noscript,
-	iframe,
-	img,
-	hr,
-	address
-	 {
+	blockquote
+ 	{
 		margin: 0;
 		padding: 0;
 	}
@@ -88,7 +87,7 @@ const BaseStyles = createGlobalStyle`
 		margin-right: -0.1em;
 	}
 
-	/* Sane default values */
+	/* Remove the weird gap below images */
 	img {
 		vertical-align: middle;
 	};
@@ -114,6 +113,13 @@ const BaseStyles = createGlobalStyle`
 	a:link {
 		WebkitTapHighlightColor: ${p => p.theme.colors.selectionAlpha};
 	}
+
+	/* Remove smooth scroll for folks who don't want too much motion */
+	@media (prefers-reduced-motion: reduce) {
+		* {
+		  scroll-behavior: auto !important;
+		}
+	  }
 `;
 
 export default BaseStyles;

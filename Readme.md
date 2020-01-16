@@ -6,11 +6,10 @@ Tâmia is a tiny React component library with themable primitives that you can u
 
 ## Based on
 
+- [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
 - [styled-components](https://www.styled-components.com/)
 - [styled-system](https://styled-system.com/)
-- [polished](https://polished.js.org/)
-- [Normalize.css](https://necolas.github.io/normalize.css/)
 
 ## Tools
 
