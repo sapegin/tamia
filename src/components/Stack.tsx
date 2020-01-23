@@ -9,8 +9,31 @@ import {
 	GridProps,
 	ResponsiveValue,
 	TLengthStyledSystem,
+	BorderProps,
+	ShadowProps,
+	PositionProps,
 } from 'styled-system';
 import Box from './Box';
+
+type Props = SpaceProps &
+	LayoutProps &
+	FlexboxProps &
+	GridProps &
+	ColorProps &
+	BorderProps &
+	ShadowProps &
+	PositionProps & {
+		/** Minimum width of a child, will create responsive CSS Grid layout like
+		 * `grid-template-columns: repeat(auto-fit, minmax($minColumnWidth$)}, 1fr))`.
+		 * (You can use either this prop or `numColumns` but not both.)
+		 */
+		minColumnWidth?: ResponsiveValue<TLengthStyledSystem>;
+		/** Number of columns, will create a responsive CSS Grid layout like
+		 * `grid-template-columns: repeat($numColumns$, 1fr))`.
+		 * (You can use either this prop or `minColumnWidth` but not both.)
+		 */
+		numColumns?: ResponsiveValue<number>;
+	};
 
 const px = (value: TLengthStyledSystem): string =>
 	typeof value === 'number' ? `${value}px` : value;
@@ -18,16 +41,7 @@ const px = (value: TLengthStyledSystem): string =>
 const getMinMaxValue = (
 	value: TLengthStyledSystem,
 	scale: TLengthStyledSystem[] = []
-): string => px(scale[value as any] || value);
-
-type Props = SpaceProps &
-	ColorProps &
-	LayoutProps &
-	FlexboxProps &
-	GridProps & {
-		/** Minimum width of a child */
-		minColumnWidth?: ResponsiveValue<number | string>;
-	};
+) => px(scale[value as number] || value);
 
 /**
  * Generic stacking and CSS Grid layout component. Based on the `Box` component but with `display: grid` by default.
@@ -45,6 +59,10 @@ export const Stack = styled(Box)<Props>(
 							scale as TLengthStyledSystem[]
 					  )}, 1fr))`
 					: null,
+		},
+		numColumns: {
+			property: 'gridTemplateColumns',
+			transform: value => (value ? `repeat(${value}, 1fr)` : null),
 		},
 	})
 );
