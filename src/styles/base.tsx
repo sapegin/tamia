@@ -18,8 +18,7 @@ const BaseStyles = createGlobalStyle`
 	body {
 		min-height: 100vh;
 		max-width: ${p => p.theme.page.maxWidth};
-		margin-left: auto;
-		margin-right: auto;
+		margin: 0 auto;
 		padding: 0 ${p => p.theme.page.xPadding};
 		color: ${p => p.theme.colors.base};
 		background-color: ${p => p.theme.colors.bg};
