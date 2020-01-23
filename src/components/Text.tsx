@@ -1,5 +1,6 @@
 import styled, { DefaultTheme } from 'styled-components';
 import {
+	compose,
 	space,
 	layout,
 	typography,
@@ -32,19 +33,21 @@ export const Text = styled.p<Props>(
 	{
 		boxSizing: 'border-box',
 	},
-	variant({
-		scale: 'textStyles',
-		prop: 'variant',
-		// Trigger the new styled-system variants API
-		// Actual variant to be defined in site-specific themes
-		variants: { _: {} },
-	}),
-	space,
-	layout,
-	typography,
-	color,
-	border,
-	shadow
+	compose(
+		variant({
+			scale: 'textStyles',
+			prop: 'variant',
+			// Trigger the new styled-system variants API
+			// Actual variant to be defined in site-specific themes
+			variants: { _: {} },
+		}),
+		space,
+		layout,
+		typography,
+		color,
+		border,
+		shadow
+	)
 );
 
 Text.defaultProps = {

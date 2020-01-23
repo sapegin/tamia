@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import {
+	compose,
 	space,
 	layout,
 	typography,
@@ -28,17 +29,18 @@ const HeadingBase: React.FunctionComponent<Props & AsProps> = ({
  * Heading component.
  */
 export const Heading = styled(HeadingBase)<Props>(
-	variant({
-		scale: 'headingStyles',
-		prop: 'level',
-		// @ts-ignore
-		// Trigger the new styled-system variants API
-		// Actual variants to be defined in site-specific themes
-		variants: { _: {} },
-	}),
-	space,
-	layout,
-	typography
+	compose(
+		variant({
+			scale: 'headingStyles',
+			prop: 'level',
+			// Trigger the new styled-system variants API
+			// Actual variants to be defined in site-specific themes
+			variants: { _: {} },
+		}),
+		space,
+		layout,
+		typography
+	)
 );
 
 Heading.defaultProps = {

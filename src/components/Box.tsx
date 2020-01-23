@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+	compose,
 	space,
 	color,
 	border,
@@ -32,13 +33,7 @@ export const Box = styled.div<Props>(
 		boxSizing: 'border-box',
 		minWidth: 0,
 	},
-	space,
-	color,
-	border,
-	shadow,
-	layout,
-	position,
-	flexbox
+	compose(space, color, border, shadow, layout, position, flexbox)
 );
 
 export default Box;
