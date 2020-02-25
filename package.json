@@ -75,6 +75,8 @@
     "eslint-config-tamia": "^7.1.1",
     "eslint-plugin-react": "^7.18.3",
     "gh-pages": "^2.2.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-docgen-typescript": "^1.16.2",
@@ -84,5 +86,14 @@
     "styled-components": "^5.0.0",
     "typescript": "^3.8.2",
     "webpack": "^4.41.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.tsx": "eslint --cache --fix",
+    "*.{tsx,md}": "prettier --write"
   }
 }
