@@ -42,7 +42,7 @@
     "types"
   ],
   "engines": {
-    "node": ">=8.9"
+    "node": ">=10"
   },
   "browserslist": [
     ">1%",
