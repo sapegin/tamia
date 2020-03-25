@@ -7,14 +7,12 @@ import {
 	shadow,
 	layout,
 	position,
-	flexbox,
 	SpaceProps,
 	ColorProps,
 	BorderProps,
 	ShadowProps,
 	LayoutProps,
 	PositionProps,
-	FlexboxProps,
 } from 'styled-system';
 
 type Props = SpaceProps &
@@ -23,7 +21,7 @@ type Props = SpaceProps &
 	ShadowProps &
 	LayoutProps &
 	PositionProps & {
-		expand: boolean;
+		expand?: boolean;
 	};
 
 /**
