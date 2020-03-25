@@ -4,6 +4,7 @@ export { default as Flex } from './components/Flex';
 export { default as Frame } from './components/Frame';
 export { default as Heading } from './components/Heading';
 export { default as Icon } from './components/Icon';
+export { default as Image } from './components/Image';
 export { default as Link } from './components/Link';
 export { default as Page } from './components/Page';
 export { default as QuotedLink } from './components/QuotedLink';
