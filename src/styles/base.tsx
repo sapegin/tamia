@@ -110,7 +110,7 @@ const BaseStyles = createGlobalStyle`
 
 	/* iOS tap highlighting */
 	a:link {
-		WebkitTapHighlightColor: ${p => p.theme.colors.selectionAlpha};
+		-webkit-tap-highlight-color: ${p => p.theme.colors.selectionAlpha};
 	}
 
 	/* Remove smooth scroll for folks who don't want too much motion */
