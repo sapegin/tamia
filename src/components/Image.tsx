@@ -14,6 +14,7 @@ import {
 	LayoutProps,
 	PositionProps,
 } from 'styled-system';
+import { getPaddingX } from '../styles/getters';
 
 type Props = SpaceProps &
 	ColorProps &
@@ -36,8 +37,8 @@ export const Image = styled.img<Props>(
 		p.expand && {
 			[`@media (max-width: ${p.theme.breakpoints[0]})`]: {
 				maxWidth: '100vw',
-				marginLeft: `-${p.theme.page.xPadding}`,
-				marginRight: `-${p.theme.page.xPadding}`,
+				marginLeft: `-${getPaddingX(p)}`,
+				marginRight: `-${getPaddingX(p)}`,
 			},
 		},
 	compose(space, color, border, shadow, layout, position)

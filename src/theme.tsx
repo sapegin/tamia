@@ -98,15 +98,15 @@ export default {
 	headingMarginTop: space.l,
 	listMargin: '1.3em',
 	page: {
-		// Max page with
-		maxWidth: '75rem',
+		// Body
+		bodyMaxWidth: '75rem',
+		bodyPaddingX: space.m,
+		bodyPaddingY: 0,
 
-		// Body paddings
-		xPadding: space.m,
-		yPadding: 0,
-
-		// Max content width (<Container>)
+		// Content (<Container>)
 		contentMaxWidth: null,
+		contentPaddingX: 0,
+		contentPaddingY: 0,
 
 		// Max text column width (<TextContainer>)
 		textMaxWidth: '40rem',

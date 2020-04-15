@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { getMaxWidth, getPaddingX } from '../styles/getters';
 
 // Inspired by Bootstrap and Typography.js
 
@@ -81,12 +82,11 @@ const TextContent = styled.div`
 	& figure > img,
 	& figure > a > img {
 		height: auto;
-		max-width: calc(100% + ${p => p.theme.page.xPadding} * 2);
-		margin-left: -${p => p.theme.page.xPadding};
-		margin-right: -${p => p.theme.page.xPadding};
+		max-width: calc(100% + ${getPaddingX} * 2);
+		margin-left: -${getPaddingX};
+		margin-right: -${getPaddingX};
 		margin-top: calc(${p => p.theme.blockMarginBottom} / 2);
-		@media (min-width: ${p =>
-				p.theme.page.contentMaxWidth || p.theme.page.maxWidth}) {
+		@media (min-width: ${getMaxWidth}) {
 			max-width: 100%;
 			margin-left: auto;
 			margin-right: auto;
@@ -198,7 +198,7 @@ const TextContent = styled.div`
 		left: 0;
 	}
 	/* Hanging markers on big screens */
-	@media (min-width: ${p => p.theme.page.maxWidth}) {
+	@media (min-width: ${getMaxWidth}) {
 		& ol {
 			padding-left: 0;
 		}
