@@ -2,6 +2,7 @@ export { default as Box } from './components/Box';
 export { default as Container } from './components/Container';
 export { default as Flex } from './components/Flex';
 export { default as Frame } from './components/Frame';
+export { default as Grid } from './components/Grid';
 export { default as Heading } from './components/Heading';
 export { default as Icon } from './components/Icon';
 export { default as Image } from './components/Image';
