@@ -2,27 +2,14 @@ import styled from 'styled-components';
 import {
 	grid,
 	system,
-	SpaceProps,
-	ColorProps,
-	LayoutProps,
-	FlexboxProps,
 	GridProps,
 	ResponsiveValue,
 	TLengthStyledSystem,
-	BorderProps,
-	ShadowProps,
-	PositionProps,
 } from 'styled-system';
-import Box from './Box';
+import Box, { BoxProps } from './Box';
 
-type Props = SpaceProps &
-	LayoutProps &
-	FlexboxProps &
-	GridProps &
-	ColorProps &
-	BorderProps &
-	ShadowProps &
-	PositionProps & {
+type Props = BoxProps &
+	GridProps & {
 		/** Minimum width of a child, will create responsive CSS Grid layout like
 		 * `grid-template-columns: repeat(auto-fit, minmax($minColumnWidth$)}, 1fr))`.
 		 * (You can use either this prop or `numColumns` but not both.)

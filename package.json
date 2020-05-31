@@ -4,6 +4,7 @@
   "version": "5.0.20",
   "sideEffects": false,
   "scripts": {
+    "start": "npm run styleguide",
     "pretest": "npm run lint",
     "test": "npm run typecheck",
     "posttest": "npm run format",

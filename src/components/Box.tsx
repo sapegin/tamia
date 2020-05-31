@@ -17,7 +17,7 @@ import {
 	FlexboxProps,
 } from 'styled-system';
 
-type Props = SpaceProps &
+export type BoxProps = SpaceProps &
 	ColorProps &
 	BorderProps &
 	ShadowProps &
@@ -28,7 +28,7 @@ type Props = SpaceProps &
 /**
  * Generic container with responsive props to control whitespace, layout, positioning and colors.
  */
-export const Box = styled.div<Props>(
+export const Box = styled.div<BoxProps>(
 	{
 		boxSizing: 'border-box',
 		minWidth: 0,
