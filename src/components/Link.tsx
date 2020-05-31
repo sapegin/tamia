@@ -21,7 +21,7 @@ export const Link = styled.a`
 		cursor: pointer;
 	}
 	&:focus {
-		outline: 1px dotted ${p => p.theme.colors.hover};
+		outline: 1px dotted;
 		outline-offset: 1px;
 	}
 `;

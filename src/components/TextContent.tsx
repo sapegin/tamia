@@ -55,7 +55,7 @@ const TextContent = styled.div`
 		color: ${p => p.theme.colors.hover};
 	}
 	& a:focus {
-		outline: 1px dotted ${p => p.theme.colors.hover};
+		outline: 1px dotted;
 		outline-offset: 1px;
 	}
 
