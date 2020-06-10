@@ -21,7 +21,7 @@ export const Link = styled.a`
 		cursor: pointer;
 	}
 	&:focus {
-		outline: 1px dotted;
+		outline: 1px dashed;
 		outline-offset: 1px;
 	}
 `;
