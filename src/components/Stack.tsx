@@ -24,7 +24,7 @@ type Props = SpaceProps &
 		gap?: ResponsiveValue<TLengthStyledSystem>;
 	};
 
-export const Stack = styled(Box)(
+export const Stack = styled<Props>(Box)(
 	// We are using the “lobotomized owl” CSS selector to add margins between children
 	// More information: https://every-layout.dev/layouts/stack/#the-solution
 	system({
