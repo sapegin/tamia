@@ -11,7 +11,9 @@ import {
 	ShadowProps,
 	PositionProps,
 } from 'styled-system';
-import Box from './Box';
+import Flex from './Flex';
+
+type Direction = 'column' | 'row';
 
 type Props = SpaceProps &
 	LayoutProps &
@@ -22,26 +24,41 @@ type Props = SpaceProps &
 	PositionProps & {
 		/** Spacing between items */
 		gap?: ResponsiveValue<TLengthStyledSystem>;
+		/** Direction: horizontal (`row`) or vertical (`column`) */
+		direction?: ResponsiveValue<Direction>;
 	};
 
-export const Stack = styled(Box)<Props>(
+export const Stack = styled(Flex)<Props>(
 	// We are using the “lobotomized owl” CSS selector to add margins between children
 	// More information: https://every-layout.dev/layouts/stack/#the-solution
 	system({
 		gap: {
-			// Here, instead of a CSS property we generate a selector
+			// Set the gap value to a CSS property to later use it to add margin
+			// at the correct side. We have to use CSS properties becase it's the
+			// only way to use several responsive props together
 			// @ts-ignore
-			property: '&& > * + *',
+			property: '--stack-gap',
 			scale: 'space',
-			// And here instead of the value for the property we return an object
-			// We need to add important since we set margin: 0 in our components
-			// and we need to override it
-			transform: (value, scale) => ({
-				marginTop: (scale as TLengthStyledSystem[])[value],
+		},
+		direction: {
+			// @ts-ignore
+			property: '&&',
+			transform: value => ({
+				flexDirection: value,
+				// Use lobotomized owl selector to add margin on top or left
+				// depending on the direction, use value from the CSS property
+				'> * + *': {
+					marginTop: value === 'column' ? 'var(--stack-gap)' : 0,
+					marginLeft: value === 'row' ? 'var(--stack-gap)' : 0,
+				},
 			}),
 		},
 	})
 );
+
+Stack.defaultProps = {
+	direction: 'column',
+};
 
 /** @component */
 export default Stack;
