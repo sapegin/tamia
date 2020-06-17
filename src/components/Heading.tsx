@@ -29,18 +29,16 @@ const HeadingBase: React.FunctionComponent<Props & AsProps> = ({
  * Heading component.
  */
 export const Heading = styled(HeadingBase)<Props>(
-	compose(
-		variant({
-			scale: 'headingStyles',
-			prop: 'level',
-			// Trigger the new styled-system variants API
-			// Actual variants to be defined in site-specific themes
-			variants: { _: {} },
-		}),
-		space,
-		layout,
-		typography
-	)
+	variant({
+		scale: 'headingStyles',
+		prop: 'level',
+		// Trigger the new styled-system variants API
+		// Actual variants to be defined in site-specific themes
+		variants: { _: {} },
+	}),
+	space,
+	layout,
+	typography
 );
 
 Heading.defaultProps = {
