@@ -37,3 +37,22 @@ Responsive direction:
   <div>polizei</div>
 </Stack>
 ```
+
+Realistic responsive example:
+
+```jsx
+import Text from './Text';
+<Stack
+  gap="m"
+  justifyContent="space-between"
+  alignItems="flex-start"
+  direction={['column', 'row']}
+>
+  <Text fontWeight="bold">
+    Sign in today to get the best deals!
+    <br />
+    Just one click away!!
+  </Text>
+  <button>Sign in</button>
+</Stack>;
+```
