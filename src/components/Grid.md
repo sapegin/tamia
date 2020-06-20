@@ -13,7 +13,7 @@ Full width on small screens, horizontally stacked on larger screens:
 
 ```jsx
 <Grid
-  gap="m"
+  gridGap="m"
   justifyContent={[null, 'start']}
   gridAutoFlow={[null, 'column']}
 >
