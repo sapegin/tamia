@@ -37,8 +37,11 @@ export const Stack = styled(Flex)<Props>(
 			// at the correct side. We have to use CSS properties becase it's the
 			// only way to use several responsive props together
 			// @ts-ignore
-			property: '--stack-gap',
+			property: '> * + *',
 			scale: 'space',
+			transform: (value, scale) => ({
+				'--stack-gap': (scale as TLengthStyledSystem[])[value],
+			}),
 		},
 		direction: {
 			// @ts-ignore
