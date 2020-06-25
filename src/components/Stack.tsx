@@ -28,6 +28,10 @@ type Props = SpaceProps &
 		direction?: ResponsiveValue<Direction>;
 	};
 
+/**
+ * Stacking layout: horizontal, vertical, and responsive. Adds equal amount
+ * of spacing between children.
+ */
 export const Stack = styled(Flex)<Props>(
 	// We are using the “lobotomized owl” CSS selector to add margins between children
 	// More information: https://every-layout.dev/layouts/stack/#the-solution
