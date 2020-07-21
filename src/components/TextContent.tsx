@@ -109,6 +109,9 @@ const TextContent = styled.div`
 		border-bottom: 1px solid ${p => p.theme.colors.border};
 		padding: calc(${p => p.theme.blockMarginBottom} / 2);
 	}
+	& td {
+		vertical-align: top;
+	}
 	& th:first-of-type,
 	& td:first-of-type {
 		padding-left: 0;
