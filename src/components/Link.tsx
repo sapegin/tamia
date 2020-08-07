@@ -10,7 +10,9 @@ export const Link = styled.a`
 		padding: 0;
 		background: none;
 		border: 0;
-		font: inherit;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
 		color: ${p => p.theme.colors.primary};
 		text-decoration: underline;
 	}
