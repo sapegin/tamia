@@ -136,6 +136,7 @@ const TextContent = styled.div`
 		font-family: ${p => p.theme.fonts.heading};
 		line-height: ${p => p.theme.lineHeights.heading};
 		font-weight: ${p => p.theme.fontWeights.heading};
+		letter-spacing: ${p => p.theme.letterSpacings.heading};
 	}
 
 	& h1 + h2,
