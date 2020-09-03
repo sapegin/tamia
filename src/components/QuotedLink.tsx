@@ -4,6 +4,7 @@ import styled from 'styled-components';
  * “Quoted” link component, a link where only content inside the `<u>` tag is underlined. Useful for links in quotes or links with images.
  */
 export const QuotedLink = styled.a`
+	display: inline-block;
 	padding: 0;
 	background: none;
 	border: 0;
@@ -19,16 +20,16 @@ export const QuotedLink = styled.a`
 		color: ${p => p.theme.colors.primary};
 	}
 	&:hover u,
-	&:active u,
-	&:focus u {
+	&:active u {
 		color: ${p => p.theme.colors.hover};
 	}
 	&:hover {
 		cursor: pointer;
 	}
 	&:focus {
-		outline: 1px dashed ${p => p.theme.colors.hover};
-		outline-offset: 1px;
+		outline: ${p => p.theme.borders.focus};
+		outline-color: ${p => p.theme.colors.focus};
+		outline-offset: ${p => p.theme.focusOutlineOffset};
 	}
 `;
 

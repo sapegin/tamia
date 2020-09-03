@@ -17,14 +17,14 @@ export const Link = styled.a`
 		text-decoration: underline;
 	}
 	&:hover,
-	&:active,
-	&:focus {
+	&:active {
 		color: ${p => p.theme.colors.hover};
 		cursor: pointer;
 	}
 	&:focus {
-		outline: 1px dashed;
-		outline-offset: 1px;
+		outline: ${p => p.theme.borders.focus};
+		outline-color: ${p => p.theme.colors.focus};
+		outline-offset: ${p => p.theme.focusOutlineOffset};
 	}
 `;
 

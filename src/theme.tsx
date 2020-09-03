@@ -59,6 +59,7 @@ const colors = {
 	border: '#ddd',
 	primary: '#c25400',
 	hover: '#f56a00',
+	focus: '#f56a00',
 	selection: 'rgb(255,237,117)',
 	selectionAlpha: 'rgba(255,237,117,0.25)', // TODO
 };
@@ -75,6 +76,9 @@ const lineHeights = {
 const letterSpacings = {
 	base: 0,
 	heading: 0,
+};
+const borders = {
+	focus: '3px solid',
 };
 const headingBaseStyles = {
 	color: 'base',
@@ -97,6 +101,7 @@ export default {
 	blockMarginBottom: space.m,
 	headingMarginTop: space.l,
 	listMargin: '1.3em',
+	focusOutlineOffset: '2px',
 	page: {
 		// Body
 		bodyMaxWidth: '75rem',
@@ -118,6 +123,7 @@ export default {
 	lineHeights,
 	letterSpacings,
 	colors,
+	borders,
 	breakpoints,
 	headingStyles: {
 		1: {

@@ -50,13 +50,13 @@ const TextContent = styled.div`
 		color: ${p => p.theme.colors.primary};
 	}
 	& a:hover,
-	& a:active,
-	& a:focus {
+	& a:active {
 		color: ${p => p.theme.colors.hover};
 	}
 	& a:focus {
-		outline: 1px dashed;
-		outline-offset: 1px;
+		outline: ${p => p.theme.borders.focus};
+		outline-color: ${p => p.theme.colors.focus};
+		outline-offset: ${p => p.theme.focusOutlineOffset};
 	}
 
 	/* Blockquotes */
