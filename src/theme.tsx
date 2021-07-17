@@ -21,6 +21,7 @@ const monospaceFont = [
 	'monospace',
 ].join(', ');
 const space = {
+	0: 0,
 	xxs: '0.125rem', // 2px
 	xs: '0.25rem', // 4px
 	s: '0.5rem', // 8px
