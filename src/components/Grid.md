@@ -1,5 +1,15 @@
 This component is available as a separate package: [stack-styled](https://github.com/sapegin/stack-styled). See [stack-styled docs](https://sapegin.github.io/stack-styled/) for more examples.
 
+Equal width columns:
+
+```jsx
+<Grid numColumns={3}>
+  <div>eins</div>
+  <div>zwei</div>
+  <div>polizei</div>
+</Grid>
+```
+
 Equal width columns (responsive):
 
 ```jsx

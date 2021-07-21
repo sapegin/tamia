@@ -1,55 +1,47 @@
 import styled from 'styled-components';
-import {
-	grid,
-	system,
-	GridProps,
-	ResponsiveValue,
-	TLengthStyledSystem,
-} from 'styled-system';
+import { Property } from 'csstype';
+import { grid, system, GridProps, SystemProp } from '../system';
 import Box, { BoxProps } from './Box';
 
 type Props = BoxProps &
 	GridProps & {
-		/** Minimum width of a child, will create responsive CSS Grid layout like
+		/**
+		 * Minimum width of a child, will create responsive CSS Grid layout like
 		 * `grid-template-columns: repeat(auto-fit, minmax($minColumnWidth$)}, 1fr))`.
 		 * (You can use either this prop or `numColumns` but not both.)
 		 */
-		minColumnWidth?: ResponsiveValue<TLengthStyledSystem>;
-		/** Number of columns, will create a responsive CSS Grid layout like
+		minColumnWidth?: SystemProp<Property.Width>;
+		/**
+		 * Number of columns, will create a responsive CSS Grid layout like
 		 * `grid-template-columns: repeat($numColumns$, 1fr))`.
 		 * (You can use either this prop or `minColumnWidth` but not both.)
 		 */
-		numColumns?: ResponsiveValue<number>;
+		numColumns?: SystemProp<number>;
 	};
 
-const px = (value: TLengthStyledSystem): string =>
+const px = (value: Property.Width): string =>
 	typeof value === 'number' ? `${value}px` : value;
 
-const getMinMaxValue = (
-	value: TLengthStyledSystem,
-	scale: TLengthStyledSystem[] = []
-) => px(scale[value as number] || value);
+const getMinMaxValue = (value: Property.Width, scale: Property.Width[] = []) =>
+	px(scale[value as number] || value);
 
 /**
  * Generic CSS Grid layout component. Based on the `Box` component but with `display: grid` by default.
  */
 export const Grid = styled(Box)<Props>(
-	grid,
 	system({
+		...grid,
 		minColumnWidth: {
 			property: 'gridTemplateColumns',
 			scale: 'space',
-			transform: (value, scale) =>
-				value
-					? `repeat(auto-fit, minmax(${getMinMaxValue(
-							value,
-							scale as TLengthStyledSystem[]
-					  )}, 1fr))`
+			transform: ({ path, object }) =>
+				path
+					? `repeat(auto-fit, minmax(${getMinMaxValue(path, object)}, 1fr))`
 					: null,
 		},
 		numColumns: {
 			property: 'gridTemplateColumns',
-			transform: value => (value ? `repeat(${value}, 1fr)` : null),
+			transform: ({ path }) => (path ? `repeat(${path}, 1fr)` : null),
 		},
 	})
 );

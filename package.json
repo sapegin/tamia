@@ -53,8 +53,9 @@
   ],
   "dependencies": {
     "@types/styled-system": "^5.1.7",
-    "csstype": "^2.6.9",
-    "styled-system": "^5.1.5"
+    "csstype": "^3.0.8",
+    "styled-system": "^5.1.5",
+    "system-props": "^0.20.0"
   },
   "peerDependencies": {
     "styled-components": ">=5"
@@ -68,24 +69,24 @@
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
     "@types/styled-components": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^2.21.0",
-    "@typescript-eslint/parser": "^2.21.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "eslint": "^6.8.0",
-    "eslint-config-tamia": "^7.1.1",
-    "eslint-plugin-react": "^7.18.3",
+    "eslint": "^7.30.0",
+    "eslint-config-tamia": "^7.2.6",
+    "eslint-plugin-react": "^7.24.0",
     "gh-pages": "^2.2.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
-    "react": "^16.12.0",
-    "react-docgen-typescript": "^1.16.2",
-    "react-dom": "^16.12.0",
-    "react-styleguidist": "10.6.2",
+    "react": "^16.14.0",
+    "react-docgen-typescript": "^2.0.0",
+    "react-dom": "^16.14.0",
+    "react-styleguidist": "12.0.0-alpha9.9",
     "styled-components": "^5.0.0",
-    "typescript": "^3.8.2",
-    "webpack": "^4.41.6"
+    "typescript": "^4.3.5",
+    "webpack": "^5.45.1"
   },
   "husky": {
     "hooks": {

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import {
-	compose,
+	system,
 	space,
 	color,
 	border,
 	shadow,
-	layout,
+	styledSystemLayout,
 	position,
 	flexbox,
 	SpaceProps,
@@ -15,14 +15,14 @@ import {
 	LayoutProps,
 	PositionProps,
 	FlexboxProps,
-} from 'styled-system';
+} from '../system';
 
-export type BoxProps = SpaceProps &
-	ColorProps &
-	BorderProps &
-	ShadowProps &
-	LayoutProps &
-	PositionProps &
+export type BoxProps = SpaceProps<'noprefix'> &
+	ColorProps<'noprefix'> &
+	BorderProps<'noprefix'> &
+	ShadowProps<'noprefix'> &
+	LayoutProps<'noprefix'> &
+	PositionProps<'noprefix'> &
 	FlexboxProps;
 
 /**
@@ -33,7 +33,15 @@ export const Box = styled.div<BoxProps>(
 		boxSizing: 'border-box',
 		minWidth: 0,
 	},
-	compose(space, color, border, shadow, layout, position, flexbox)
+	system({
+		...space,
+		...color,
+		...border,
+		...shadow,
+		...styledSystemLayout,
+		...position,
+		...flexbox,
+	})
 );
 
 export default Box;

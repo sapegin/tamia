@@ -38,7 +38,7 @@ Copy [the default theme](https://github.com/tamiadev/tamia/blob/master/src/theme
 
 Create `src/styled.d.ts` and import there your theme:
 
-```ts
+```ts static
 import theme from './theme';
 
 type ThemeInterface = typeof theme;
@@ -46,6 +46,11 @@ type ThemeInterface = typeof theme;
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends ThemeInterface {}
+}
+
+declare module 'system-props' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface Theme extends ThemeInterface {}
 }
 ```
 
