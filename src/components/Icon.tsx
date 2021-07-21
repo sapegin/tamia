@@ -4,25 +4,33 @@ import { space, layout, SpaceProps, LayoutProps } from 'styled-system';
 
 const Svg = styled.svg<SpaceProps & LayoutProps>(space, layout);
 
-type Props = SpaceProps & {
-	viewBox: {
-		width: number;
-		height: number;
+type Props = SpaceProps &
+	LayoutProps & {
+		viewBox: {
+			width: number;
+			height: number;
+		};
+		display?: number | string;
+		children?: React.ReactNode;
 	};
-	width: number;
-	height: number;
-	display?: string;
-	verticalAlign?: string;
-	children?: React.ReactNode;
-};
 
 /**
  * Generic SVG icon component.
  */
-const Icon = ({ viewBox, children, ...props }: Props) => {
+const Icon = ({
+	viewBox,
+	display = 'inline-block',
+	verticalAlign = 'middle',
+	children,
+	...props
+}: Props) => {
+	// Use unknown because TypeScript thinks this is still an <svg> element,
+	// not a styled-system component, and doesn't allow responsive props
 	return (
 		<Svg
-			{...props}
+			{...(props as unknown)}
+			display={display}
+			verticalAlign={verticalAlign}
 			viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
 			fill="currentColor"
 			preserveAspectRatio="xMidYMid meet"
@@ -30,11 +38,6 @@ const Icon = ({ viewBox, children, ...props }: Props) => {
 			{children}
 		</Svg>
 	);
-};
-
-Icon.defaultProps = {
-	display: 'inline-block',
-	verticalAlign: 'middle',
 };
 
 export default Icon;
