@@ -232,6 +232,11 @@ const TextContent = styled.div`
 		font-size: inherit;
 		color: inherit;
 	}
+
+	/* Don't leak the margin after the last element outside of the component */
+	> *:last-child {
+		margin-bottom: 0;
+	}
 `;
 
 /** @component */
