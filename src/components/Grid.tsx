@@ -49,7 +49,7 @@ export const Grid = styled(Box)<Props>(
 		},
 		numColumns: {
 			property: 'gridTemplateColumns',
-			transform: value => (value ? `repeat(${value}, 1fr)` : null),
+			transform: (value) => (value ? `repeat(${value}, 1fr)` : null),
 		},
 	})
 );

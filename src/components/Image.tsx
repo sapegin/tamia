@@ -33,7 +33,7 @@ export const Image = styled.img<Props>(
 		maxWidth: '100%',
 		height: 'auto',
 	},
-	p =>
+	(p) =>
 		p.expand && {
 			[`@media (max-width: ${p.theme.breakpoints[0]})`]: {
 				maxWidth: '100vw',

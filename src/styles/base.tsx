@@ -2,8 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 
 const BaseStyles = createGlobalStyle`
 	html {
-		font-size: ${p => p.theme.baseFontSize};
-		font-family: ${p => p.theme.fonts.base};
+		font-size: ${(p) => p.theme.baseFontSize};
+		font-family: ${(p) => p.theme.fonts.base};
 		/* Prevent adjustments of font size after orientation changes in iOS */
 		-webkit-text-size-adjust: 100%;
 	}
@@ -17,13 +17,14 @@ const BaseStyles = createGlobalStyle`
 
 	body {
 		min-height: 100vh;
-		max-width: ${p => p.theme.page.bodyMaxWidth};
+		max-width: ${(p) => p.theme.page.bodyMaxWidth};
 		margin: 0 auto;
-		padding: ${p => p.theme.page.bodyPaddingY} ${p => p.theme.page.bodyPaddingX};
-		color: ${p => p.theme.colors.base};
-		background-color: ${p => p.theme.colors.bg};
-		line-height: ${p => p.theme.lineHeights.base};
-		font-weight: ${p => p.theme.fontWeights.base};
+		padding: ${(p) => p.theme.page.bodyPaddingY} ${(p) =>
+	p.theme.page.bodyPaddingX};
+		color: ${(p) => p.theme.colors.base};
+		background-color: ${(p) => p.theme.colors.bg};
+		line-height: ${(p) => p.theme.lineHeights.base};
+		font-weight: ${(p) => p.theme.fontWeights.base};
 		scroll-behavior: smooth;
 		word-wrap: break-word;
 		text-rendering: optimizeSpeed;
@@ -103,14 +104,14 @@ const BaseStyles = createGlobalStyle`
 
 	/* Text selection */
 	::selection {
-		color: ${p => p.theme.colors.base};
-		background: ${p => p.theme.colors.selection};
+		color: ${(p) => p.theme.colors.base};
+		background: ${(p) => p.theme.colors.selection};
 		text-shadow: none;
 	}
 
 	/* iOS tap highlighting */
 	a:link {
-		-webkit-tap-highlight-color: ${p => p.theme.colors.selectionAlpha};
+		-webkit-tap-highlight-color: ${(p) => p.theme.colors.selectionAlpha};
 	}
 
 	/* Remove smooth scroll for folks who don't want too much motion */

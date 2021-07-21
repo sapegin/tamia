@@ -1,6 +1,6 @@
 const path = require('path');
 
-const file = filepath => path.join(__dirname, filepath);
+const file = (filepath) => path.join(__dirname, filepath);
 
 module.exports = {
 	title: 'Tâmia',

@@ -16,19 +16,19 @@ export const QuotedLink = styled.a`
 	&:link u,
 	&:visited u {
 		text-decoration: underline;
-		color: ${p => p.theme.colors.primary};
+		color: ${(p) => p.theme.colors.primary};
 	}
 	&:hover u,
 	&:active u {
-		color: ${p => p.theme.colors.hover};
+		color: ${(p) => p.theme.colors.hover};
 	}
 	&:hover {
 		cursor: pointer;
 	}
 	&:focus {
-		outline: ${p => p.theme.borders.focus};
-		outline-color: ${p => p.theme.colors.focus};
-		outline-offset: ${p => p.theme.focusOutlineOffset};
+		outline: ${(p) => p.theme.borders.focus};
+		outline-color: ${(p) => p.theme.colors.focus};
+		outline-offset: ${(p) => p.theme.focusOutlineOffset};
 	}
 `;
 

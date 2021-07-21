@@ -50,7 +50,7 @@ export const Stack = styled(Flex)<Props>(
 		direction: {
 			// @ts-ignore
 			property: '&&',
-			transform: value => ({
+			transform: (value) => ({
 				flexDirection: value,
 				// Use lobotomized owl selector to add margin on top or left
 				// depending on the direction, use value from the CSS property
