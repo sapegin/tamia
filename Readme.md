@@ -1,6 +1,6 @@
 # Tâmia
 
-[![Build Status](https://travis-ci.org/tamiadev/tamia.png)](https://travis-ci.org/tamiadev/tamia) [![npm](https://img.shields.io/npm/v/tamia.svg)](https://www.npmjs.com/package/tamia)
+[![npm](https://img.shields.io/npm/v/tamia.svg)](https://www.npmjs.com/package/tamia) [![Node.js CI status](https://github.com/tamiadev/tamia.git/workflows/Node.js%20CI/badge.svg)](https://github.com/tamiadev/tamia.git/actions)
 
 Tâmia is a tiny React component library with themable primitives that you can use to quickly start working on a new project.
 
