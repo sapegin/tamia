@@ -5,6 +5,7 @@ import {
 	color,
 	border,
 	shadow,
+	background,
 	layout,
 	position,
 	flexbox,
@@ -12,6 +13,7 @@ import {
 	ColorProps,
 	BorderProps,
 	ShadowProps,
+	BackgroundProps,
 	LayoutProps,
 	PositionProps,
 	FlexboxProps,
@@ -21,19 +23,21 @@ export type BoxProps = SpaceProps &
 	ColorProps &
 	BorderProps &
 	ShadowProps &
+	BackgroundProps &
 	LayoutProps &
 	PositionProps &
 	FlexboxProps;
 
 /**
- * Generic container with responsive props to control whitespace, layout, positioning and colors.
+ * Generic container with responsive props to control whitespace, layout,
+ * positioning and colors.
  */
 export const Box = styled.div<BoxProps>(
 	{
 		boxSizing: 'border-box',
 		minWidth: 0,
 	},
-	compose(space, color, border, shadow, layout, position, flexbox)
+	compose(space, color, border, shadow, background, layout, position, flexbox)
 );
 
 export default Box;
