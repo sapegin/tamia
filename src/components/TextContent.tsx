@@ -120,6 +120,7 @@ const TextContent = styled.div`
 	& td:last-child {
 		padding-right: 0;
 	}
+	& tbody tr:last-child th,
 	& tbody tr:last-child td {
 		border: 0;
 	}
