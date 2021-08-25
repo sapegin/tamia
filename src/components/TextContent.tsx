@@ -112,8 +112,8 @@ const TextContent = styled.div`
 	& td {
 		vertical-align: top;
 	}
-	& th:first-of-type,
-	& td:first-of-type {
+	& th:first-child,
+	& td:first-child {
 		padding-left: 0;
 	}
 	& th:last-child,
