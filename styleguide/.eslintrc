@@ -1,8 +1,4 @@
 {
-	"root": true,
-	"parser": "babel-eslint",
-	"extends": "tamia/react",
-	"rules": {
-		"react/prop-types": 0
-	}
+  "root": true,
+  "extends": "tamia/typescript-react"
 }

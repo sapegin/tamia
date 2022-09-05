@@ -38,7 +38,7 @@ Copy [the default theme](https://github.com/tamiadev/tamia/blob/master/src/theme
 
 Create `src/styled.d.ts` and import there your theme:
 
-```ts
+```ts static
 import theme from './theme';
 
 type ThemeInterface = typeof theme;
