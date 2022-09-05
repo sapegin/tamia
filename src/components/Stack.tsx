@@ -11,7 +11,7 @@ import {
 	ShadowProps,
 	PositionProps,
 } from 'styled-system';
-import Flex from './Flex';
+import Box from './Box';
 
 type Direction = 'column' | 'row';
 
@@ -32,7 +32,10 @@ type Props = SpaceProps &
  * Stacking layout: horizontal, vertical, and responsive. Adds equal amount
  * of spacing between children.
  */
-export const Stack = styled(Flex)<Props>(
+export const Stack = styled(Box)<Props>(
+	{
+		display: 'flex',
+	},
 	// We are using the “lobotomized owl” CSS selector to add margins between children
 	// More information: https://every-layout.dev/layouts/stack/#the-solution
 	system({
