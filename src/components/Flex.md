@@ -21,3 +21,25 @@ import Box from './Box';
   <Box ml="auto">Bar</Box>
 </Flex>;
 ```
+
+Stacking using the Flexbox `gap`/`column-gap`/`row-gap` properties:
+
+```jsx
+<Flex gap="l" row-gap="s" flexWrap="wrap">
+  <div>eins</div>
+  <div>zwei</div>
+  <div>polizei</div>
+  <div>eins</div>
+  <div>zwei</div>
+  <div>polizei</div>
+  <div>eins</div>
+  <div>zwei</div>
+  <div>polizei</div>
+  <div>eins</div>
+  <div>zwei</div>
+  <div>polizei</div>
+  <div>eins</div>
+  <div>zwei</div>
+  <div>polizei</div>
+</Flex>
+```
