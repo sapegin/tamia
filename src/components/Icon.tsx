@@ -28,7 +28,7 @@ const Icon = ({
 	// not a styled-system component, and doesn't allow responsive props
 	return (
 		<Svg
-			{...(props as unknown)}
+			{...(props as any)}
 			display={display}
 			verticalAlign={verticalAlign}
 			viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
