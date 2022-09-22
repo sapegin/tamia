@@ -12,9 +12,6 @@ type Props = FlexProps & {
  * of spacing between children.
  */
 export const Stack = styled(Flex)<Props>(
-	{
-		display: 'flex',
-	},
 	system({
 		direction: {
 			property: 'flexDirection',

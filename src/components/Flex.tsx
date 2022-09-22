@@ -15,9 +15,6 @@ export type FlexProps = BoxProps & {
  * Responsive Flexbox container, based on the `Box` component but has `display: flex` by default.
  */
 export const Flex = styled(Box)<FlexProps>(
-	{
-		display: 'flex',
-	},
 	system({
 		gap: {
 			property: 'gap',
@@ -33,5 +30,9 @@ export const Flex = styled(Box)<FlexProps>(
 		},
 	})
 );
+
+Flex.defaultProps = {
+	display: 'flex',
+};
 
 export default Flex;
