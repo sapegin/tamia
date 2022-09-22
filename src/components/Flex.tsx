@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { system, ResponsiveValue, TLengthStyledSystem } from 'styled-system';
 import Box, { BoxProps } from './Box';
 
-type FlexProps = BoxProps & {
+export type FlexProps = BoxProps & {
 	/** Gap between items */
 	gap?: ResponsiveValue<TLengthStyledSystem>;
 	/** Horizontal gap between items */
@@ -24,13 +24,11 @@ export const Flex = styled(Box)<FlexProps>(
 			scale: 'space',
 		},
 		'column-gap': {
-			// @ts-expect-error
-			property: 'column-gap',
+			property: 'columnGap',
 			scale: 'space',
 		},
 		'row-gap': {
-			// @ts-expect-error
-			property: 'row-gap',
+			property: 'rowGap',
 			scale: 'space',
 		},
 	})
