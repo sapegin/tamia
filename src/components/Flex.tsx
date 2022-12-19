@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import Box, { BoxProps } from './Box';
 
@@ -14,16 +13,3 @@ Flex.defaultProps = {
 };
 
 export default Flex;
-
-function Xxx() {
-	return (
-		<Box
-			p="l"
-			marginBottom="xdsdf"
-			width={[1, 1, 1 / 2]}
-			css={{ fontSize: 'l', color: 'bg', bg: 'hover' }}
-		>
-			Pizza!
-		</Box>
-	);
-}

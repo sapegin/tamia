@@ -1,35 +1,32 @@
 import type * as CSS from 'csstype';
 
-type ObjectOrArray<T> = T[] | Record<string, T | Record<string, T> | T[]>;
-
-type ThemeObject<T> = { [key: string]: T | ThemeObject<T> };
-
 // TODO: Why do we have 0 here?
 export type TLengthTamia = string | 0 | number;
 
 export interface Theme<TLength = TLengthTamia> {
-	breakpoints?: (number | string)[];
+	breakpoints?: TLengthTamia[];
 	mediaQueries?: Record<string, string>;
 	space?: Record<string, TLength>;
-	fontSizes?: ThemeObject<CSS.Property.FontSize<number>>;
-	colors?: ThemeObject<CSS.Property.Color>;
-	fonts?: ThemeObject<CSS.Property.FontFamily>;
-	fontWeights?: ThemeObject<CSS.Property.FontWeight>;
-	lineHeights?: ThemeObject<CSS.Property.LineHeight<TLength>>;
-	letterSpacings?: ThemeObject<CSS.Property.LetterSpacing<TLength>>;
-	sizes?: ThemeObject<
+	fontSizes?: Record<string, CSS.Property.FontSize<number>>;
+	colors?: Record<string, CSS.Property.Color>;
+	fonts?: Record<string, CSS.Property.FontFamily>;
+	fontWeights?: Record<string, CSS.Property.FontWeight>;
+	lineHeights?: Record<string, CSS.Property.LineHeight<TLength>>;
+	letterSpacings?: Record<string, CSS.Property.LetterSpacing<TLength>>;
+	sizes?: Record<
+		string,
 		| CSS.Property.Height<Record<string, unknown>>
 		| CSS.Property.Width<Record<string, unknown>>
 	>;
-	borders?: ThemeObject<CSS.Property.Border<Record<string, unknown>>>;
-	borderStyles?: ThemeObject<CSS.Property.Border<Record<string, unknown>>>;
-	borderWidths?: ThemeObject<CSS.Property.BorderWidth<TLength>>;
-	radii?: ThemeObject<CSS.Property.BorderRadius<TLength>>;
-	shadows?: ThemeObject<CSS.Property.BoxShadow>;
-	zIndices?: ThemeObject<CSS.Property.ZIndex>;
-	buttons?: ThemeObject<CSS.StandardProperties>;
-	colorStyles?: ThemeObject<CSS.StandardProperties>;
-	textStyles?: ThemeObject<CSS.StandardProperties>;
+	borders?: Record<string, CSS.Property.Border<Record<string, unknown>>>;
+	borderStyles?: Record<string, CSS.Property.Border<Record<string, unknown>>>;
+	borderWidths?: Record<string, CSS.Property.BorderWidth<TLength>>;
+	radii?: Record<string, CSS.Property.BorderRadius<TLength>>;
+	shadows?: Record<string, CSS.Property.BoxShadow>;
+	zIndices?: Record<string, CSS.Property.ZIndex>;
+	buttons?: Record<string, CSS.StandardProperties>;
+	colorStyles?: Record<string, CSS.StandardProperties>;
+	textStyles?: Record<string, CSS.StandardProperties>;
 }
 
 type RequiredTheme = Required<Theme>;
@@ -38,15 +35,8 @@ export type ResponsiveValue<T> = T | null | (T | null)[];
 
 type ThemeValue<
 	K extends keyof ThemeType,
-	ThemeType,
-	TVal = any
-> = ThemeType[K] extends TVal[]
-	? number
-	: ThemeType[K] extends Record<string, infer E>
-	? E
-	: ThemeType[K] extends ObjectOrArray<infer F>
-	? F
-	: never;
+	ThemeType
+> = ThemeType[K] extends Record<infer E, unknown> ? E : never;
 
 export interface SpaceProps<
 	ThemeType extends Theme = RequiredTheme,
@@ -110,7 +100,7 @@ export interface SpaceProps<
 	paddingY?: ResponsiveValue<TVal>;
 }
 
-interface OpacityProps<ThemeType extends Theme = RequiredTheme> {
+interface OpacityProps {
 	/**
 	 * The opacity CSS property sets the transparency of an element or the degree to which content
 	 * behind an element is visible.
@@ -147,13 +137,14 @@ interface ColorsProps<
 	backgroundColor?: ResponsiveValue<TVal>;
 }
 
-export interface ColorProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = ThemeValue<'colors', ThemeType>
-> extends ColorsProps<ThemeType, TVal>,
+export interface ColorProps<ThemeType extends Theme = RequiredTheme>
+	extends ColorsProps<
+			ThemeType,
+			ThemeValue<'colors', ThemeType> | CSS.Property.Color
+		>,
 		OpacityProps {}
 
-interface BackgroundBasicProps<ThemeType extends Theme = RequiredTheme> {
+interface BackgroundBasicProps {
 	/**
 	 * The background-image CSS property sets one or more background images on an element.
 	 *
@@ -170,7 +161,6 @@ interface BackgroundBasicProps<ThemeType extends Theme = RequiredTheme> {
 }
 
 interface BackgroundSizesProps<
-	ThemeType extends Theme = RequiredTheme,
 	TVal = CSS.Property.BackgroundSize<TLengthTamia>
 > {
 	/**
@@ -196,21 +186,18 @@ interface BackgroundSizesProps<
 	backgroundPosition?: ResponsiveValue<TVal>;
 }
 
-export interface BackgroundProps<ThemeType extends Theme = RequiredTheme>
-	extends BackgroundBasicProps<ThemeType>,
-		BackgroundSizesProps<ThemeType> {}
+export interface BackgroundProps
+	extends BackgroundBasicProps,
+		BackgroundSizesProps {}
 
 interface FontSizeProps<
 	ThemeType extends Theme = RequiredTheme,
 	TVal = ThemeValue<'fontSizes', ThemeType>
 > {
 	/**
-	 * The fontSize utility parses a component's `fontSize` prop and converts it into a CSS font-size declaration.
+	 * The font-size CSS property sets the size of the font.
 	 *
-	 * - Numbers from 0-8 (or `theme.fontSizes.length`) are converted to values on the [font size scale](#default-theme).
-	 * - Numbers greater than `theme.fontSizes.length` are converted to raw pixel values.
-	 * - String values are passed as raw CSS values.
-	 * - And array values are converted into responsive values.
+	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
 	 *
 	 */
 	fontSize?: ResponsiveValue<TVal>;
@@ -257,7 +244,7 @@ interface LetterSpacingProps<
 	letterSpacing?: ResponsiveValue<TVal>;
 }
 
-interface TypographyBasicProps<ThemeType extends Theme = RequiredTheme> {
+interface TypographyBasicProps {
 	fontFamily?: ResponsiveValue<CSS.Property.FontFamily>;
 	/**
 	 * The text-align CSS property specifies the horizontal alignment of an inline or table-cell box.
@@ -275,13 +262,31 @@ interface TypographyBasicProps<ThemeType extends Theme = RequiredTheme> {
 }
 
 export interface TypographyProps<ThemeType extends Theme = RequiredTheme>
-	extends TypographyBasicProps<ThemeType>,
-		FontSizeProps<ThemeType>,
-		FontWeightProps<ThemeType>,
-		LineHeightProps<ThemeType>,
-		LetterSpacingProps<ThemeType> {}
+	extends TypographyBasicProps,
+		FontSizeProps<
+			ThemeType,
+			ThemeValue<'fontSizes', ThemeType> | CSS.Property.FontSize | TLengthTamia
+		>,
+		FontWeightProps<
+			ThemeType,
+			| ThemeValue<'fontWeights', ThemeType>
+			| CSS.Property.FontWeight
+			| TLengthTamia
+		>,
+		LineHeightProps<
+			ThemeType,
+			| ThemeValue<'lineHeights', ThemeType>
+			| CSS.Property.LineHeight
+			| TLengthTamia
+		>,
+		LetterSpacingProps<
+			ThemeType,
+			| ThemeValue<'letterSpacings', ThemeType>
+			| CSS.Property.LetterSpacing
+			| TLengthTamia
+		> {}
 
-export interface ShadowProps<ThemeType extends Theme = RequiredTheme> {
+export interface ShadowProps {
 	/**
 	 * The box-shadow CSS property adds shadow effects around an element's frame. You can set multiple effects separated
 	 * by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread radii and color.
@@ -299,7 +304,7 @@ export interface ShadowProps<ThemeType extends Theme = RequiredTheme> {
 	textShadow?: ResponsiveValue<CSS.Property.TextShadow | number> | undefined;
 }
 
-interface LayoutBasicProps<ThemeType extends Theme = RequiredTheme> {
+interface LayoutBasicProps {
 	/**
 	 * The display CSS property defines the display type of an element, which consists of the two basic qualities
 	 * of how an element generates boxes — the outer display type defining how the box participates in flow layout,
@@ -331,10 +336,7 @@ interface LayoutBasicProps<ThemeType extends Theme = RequiredTheme> {
 	overflowY?: ResponsiveValue<CSS.Property.OverflowY>;
 }
 
-interface LayoutSizeProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = CSS.Property.Width<TLengthTamia>
-> {
+interface LayoutSizeProps<TVal = CSS.Property.Width<TLengthTamia>> {
 	/**
 	 *   The width utility parses a component's `width` prop and converts it into a CSS width declaration.
 	 *
@@ -388,11 +390,9 @@ interface LayoutSizeProps<
 	verticalAlign?: ResponsiveValue<TVal>;
 }
 
-export interface LayoutProps<ThemeType extends Theme = RequiredTheme>
-	extends LayoutBasicProps<ThemeType>,
-		LayoutSizeProps<ThemeType> {}
+export interface LayoutProps extends LayoutBasicProps, LayoutSizeProps {}
 
-interface FlexboxBasicProps<ThemeType extends Theme = RequiredTheme> {
+interface FlexboxBasicProps {
 	/**
 	 * The CSS align-items property sets the align-self value on all direct children as a group. The align-self
 	 * property sets the alignment of an item within its containing block.
@@ -477,10 +477,7 @@ interface FlexboxBasicProps<ThemeType extends Theme = RequiredTheme> {
 	flexShrink?: ResponsiveValue<CSS.Property.FlexShrink>;
 }
 
-interface FlexboxSizesProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = CSS.Property.FlexBasis<TLengthTamia>
-> {
+interface FlexboxSizesProps<TVal = CSS.Property.FlexBasis<TLengthTamia>> {
 	// TODO: The FlexBasisValue currently really only exists for documentation
 	//       purposes, because flex-basis also accepts `Nem` and `Npx` strings.
 	//       Not sure there’s a way to still have the union values show up as
@@ -514,11 +511,9 @@ interface FlexboxSizesProps<
 	rowGap?: ResponsiveValue<TVal>;
 }
 
-export interface FlexboxProps<ThemeType extends Theme = RequiredTheme>
-	extends FlexboxBasicProps<ThemeType>,
-		FlexboxSizesProps<ThemeType> {}
+export interface FlexboxProps extends FlexboxBasicProps, FlexboxSizesProps {}
 
-interface GridBasicProps<ThemeType extends Theme = RequiredTheme> {
+interface GridBasicProps {
 	/**
 	 * The grid-column CSS property is a shorthand property for grid-column-start and grid-column-end specifying
 	 * a grid item's size and location within the grid column by contributing a line, a span, or nothing (automatic)
@@ -560,10 +555,7 @@ interface GridBasicProps<ThemeType extends Theme = RequiredTheme> {
 	gridArea?: ResponsiveValue<CSS.Property.GridArea>;
 }
 
-interface GridSizesProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = CSS.Property.GridGap<TLengthTamia>
-> {
+interface GridSizesProps<TVal = CSS.Property.GridGap<TLengthTamia>> {
 	/**
 	 * The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap
 	 * and column-gap.
@@ -615,9 +607,7 @@ interface GridSizesProps<
 	gridTemplateRows?: ResponsiveValue<TVal>;
 }
 
-export interface GridProps<ThemeType extends Theme = RequiredTheme>
-	extends GridBasicProps<ThemeType>,
-		GridSizesProps<ThemeType> {}
+export interface GridProps extends GridBasicProps, GridSizesProps {}
 
 interface BorderWidthProps<
 	ThemeType extends Theme = RequiredTheme,
@@ -655,7 +645,7 @@ interface BorderWidthProps<
 	borderRightWidth?: ResponsiveValue<TVal>;
 }
 
-interface BorderStyleProps<ThemeType extends Theme = RequiredTheme> {
+interface BorderStyleProps {
 	/**
 	 * The border-style shorthand CSS property sets the style of all sides of an element's border.
 	 *
@@ -726,10 +716,7 @@ interface BorderColorProps<
 	borderRightColor?: ResponsiveValue<TVal>;
 }
 
-interface BorderSidesProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = CSS.Property.BorderTop<TLengthTamia>
-> {
+interface BorderSidesProps<TVal = CSS.Property.BorderTop<TLengthTamia>> {
 	/**
 	 * The border-top CSS property is a shorthand that sets the values of border-top-width, border-top-style,
 	 * and border-top-color. These properties describe an element's top border.
@@ -797,10 +784,7 @@ interface BorderRadiusProps<
 	borderBottomRightRadius?: ResponsiveValue<TVal>;
 }
 
-interface BorderShorthandProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = CSS.Property.Border<TLengthTamia>
-> {
+interface BorderShorthandProps<TVal = CSS.Property.Border<TLengthTamia>> {
 	/**
 	 * The border CSS property sets an element's border. It's a shorthand for border-width, border-style,
 	 * and border-color.
@@ -813,14 +797,17 @@ interface BorderShorthandProps<
 }
 
 export interface BorderProps<ThemeType extends Theme = RequiredTheme>
-	extends BorderShorthandProps<ThemeType>,
-		BorderSidesProps<ThemeType>,
-		BorderWidthProps<ThemeType>,
+	extends BorderShorthandProps,
+		BorderSidesProps,
+		BorderWidthProps<
+			ThemeType,
+			ThemeValue<'borderWidths', ThemeType> | TLengthTamia
+		>,
 		BorderColorProps<ThemeType>,
-		BorderStyleProps<ThemeType>,
+		BorderStyleProps,
 		BorderRadiusProps<ThemeType> {}
 
-interface PositionBasicProps<ThemeType extends Theme = RequiredTheme> {
+interface PositionBasicProps {
 	/**
 	 * The z-index CSS property sets the z-order of a positioned element and its descendants or
 	 * flex items. Overlapping elements with a larger z-index cover those with a smaller one.
@@ -837,10 +824,7 @@ interface PositionBasicProps<ThemeType extends Theme = RequiredTheme> {
 	position?: ResponsiveValue<CSS.Property.Position>;
 }
 
-interface PositionsProps<
-	ThemeType extends Theme = RequiredTheme,
-	TVal = CSS.Property.Top<TLengthTamia>
-> {
+interface PositionsProps<TVal = CSS.Property.Top<TLengthTamia>> {
 	/**
 	 * The top CSS property participates in specifying the vertical position of a
 	 * positioned element. It has no effect on non-positioned elements.
@@ -871,31 +855,29 @@ interface PositionsProps<
 	left?: ResponsiveValue<TVal>;
 }
 
-export interface PositionProps<ThemeType extends Theme = RequiredTheme>
-	extends PositionBasicProps<ThemeType>,
-		PositionsProps<ThemeType> {}
+export interface PositionProps extends PositionBasicProps, PositionsProps {}
 
-export interface CoreProps<ThemeType extends Theme = RequiredTheme> {
+export interface CoreProps {
 	boxSizing?: ResponsiveValue<CSS.Property.BoxSizing>;
 }
 
-export interface PrimitiveProps<ThemeType extends Theme = RequiredTheme>
+export interface RestrictedProps<ThemeType extends Theme = RequiredTheme>
 	extends SpaceProps<ThemeType>,
-		LayoutProps<ThemeType>,
-		FlexboxProps<ThemeType>,
-		GridProps<ThemeType>,
-		PositionProps<ThemeType>,
-		CoreProps<ThemeType> {}
+		LayoutProps,
+		FlexboxProps,
+		GridProps,
+		PositionProps,
+		CoreProps {}
 
 export interface CSSProps<ThemeType extends Theme = RequiredTheme>
-	extends SpaceProps<ThemeType>,
+	extends SpaceProps<ThemeType, ThemeValue<'space', ThemeType> | TLengthTamia>,
 		ColorProps<ThemeType>,
 		TypographyProps<ThemeType>,
-		ShadowProps<ThemeType>,
-		LayoutProps<ThemeType>,
-		FlexboxProps<ThemeType>,
-		GridProps<ThemeType>,
+		ShadowProps,
+		LayoutProps,
+		FlexboxProps,
+		GridProps,
 		BorderProps<ThemeType>,
-		BackgroundProps<ThemeType>,
-		PositionProps<ThemeType>,
-		CoreProps<ThemeType> {}
+		BackgroundProps,
+		PositionProps,
+		CoreProps {}

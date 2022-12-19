@@ -33,7 +33,7 @@ const Inner = styled.div`
  */
 export default function Frame({ children, ratio, ...props }: FrameProps) {
 	return (
-		<Box {...props} position="relative" pb={`${ratio * 100}%`}>
+		<Box {...props} position="relative" css={{ pb: `${ratio * 100}%` }}>
 			<Inner>{children}</Inner>
 		</Box>
 	);

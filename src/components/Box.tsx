@@ -2,11 +2,11 @@
 
 import { ReactNode } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
-import { getCss, PrimitiveProps, CSSProps } from '../primitives';
+import { getCss, RestrictedProps, CSSProps } from '../primitives';
 
-export type BoxProps = PrimitiveProps<DefaultTheme> & {
+export type BoxProps = RestrictedProps<DefaultTheme> & {
 	children: ReactNode;
-	css?: CSSProps;
+	css?: CSSProps<DefaultTheme>;
 };
 
 /**
