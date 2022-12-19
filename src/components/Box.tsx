@@ -15,7 +15,7 @@ export type BoxProps = RestrictedProps<DefaultTheme> & {
  */
 export const Box = styled.div<BoxProps>(
 	// @ts-expect-error HACK: Filter out common props from rendering as styles
-	({ children, as, src, variant, theme, css, ...props }) => {
+	({ children, as, src, href, variant, theme, css, ...props }) => {
 		return getCss({ ...props, ...css }, theme);
 	}
 );
