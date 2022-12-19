@@ -411,6 +411,15 @@ interface FlexboxBasicProps {
 	 */
 	alignContent?: ResponsiveValue<CSS.Property.AlignContent> | undefined;
 	/**
+	 * The align-self CSS property aligns flex items of the current flex line overriding the align-items value.
+	 *
+	 * If any of the item's cross-axis margin is set to auto, then align-self is ignored. In Grid layout align-self
+	 * aligns the item inside the grid area.
+	 *
+	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self)
+	 */
+	alignSelf?: ResponsiveValue<CSS.Property.AlignSelf>;
+	/**
 	 * The CSS justify-items property defines the default justify-self for all items of the box, giving them all
 	 * a default way of justifying each box along the appropriate axis.
 	 *
@@ -425,6 +434,13 @@ interface FlexboxBasicProps {
 	 */
 	justifyContent?: ResponsiveValue<CSS.Property.JustifyContent> | undefined;
 	/**
+	 * The CSS justify-self property set the way a box is justified inside its alignment container along
+	 * the appropriate axis.
+	 *
+	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
+	 */
+	justifySelf?: ResponsiveValue<CSS.Property.JustifySelf> | undefined;
+	/**
 	 * The flex-wrap CSS property sets whether flex items are forced onto one line or can wrap onto multiple lines.
 	 * If wrapping is allowed, it sets the direction that lines are stacked.
 	 *
@@ -438,22 +454,6 @@ interface FlexboxBasicProps {
 	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction)
 	 */
 	flexDirection?: ResponsiveValue<CSS.Property.FlexDirection> | undefined;
-	/**
-	 * The CSS justify-self property set the way a box is justified inside its alignment container along
-	 * the appropriate axis.
-	 *
-	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
-	 */
-	justifySelf?: ResponsiveValue<CSS.Property.JustifySelf> | undefined;
-	/**
-	 * The align-self CSS property aligns flex items of the current flex line overriding the align-items value.
-	 *
-	 * If any of the item's cross-axis margin is set to auto, then align-self is ignored. In Grid layout align-self
-	 * aligns the item inside the grid area.
-	 *
-	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self)
-	 */
-	alignSelf?: ResponsiveValue<CSS.Property.AlignSelf>;
 	/**
 	 * The order CSS property sets the order to lay out an item in a flex or grid container. Items in a container
 	 * are sorted by ascending order value and then by their source code order.

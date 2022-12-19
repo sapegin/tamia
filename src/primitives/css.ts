@@ -58,11 +58,15 @@ function createStyles(
 }
 
 export function getCss(props: CSSProps, theme: Theme = {}) {
-	const values = Object.entries(props); // TODO: value is any
+	const values = Object.entries(props);
 	const styles: Styles = {};
 
 	for (let i = 0; i < values.length; i++) {
 		const [rawKey, rawValue] = values[i];
+		if (rawValue === undefined) {
+			continue;
+		}
+
 		const key = rawKey in ALIASES ? ALIASES[rawKey] : rawKey;
 
 		if (Array.isArray(rawValue)) {
