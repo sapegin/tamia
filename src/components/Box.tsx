@@ -1,43 +1,30 @@
-import styled from 'styled-components';
-import {
-	compose,
-	space,
-	color,
-	border,
-	shadow,
-	background,
-	layout,
-	position,
-	flexbox,
-	SpaceProps,
-	ColorProps,
-	BorderProps,
-	ShadowProps,
-	BackgroundProps,
-	LayoutProps,
-	PositionProps,
-	FlexboxProps,
-} from 'styled-system';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-export type BoxProps = SpaceProps &
-	ColorProps &
-	BorderProps &
-	ShadowProps &
-	BackgroundProps &
-	LayoutProps &
-	PositionProps &
-	FlexboxProps;
+import { ReactNode } from 'react';
+import styled, { DefaultTheme } from 'styled-components';
+import { getCss, PrimitiveProps, CSSProps } from '../primitives';
+
+export type BoxProps = PrimitiveProps<DefaultTheme> & {
+	children: ReactNode;
+	css?: CSSProps;
+};
 
 /**
  * Generic container with responsive props to control whitespace, layout,
  * positioning and colors.
  */
 export const Box = styled.div<BoxProps>(
-	{
-		boxSizing: 'border-box',
-		minWidth: 0,
-	},
-	compose(space, color, border, shadow, background, layout, position, flexbox)
+	// @ts-expect-error HACK: Filter out common props from rendering as styles
+	({ children, as, src, variant, theme, css, ...props }) => {
+		const x = getCss({ ...props, ...css }, theme);
+		console.log('CSS', props, css, '->', x);
+		return x;
+	}
 );
+
+Box.defaultProps = {
+	boxSizing: 'border-box',
+	minWidth: 0,
+};
 
 export default Box;

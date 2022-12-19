@@ -1,55 +1,29 @@
 import styled, { DefaultTheme } from 'styled-components';
-import {
-	space,
-	layout,
-	typography,
-	color,
-	border,
-	shadow,
-	variant,
-	SpaceProps,
-	LayoutProps,
-	TypographyProps,
-	ColorProps,
-	BorderProps,
-	ShadowProps,
-	ResponsiveValue,
-} from 'styled-system';
+import Box, { BoxProps } from './Box';
+import { variant, ResponsiveValue } from '../primitives';
+import { AsProps } from '../types';
+import { TypographyProps } from '../primitives/types';
 
-type Props = SpaceProps &
-	LayoutProps &
+export type TextProps = BoxProps &
 	TypographyProps &
-	ColorProps &
-	BorderProps &
-	ShadowProps & {
+	AsProps & {
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
 
 /**
  * Text component.
  */
-export const Text = styled.p<Props>(
-	{
-		boxSizing: 'border-box',
-	},
+export const Text = styled(Box).attrs<TextProps>((props) => ({
+	as: props.as ?? 'p',
+}))<TextProps>(
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',
-		// Trigger the new styled-system variants API
-		// Actual variant to be defined in site-specific themes
-		variants: { _: {} },
-	}),
-	space,
-	layout,
-	typography,
-	color,
-	border,
-	shadow
+	})
 );
 
 Text.defaultProps = {
 	variant: 'base',
 };
 
-/** @component */
 export default Text;

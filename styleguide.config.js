@@ -9,10 +9,7 @@ module.exports = {
 		{
 			propFilter(prop) {
 				if (prop.parent) {
-					return (
-						!prop.parent.fileName.includes('node_modules') ||
-						prop.parent.fileName.includes('@types/styled-system')
-					);
+					return !prop.parent.fileName.includes('node_modules');
 				}
 				return true;
 			},

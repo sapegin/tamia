@@ -1,5 +1,9 @@
 ```jsx
-<Box p="l" fontSize="l" width={[1, 1, 1 / 2]} color="bg" bg="hover">
+<Box
+  p="l"
+  width={[1, 1, 1 / 2]}
+  css={{ fontSize: 'l', color: 'bg', bg: 'hover' }}
+>
   Pizza!
 </Box>
 ```

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Box from './Box';
+import Box, { BoxProps } from './Box';
 
 // Based on https://every-layout.dev/layouts/frame/
 
-type Props = React.ComponentProps<typeof Box> & {
+type FrameProps = BoxProps & {
 	/** Aspect ratio (e.g. `6/9`) */
 	ratio: number;
 };
@@ -31,7 +31,7 @@ const Inner = styled.div`
 /**
  * Container that keeps the given aspect ratio. Most useful for images. Images are cropped by default (`object-fit: cover`) and other content is centered.
  */
-export default function Frame({ children, ratio, ...props }: Props) {
+export default function Frame({ children, ratio, ...props }: FrameProps) {
 	return (
 		<Box {...props} position="relative" pb={`${ratio * 100}%`}>
 			<Inner>{children}</Inner>

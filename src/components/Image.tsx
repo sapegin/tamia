@@ -1,53 +1,29 @@
 import styled from 'styled-components';
-import {
-	compose,
-	space,
-	color,
-	border,
-	shadow,
-	layout,
-	position,
-	SpaceProps,
-	ColorProps,
-	BorderProps,
-	ShadowProps,
-	LayoutProps,
-	PositionProps,
-} from 'styled-system';
+import Box, { BoxProps } from './Box';
 import { getPaddingX } from '../styles/getters';
 
-type Props = SpaceProps &
-	ColorProps &
-	BorderProps &
-	ShadowProps &
-	LayoutProps &
-	PositionProps & {
-		expand?: boolean;
-	};
+export type ImageProps = Omit<BoxProps, 'children'> & {
+	/** Full bleed on narrow screens */
+	expand?: boolean;
+};
 
 /**
  * Responsive image.
  */
-export const Image = styled.img<Props>(
-	{
-		maxWidth: '100%',
-		height: 'auto',
-	},
-	(p) =>
-		p.expand && {
-			[`@media (max-width: ${p.theme.breakpoints[0]})`]: {
+export const Image = styled(Box).attrs({ as: 'img' })<ImageProps>(
+	(props) =>
+		props.expand !== false && {
+			[`@media (max-width: ${props.theme.breakpoints[0]})`]: {
 				maxWidth: '100vw',
-				marginLeft: `-${getPaddingX(p)}`,
-				marginRight: `-${getPaddingX(p)}`,
+				marginLeft: `-${getPaddingX(props)}`,
+				marginRight: `-${getPaddingX(props)}`,
 			},
-		},
-	compose(space, color, border, shadow, layout, position)
+		}
 );
 
 Image.defaultProps = {
-	alt: '',
-	/** Make the image full bleed on narrow screens */
-	expand: true,
+	maxWidth: '100%',
+	height: 'auto',
 };
 
 export default Image;

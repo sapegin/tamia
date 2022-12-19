@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { system } from 'styled-system';
 import Flex, { FlexProps } from './Flex';
 
-type Props = FlexProps & {
+export type StackProps = FlexProps & {
 	/** Direction: horizontal (`row`) or vertical (`column`) */
 	direction?: FlexProps['flexDirection'];
 };
@@ -11,17 +10,8 @@ type Props = FlexProps & {
  * Stacking layout: horizontal, vertical, and responsive. Adds equal amount
  * of spacing between children.
  */
-export const Stack = styled(Flex)<Props>(
-	system({
-		direction: {
-			property: 'flexDirection',
-		},
-	})
-);
+export const Stack = styled(Flex).attrs<StackProps>((props) => ({
+	flexDirection: props.direction || 'column',
+}))<StackProps>``;
 
-Stack.defaultProps = {
-	direction: 'column',
-};
-
-/** @component */
 export default Stack;

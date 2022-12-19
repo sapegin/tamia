@@ -1,18 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { space, layout, SpaceProps, LayoutProps } from 'styled-system';
+import Box, { BoxProps } from './Box';
 
-const Svg = styled.svg<SpaceProps & LayoutProps>(space, layout);
+const Svg = styled(Box).attrs({ as: 'svg' })``;
 
-type Props = SpaceProps &
-	LayoutProps & {
-		viewBox: {
-			width: number;
-			height: number;
-		};
-		display?: number | string;
-		children?: React.ReactNode;
+type Props = BoxProps & {
+	viewBox: {
+		width: number;
+		height: number;
 	};
+	display?: number | string;
+};
 
 /**
  * Generic SVG icon component.
@@ -24,8 +22,8 @@ const Icon = ({
 	children,
 	...props
 }: Props) => {
-	// Use unknown because TypeScript thinks this is still an <svg> element,
-	// not a styled-system component, and doesn't allow responsive props
+	// Use any because TypeScript thinks this is still an <svg> element,
+	// not a primitive component, and doesn't allow responsive props
 	return (
 		<Svg
 			{...(props as any)}

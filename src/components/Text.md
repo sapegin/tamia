@@ -3,6 +3,7 @@
 <Text variant="base">Base style text</Text>
 <Text textAlign="right">Right aligned text</Text>
 <Text mx="m" my="s">Text with margins</Text>
+<Text as="div">Text with custom HTML element</Text>
 ```
 
 Actual styles should be defined in a site-specific theme:

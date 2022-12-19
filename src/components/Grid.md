@@ -3,7 +3,7 @@ This component is available as a separate package: [stack-styled](https://github
 Equal width columns (responsive):
 
 ```jsx
-<Grid minColumnWidth="xxxl">
+<Grid gridTemplateColumns="repeat(auto-fit, minmax(200px,1fr))">
   <div>foo</div>
   <div>bar</div>
 </Grid>

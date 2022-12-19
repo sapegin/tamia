@@ -9,9 +9,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "declarationDir": "types",
-    "types": ["react"]
+    "types": ["react", "jest"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

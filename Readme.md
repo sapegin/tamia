@@ -9,7 +9,6 @@ Tâmia is a tiny React component library with themable primitives that you can u
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
 - [styled-components](https://www.styled-components.com/)
-- [styled-system](https://styled-system.com/)
 
 ## Tools
 
@@ -76,6 +75,7 @@ Tâmia has evolved from a folder on my disk with a few CSS and JS files that I c
 - Webpack 2 + browser-sync + PostCSS + cssnext + CSS Modules + ES6/Babel (2017)
 - React + Emotion + ES6/Babel (2018)
 - React + styled-components + styled-system + TypeScript (2019)
+- React + styled-components + TypeScript + custom primitive components (2022)
 
 ---
 

@@ -3,10 +3,10 @@ Basic two column layout:
 ```jsx
 import Box from './Box';
 <Flex>
-  <Box px="m" py="s" bg="hover" width={1 / 2}>
+  <Box px="m" py="s" width={1 / 2} css={{ bg: 'hover' }}>
     Foo
   </Box>
-  <Box px="m" py="s" bg="primary" width={1 / 2}>
+  <Box px="m" py="s" width={1 / 2} css={{ bg: 'primary' }}>
     Bar
   </Box>
 </Flex>;
@@ -25,7 +25,7 @@ import Box from './Box';
 Stacking using the Flexbox `gap`/`column-gap`/`row-gap` properties:
 
 ```jsx
-<Flex gap="l" row-gap="s" flexWrap="wrap">
+<Flex gap="l" rowGap="s" flexWrap="wrap">
   <div>eins</div>
   <div>zwei</div>
   <div>polizei</div>

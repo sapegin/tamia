@@ -1,43 +1,23 @@
-import React from 'react';
 import styled, { DefaultTheme } from 'styled-components';
-import {
-	space,
-	layout,
-	typography,
-	variant,
-	SpaceProps,
-	LayoutProps,
-	TypographyProps,
-	ResponsiveValue,
-} from 'styled-system';
+import { ResponsiveValue, variant } from '../primitives';
 import { AsProps } from '../types';
+import Box, { BoxProps } from './Box';
 
-type Props = SpaceProps &
-	LayoutProps &
-	TypographyProps & {
+export type HeadingProps = BoxProps &
+	AsProps & {
 		level?: ResponsiveValue<keyof DefaultTheme['headingStyles']>;
 	};
-
-const HeadingBase: React.FunctionComponent<Props & AsProps> = ({
-	level,
-	as: Component = `h${level}`,
-	...props
-}) => <Component {...props} />;
 
 /**
  * Heading component.
  */
-export const Heading = styled(HeadingBase)<Props>(
+export const Heading = styled(Box).attrs<HeadingProps>((props) => ({
+	as: props.as ?? `h${props.level}`,
+}))<HeadingProps>(
 	variant({
 		scale: 'headingStyles',
 		prop: 'level',
-		// Trigger the new styled-system variants API
-		// Actual variants to be defined in site-specific themes
-		variants: { _: {} },
-	}),
-	space,
-	layout,
-	typography
+	})
 );
 
 Heading.defaultProps = {
