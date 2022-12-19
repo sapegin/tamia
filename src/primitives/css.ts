@@ -92,7 +92,7 @@ export function getCss(props: CSSProps, theme: Theme = {}) {
 		createStyles(styles, key, rawValue, theme);
 	}
 
-	return styles; // as CSS.Properties;
+	return styles;
 }
 
 export const css =

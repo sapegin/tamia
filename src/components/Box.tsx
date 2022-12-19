@@ -16,9 +16,7 @@ export type BoxProps = PrimitiveProps<DefaultTheme> & {
 export const Box = styled.div<BoxProps>(
 	// @ts-expect-error HACK: Filter out common props from rendering as styles
 	({ children, as, src, variant, theme, css, ...props }) => {
-		const x = getCss({ ...props, ...css }, theme);
-		console.log('CSS', props, css, '->', x);
-		return x;
+		return getCss({ ...props, ...css }, theme);
 	}
 );
 
