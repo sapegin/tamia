@@ -6,7 +6,7 @@ import { getCss, RestrictedProps, CSSProps } from '../primitives';
 
 export type BoxProps = RestrictedProps<DefaultTheme> & {
 	children: ReactNode;
-	css?: CSSProps<DefaultTheme>;
+	sx?: CSSProps<DefaultTheme>;
 };
 
 /**
@@ -16,7 +16,7 @@ export type BoxProps = RestrictedProps<DefaultTheme> & {
 export const Box = styled.div<BoxProps>(
 	({
 		theme,
-		css,
+		sx,
 		m,
 		mb,
 		ml,
@@ -170,7 +170,7 @@ export const Box = styled.div<BoxProps>(
 				bottom,
 				left,
 				boxSizing,
-				...css,
+				...sx,
 			},
 			theme
 		);

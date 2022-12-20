@@ -3,10 +3,10 @@ Basic two column layout:
 ```jsx
 import Box from './Box';
 <Flex>
-  <Box px="m" py="s" width={1 / 2} css={{ bg: 'hover' }}>
+  <Box px="m" py="s" width={1 / 2} sx={{ bg: 'hover' }}>
     Foo
   </Box>
-  <Box px="m" py="s" width={1 / 2} css={{ bg: 'primary' }}>
+  <Box px="m" py="s" width={1 / 2} sx={{ bg: 'primary' }}>
     Bar
   </Box>
 </Flex>;
