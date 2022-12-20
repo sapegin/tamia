@@ -11,7 +11,7 @@ function px(value: unknown) {
 	return typeof value === 'string' ? value : `${value}px`;
 }
 
-function getValue(key: string, value: string, theme: Theme = {}) {
+function getValue(key: string, value: string, theme: Theme) {
 	if (key in SCALES) {
 		const scaleName = SCALES[key];
 		const scale = get(theme, scaleName) ?? {};
@@ -45,7 +45,7 @@ function createStyles(
 	styles: Styles,
 	key: string,
 	value: string,
-	theme: Theme = {}
+	theme: Theme
 ) {
 	if (key in MULTIPLES) {
 		const keys = MULTIPLES[key];
@@ -57,7 +57,7 @@ function createStyles(
 	}
 }
 
-export function getCss(props: CSSProps, theme: Theme = {}) {
+export function getCss(props: CSSProps, theme: Theme) {
 	const values = Object.entries(props);
 	const styles: Styles = {};
 
@@ -101,7 +101,6 @@ export function getCss(props: CSSProps, theme: Theme = {}) {
 
 export const css =
 	(args: CSSProps | ((theme: Theme) => CSSProps)) =>
-	(props: { theme?: Theme } = {}) => {
-		const theme = props.theme || {};
+	({ theme }: { theme: Theme }) => {
 		return getCss(typeof args === 'function' ? args(theme) : args, theme);
 	};

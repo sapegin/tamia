@@ -9,14 +9,14 @@ interface VariantOptions {
 
 export const variant =
 	({ scale, prop }: VariantOptions) =>
-	(props: { theme?: Theme } = {}) => {
+	(props: { theme: Theme }) => {
+		const theme = props.theme;
 		const variantName = get<string>(props, prop);
 		if (variantName === undefined) {
 			console.warn(`No variant prop '${prop}' passed to the component `);
 			return {};
 		}
 
-		const theme = props.theme || {};
 		const variants = get<Record<string, CSSProps>>(theme, scale);
 		if (variants === undefined) {
 			console.warn(

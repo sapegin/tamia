@@ -14,28 +14,45 @@ const space = {
 };
 const breakpoints = ['10rem', '20rem', '30rem'];
 const breakpointsNumbers = [10, 20, 30];
-const defaultTheme = { space, breakpoints } as const;
+const defaultTheme = {
+	space,
+	breakpoints,
+	baseFontSize: 0,
+	blockMarginBottom: 0,
+	headingMarginTop: 0,
+	listMargin: 0,
+	focusOutlineOffset: 0,
+	page: {
+		bodyMaxWidth: 0,
+		bodyPaddingX: 0,
+		bodyPaddingY: 0,
+		contentMaxWidth: 0,
+		contentPaddingX: 0,
+		contentPaddingY: 0,
+		textMaxWidth: 0,
+	},
+} as const;
 
 test.each([
-	[{ padding: 20 }, {}, { padding: '20px' }],
-	[{ padding: 0 }, {}, { padding: '0px' }],
-	[{ padding: undefined }, {}, {}],
-	[{ padding: 'm' }, { space }, { padding: '8px' }],
-	[{ width: '20rem' }, {}, { width: '20rem' }],
-	[{ width: 0 }, {}, { width: '0px' }],
-	[{ width: 0.75 }, {}, { width: '75%' }],
-	[{ width: 1 }, {}, { width: '100%' }],
-	[{ width: 101 }, {}, { width: '101px' }],
-	[{ borderLeftWidth: 12 }, {}, { borderLeftWidth: '12px' }],
-	[{ letterSpacing: 12 }, {}, { letterSpacing: '12px' }],
-	[{ fontWeight: 400 }, {}, { fontWeight: '400' }],
+	[{ padding: 20 }, defaultTheme, { padding: '20px' }],
+	[{ padding: 0 }, defaultTheme, { padding: '0px' }],
+	[{ padding: undefined }, defaultTheme, {}],
+	[{ padding: 'm' }, defaultTheme, { padding: '8px' }],
+	[{ width: '20rem' }, defaultTheme, { width: '20rem' }],
+	[{ width: 0 }, defaultTheme, { width: '0px' }],
+	[{ width: 0.75 }, defaultTheme, { width: '75%' }],
+	[{ width: 1 }, defaultTheme, { width: '100%' }],
+	[{ width: 101 }, defaultTheme, { width: '101px' }],
+	[{ borderLeftWidth: 12 }, defaultTheme, { borderLeftWidth: '12px' }],
+	[{ letterSpacing: 12 }, defaultTheme, { letterSpacing: '12px' }],
+	[{ fontWeight: 400 }, defaultTheme, { fontWeight: '400' }],
 	[{ p: 's' }, defaultTheme, { padding: '4px' }],
 	[{ p: '-s' }, defaultTheme, { padding: '-4px' }],
 	[{ px: 'l' }, defaultTheme, { paddingLeft: '16px', paddingRight: '16px' }],
 	[{ mb: 'xl' }, defaultTheme, { marginBottom: '32px' }],
 	[
 		{ p: ['s', 'm', 'l'] },
-		{ space, breakpoints },
+		defaultTheme,
 		{
 			padding: '4px',
 			'@media screen and (min-width: 10rem)': { padding: '8px' },
@@ -44,7 +61,7 @@ test.each([
 	],
 	[
 		{ px: ['s', 'm', 'l'] },
-		{ space, breakpoints },
+		defaultTheme,
 		{
 			paddingLeft: '4px',
 			paddingRight: '4px',
@@ -60,7 +77,7 @@ test.each([
 	],
 	[
 		{ p: ['s', 'm', 'l'] },
-		{ space, breakpoints: breakpointsNumbers },
+		{ ...defaultTheme, breakpoints: breakpointsNumbers },
 		{
 			padding: '4px',
 			'@media screen and (min-width: 10px)': { padding: '8px' },
