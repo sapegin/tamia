@@ -14,6 +14,7 @@ const space = {
 };
 const breakpoints = ['10rem', '20rem', '30rem'];
 const breakpointsNumbers = [10, 20, 30];
+const defaultTheme = { space, breakpoints } as const;
 
 test.each([
 	[{ padding: 20 }, {}, { padding: '20px' }],
@@ -28,9 +29,10 @@ test.each([
 	[{ borderLeftWidth: 12 }, {}, { borderLeftWidth: '12px' }],
 	[{ letterSpacing: 12 }, {}, { letterSpacing: '12px' }],
 	[{ fontWeight: 400 }, {}, { fontWeight: '400' }],
-	[{ p: 's' }, { space }, { padding: '4px' }],
-	[{ p: '-s' }, { space }, { padding: '-4px' }],
-	[{ px: 'l' }, { space }, { paddingLeft: '16px', paddingRight: '16px' }],
+	[{ p: 's' }, defaultTheme, { padding: '4px' }],
+	[{ p: '-s' }, defaultTheme, { padding: '-4px' }],
+	[{ px: 'l' }, defaultTheme, { paddingLeft: '16px', paddingRight: '16px' }],
+	[{ mb: 'xl' }, defaultTheme, { marginBottom: '32px' }],
 	[
 		{ p: ['s', 'm', 'l'] },
 		{ space, breakpoints },
@@ -70,13 +72,13 @@ test.each([
 });
 
 test('css()', () => {
-	expect(css({ p: 's' })({ theme: { space } })).toEqual({ padding: '4px' });
+	expect(css({ p: 's' })({ theme: defaultTheme })).toEqual({ padding: '4px' });
 });
 
 test('css() props as function', () => {
 	expect(
 		css((theme) => ({
 			p: theme.space?.m,
-		}))({ theme: { space } })
+		}))({ theme: defaultTheme })
 	).toEqual({ padding: '8px' });
 });
