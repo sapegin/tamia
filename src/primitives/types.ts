@@ -203,7 +203,7 @@ interface FontSizeProps<
 	fontSize?: ResponsiveValue<TVal>;
 }
 
-interface FontWeightProps<
+export interface FontWeightProps<
 	ThemeType extends Theme = RequiredTheme,
 	TVal = ThemeValue<'fontWeights', ThemeType>
 > {
@@ -244,13 +244,7 @@ interface LetterSpacingProps<
 	letterSpacing?: ResponsiveValue<TVal>;
 }
 
-interface TypographyBasicProps {
-	fontFamily?: ResponsiveValue<CSS.Property.FontFamily>;
-	/**
-	 * The text-align CSS property specifies the horizontal alignment of an inline or table-cell box.
-	 *
-	 * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
-	 */
+export interface TypographyCoreProps {
 	textAlign?: ResponsiveValue<CSS.Property.TextAlign>;
 	/**
 	 * The font-style CSS property specifies whether a font should be styled with a normal, italic,
@@ -261,8 +255,13 @@ interface TypographyBasicProps {
 	fontStyle?: ResponsiveValue<CSS.Property.FontStyle>;
 }
 
+interface TypographyExtraProps {
+	fontFamily?: ResponsiveValue<CSS.Property.FontFamily>;
+}
+
 export interface TypographyProps<ThemeType extends Theme = RequiredTheme>
-	extends TypographyBasicProps,
+	extends TypographyCoreProps,
+		TypographyExtraProps,
 		FontSizeProps<
 			ThemeType,
 			ThemeValue<'fontSizes', ThemeType> | CSS.Property.FontSize | TLengthTamia

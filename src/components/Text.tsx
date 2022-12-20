@@ -1,11 +1,12 @@
 import styled, { DefaultTheme } from 'styled-components';
 import Box, { BoxProps } from './Box';
-import { variant, ResponsiveValue } from '../primitives';
+import { variant, getCss, ResponsiveValue } from '../primitives';
 import { AsProps } from '../types';
-import { TypographyProps } from '../primitives/types';
+import { TypographyCoreProps, FontWeightProps } from '../primitives/types';
 
 export type TextProps = BoxProps &
-	TypographyProps &
+	TypographyCoreProps &
+	FontWeightProps &
 	AsProps & {
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
@@ -19,7 +20,17 @@ export const Text = styled(Box).attrs<TextProps>((props) => ({
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',
-	})
+	}),
+	({ theme, textAlign, fontStyle, fontWeight }) => {
+		return getCss(
+			{
+				textAlign,
+				fontStyle,
+				fontWeight,
+			},
+			theme
+		);
+	}
 );
 
 Text.defaultProps = {

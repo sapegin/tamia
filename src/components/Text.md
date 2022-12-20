@@ -1,6 +1,8 @@
 ```jsx
 <Text>Default (base) style text</Text>
 <Text variant="base">Base style text</Text>
+<Text fontWeight="bold">Bold text</Text>
+<Text fontStyle="italic">Italic text</Text>
 <Text textAlign="right">Right aligned text</Text>
 <Text mx="m" my="s">Text with margins</Text>
 <Text as="div">Text with custom HTML element</Text>
