@@ -4,15 +4,18 @@ import type * as CSS from 'csstype';
 export type TLengthTamia = string | 0 | number;
 
 export interface Theme<TLength = TLengthTamia> {
+	// Media queries
 	breakpoints?: TLengthTamia[];
 	mediaQueries?: Record<string, string>;
+
+	// Design tokens
 	space?: Record<string, TLength>;
-	fontSizes?: Record<string, CSS.Property.FontSize<number>>;
+	fontSizes?: Record<string, TLength>;
 	colors?: Record<string, CSS.Property.Color>;
 	fonts?: Record<string, CSS.Property.FontFamily>;
 	fontWeights?: Record<string, CSS.Property.FontWeight>;
-	lineHeights?: Record<string, CSS.Property.LineHeight<TLength>>;
-	letterSpacings?: Record<string, CSS.Property.LetterSpacing<TLength>>;
+	lineHeights?: Record<string, TLength>;
+	letterSpacings?: Record<string, TLength>;
 	sizes?: Record<
 		string,
 		| CSS.Property.Height<Record<string, unknown>>
@@ -20,13 +23,30 @@ export interface Theme<TLength = TLengthTamia> {
 	>;
 	borders?: Record<string, CSS.Property.Border<Record<string, unknown>>>;
 	borderStyles?: Record<string, CSS.Property.Border<Record<string, unknown>>>;
-	borderWidths?: Record<string, CSS.Property.BorderWidth<TLength>>;
-	radii?: Record<string, CSS.Property.BorderRadius<TLength>>;
+	borderWidths?: Record<string, TLength>;
+	radii?: Record<string, TLength>;
 	shadows?: Record<string, CSS.Property.BoxShadow>;
 	zIndices?: Record<string, CSS.Property.ZIndex>;
-	buttons?: Record<string, CSS.StandardProperties>;
-	colorStyles?: Record<string, CSS.StandardProperties>;
-	textStyles?: Record<string, CSS.StandardProperties>;
+
+	// Variants
+	headingStyles?: Record<string, CSSProps>;
+	textStyles?: Record<string, CSSProps>;
+
+	// Tamia extensions
+	baseFontSize: TLength;
+	blockMarginBottom: TLength;
+	headingMarginTop: TLength;
+	listMargin: TLength;
+	focusOutlineOffset: TLength;
+	page: {
+		bodyMaxWidth: TLength;
+		bodyPaddingX: TLength;
+		bodyPaddingY: TLength;
+		contentMaxWidth?: TLength;
+		contentPaddingX: TLength;
+		contentPaddingY: TLength;
+		textMaxWidth: TLength;
+	};
 }
 
 type RequiredTheme = Required<Theme>;

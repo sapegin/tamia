@@ -1,3 +1,5 @@
+import { Theme } from './primitives/types';
+
 const baseFont = [
 	// Safari for OS X and iOS (San Francisco)
 	'-apple-system',
@@ -104,7 +106,7 @@ const textBaseStyles = {
 	letterSpacing: 'base',
 };
 
-export default {
+const theme: Theme = {
 	// Base font size (applied to body)
 	baseFontSize: '1em', // 1em = 16px
 	blockMarginBottom: space.m,
@@ -118,7 +120,7 @@ export default {
 		bodyPaddingY: 0,
 
 		// Content (<Container>)
-		contentMaxWidth: null,
+		contentMaxWidth: undefined,
 		contentPaddingX: 0,
 		contentPaddingY: 0,
 
@@ -168,3 +170,5 @@ export default {
 		},
 	},
 } as const;
+
+export default theme;
