@@ -4,6 +4,8 @@
 <Text fontWeight="bold">Bold text</Text>
 <Text fontStyle="italic">Italic text</Text>
 <Text textAlign="right">Right aligned text</Text>
+<Text variant="base" fontWeight="bold">Variant override (font weight)</Text>
+<Text variant="base" sx={{fontSize: 'xxl'}}>Variant override (font size)</Text>
 <Text mx="m" my="s">Text with margins</Text>
 <Text as="div">Text with custom HTML element</Text>
 ```

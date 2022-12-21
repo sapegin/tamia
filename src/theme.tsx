@@ -99,6 +99,7 @@ const headingBaseStyles = {
 const textBaseStyles = {
 	color: 'base',
 	fontFamily: 'base',
+	fontSize: 'base',
 	fontWeight: 'base',
 	lineHeight: 'base',
 	letterSpacing: 'base',

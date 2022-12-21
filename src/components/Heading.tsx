@@ -1,7 +1,7 @@
 import styled, { DefaultTheme } from 'styled-components';
 import { ResponsiveValue, variant } from '../primitives';
 import { AsProps } from '../types';
-import Box, { BoxProps } from './Box';
+import { boxStyledProps, BoxProps } from './Box';
 
 export type HeadingProps = BoxProps &
 	AsProps & {
@@ -11,13 +11,14 @@ export type HeadingProps = BoxProps &
 /**
  * Heading component.
  */
-export const Heading = styled(Box).attrs<HeadingProps>((props) => ({
+export const Heading = styled.h1.attrs<HeadingProps>((props) => ({
 	as: props.as ?? `h${props.level}`,
 }))<HeadingProps>(
 	variant({
 		scale: 'headingStyles',
 		prop: 'level',
-	})
+	}),
+	boxStyledProps
 );
 
 Heading.defaultProps = {

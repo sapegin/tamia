@@ -1,8 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
 import Box, { BoxProps } from './Box';
-
-const Svg = styled(Box).attrs({ as: 'svg' })``;
 
 type Props = BoxProps & {
 	viewBox: {
@@ -25,7 +22,8 @@ const Icon = ({
 	// Use any because TypeScript thinks this is still an <svg> element,
 	// not a primitive component, and doesn't allow responsive props
 	return (
-		<Svg
+		<Box
+			as="svg"
 			{...(props as any)}
 			display={display}
 			verticalAlign={verticalAlign}
@@ -34,7 +32,7 @@ const Icon = ({
 			preserveAspectRatio="xMidYMid meet"
 		>
 			{children}
-		</Svg>
+		</Box>
 	);
 };
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Box, { BoxProps } from './Box';
+import { boxStyledProps, BoxProps } from './Box';
 import { getPaddingX } from '../styles/getters';
 
 export type ImageProps = Omit<BoxProps, 'children'> & {
@@ -10,7 +10,8 @@ export type ImageProps = Omit<BoxProps, 'children'> & {
 /**
  * Responsive image.
  */
-export const Image = styled(Box).attrs({ as: 'img' })<ImageProps>(
+export const Image = styled.img<ImageProps>(
+	boxStyledProps,
 	(props) =>
 		props.expand !== false && {
 			[`@media (max-width: ${props.theme.breakpoints[0]})`]: {
