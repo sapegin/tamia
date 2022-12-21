@@ -32,7 +32,7 @@ function getValue(key: string, value: string, theme: Theme) {
 			? px(returnValue)
 			: String(returnValue);
 	} else {
-		return px(value);
+		return value;
 	}
 }
 
