@@ -39,7 +39,7 @@ export interface Theme<TLength = TLengthTamia> {
 	listMargin: TLength;
 	focusOutlineOffset: TLength;
 	page: {
-		bodyMaxWidth: TLength;
+		bodyMaxWidth?: TLength;
 		bodyPaddingX: TLength;
 		bodyPaddingY: TLength;
 		contentMaxWidth?: TLength;
