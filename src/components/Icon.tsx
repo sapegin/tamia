@@ -1,9 +1,10 @@
 import React from 'react';
+import { TLengthTamia } from '../primitives/types';
 import Box, { BoxProps } from './Box';
 
 export type IconProps = Omit<BoxProps, 'width' | 'height'> & {
-	width: number;
-	height: number;
+	width: TLengthTamia;
+	height: TLengthTamia;
 	viewBox: {
 		width: number;
 		height: number;
