@@ -5,7 +5,7 @@ import styled, { DefaultTheme } from 'styled-components';
 import { getCss, RestrictedProps, CSSProps } from '../primitives';
 
 export type BoxProps = RestrictedProps<DefaultTheme> & {
-	children: ReactNode;
+	children?: ReactNode;
 	sx?: CSSProps<DefaultTheme>;
 };
 
