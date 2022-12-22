@@ -8,7 +8,6 @@ export type IconProps = Omit<BoxProps, 'width' | 'height'> & {
 		width: number;
 		height: number;
 	};
-	display?: number | string;
 };
 
 /**
