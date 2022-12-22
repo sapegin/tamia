@@ -880,6 +880,10 @@ export interface CoreProps {
 	boxSizing?: ResponsiveValue<CSS.Property.BoxSizing>;
 }
 
+export interface ExtraProps {
+	backdropFilter?: ResponsiveValue<CSS.Property.BackdropFilter>;
+}
+
 export interface RestrictedProps<ThemeType extends Theme = RequiredTheme>
 	extends SpaceProps<ThemeType>,
 		LayoutProps,
@@ -899,4 +903,5 @@ export interface CSSProps<ThemeType extends Theme = RequiredTheme>
 		BorderProps<ThemeType>,
 		BackgroundProps,
 		PositionProps,
-		CoreProps {}
+		CoreProps,
+		ExtraProps {}
