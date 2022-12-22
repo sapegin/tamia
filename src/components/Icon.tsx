@@ -1,7 +1,9 @@
 import React from 'react';
 import Box, { BoxProps } from './Box';
 
-type Props = BoxProps & {
+export type IconProps = Omit<BoxProps, 'width' | 'height'> & {
+	width: number;
+	height: number;
 	viewBox: {
 		width: number;
 		height: number;
@@ -18,7 +20,7 @@ const Icon = ({
 	verticalAlign = 'middle',
 	children,
 	...props
-}: Props) => {
+}: IconProps) => {
 	// Use any because TypeScript thinks this is still an <svg> element,
 	// not a primitive component, and doesn't allow responsive props
 	return (
