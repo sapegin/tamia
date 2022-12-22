@@ -63,33 +63,33 @@ export interface SpaceProps<
 	TVal = ThemeValue<'space', ThemeType>
 > {
 	/** Margin on top, left, bottom and right */
-	m?: ResponsiveValue<TVal>;
+	m?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on top, left, bottom and right */
-	margin?: ResponsiveValue<TVal>;
+	margin?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on top */
-	mt?: ResponsiveValue<TVal>;
+	mt?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on top */
-	marginTop?: ResponsiveValue<TVal>;
+	marginTop?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on right */
-	mr?: ResponsiveValue<TVal>;
+	mr?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on right */
-	marginRight?: ResponsiveValue<TVal>;
+	marginRight?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on bottom */
-	mb?: ResponsiveValue<TVal>;
+	mb?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on bottom */
-	marginBottom?: ResponsiveValue<TVal>;
+	marginBottom?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on left */
-	ml?: ResponsiveValue<TVal>;
+	ml?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on left */
-	marginLeft?: ResponsiveValue<TVal>;
+	marginLeft?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on left and right */
-	mx?: ResponsiveValue<TVal>;
+	mx?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on left and right */
-	marginX?: ResponsiveValue<TVal>;
+	marginX?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on top and bottom */
-	my?: ResponsiveValue<TVal>;
+	my?: ResponsiveValue<TVal | 'auto'>;
 	/** Margin on top and bottom */
-	marginY?: ResponsiveValue<TVal>;
+	marginY?: ResponsiveValue<TVal | 'auto'>;
 	/** Padding on top, left, bottom and right */
 	p?: ResponsiveValue<TVal>;
 	/** Padding on top, left, bottom and right */
