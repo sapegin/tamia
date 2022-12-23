@@ -1,4 +1,8 @@
-export { default as Box } from './components/Box';
+export {
+	default as Box,
+	boxStyledCofig,
+	boxStyledProps,
+} from './components/Box';
 export { default as Container } from './components/Container';
 export { default as Flex } from './components/Flex';
 export { default as Frame } from './components/Frame';
@@ -15,3 +19,5 @@ export { default as Text } from './components/Text';
 export { default as TextContainer } from './components/TextContainer';
 export { default as TextContent } from './components/TextContent';
 export { default as VisuallyHidden } from './components/VisuallyHidden';
+export { css, getCss, variant } from './primitives';
+export type { RestrictedProps, CSSProps, ResponsiveValue } from './primitives';
