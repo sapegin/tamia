@@ -10,7 +10,9 @@ export type ImageProps = Omit<BoxProps, 'children'> & {
 /**
  * Responsive image.
  */
-export const Image = styled.img.withConfig(boxStyledCofig)<ImageProps>(
+export const Image = styled.img.withConfig(
+	boxStyledCofig(['expand'])
+)<ImageProps>(
 	boxStyledProps,
 	(props) =>
 		props.expand !== false && {

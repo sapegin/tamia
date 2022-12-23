@@ -11,7 +11,7 @@ export type StackProps = BoxProps & {
  * of spacing between children.
  */
 export const Stack = styled.div
-	.withConfig(boxStyledCofig)
+	.withConfig(boxStyledCofig(['direction']))
 	.attrs<StackProps>((props) => ({
 		flexDirection: props.direction || 'column',
 	}))<StackProps>(boxStyledProps);

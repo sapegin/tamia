@@ -86,13 +86,17 @@ const PROPS_TO_IGNORE: (string | number)[] = [
 	'bottom',
 	'left',
 	'boxSizing',
+	'variant',
 ];
 
-const boxStyledCofig = {
-	shouldForwardProp: (
-		prop: string | number,
-		defaultValidatorFn: (p: string | number) => boolean
-	) => PROPS_TO_IGNORE.includes(prop) === false && defaultValidatorFn(prop),
+const boxStyledCofig = (extraPropsToIgnore: (string | number)[] = []) => {
+	const propsToIgnore = [...PROPS_TO_IGNORE, ...extraPropsToIgnore];
+	return {
+		shouldForwardProp: (
+			prop: string | number,
+			defaultValidatorFn: (p: string | number) => boolean
+		) => propsToIgnore.includes(prop) === false && defaultValidatorFn(prop),
+	};
 };
 
 const boxStyledProps = ({
@@ -261,8 +265,9 @@ const boxStyledProps = ({
  * Generic container with responsive props to control whitespace, layout,
  * positioning and colors.
  */
-export const Box =
-	styled.div.withConfig(boxStyledCofig)<BoxProps>(boxStyledProps);
+export const Box = styled.div.withConfig(boxStyledCofig())<BoxProps>(
+	boxStyledProps
+);
 
 Box.defaultProps = {
 	boxSizing: 'border-box',

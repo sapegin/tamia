@@ -12,7 +12,7 @@ export type HeadingProps = BoxProps &
  * Heading component.
  */
 export const Heading = styled.h1
-	.withConfig(boxStyledCofig)
+	.withConfig(boxStyledCofig(['level']))
 	.attrs<HeadingProps>((props) => ({
 		as: props.as ?? `h${props.level}`,
 	}))<HeadingProps>(

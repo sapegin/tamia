@@ -12,7 +12,9 @@ export type TextProps = BoxProps &
 /**
  * Text component.
  */
-export const Text = styled.p.withConfig(boxStyledCofig)<TextProps>(
+export const Text = styled.p.withConfig(
+	boxStyledCofig(['textAlign', 'fontStyle', 'fontWeight'])
+)<TextProps>(
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',
