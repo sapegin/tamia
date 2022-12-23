@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import styled from 'styled-components';
-import Box, { BoxProps } from './Box';
+import Box from './Box';
 
 // Based on https://every-layout.dev/layouts/frame/
 
-type FrameProps = BoxProps & {
+type FrameProps = ComponentProps<typeof Box> & {
 	/** Aspect ratio (e.g. `6/9`) */
 	ratio: number;
 };

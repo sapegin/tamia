@@ -9,7 +9,93 @@ export type BoxProps = RestrictedProps<DefaultTheme> & {
 	sx?: CSSProps<DefaultTheme>;
 };
 
-export const boxStyledProps = ({
+const PROPS_TO_IGNORE: (string | number)[] = [
+	'sx',
+	'm',
+	'mb',
+	'ml',
+	'mr',
+	'mt',
+	'mx',
+	'my',
+	'margin',
+	'marginBottom',
+	'marginLeft',
+	'marginRight',
+	'marginTop',
+	'marginX',
+	'marginY',
+	'p',
+	'pb',
+	'pl',
+	'pr',
+	'pt',
+	'px',
+	'py',
+	'padding',
+	'paddingBottom',
+	'paddingLeft',
+	'paddingRight',
+	'paddingTop',
+	'paddingX',
+	'paddingY',
+	'display',
+	'overflow',
+	'overflowX',
+	'overflowY',
+	'width',
+	'maxWidth',
+	'minWidth',
+	'height',
+	'maxHeight',
+	'minHeight',
+	'size',
+	'verticalAlign',
+	'alignItems',
+	'alignContent',
+	'alignSelf',
+	'justifyItems',
+	'justifyContent',
+	'justifySelf',
+	'flexWrap',
+	'flexDirection',
+	'order',
+	'flexGrow',
+	'flexShrink',
+	'flexBasis',
+	'flex',
+	'gap',
+	'rowGap',
+	'columnGap',
+	'gridColumn',
+	'gridRow',
+	'gridAutoFlow',
+	'gridTemplateAreas',
+	'gridArea',
+	'gridGap',
+	'gridColumnGap',
+	'gridRowGap',
+	'gridAutoColumns',
+	'gridAutoRows',
+	'gridTemplateColumns',
+	'gridTemplateRows',
+	'zIndex',
+	'position',
+	'top',
+	'right',
+	'bottom',
+	'left',
+	'boxSizing',
+];
+
+const boxStyledCofig = {
+	shouldForwardProp: (
+		prop: string | number,
+		defaultValidatorFn: (p: string | number) => boolean
+	) => PROPS_TO_IGNORE.includes(prop) === false && defaultValidatorFn(prop),
+};
+
+const boxStyledProps = ({
 	theme,
 	sx,
 	m,
@@ -175,7 +261,8 @@ export const boxStyledProps = ({
  * Generic container with responsive props to control whitespace, layout,
  * positioning and colors.
  */
-export const Box = styled.div<BoxProps>(boxStyledProps);
+export const Box =
+	styled.div.withConfig(boxStyledCofig)<BoxProps>(boxStyledProps);
 
 Box.defaultProps = {
 	boxSizing: 'border-box',
@@ -183,3 +270,4 @@ Box.defaultProps = {
 };
 
 export default Box;
+export { boxStyledProps, boxStyledCofig };

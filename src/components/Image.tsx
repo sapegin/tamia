@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { boxStyledProps, BoxProps } from './Box';
+import { boxStyledProps, boxStyledCofig, BoxProps } from './Box';
 import { getPaddingX } from '../styles/getters';
 
 export type ImageProps = Omit<BoxProps, 'children'> & {
@@ -10,7 +10,7 @@ export type ImageProps = Omit<BoxProps, 'children'> & {
 /**
  * Responsive image.
  */
-export const Image = styled.img<ImageProps>(
+export const Image = styled.img.withConfig(boxStyledCofig)<ImageProps>(
 	boxStyledProps,
 	(props) =>
 		props.expand !== false && {

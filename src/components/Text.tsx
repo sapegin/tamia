@@ -1,5 +1,5 @@
 import styled, { DefaultTheme } from 'styled-components';
-import { boxStyledProps, BoxProps } from './Box';
+import { boxStyledProps, boxStyledCofig, BoxProps } from './Box';
 import { variant, getCss, ResponsiveValue } from '../primitives';
 import { TypographyCoreProps, FontWeightProps } from '../primitives/types';
 
@@ -12,7 +12,7 @@ export type TextProps = BoxProps &
 /**
  * Text component.
  */
-export const Text = styled.p<TextProps>(
+export const Text = styled.p.withConfig(boxStyledCofig)<TextProps>(
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',

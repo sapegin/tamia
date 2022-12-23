@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { TLengthTamia } from '../primitives/types';
-import Box, { BoxProps } from './Box';
+import Box from './Box';
 
-export type IconProps = Omit<BoxProps, 'width' | 'height'> & {
+export type IconProps = Omit<ComponentProps<typeof Box>, 'width' | 'height'> & {
 	width: TLengthTamia;
 	height: TLengthTamia;
 	viewBox: {
@@ -21,12 +21,10 @@ const Icon = ({
 	children,
 	...props
 }: IconProps) => {
-	// Use any because TypeScript thinks this is still an <svg> element,
-	// not a primitive component, and doesn't allow responsive props
 	return (
 		<Box
 			as="svg"
-			{...(props as any)}
+			{...props}
 			display={display}
 			verticalAlign={verticalAlign}
 			viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}

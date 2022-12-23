@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { boxStyledProps, BoxProps } from './Box';
+import { boxStyledProps, boxStyledCofig, BoxProps } from './Box';
 
 export type StackProps = BoxProps & {
 	/** Direction: horizontal (`row`) or vertical (`column`) */
@@ -10,9 +10,11 @@ export type StackProps = BoxProps & {
  * Stacking layout: horizontal, vertical, and responsive. Adds equal amount
  * of spacing between children.
  */
-export const Stack = styled.div.attrs<StackProps>((props) => ({
-	flexDirection: props.direction || 'column',
-}))<StackProps>(boxStyledProps);
+export const Stack = styled.div
+	.withConfig(boxStyledCofig)
+	.attrs<StackProps>((props) => ({
+		flexDirection: props.direction || 'column',
+	}))<StackProps>(boxStyledProps);
 
 Stack.defaultProps = {
 	display: 'flex',
