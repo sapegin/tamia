@@ -887,6 +887,7 @@ export interface CoreProps {
 }
 
 export interface ExtraProps {
+	outline?: ResponsiveValue<CSS.Property.Outline>;
 	backdropFilter?: ResponsiveValue<CSS.Property.BackdropFilter>;
 }
 
