@@ -277,6 +277,7 @@ export interface TypographyCoreProps {
 
 interface TypographyExtraProps {
 	fontFamily?: ResponsiveValue<CSS.Property.FontFamily>;
+	textDecoration?: ResponsiveValue<CSS.Property.TextDecoration>;
 }
 
 export interface TypographyProps<ThemeType extends Theme = RequiredTheme>
@@ -887,6 +888,7 @@ export interface ExtraProps {
 	backdropFilter?: ResponsiveValue<CSS.Property.BackdropFilter>;
 }
 
+// CSS properties for primitive component props, limited set restricted by theme
 export interface RestrictedProps<ThemeType extends Theme = RequiredTheme>
 	extends SpaceProps<ThemeType>,
 		LayoutProps,
@@ -895,6 +897,7 @@ export interface RestrictedProps<ThemeType extends Theme = RequiredTheme>
 		PositionProps,
 		CoreProps {}
 
+// All CSS properties for sx prop, support custom values and nesting
 export interface AllCSSProps<ThemeType extends Theme = RequiredTheme>
 	extends SpaceProps<ThemeType, ThemeValue<'space', ThemeType> | TLengthTamia>,
 		ColorProps<ThemeType>,
