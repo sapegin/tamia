@@ -909,4 +909,6 @@ export interface AllCSSProps<ThemeType extends Theme = RequiredTheme>
 		CoreProps,
 		ExtraProps {}
 
-export type CSSProps = AllCSSProps | { [key: string]: AllCSSProps };
+export type CSSProps<ThemeType extends Theme = RequiredTheme> =
+	| AllCSSProps<ThemeType>
+	| { [key: string]: AllCSSProps<ThemeType> };
