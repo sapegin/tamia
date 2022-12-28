@@ -88,6 +88,12 @@
     "typescript": "^3.8",
     "webpack": "^5.74.0"
   },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/dist/"
+    ]
+  },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,md}": "prettier --write"
