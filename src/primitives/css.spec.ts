@@ -53,6 +53,7 @@ test.each([
 	[{ p: '-s' }, defaultTheme, { padding: '-4px' }],
 	[{ px: 'l' }, defaultTheme, { paddingLeft: '16px', paddingRight: '16px' }],
 	[{ mb: 'xl' }, defaultTheme, { marginBottom: '32px' }],
+	[{ ':hover': { p: 's' } }, defaultTheme, { ':hover': { padding: '4px' } }],
 	[
 		{ p: ['s', 'm', 'l'] },
 		defaultTheme,

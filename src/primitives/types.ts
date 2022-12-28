@@ -895,7 +895,7 @@ export interface RestrictedProps<ThemeType extends Theme = RequiredTheme>
 		PositionProps,
 		CoreProps {}
 
-export interface CSSProps<ThemeType extends Theme = RequiredTheme>
+export interface AllCSSProps<ThemeType extends Theme = RequiredTheme>
 	extends SpaceProps<ThemeType, ThemeValue<'space', ThemeType> | TLengthTamia>,
 		ColorProps<ThemeType>,
 		TypographyProps<ThemeType>,
@@ -908,3 +908,5 @@ export interface CSSProps<ThemeType extends Theme = RequiredTheme>
 		PositionProps,
 		CoreProps,
 		ExtraProps {}
+
+export type CSSProps = AllCSSProps | { [key: string]: AllCSSProps };

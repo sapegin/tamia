@@ -69,6 +69,7 @@ export function getCss(props: CSSProps, theme: Theme) {
 
 		const key = rawKey in ALIASES ? ALIASES[rawKey] : rawKey;
 
+		// Responsive values
 		if (Array.isArray(rawValue)) {
 			const breakpoints = [
 				null,
@@ -93,7 +94,12 @@ export function getCss(props: CSSProps, theme: Theme) {
 			continue;
 		}
 
-		createStyles(styles, key, rawValue, theme);
+		if (typeof rawValue === 'object') {
+			// Nested styles
+			styles[key] = getCss(rawValue, theme);
+		} else {
+			createStyles(styles, key, rawValue, theme);
+		}
 	}
 
 	return styles;
