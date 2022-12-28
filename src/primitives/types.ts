@@ -278,6 +278,8 @@ export interface TypographyCoreProps {
 interface TypographyExtraProps {
 	fontFamily?: ResponsiveValue<CSS.Property.FontFamily>;
 	textDecoration?: ResponsiveValue<CSS.Property.TextDecoration>;
+	textDecorationThickness?: ResponsiveValue<CSS.Property.TextDecorationThickness>;
+	textUnderlineOffset?: ResponsiveValue<CSS.Property.TextUnderlineOffset>;
 }
 
 export interface TypographyProps<ThemeType extends Theme = RequiredTheme>
