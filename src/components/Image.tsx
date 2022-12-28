@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { boxStyledProps, boxStyledCofig, BoxProps } from './Box';
+import { boxStyledProps, PROPS_TO_IGNORE, BoxProps } from './Box';
 import { getPaddingX } from '../styles/getters';
 
 export type ImageProps = Omit<BoxProps, 'children'> & {
@@ -7,12 +7,15 @@ export type ImageProps = Omit<BoxProps, 'children'> & {
 	expand?: boolean;
 };
 
+const ALL_PROPS_TO_IGNORE = [...PROPS_TO_IGNORE, 'expand'];
+
 /**
  * Responsive image.
  */
-export const Image = styled.img.withConfig(
-	boxStyledCofig(['expand'])
-)<ImageProps>(
+export const Image = styled.img.withConfig({
+	shouldForwardProp: (prop, defaultValidatorFn) =>
+		ALL_PROPS_TO_IGNORE.includes(prop) === false && defaultValidatorFn(prop),
+})<ImageProps>(
 	boxStyledProps,
 	(props) =>
 		props.expand !== false && {

@@ -1,6 +1,6 @@
 export {
 	default as Box,
-	boxStyledCofig,
+	PROPS_TO_IGNORE,
 	boxStyledProps,
 } from './components/Box';
 export { default as Container } from './components/Container';

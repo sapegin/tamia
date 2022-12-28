@@ -1,18 +1,23 @@
 import styled, { DefaultTheme } from 'styled-components';
 import { ResponsiveValue, variant } from '../primitives';
 import { AsProps } from '../types';
-import { boxStyledProps, boxStyledCofig, BoxProps } from './Box';
+import { boxStyledProps, PROPS_TO_IGNORE, BoxProps } from './Box';
 
 export type HeadingProps = BoxProps &
 	AsProps & {
 		level?: ResponsiveValue<keyof DefaultTheme['headingStyles']>;
 	};
 
+const ALL_PROPS_TO_IGNORE = [...PROPS_TO_IGNORE, 'level'];
+
 /**
  * Heading component.
  */
 export const Heading = styled.h1
-	.withConfig(boxStyledCofig(['level']))
+	.withConfig({
+		shouldForwardProp: (prop, defaultValidatorFn) =>
+			ALL_PROPS_TO_IGNORE.includes(prop) === false && defaultValidatorFn(prop),
+	})
 	.attrs<HeadingProps>((props) => ({
 		as: props.as ?? `h${props.level}`,
 	}))<HeadingProps>(

@@ -1,5 +1,5 @@
 import styled, { DefaultTheme } from 'styled-components';
-import { boxStyledProps, boxStyledCofig, BoxProps } from './Box';
+import { boxStyledProps, PROPS_TO_IGNORE, BoxProps } from './Box';
 import { variant, getCss, ResponsiveValue } from '../primitives';
 import { TypographyCoreProps, FontWeightProps } from '../primitives/types';
 
@@ -9,12 +9,20 @@ export type TextProps = BoxProps &
 		variant?: ResponsiveValue<keyof DefaultTheme['textStyles']>;
 	};
 
+const ALL_PROPS_TO_IGNORE = [
+	...PROPS_TO_IGNORE,
+	'textAlign',
+	'fontStyle',
+	'fontWeight',
+];
+
 /**
  * Text component.
  */
-export const Text = styled.p.withConfig(
-	boxStyledCofig(['textAlign', 'fontStyle', 'fontWeight'])
-)<TextProps>(
+export const Text = styled.p.withConfig({
+	shouldForwardProp: (prop, defaultValidatorFn) =>
+		ALL_PROPS_TO_IGNORE.includes(prop) === false && defaultValidatorFn(prop),
+})<TextProps>(
 	variant({
 		scale: 'textStyles',
 		prop: 'variant',

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { ReactNode } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { getCss, RestrictedProps, CSSProps } from '../primitives';
@@ -9,7 +7,7 @@ export type BoxProps = RestrictedProps<DefaultTheme> & {
 	sx?: CSSProps<DefaultTheme>;
 };
 
-const PROPS_TO_IGNORE: (string | number)[] = [
+export const PROPS_TO_IGNORE: (string | number)[] = [
 	'sx',
 	'm',
 	'mb',
@@ -88,16 +86,6 @@ const PROPS_TO_IGNORE: (string | number)[] = [
 	'boxSizing',
 	'variant',
 ];
-
-const boxStyledCofig = (extraPropsToIgnore: (string | number)[] = []) => {
-	const propsToIgnore = [...PROPS_TO_IGNORE, ...extraPropsToIgnore];
-	return {
-		shouldForwardProp: (
-			prop: string | number,
-			defaultValidatorFn: (p: string | number) => boolean
-		) => propsToIgnore.includes(prop) === false && defaultValidatorFn(prop),
-	};
-};
 
 const boxStyledProps = ({
 	theme,
@@ -265,9 +253,10 @@ const boxStyledProps = ({
  * Generic container with responsive props to control whitespace, layout,
  * positioning and colors.
  */
-export const Box = styled.div.withConfig(boxStyledCofig())<BoxProps>(
-	boxStyledProps
-);
+export const Box = styled.div.withConfig({
+	shouldForwardProp: (prop, defaultValidatorFn) =>
+		PROPS_TO_IGNORE.includes(prop) === false && defaultValidatorFn(prop),
+})<BoxProps>(boxStyledProps);
 
 Box.defaultProps = {
 	boxSizing: 'border-box',
@@ -275,4 +264,4 @@ Box.defaultProps = {
 };
 
 export default Box;
-export { boxStyledProps, boxStyledCofig };
+export { boxStyledProps };
