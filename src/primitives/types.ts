@@ -822,7 +822,10 @@ export interface BorderProps<ThemeType extends Theme = RequiredTheme>
 			ThemeType,
 			ThemeValue<'borderWidths', ThemeType> | TLengthTamia
 		>,
-		BorderColorProps<ThemeType>,
+		BorderColorProps<
+			ThemeType,
+			ThemeValue<'colors', ThemeType> | CSS.Property.BorderColor
+		>,
 		BorderStyleProps,
 		BorderRadiusProps<ThemeType> {}
 
