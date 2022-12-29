@@ -60,6 +60,7 @@ export const SCALES: Record<string, keyof Theme> = {
 	outlineColor: 'colors',
 	boxShadow: 'shadows',
 	textShadow: 'shadows',
+	transition: 'transitions',
 	zIndex: 'zIndices',
 	width: 'sizes',
 	minWidth: 'sizes',

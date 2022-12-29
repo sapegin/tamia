@@ -26,6 +26,7 @@ export interface Theme<TLength = TLengthTamia> {
 	borderWidths?: Record<string, TLength>;
 	radii?: Record<string, TLength>;
 	shadows?: Record<string, CSS.Property.BoxShadow>;
+	transitions?: Record<string, CSS.Property.Transition>;
 	zIndices?: Record<string, CSS.Property.ZIndex>;
 
 	// Variants
@@ -888,6 +889,7 @@ export interface CoreProps {
 
 export interface ExtraProps {
 	outline?: ResponsiveValue<CSS.Property.Outline>;
+	transition?: ResponsiveValue<CSS.Property.Transition>;
 	backdropFilter?: ResponsiveValue<CSS.Property.BackdropFilter>;
 }
 
