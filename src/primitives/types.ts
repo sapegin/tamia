@@ -889,6 +889,10 @@ export interface CoreProps {
 
 export interface ExtraProps {
 	outline?: ResponsiveValue<CSS.Property.Outline>;
+	outlineColor?: ResponsiveValue<CSS.Property.Color>;
+	outlineStyle?: ResponsiveValue<CSS.Property.OutlineStyle>;
+	outlineWidth?: ResponsiveValue<TLengthTamia>;
+	outlineOffset?: ResponsiveValue<CSS.Property.OutlineOffset>;
 	transition?: ResponsiveValue<CSS.Property.Transition>;
 	transitionProperty?: ResponsiveValue<CSS.Property.TransitionProperty>;
 	transitionDelay?: ResponsiveValue<CSS.Property.TransitionDelay>;

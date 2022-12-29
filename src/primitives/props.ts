@@ -57,6 +57,7 @@ export const SCALES: Record<string, keyof Theme> = {
 	borderRightWidth: 'borderWidths',
 	borderRightColor: 'colors',
 	borderRightStyle: 'borderStyles',
+	outline: 'borders',
 	outlineColor: 'colors',
 	boxShadow: 'shadows',
 	textShadow: 'shadows',
