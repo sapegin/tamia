@@ -891,6 +891,9 @@ export interface ExtraProps {
 	outline?: ResponsiveValue<CSS.Property.Outline>;
 	transition?: ResponsiveValue<CSS.Property.Transition>;
 	transitionProperty?: ResponsiveValue<CSS.Property.TransitionProperty>;
+	transitionDelay?: ResponsiveValue<CSS.Property.TransitionDelay>;
+	transitionDuration?: ResponsiveValue<CSS.Property.TransitionDuration>;
+	transitionTimingFunction?: ResponsiveValue<CSS.Property.TransitionTimingFunction>;
 	backdropFilter?: ResponsiveValue<CSS.Property.BackdropFilter>;
 }
 
