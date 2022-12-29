@@ -890,6 +890,7 @@ export interface CoreProps {
 export interface ExtraProps {
 	outline?: ResponsiveValue<CSS.Property.Outline>;
 	transition?: ResponsiveValue<CSS.Property.Transition>;
+	transitionProperty?: ResponsiveValue<CSS.Property.TransitionProperty>;
 	backdropFilter?: ResponsiveValue<CSS.Property.BackdropFilter>;
 }
 
