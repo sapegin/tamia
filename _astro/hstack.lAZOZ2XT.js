@@ -1,1 +1,0 @@
-import{a as o,g as c,b as f}from"./factory.hsHTNh8T.js";const a={transform(t){const{justify:s,gap:n,...r}=t;return{display:"flex",alignItems:"center",justifyContent:s,gap:n,flexDirection:"row",...r}},defaultValues:{gap:"10px"}},e=(t={})=>{const s=c(a,t);return a.transform(s,f)},l=t=>o(e(t));l.raw=e;export{e as g,l as h};
