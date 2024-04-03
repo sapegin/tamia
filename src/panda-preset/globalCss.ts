@@ -2,7 +2,7 @@ import { defineGlobalStyles } from '@pandacss/dev';
 
 export const globalCss = defineGlobalStyles({
 	// box-sizing reset, etc.
-	'*, ::before, ::after, ::backdrop, ::first-letter, ::file-selector-button': {
+	'*, ::before, ::after, ::backdrop, ::file-selector-button': {
 		margin: 0,
 		padding: 0,
 		boxSizing: 'border-box',
