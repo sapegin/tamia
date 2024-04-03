@@ -1,8 +1,28 @@
 {
-	"extends": [
-		"tamia/typescript-react"
-	],
-	"parserOptions": {
-		"project": "./tsconfig.json"
-	}
+  "extends": [
+    "tamia/typescript-react",
+    "plugin:react/jsx-runtime",
+    "plugin:astro/recommended",
+    "plugin:astro/jsx-a11y-strict"
+  ],
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"]
+      },
+      "rules": {
+        // Stop linter from replacing `class` with `className`
+        "react/no-unknown-property": "off"
+      }
+    },
+    {
+      "files": ["src/env.d.ts"],
+      "rules": {
+        "@typescript-eslint/triple-slash-reference": "off"
+      }
+    }
+  ]
 }

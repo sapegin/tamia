@@ -1,15 +1,9 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "es2015",
-    "jsx": "react",
-    "moduleResolution": "node",
-    "declaration": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "declarationDir": "types",
-    "types": ["react", "jest"]
+    "jsx": "preserve",
+    "strictNullChecks": true,
+    "verbatimModuleSyntax": true
   },
-  "include": ["src"]
+  "include": ["src/panda-preset"]
 }

@@ -2,7 +2,8 @@ node_modules/
 lib/
 dist/
 types/
-styleguide/public/
+styled-system/
+styled-system-studio/
 Changelog.md
 .DS_Store
 Thumbs.db

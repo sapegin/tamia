@@ -1,6 +1,6 @@
 # Tâmia
 
-[![npm](https://img.shields.io/npm/v/tamia.svg)](https://www.npmjs.com/package/tamia) [![Node.js CI status](https://github.com/tamiadev/tamia.git/workflows/Node.js%20CI/badge.svg)](https://github.com/tamiadev/tamia.git/actions)
+[![npm](https://img.shields.io/npm/v/tamia.svg)](https://www.npmjs.com/package/tamia) [![Node.js CI status](https://github.com/sapegin/tamia.git/workflows/Node.js%20CI/badge.svg)](https://github.com/sapegin/tamia.git/actions)
 
 Tâmia is a tiny React component library with themable primitives that you can use to quickly start working on a new project.
 
@@ -8,7 +8,7 @@ Tâmia is a tiny React component library with themable primitives that you can u
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
-- [styled-components](https://www.styled-components.com/)
+- [Panda CSS](https://panda-css.com/)
 
 ## Tools
 
@@ -26,41 +26,65 @@ There are a few other things made specifically for Tâmia:
 1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia styled-components
+npm install tamia @pandacss/dev
 ```
 
-2. Create a theme.
+2. Create a Panda CSS config.
 
-Copy [the default theme](https://github.com/tamiadev/tamia/blob/master/src/theme.tsx) to `src/theme.tsx` and modify it according to your taste:
+Check out [the default theme](https://github.com/sapegin/tamia/blob/master/src/theme.ts),and extend it according to your taste:
 
-3. Type your theme.
+```ts
+// panda.config.cjs
+```
 
-Create `src/styled.d.ts` and import there your theme:
+3. Create a PostCSS config.
 
-```ts static
-import theme from './theme';
+Copy [the default theme](https://github.com/sapegin/tamia/blob/master/src/theme.tsx) to `src/theme.tsx` and modify it according to your taste:
 
-type ThemeInterface = typeof theme;
+```ts
+// postcss.config.cjs
+module.exports = {
+  plugins: {
+    '@pandacss/dev/postcss': {}
+  }
+};
+```
 
-declare module 'styled-components' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends ThemeInterface {}
+4. Update your `package.json`:
+
+```diff
+{
+  "scripts": {
++   "prepare": "panda codegen",
+    "dev": "astro dev",
+    "start": "astro start",
+    "build": "astro build",
+    "preview": "astro preview"
+  }
 }
 ```
 
-4. Wrap your app in a root container:
+5. Update your global CSS:
 
-```js static
-import React from 'react';
-import { TamiaRoot } from 'tamia';
-import theme from './theme';
-
-const Root = ({ children }) => (
-  <TamiaRoot theme={theme}>{children}</TamiaRoot>
-);
-
-export default Root;
+```css
+@layer reset, base, tokens, recipes, utilities;
 ```
+
+**Tip:** Don't forget to import it from your main template.
+
+6. Update your `.gitignore`:
+
+```diff
++ styled-system
+```
+
+7. Generate the styled system, run:
+
+```bash
+npm run prepare --clean
+```
+
+8. Create the components, you're going to use. TODO
 
 ## The Name
 
@@ -76,6 +100,8 @@ Tâmia has evolved from a folder on my disk with a few CSS and JS files that I c
 - React + Emotion + ES6/Babel (2018)
 - React + styled-components + styled-system + TypeScript (2019)
 - React + styled-components + TypeScript + custom primitive components (2022)
+- React + vanilla-extract + TypeScript (2023)
+- React + Panda CSS + TypeScript (2024)
 
 ---
 
