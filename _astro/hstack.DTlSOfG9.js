@@ -1,0 +1,1 @@
+import{r as t}from"./index.NEDEFKed.js";import{s as c,p as n}from"./factory.hsHTNh8T.js";import{g as m}from"./hstack.lAZOZ2XT.js";const g=t.forwardRef(function(r,s){const[o,a]=c(r,["justify","gap"]),e=m(o),p={ref:s,...e,...a};return t.createElement(n.div,p)});export{g as H};
