@@ -19,7 +19,7 @@ There are a few other things made specifically for Tâmia:
 
 ## Documentation
 
-[Documentation is here](https://tamiadev.github.io/tamia/).
+[Documentation is here](https://sapegin.github.io/tamia/).
 
 ## Getting started
 
