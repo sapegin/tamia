@@ -5,7 +5,7 @@
   "sideEffects": false,
   "scripts": {
     "start": "panda studio",
-    "build": "panda studio --build",
+    "build": "panda studio --build --base '/tamia/'",
     "pretest": "npm run lint",
     "test": "npm run typecheck",
     "posttest": "npm run format",
@@ -17,17 +17,17 @@
     "docs": "npm run build && npm run deploy",
     "format": "prettier --log-level warn --write \"**/*.{js,ts,tsx,md,astro,json}\""
   },
-  "homepage": "https://tamiadev.github.io/tamia/",
+  "homepage": "https://sapegin.github.io/tamia/",
   "author": {
     "name": "Artem Sapegin",
     "url": "https://sapegin.me/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tamiadev/tamia.git"
+    "url": "https://github.com/sapegin/tamia.git"
   },
   "bugs": {
-    "url": "https://github.com/tamiadev/tamia/issues"
+    "url": "https://github.com/sapegin/tamia/issues"
   },
   "license": "MIT",
   "main": "dist/index.js",
