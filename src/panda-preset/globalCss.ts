@@ -91,7 +91,7 @@ export const globalCss = defineGlobalStyles({
 	},
 
 	// Print styles
-	_print: {
+	'@media print': {
 		'@page': {
 			margin: '0.5cm 1cm',
 		},
