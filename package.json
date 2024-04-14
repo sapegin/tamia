@@ -12,7 +12,7 @@
     "prepublishOnly": "npm run compile",
     "lint": "eslint . --cache --fix --ext .ts",
     "typecheck": "tsc --noEmit",
-    "compile": "tsc --outDir dist  --declaration --noEmit false --allowImportingTsExtensions false",
+    "compile": "tsc --project tsconfig.build.json",
     "deploy": "gh-pages -d styled-system-studio",
     "docs": "npm run build && npm run deploy",
     "format": "prettier --log-level warn --write \"**/*.{js,ts,tsx,md,astro,json}\"",

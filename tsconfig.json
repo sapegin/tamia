@@ -1,9 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "strictNullChecks": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["src/panda-preset"]
+  "include": ["src"]
 }
