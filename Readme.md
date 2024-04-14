@@ -37,27 +37,27 @@ import tamia from 'tamia';
 import { theme } from './src/theme';
 
 export default defineConfig({
-	...theme,
+  ...theme,
 
-	presets: [tamia],
+  presets: [tamia],
 
-	// Opt out of all default
-	eject: true,
+  // Opt out of all default
+  eject: true,
 
-	// Output directory
-	outdir: 'styled-system',
+  // Output directory
+  outdir: 'styled-system',
 
-	// Generate React components based on patterns
-	jsxFramework: 'react',
+  // Generate React components based on patterns
+  jsxFramework: 'react',
 
-	// Don't include CSS reset
-	preflight: false,
+  // Don't include CSS reset
+  preflight: false,
 
-	// Where to look for CSS declarations
-	include: ['./src/**/*.{js,jsx,ts,tsx,astro}'],
+  // Where to look for CSS declarations
+  include: ['./src/**/*.{js,jsx,ts,tsx,astro}'],
 
-	// Files to exclude
-	exclude: [],
+  // Files to exclude
+  exclude: []
 });
 ```
 
@@ -107,75 +107,75 @@ Check out [the default theme](https://github.com/sapegin/tamia/blob/master/src/t
 import { type Config } from '@pandacss/dev';
 
 export const theme = {
-	theme: {
-		extend: {
-			tokens: {
-				colors: {
-			    text: { value: '#222' },
-			    background: { value: '#fff' },
-			    primary: { value: '#6e56ba' },
-			    accent: { value: '#d396c3' },
-			    border: { value: '#ddd' },
-				},
-				fonts: {
-					body: { value: "ProximaNova, 'Helvetica Neue', Arial, sans-serif" },
-					heading: { value: "AzoSans, 'Helvetica Neue', Arial, sans-serif" },
-					ui: { value: "AzoSans, 'Helvetica Neue', Arial, sans-serif" },
-				},
-				fontSizes: {
-					xxl: { value: '2.1rem' },
-					xl: { value: '1.3rem' },
-					l: { value: '1.1rem' },
-					m: { value: '1rem' },
-					s: { value: '0.9rem' },
-					xs: { value: '0.75rem' },
-				},
-				fontWeights: {
-					normal: { value: '400' },
-					heading: { value: '400' },
-					bold: { value: '800' },
-					ui: { value: '800' },
-				},
-				lineHeights: {
-					base: { value: '1.5' },
-					heading: { value: '1.1' },
-					small: { value: '1.4' },
-					large: { value: '1.8' },
-				},
-				letterSpacings: {
-					base: { value: '0' },
-					heading: { value: '0' },
-					uppercase: { value: '0.15ex' },
-				},
-				borders: {
-				},
-				radii: {
-				},
-				shadows: {
-				},
-				easings: {
-				},
-				durations: {
-				},
-			},
-			semanticTokens: {
-				fontSizes: {
-					root: { value: '1.125em' },
-					article: { value: '1.1rem' },
-				},
-				spacing: {
-					listMargin: { value: '1.2rem' },
-				},
-				sizes: {
-					textMaxWidth: { value: '48rem' },
-				},
-			},
-		},
-	},
+  theme: {
+    extend: {
+      tokens: {
+        colors: {
+          text: { value: '#222' },
+          background: { value: '#fff' },
+          primary: { value: '#6e56ba' },
+          accent: { value: '#d396c3' },
+          border: { value: '#ddd' }
+        },
+        fonts: {
+          body: {
+            value: "ProximaNova, 'Helvetica Neue', Arial, sans-serif"
+          },
+          heading: {
+            value: "AzoSans, 'Helvetica Neue', Arial, sans-serif"
+          },
+          ui: {
+            value: "AzoSans, 'Helvetica Neue', Arial, sans-serif"
+          }
+        },
+        fontSizes: {
+          xxl: { value: '2.1rem' },
+          xl: { value: '1.3rem' },
+          l: { value: '1.1rem' },
+          m: { value: '1rem' },
+          s: { value: '0.9rem' },
+          xs: { value: '0.75rem' }
+        },
+        fontWeights: {
+          normal: { value: '400' },
+          heading: { value: '400' },
+          bold: { value: '800' },
+          ui: { value: '800' }
+        },
+        lineHeights: {
+          base: { value: '1.5' },
+          heading: { value: '1.1' },
+          small: { value: '1.4' },
+          large: { value: '1.8' }
+        },
+        letterSpacings: {
+          base: { value: '0' },
+          heading: { value: '0' },
+          uppercase: { value: '0.15ex' }
+        },
+        borders: {},
+        radii: {},
+        shadows: {},
+        easings: {},
+        durations: {}
+      },
+      semanticTokens: {
+        fontSizes: {
+          root: { value: '1.125em' },
+          article: { value: '1.1rem' }
+        },
+        spacing: {
+          listMargin: { value: '1.2rem' }
+        },
+        sizes: {
+          textMaxWidth: { value: '48rem' }
+        }
+      }
+    }
+  },
 
-	globalCss: {},
+  globalCss: {}
 } as const satisfies Config;
-
 ```
 
 9. Generate the styled system, run:
