@@ -15,7 +15,8 @@
     "compile": "tsc --outDir dist  --declaration --noEmit false --allowImportingTsExtensions false",
     "deploy": "gh-pages -d styled-system-studio",
     "docs": "npm run build && npm run deploy",
-    "format": "prettier --log-level warn --write \"**/*.{js,ts,tsx,md,astro,json}\""
+    "format": "prettier --log-level warn --write \"**/*.{js,ts,tsx,md,astro,json}\"",
+    "prepare": "husky; panda codegen"
   },
   "homepage": "https://sapegin.github.io/tamia/",
   "author": {
