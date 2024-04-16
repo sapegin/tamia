@@ -11,8 +11,8 @@ export const globalCss = defineGlobalStyles({
 	html: {
 		fontSize: 'root',
 		fontFamily: 'body',
-		color: 'base',
-		backgroundColor: 'bg',
+		color: 'text',
+		backgroundColor: 'background',
 		lineHeight: 'base',
 		fontWeight: 'normal',
 		wordWrap: 'break-word',
@@ -85,7 +85,7 @@ export const globalCss = defineGlobalStyles({
 
 	// Text selection
 	'::selection': {
-		color: 'base',
+		color: 'text',
 		backgroundColor: 'selection',
 		textShadow: 'none',
 	},
