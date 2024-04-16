@@ -16,7 +16,7 @@ export const Input = (props: InputProps) => (
 			padding: 'm',
 			border: 'thin',
 			borderColor: 'primary',
-			borderRadius: 'base',
+			borderRadius: 'button',
 			fontFamily: 'body',
 			fontSize: 'm',
 			color: 'text',

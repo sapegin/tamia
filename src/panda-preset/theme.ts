@@ -63,6 +63,7 @@ export const theme = {
 		radii: {
 			none: { value: '0' },
 			base: { value: '0.25em' },
+			button: { value: '0.25em' },
 			round: { value: '99999em' },
 		},
 	},

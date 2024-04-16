@@ -11,7 +11,7 @@ const button = cva({
 		py: 'xs',
 		border: `thin`,
 		borderColor: 'primary',
-		borderRadius: 'round',
+		borderRadius: 'button',
 		fontSize: 'm',
 		fontFamily: 'body',
 		textDecoration: 'none',
