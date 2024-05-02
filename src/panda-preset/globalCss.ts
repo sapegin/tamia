@@ -21,8 +21,6 @@ export const globalCss = defineGlobalStyles({
 		fontFeatureSettings: '"kern", "liga", "clig", "calt"',
 		// Prevent adjustments of font size after orientation changes in iOS
 		WebkitTextSizeAdjust: '100%',
-		MozOsxFontSmoothing: 'grayscale',
-		WebkitFontSmoothing: 'antialiased',
 		hyphens: 'auto',
 		// Enable smooth scroll only for folks who don't have reduce motion enabled
 		'@media (prefers-reduced-motion: no-preference)': {
@@ -43,6 +41,8 @@ export const globalCss = defineGlobalStyles({
 	// Better looking headings
 	'h1, h2, h3, h4, h5, h6': {
 		textRendering: 'optimizeLegibility',
+		MozOsxFontSmoothing: 'grayscale',
+		WebkitFontSmoothing: 'antialiased',
 	},
 
 	// Remove the weird gap below images
