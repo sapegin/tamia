@@ -15,6 +15,9 @@ export const quotedLink: PatternConfig = {
 			lineHeight: 'inherit',
 			textDecoration: 'none',
 			color: 'inherit',
+			transitionDuration: 'hover',
+			transitionTimingFunction: 'hover',
+			transitionProperty: 'all',
 			_hover: {
 				cursor: 'pointer',
 			},

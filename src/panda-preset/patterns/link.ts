@@ -15,6 +15,9 @@ export const link: PatternConfig = {
 			lineHeight: 'inherit',
 			textDecoration: 'underline',
 			color: 'primary',
+			transitionDuration: 'hover',
+			transitionTimingFunction: 'hover',
+			transitionProperty: 'all',
 			_visited: {
 				color: 'primary',
 			},

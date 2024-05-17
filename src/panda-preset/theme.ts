@@ -66,6 +66,14 @@ export const theme = {
 			button: { value: '0.25em' },
 			round: { value: '99999em' },
 		},
+		easings: {
+			fade: { value: 'ease-out' },
+			hover: { value: 'ease-in' },
+		},
+		durations: {
+			fade: { value: '0.15s' },
+			hover: { value: '0.1s' },
+		},
 	},
 	semanticTokens: {
 		fontSizes: {
