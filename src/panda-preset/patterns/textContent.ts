@@ -55,7 +55,7 @@ export const textContent: PatternConfig = {
 			'& :is(p > img, p > a > img, figure > img, figure > a > img)': {
 				height: 'auto',
 				maxWidth: {
-					base: 'calc(100% + token(contentPaddingX) * 2)',
+					base: 'calc(100% + token(spacing.contentPaddingX) * 2)',
 					tablet: '100%',
 				},
 				marginInline: {
