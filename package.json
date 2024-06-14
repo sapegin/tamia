@@ -16,7 +16,7 @@
     "format": "prettier --log-level warn --write \"**/*.{js,ts,tsx,md,astro,json}\"",
     "prepare": "husky; panda codegen"
   },
-  "homepage": "https://sapegin.github.io/tamia/",
+  "homepage": "https://tamialib.netlify.app",
   "author": {
     "name": "Artem Sapegin",
     "url": "https://sapegin.me/"
