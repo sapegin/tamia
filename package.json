@@ -5,7 +5,7 @@
   "sideEffects": false,
   "scripts": {
     "start": "panda studio",
-    "build": "panda studio --build --base '/tamia/'",
+    "build": "panda studio --build",
     "pretest": "npm run lint",
     "test": "npm run typecheck",
     "posttest": "npm run format",
