@@ -167,6 +167,9 @@ export const textContent: PatternConfig = {
 				fontVariationSettings: 'normal',
 				hyphens: 'none',
 			},
+			'& :is(h1, h2, h3, h4, h5, h6, p, li, table) a :is(code, kbd)': {
+				fontStyle: 'inherit',
+			},
 
 			// Don't leak the margin after the last element outside of the component
 			'& > *:last-child': {
