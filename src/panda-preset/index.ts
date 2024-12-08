@@ -6,6 +6,7 @@ import { theme } from './theme';
 import { utilities } from './utilities';
 
 export default definePreset({
+	name: 'Tâmia',
 	conditions,
 	globalCss,
 	utilities,

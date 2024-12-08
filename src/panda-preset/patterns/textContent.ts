@@ -154,7 +154,7 @@ export const textContent: PatternConfig = {
 				marginLeft: 0,
 			},
 			'& ul > li::before': {
-				content: '\\2014\\a0',
+				content: String.raw`\2014\a0`,
 				position: 'absolute',
 				left: 0,
 			},

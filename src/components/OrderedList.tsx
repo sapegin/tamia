@@ -5,10 +5,7 @@ export function OrderedList(props: StackProps<'ol'>) {
 	return <Stack as="ol" gap="xs" ml="0.35rem" {...props} />;
 }
 
-export function OrderedListItem({
-	pause,
-	...props
-}: Omit<BoxProps<'li'>, 'css'> & { pause: boolean }) {
+export function OrderedListItem(props: Omit<BoxProps<'li'>, 'css'>) {
 	return (
 		<Box
 			as="li"
