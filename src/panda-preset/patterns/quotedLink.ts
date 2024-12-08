@@ -21,15 +21,15 @@ export const quotedLink: PatternConfig = {
 			_hover: {
 				cursor: 'pointer',
 			},
+			'& u': {
+				color: 'primary',
+			},
+			'&:hover u': {
+				color: 'accent',
+			},
 			_focusVisible: {
 				outline: 'focus',
 				outlineOffset: 'token(borderWidths.focusOutlineOffset)',
-			},
-			'& u': {
-				color: 'primary',
-				_hover: {
-					color: 'accent',
-				},
 			},
 		};
 	},
