@@ -30,6 +30,7 @@ export const quotedLink: PatternConfig = {
 			_focusVisible: {
 				outline: 'focus',
 				outlineOffset: 'token(borderWidths.focusOutlineOffset)',
+				borderRadius: '0.05em',
 			},
 		};
 	},

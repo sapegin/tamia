@@ -58,7 +58,7 @@ export const theme = {
 		borders: {
 			none: { value: 'none' },
 			thin: { value: '1px solid' },
-			focus: { value: '2px solid {colors.accent}' },
+			focus: { value: '3px solid {colors.accent}' },
 		},
 		radii: {
 			none: { value: '0' },
