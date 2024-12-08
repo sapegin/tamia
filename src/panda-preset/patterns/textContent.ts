@@ -32,6 +32,7 @@ export const textContent: PatternConfig = {
 			'& a:focus-visible': {
 				outline: 'focus',
 				outlineOffset: 'token(borderWidths.focusOutlineOffset)',
+				borderRadius: '0.05em',
 			},
 
 			// Blockquotes
