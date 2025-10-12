@@ -10,7 +10,7 @@ module.exports = {
 			options: {
 				arrowParens: 'avoid',
 				printWidth: 70,
-				proseWrap: 'never',
+				proseWrap: 'preserve',
 				trailingComma: 'none',
 				useTabs: false,
 			},

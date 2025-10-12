@@ -16,7 +16,6 @@ Tâmia is a tiny React component library with themable primitives that you can u
 
 There are a few other things made specifically for Tâmia:
 
-- [tamia-gatsby-link](https://github.com/tamiadev/tamia-gatsby-link): Render Gatsby `Link` component with Tâmia styles
 - [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config
 
 ## Documentation
@@ -78,11 +77,11 @@ module.exports = {
 ```diff
 {
   "scripts": {
-+   "prepare": "panda codegen",
     "dev": "astro dev",
     "start": "astro start",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
++   "prepare": "panda codegen"
   }
 }
 ```
@@ -93,7 +92,8 @@ module.exports = {
 @layer reset, base, tokens, recipes, utilities;
 ```
 
-**Tip:** Don't forget to import it from your main template.
+> [!TIP]
+> Don’t forget to import it from your main template.
 
 6. Add the generated files to your ignore files: `.gitignore`, `.prettierignore`, `.eslintignore`, etc:
 
