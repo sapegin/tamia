@@ -36,17 +36,15 @@ export type BoxProps<C extends ElementType> = HTMLStyledProps<C> &
  *   return createBox(as ?? 'div', props);
  * }
  */
-export function createBox(
-	// We don't use BoxProps here to suppress the "Expression produces
-	// a union type that is too complex to represent" error
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	{ as, innerRef, className, css, ...props }: Record<string, any>,
-	/** Default HTML element */
+export function createBox<C extends ElementType>(
+	{ as, innerRef, className, css, ...props }: BoxProps<C>,
+	/** Default HTML element. */
 	defaultElement: ElementType = 'div'
 ) {
-	const [htmlProps, styleProps, elementProps] = useMemo(() => {
-		return splitProps(props, normalizeHTMLProps.keys, isCssProperty);
-	}, [props]);
+	const [htmlProps, styleProps, elementProps] = useMemo(
+		() => splitProps(props, normalizeHTMLProps.keys, isCssProperty),
+		[props]
+	);
 
 	return createElement(as ?? defaultElement, {
 		ref: innerRef,
@@ -61,5 +59,5 @@ export function createBox(
  * positioning and colors.
  */
 export function Box<C extends ElementType>(props: BoxProps<C>) {
-	return createBox(props);
+	return createBox<C>(props);
 }

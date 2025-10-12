@@ -12,5 +12,5 @@ export type ExpanderProps<C extends ElementType> = Omit<
  * from edge to edge on small screens.
  */
 export function Expander<C extends ElementType>(props: ExpanderProps<C>) {
-	return createBox({ ...props, className: expander() });
+	return createBox<C>({ ...props, className: expander() } as BoxProps<C>);
 }

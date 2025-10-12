@@ -11,7 +11,7 @@ export function Image({
 	...props
 }: Omit<BoxProps<'img'>, 'width' | 'height' | 'className'> &
 	Pick<ImgHTMLAttributes<HTMLImageElement>, 'width' | 'height'>) {
-	return createBox(
+	return createBox<'img'>(
 		{
 			...props,
 			htmlWidth: width,

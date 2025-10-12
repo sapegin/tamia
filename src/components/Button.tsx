@@ -56,11 +56,11 @@ export function Button<C extends ElementType = 'button'>({
 	variant = 'secondary',
 	...props
 }: ButtonProps<C>) {
-	return createBox(
+	return createBox<C>(
 		{
 			...props,
 			className: button({ variant }),
-		},
+		} as BoxProps<C>,
 		'button'
 	);
 }

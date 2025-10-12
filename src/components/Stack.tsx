@@ -12,5 +12,8 @@ export function Stack<C extends ElementType = 'div'>({
 	direction,
 	...props
 }: StackProps<C>) {
-	return createBox({ ...props, className: stack({ direction }) });
+	return createBox<C>({
+		...props,
+		className: stack({ direction }),
+	} as BoxProps<C>);
 }

@@ -33,11 +33,11 @@ export function Text<C extends ElementType = 'p'>({
 	variant = 'body',
 	...props
 }: TextProps<C>) {
-	return createBox(
+	return createBox<C>(
 		{
 			...props,
 			className: text({ variant }),
-		},
+		} as BoxProps<C>,
 		'p'
 	);
 }

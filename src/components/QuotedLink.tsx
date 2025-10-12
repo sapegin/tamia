@@ -13,5 +13,8 @@ export type QuotedLinkProps<C extends ElementType> = Omit<
 export function QuotedLink<C extends ElementType = 'a'>(
 	props: QuotedLinkProps<C>
 ) {
-	return createBox({ ...props, className: quotedLink() }, 'a');
+	return createBox<C>(
+		{ ...props, className: quotedLink() } as BoxProps<C>,
+		'a'
+	);
 }

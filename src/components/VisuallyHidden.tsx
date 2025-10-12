@@ -10,5 +10,5 @@ export type VisuallyHiddenProps<C extends ElementType> = Omit<
 export function VisuallyHidden<C extends ElementType = 'span'>(
 	props: VisuallyHiddenProps<C>
 ) {
-	return createBox({ ...props, className: visuallyHidden() });
+	return createBox<C>({ ...props, className: visuallyHidden() } as BoxProps<C>);
 }

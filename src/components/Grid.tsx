@@ -6,5 +6,5 @@ export type GridProps<C extends ElementType> = Omit<BoxProps<C>, 'className'> &
 	GridProperties;
 
 export function Grid<C extends ElementType>({ auto, ...props }: GridProps<C>) {
-	return createBox({ ...props, className: grid({ auto }) });
+	return createBox<C>({ ...props, className: grid({ auto }) } as BoxProps<C>);
 }
