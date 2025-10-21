@@ -16,7 +16,7 @@ export const stack: PatternConfig = {
 		const { direction, ...rest } = props;
 		return {
 			display: 'flex',
-			flexDirection: direction,
+			flexDirection: direction as string,
 			...rest,
 		};
 	},

@@ -37,6 +37,6 @@ export function Heading<C extends ElementType = 'h1'>({
 			...props,
 			className: heading({ level }),
 		} as BoxProps<C>,
-		level ? `h${level}` : 'h1'
+		`h${level}`
 	);
 }
