@@ -183,7 +183,7 @@ export const theme = {
 9. Generate the styled system, run:
 
 ```bash
-npm run prepare --clean
+npm run prepare
 ```
 
 9. Copy the components, you're going to use fro [src/components](./src/components).
