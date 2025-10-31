@@ -38,13 +38,6 @@ export const globalCss = defineGlobalStyles({
 		hyphens: 'none',
 	},
 
-	// Better looking headings
-	'h1, h2, h3, h4, h5, h6': {
-		textRendering: 'optimizeLegibility',
-		MozOsxFontSmoothing: 'grayscale',
-		WebkitFontSmoothing: 'antialiased',
-	},
-
 	// Remove the weird gap below images
 	'img, svg, video, canvas, audio, iframe, embed, object': {
 		display: 'block',

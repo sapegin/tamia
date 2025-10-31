@@ -4,6 +4,10 @@ import { createBox, type BoxProps } from './Box';
 
 const heading = cva({
 	base: {
+		textRendering: 'optimizeLegibility',
+		// @ts-expect-error Not in the types for some reason
+		MozOsxFontSmoothing: 'grayscale',
+		WebkitFontSmoothing: 'antialiased',
 		color: 'text',
 		fontFamily: 'heading',
 		fontWeight: 'bold',
