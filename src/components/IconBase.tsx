@@ -5,9 +5,6 @@ export interface IconBaseProps extends Omit<
 	ComponentPropsWithoutRef<'svg'>,
 	'viewBox' | 'fill' | 'width' | 'height'
 > {
-	// TODO: Remove in favor of Tailwind size-* classes
-	width?: string | number;
-	height?: string | number;
 	viewBox: { width: number; height: number };
 	fill?: string;
 	children?: ReactNode;
