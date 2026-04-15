@@ -1,51 +1,43 @@
-import type { PropsWithoutRef } from 'react';
-import { Box, type BoxProps } from './Box';
+import clsx from 'clsx';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-export type BaseIconProps = Omit<
-	PropsWithoutRef<BoxProps<'svg'>>,
-	| 'aria-hidden'
-	| 'fill'
-	| 'height'
-	| 'preserveAspectRatio'
-	| 'viewBox'
-	| 'width'
-> & {
-	width: number | string;
-	height: number | string;
-	viewBox: {
-		width: number;
-		height: number;
-	};
+export interface IconBaseProps extends Omit<
+	ComponentPropsWithoutRef<'svg'>,
+	'viewBox' | 'fill' | 'width' | 'height'
+> {
+	// TODO: Remove in favor of Tailwind size-* classes
+	width?: string | number;
+	height?: string | number;
+	viewBox: { width: number; height: number };
 	fill?: string;
-};
+	children?: ReactNode;
+}
 
 /**
- * Base for SVG icons:
+ * Base for SVG icons.
  *
+ * @example
  * <IconBase viewBox={{ width: 128, height: 128 }} width={24} height={24}>
  *   <path d="..." />
  * </IconBase>
  */
 export function IconBase({
 	viewBox,
-	display = 'inline-block',
-	verticalAlign = 'middle',
 	fill = 'currentColor',
 	children,
+	className,
 	...props
-}: BaseIconProps) {
+}: IconBaseProps) {
 	return (
-		<Box
-			as="svg"
+		<svg
 			{...props}
-			display={display}
-			verticalAlign={verticalAlign}
+			className={clsx('inline-block align-middle', className)}
 			viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
 			fill={fill}
 			preserveAspectRatio="xMidYMid meet"
 			aria-hidden="true"
 		>
 			{children}
-		</Box>
+		</svg>
 	);
 }

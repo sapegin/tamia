@@ -2,9 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "declaration": true,
     "noEmit": false,
     "allowImportingTsExtensions": false
   },
-  "include": ["src/panda-preset"]
+  "include": ["src"]
 }

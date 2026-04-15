@@ -1,0 +1,66 @@
+/**
+ * Heading level 1.
+ */
+@utility heading-1 {
+	color: var(--color-text);
+	font-family: var(--font-heading);
+	font-weight: var(--font-weight-heading);
+	line-height: var(--leading-heading);
+	font-size: var(--text-xl);
+}
+
+/**
+ * Heading level 2.
+ */
+@utility heading-2 {
+	color: var(--color-text);
+	font-family: var(--font-heading);
+	font-weight: var(--font-weight-heading);
+	line-height: var(--leading-heading);
+	font-size: var(--text-lg);
+}
+
+/**
+ * Heading level 2.
+ */
+@utility heading-3 {
+	color: var(--color-text);
+	font-family: var(--font-heading);
+	font-weight: var(--font-weight-heading);
+	line-height: var(--leading-heading);
+	font-size: var(--text-base);
+	font-style: italic;
+}
+
+/**
+ * Typography: body text.
+ */
+@utility typo-body {
+	font-family: var(--font-body);
+	font-size: var(--text-base);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--leading-normal);
+	color: var(--color-text);
+}
+
+/**
+ * Typography: small text.
+ */
+@utility typo-small {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--leading-normal);
+	color: var(--color-text);
+}
+
+/**
+ * Typography: large text.
+ */
+@utility typo-large {
+	font-family: var(--font-body);
+	font-size: var(--text-lg);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--leading-heading);
+	color: var(--color-text);
+}

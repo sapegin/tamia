@@ -1,0 +1,103 @@
+/**
+ * Base styles for HTML elements not included in Tailwind preflight.
+ */
+
+@layer base {
+	html,
+	:host {
+		font-size: var(--text-root);
+		font-family: var(--font-body);
+		color: var(--color-text);
+		background-color: var(--color-background);
+		line-height: var(--leading-normal);
+		word-wrap: break-word;
+		text-rendering: optimizeSpeed;
+		font-kerning: normal;
+		hyphens: auto;
+		/*
+		  Reserve space for scrollbar on short pages to avoid layout shift on
+		  navigation
+		*/
+		scrollbar-gutter: stable;
+	}
+
+	/* Enable smooth scroll only for folks who don't have reduce motion enabled */
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
+
+	body {
+		/* Make the body fill the full screen height */
+		min-block-size: 100svh;
+	}
+
+	/* Disable hyphenation in links */
+	a {
+		hyphens: none;
+	}
+
+	/* Monospace digits */
+	table {
+		font-feature-settings: 'tnum';
+	}
+
+	/* Abbreviations with spacing */
+	abbr {
+		letter-spacing: 0.1em;
+		margin-right: -0.1em;
+	}
+
+	/* Remove ugly bottom border */
+	abbr,
+	acronym {
+		border-bottom: 0;
+		cursor: default;
+	}
+
+	/* Remove default borders */
+	iframe,
+	fieldset {
+		border: 0;
+	}
+
+	/* Text selection */
+	::selection {
+		color: var(--color-text);
+		background-color: var(--color-selection);
+		text-shadow: none;
+	}
+
+	/* Print styles */
+	@media print {
+		@page {
+			margin: 0.5cm 1cm;
+		}
+
+		:is(header, footer, nav) {
+			display: none;
+		}
+
+		* {
+			font-family: Georgia, serif;
+			color: #000 !important;
+			background: transparent !important;
+		}
+
+		:is(h1, h2, h3, h4, h5, h6) {
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+			page-break-inside: avoid;
+			page-break-after: avoid;
+		}
+
+		:is(p, blockquote, ul, ol, dl, tr, img) {
+			page-break-inside: avoid;
+		}
+
+		:is(p, h2, h3) {
+			orphans: 3;
+			widows: 3;
+		}
+	}
+}

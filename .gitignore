@@ -1,9 +1,5 @@
 node_modules/
-lib/
 dist/
-types/
-styled-system/
-styled-system-studio/
 Changelog.md
 .DS_Store
 Thumbs.db

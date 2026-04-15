@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@import 'src/index.css';
+@import 'components/button.css';
+@import 'components/input.css';
+@import 'components/link.css';
+@import 'components/prose.css';
+@import 'components/quoted-link.css';
+@import 'components/typography.css';

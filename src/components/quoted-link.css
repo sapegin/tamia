@@ -1,0 +1,24 @@
+/**
+ * "Quoted" link: a link where only content inside the <u> tag is underlined.
+ * Useful for links in quotes or links with images.
+ */
+@utility quoted-link {
+	text-decoration: none;
+	color: inherit;
+	transition: all var(--duration-hover) var(--ease-hover);
+
+	& u {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
+
+	&:hover u {
+		color: var(--color-accent);
+	}
+
+	&:focus-visible {
+		outline: var(--border-width-focus) solid var(--color-accent);
+		outline-offset: var(--border-width-focus-offset);
+		border-radius: 0.05em;
+	}
+}

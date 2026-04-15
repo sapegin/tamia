@@ -1,0 +1,31 @@
+/**
+ * Minimal button base. Copy and adapt per site — this is intentionally
+ * bare-bones since button styling is highly site-specific.
+ */
+@utility button {
+	display: inline-block;
+	padding: --spacing(1) --spacing(4);
+	border: 1px solid var(--color-primary);
+	border-radius: var(--radius-button);
+	font-family: var(--font-body);
+	font-size: var(--text-base);
+	color: var(--color-text);
+	text-decoration: none;
+	user-select: none;
+	transition: all var(--duration-hover) var(--ease-hover);
+
+	&:hover:not(:disabled) {
+		color: var(--color-accent);
+		cursor: pointer;
+	}
+
+	&:focus-visible {
+		outline: var(--border-width-focus) solid var(--color-accent);
+		outline-offset: var(--border-width-focus-offset);
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		filter: saturate(60%);
+	}
+}

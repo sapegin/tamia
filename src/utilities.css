@@ -1,0 +1,66 @@
+/**
+ * Focus outline for interactive elements.
+ */
+@utility focus-outline {
+	&:focus-visible {
+		outline: var(--border-width-focus) solid var(--color-accent);
+		outline-offset: var(--border-width-focus-offset);
+	}
+}
+
+/**
+ * Responsive image.
+ */
+@utility image {
+	height: auto;
+	max-width: 100%;
+}
+
+/**
+ * CSS Grid with magic auto layout: narrow (min 200px).
+ */
+@utility grid-auto-narrow {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/**
+ * CSS Grid with magic auto layout: wide (min 300px).
+ */
+@utility grid-auto-wide {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/**
+ * Expands content horizontally to remove the paddings so it is rendered from
+ * edge to edge on small screens.
+ */
+@utility expander {
+	margin-inline: calc(var(--spacing-content-padding-x) * -1);
+
+	@media (width >= 48rem) {
+		margin-inline: 0;
+	}
+}
+
+/**
+ * Ordered list with custom counter styling.
+ */
+@utility ordered-list {
+	display: flex;
+	flex-direction: column;
+	gap: --spacing(1); /* 4px */
+	margin-left: 1.2rem;
+}
+
+/**
+ * Frame: aspect-ratio container with children covering the whole space.
+ */
+@utility frame {
+	& > :is(img, video) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}

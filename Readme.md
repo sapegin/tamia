@@ -2,193 +2,145 @@
 
 [![npm](https://img.shields.io/npm/v/tamia.svg)](https://www.npmjs.com/package/tamia) [![Node.js CI status](https://github.com/sapegin/tamia/workflows/Node.js%20CI/badge.svg)](https://github.com/sapegin/tamia/actions)
 
-Tâmia is a tiny React component library with themable primitives that you can use to quickly start working on a new project.
+An opinionated CSS Tailwind v4 theme with sensible defaults for typography, colors, spacing, and common UI patterns. Restricts and enhances the default Tailwind theme for faster decision making and improved consistency, leans towards semantic design tokens (`--radius-button`, `--leading-heading`) rather than presentational (`--radius-sm`, `--leading-snug`).
 
 [![Washing your code. A book on clean code for frontend developers](https://sapegin.me/images/washing-code-github.jpg)](https://sapegin.me/book/)
 
-## Based on
+## Tech stack
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
-- [Panda CSS](https://panda-css.com/)
-
-## Tools
-
-There are a few other things made specifically for Tâmia:
-
-- [eslint-config-tamia](https://github.com/tamiadev/eslint-config-tamia): ESLint config
-
-## Documentation
-
-[Documentation is here](https://tamialib.netlify.app/).
+- [Tailwind CSS](https://tailwindcss.com/)
+- [clsx](https://github.com/lukeed/clsx)
 
 ## Getting started
 
 1. Install Tâmia and peer dependencies:
 
 ```bash
-npm install tamia @pandacss/dev
+npm install tailwindcss clsx
 ```
 
-2. Create a Panda CSS config, `panda.config.cjs`:
+2. Create a theme, `theme.css`:
 
-```js
-import { defineConfig } from '@pandacss/dev';
-import tamia from 'tamia';
-import { theme } from './src/theme';
+```css
+@theme {
+  --font-heading: 'Mondwest-Regular', sans-serif;
+  --color-primary: #577290;
+}
 
-export default defineConfig({
-  ...theme,
-
-  presets: [tamia],
-
-  // Opt out of all default
-  eject: true,
-
-  // Output directory
-  outdir: 'styled-system',
-
-  // Generate React components based on patterns
-  jsxFramework: 'react',
-
-  // Don't include CSS reset
-  preflight: false,
-
-  // Where to look for CSS declarations
-  include: ['./src/**/*.{js,jsx,ts,tsx,astro}'],
-
-  // Files to exclude
-  exclude: []
-});
-```
-
-3. Create a PostCSS config, `postcss.config.cjs`:
-
-```js
-module.exports = {
-  plugins: {
-    '@pandacss/dev/postcss': {}
-  }
-};
-```
-
-4. Update your `package.json`:
-
-```diff
-{
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro start",
-    "build": "astro build",
-    "preview": "astro preview",
-+   "prepare": "panda codegen"
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #2e3033;
   }
 }
 ```
 
-5. Add this line to your global CSS:
+3. Create typography utilities, `components/typography.css` (or import [default ones](./components/typography.css)):
 
 ```css
-@layer reset, base, tokens, recipes, utilities;
+@utility heading-1 {
+  /* ... */
+}
+@utility typo-body {
+  /* ... */
+}
 ```
 
-> [!TIP]
-> Don’t forget to import it from your main template.
+4. Add the following to your global styles:
 
-6. Add the generated files to your ignore files: `.gitignore`, `.prettierignore`, `.eslintignore`, etc:
+```css
+/* Import Tailwind, Tâmia, and the theme */
+@import 'tailwindcss';
+@import '../../packages/tamia/index.css';
 
-```diff
-+ styled-system
+/* Explicitly import each component */
+@import '../../packages/tamia/components/prose.css';
+@import '../../packages/tamia/components/input.css';
+@import '../../packages/tamia/components/button.css';
+
+/* Import site theme */
+@import './theme.css';
+
+/* Import site utilities */
+@import './components/typography.css';
 ```
 
-7. Create a theme, `src/theme.ts`.
-
-Check out [the default theme](https://github.com/sapegin/tamia/blob/master/src/theme.ts),and extend it according to your taste:
-
-```ts
-import { type Config } from '@pandacss/dev';
-
-export const theme = {
-  theme: {
-    extend: {
-      tokens: {
-        colors: {
-          text: { value: '#222' },
-          background: { value: '#fff' },
-          primary: { value: '#6e56ba' },
-          accent: { value: '#d396c3' },
-          border: { value: '#ddd' }
-        },
-        fonts: {
-          body: {
-            value: "ProximaNova, 'Helvetica Neue', Arial, sans-serif"
-          },
-          heading: {
-            value: "AzoSans, 'Helvetica Neue', Arial, sans-serif"
-          },
-          ui: {
-            value: "AzoSans, 'Helvetica Neue', Arial, sans-serif"
-          }
-        },
-        fontSizes: {
-          xxl: { value: '2.1rem' },
-          xl: { value: '1.3rem' },
-          l: { value: '1.1rem' },
-          m: { value: '1rem' },
-          s: { value: '0.9rem' },
-          xs: { value: '0.75rem' }
-        },
-        fontWeights: {
-          normal: { value: '400' },
-          heading: { value: '400' },
-          bold: { value: '800' },
-          ui: { value: '800' }
-        },
-        lineHeights: {
-          base: { value: '1.5' },
-          heading: { value: '1.1' },
-          small: { value: '1.4' },
-          large: { value: '1.8' }
-        },
-        letterSpacings: {
-          base: { value: '0' },
-          heading: { value: '0' },
-          uppercase: { value: '0.15ex' }
-        },
-        borders: {},
-        radii: {},
-        shadows: {},
-        easings: {},
-        durations: {}
-      },
-      semanticTokens: {
-        fontSizes: {
-          root: { value: '1.125em' },
-          article: { value: '1.1rem' }
-        },
-        spacing: {
-          listMargin: { value: '1.2rem' }
-        },
-        sizes: {
-          textMaxWidth: { value: '48rem' }
-        }
-      }
-    }
-  },
-
-  globalCss: {}
-} as const satisfies Config;
-```
-
-9. Generate the styled system, run:
+4. Install the Prettier plugin for automatic class sorting:
 
 ```bash
-npm run prepare
+npm install -D prettier-plugin-tailwindcss
 ```
 
-9. Copy the components, you're going to use fro [src/components](./src/components).
+Add to your Prettier config (`prettier-plugin-tailwindcss` must be last):
 
-## The Name
+```js
+module.exports = {
+  tailwindStylesheet: './src/index.css',
+  tailwindFunctions: ['clsx'],
+  plugins: [
+    // other plugins…
+    require.resolve('prettier-plugin-tailwindcss')
+  ]
+};
+```
+
+5. Install the ESLint plugin for Tailwind CSS linting:
+
+```bash
+npm install -D eslint-plugin-better-tailwindcss
+```
+
+Add to your ESLint flat config:
+
+```js
+import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
+
+export default [
+  {
+    ...eslintPluginBetterTailwindcss.configs.recommended,
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: 'src/index.css'
+      }
+    },
+    rules: {
+      ...eslintPluginBetterTailwindcss.configs.recommended.rules,
+      // Disable class ordering — handled by prettier-plugin-tailwindcss
+      'better-tailwindcss/enforce-consistent-class-order': 'off'
+    }
+  }
+];
+```
+
+## Utilities
+
+Most Tailwind classes work as they should, with the following additions:
+
+- `grid-auto-narrow` / `grid-auto-wide` — auto-fit grid layouts
+- `expander` — makes the element full-bleed on mobile
+- `frame` — aspect-ratio container with cover children (combine with `aspect-*`)
+
+## Tailwind components
+
+These components should be imported explicitly to the app CSS file:
+
+- `heading-1` / `heading-2` / `heading-3` — headings of various levels
+- `typo-body` / `typo-small` / `typo-large` — basic typography presets
+- `.link` — styled anchor with hover/focus states
+- `.quoted-link` — link where only `<u>` children are underlined
+- `.prose` — rich text container (headings, lists, tables, blockquotes, images)
+  - `.prose-small` / `.prose-intro` — prose variants
+- `.button` — minimal button base (import `components/button.css`)
+- `.input` — styled text input
+
+## React components
+
+These components should be imported explicitly:
+
+- `IconBase.tsx` — SVG icon wrapper
+
+## The name
 
 Tâmia is a chipmunk in Portuguese. It refers to [Squirrelstrap](https://github.com/sapegin/squirrelstrap), my love of small cheeky creatures and “Chip ’n Dale Rescue Rangers” (which is exactly framework’s aim).
 
@@ -204,6 +156,7 @@ Tâmia has evolved from a folder on my disk with a few CSS and JS files that I c
 - React + styled-components + TypeScript + custom primitive components (2022)
 - React + vanilla-extract + TypeScript (2023)
 - React + Panda CSS + TypeScript (2024)
+- React + Tailwind CSS + TypeScript (2026)
 
 ---
 
