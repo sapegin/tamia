@@ -50,21 +50,21 @@
     "@astrojs/check": "^0.9.5",
     "@astrojs/react": "^4.4.0",
     "@pandacss/studio": "1.7.2",
-    "@types/react": "^19.2.2",
+    "@types/react": "^19.2.14",
     "astro": "^5.14.4",
     "eslint": "^9.38.0",
-    "eslint-config-tamia": "^9.6.6",
+    "eslint-config-tamia": "^9.9.1",
     "eslint-plugin-astro": "^1.3.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.5",
-    "prettier": "^3.6.2",
+    "nano-staged": "1.0.2",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "react": "^19",
     "react-dom": "^19",
     "typescript": "^5.9"
   },
-  "lint-staged": {
+  "nano-staged": {
     "*.{js,cjs,mjs,ts,tsx,astro,json,md}": "prettier --write",
     "*.{js,cjs,mjs,ts,tsx,astro}": "eslint --cache --fix"
   }
