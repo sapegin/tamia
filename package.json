@@ -10,7 +10,7 @@
     "prepublishOnly": "npm run build",
     "lint": "eslint . --cache --fix",
     "typecheck": "tsc --noEmit",
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsc --project tsconfig.build.json && rsync -a --include='*/' --include='*.css' --exclude='*' src/ dist/",
     "format": "prettier --log-level warn --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
     "prepare": "husky"
   },
@@ -28,8 +28,7 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.css",
   "files": [
     "dist"
   ],

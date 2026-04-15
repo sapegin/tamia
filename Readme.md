@@ -52,12 +52,12 @@ npm install tailwindcss clsx
 ```css
 /* Import Tailwind, Tâmia, and the theme */
 @import 'tailwindcss';
-@import '../../packages/tamia/index.css';
+@import 'tamia/index.css';
 
 /* Explicitly import each component */
-@import '../../packages/tamia/components/prose.css';
-@import '../../packages/tamia/components/input.css';
-@import '../../packages/tamia/components/button.css';
+@import 'tamia/components/prose.css';
+@import 'tamia/components/input.css';
+@import 'tamia/components/button.css';
 
 /* Import site theme */
 @import './theme.css';

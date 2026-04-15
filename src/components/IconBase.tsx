@@ -14,7 +14,7 @@ export interface IconBaseProps extends Omit<
  * Base for SVG icons.
  *
  * @example
- * <IconBase viewBox={{ width: 128, height: 128 }} width={24} height={24}>
+ * <IconBase viewBox={{ width: 128, height: 128 }} className="size-6">
  *   <path d="..." />
  * </IconBase>
  */
