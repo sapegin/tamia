@@ -1,7 +1,7 @@
 {
   "name": "tamia",
   "description": "Opinionated CSS Tailwind v4 theme with sensible defaults for typography, colors, spacing, and common UI patterns",
-  "version": "5.0.20",
+  "version": "8.0.0",
   "sideEffects": false,
   "scripts": {
     "pretest": "npm run lint",
