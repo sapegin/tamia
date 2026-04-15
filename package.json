@@ -41,6 +41,9 @@
     "Firefox ESR",
     "not dead"
   ],
+  "dependencies": {
+    "clsx": "2.1.1"
+  },
   "peerDependencies": {
     "tailwindcss": ">=4"
   },
@@ -62,8 +65,5 @@
   "nano-staged": {
     "*.{js,cjs,mjs,ts,tsx,json,md}": "prettier --write",
     "*.{js,cjs,mjs,ts,tsx}": "eslint --cache --fix"
-  },
-  "dependencies": {
-    "clsx": "2.1.1"
   }
 }
