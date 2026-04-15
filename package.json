@@ -1,6 +1,6 @@
 {
   "name": "tamia",
-  "description": "Panda CSS preset for component-driven development",
+  "description": "Opinionated CSS Tailwind v4 theme with sensible defaults for typography, colors, spacing, and common UI patterns",
   "version": "5.0.20",
   "sideEffects": false,
   "scripts": {
