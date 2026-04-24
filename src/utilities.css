@@ -2,6 +2,8 @@
  * Focus outline for interactive elements.
  */
 @utility focus-outline {
+	outline: 0;
+
 	&:focus-visible {
 		outline: var(--border-width-focus) solid var(--color-accent);
 		outline-offset: var(--border-width-focus-offset);
