@@ -1,6 +1,6 @@
 {
   "name": "tamia",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Opinionated CSS Tailwind v4 theme with sensible defaults for typography, colors, spacing, and common UI patterns",
   "homepage": "https://github.com/sapegin/tamia/",
   "bugs": {
