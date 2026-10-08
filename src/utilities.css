@@ -19,18 +19,16 @@
 }
 
 /**
- * CSS Grid with magic auto layout: narrow (min 200px).
+ * Auto-fit grid columns (min 200px). Use with `grid`.
  */
 @utility grid-auto-narrow {
-	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 /**
- * CSS Grid with magic auto layout: wide (min 300px).
+ * Auto-fit grid columns (min 300px). Use with `grid`.
  */
 @utility grid-auto-wide {
-	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 

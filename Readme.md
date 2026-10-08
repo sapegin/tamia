@@ -117,7 +117,7 @@ export default [
 
 Most Tailwind classes work as they should, with the following additions:
 
-- `grid-auto-narrow` / `grid-auto-wide` — auto-fit grid layouts
+- `grid-auto-narrow` / `grid-auto-wide` — auto-fit columns (use with `grid`)
 - `expander` — makes the element full-bleed on mobile
 - `frame` — aspect-ratio container with cover children (combine with `aspect-*`)
 
