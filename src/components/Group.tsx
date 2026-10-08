@@ -16,11 +16,11 @@ interface GroupProps {
  * Render a collection of items separated by a space or a custom separator.
  *
  * @example
- * <Group separator=", ">
- *   <a href="#">One</a>
- *   <a href="#">Two</a>
- *   <a href="#">Three</a>
- * </Group>
+ * 	<Group separator=", ">
+ * 		<a href="#">One</a>
+ * 		<a href="#">Two</a>
+ * 		<a href="#">Three</a>
+ * 	</Group>;
  */
 export function Group({ separator = ' ', children }: GroupProps) {
 	// An alternative would requite to change the API and accept an array instead

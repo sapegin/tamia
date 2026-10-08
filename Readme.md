@@ -66,51 +66,42 @@ npm install tailwindcss clsx
 @import './components/typography.css';
 ```
 
-4. Install the Prettier plugin for automatic class sorting:
+4. Install [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) and [oxlint-config-raccoon](https://github.com/sapegin/oxlint-config-raccoon) for formatting (including Tailwind class sorting):
 
 ```bash
-npm install -D prettier-plugin-tailwindcss
+npm install -D oxfmt oxlint-config-raccoon
 ```
 
-Add to your Prettier config (`prettier-plugin-tailwindcss` must be last):
+Create `oxfmt.config.ts`:
 
-```js
-module.exports = {
-  tailwindStylesheet: './src/index.css',
-  tailwindFunctions: ['clsx'],
-  plugins: [
-    // other plugins…
-    require.resolve('prettier-plugin-tailwindcss')
-  ]
-};
+```ts
+import { defineConfig } from 'oxfmt';
+import oxfmt from 'oxlint-config-raccoon/oxfmt';
+
+export default defineConfig(oxfmt);
 ```
 
-5. Install the ESLint plugin for Tailwind CSS linting:
+5. Install [Oxlint](https://oxc.rs/docs/guide/usage/linter), [`oxlint-tailwindcss`](https://github.com/sergioazoc/oxlint-tailwindcss), and `@oxlint/plugins` for Tailwind CSS linting:
 
 ```bash
-npm install -D eslint-plugin-better-tailwindcss
+npm install -D oxlint oxlint-tsgolint oxlint-tailwindcss @oxlint/plugins oxlint-config-raccoon
 ```
 
-Add to your ESLint flat config:
+Create `oxlint.config.ts`:
 
-```js
-import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
+```ts
+import { defineConfig } from 'oxlint';
+import typescriptReactTailwind from 'oxlint-config-raccoon/typescript-react-tailwind';
 
-export default [
-  {
-    ...eslintPluginBetterTailwindcss.configs.recommended,
-    settings: {
-      'better-tailwindcss': {
-        entryPoint: 'src/index.css'
-      }
-    },
-    rules: {
-      ...eslintPluginBetterTailwindcss.configs.recommended.rules,
-      // Disable class ordering — handled by prettier-plugin-tailwindcss
-      'better-tailwindcss/enforce-consistent-class-order': 'off'
+export default defineConfig({
+  extends: [typescriptReactTailwind],
+  options: { typeAware: true, typeCheck: true },
+  settings: {
+    tailwindcss: {
+      entryPoint: 'src/index.css'
     }
   }
-];
+});
 ```
 
 ## Utilities

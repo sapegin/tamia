@@ -1,20 +1,12 @@
 {
   "name": "tamia",
-  "description": "Opinionated CSS Tailwind v4 theme with sensible defaults for typography, colors, spacing, and common UI patterns",
   "version": "8.0.0",
-  "sideEffects": false,
-  "scripts": {
-    "pretest": "npm run lint",
-    "test": "npm run typecheck",
-    "posttest": "npm run format",
-    "prepublishOnly": "npm run build",
-    "lint": "eslint . --cache --fix",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc --project tsconfig.build.json && rsync -a --include='*/' --include='*.css' --exclude='*' src/ dist/",
-    "format": "prettier --log-level warn --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
-    "prepare": "husky"
-  },
+  "description": "Opinionated CSS Tailwind v4 theme with sensible defaults for typography, colors, spacing, and common UI patterns",
   "homepage": "https://github.com/sapegin/tamia/",
+  "bugs": {
+    "url": "https://github.com/sapegin/tamia/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Artem Sapegin",
     "url": "https://sapegin.me/"
@@ -23,17 +15,45 @@
     "type": "git",
     "url": "https://github.com/sapegin/tamia.git"
   },
-  "bugs": {
-    "url": "https://github.com/sapegin/tamia/issues"
-  },
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.css",
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": ">=24"
+  "type": "module",
+  "sideEffects": false,
+  "main": "dist/index.css",
+  "scripts": {
+    "test": "oxlint && oxfmt --check",
+    "prepublishOnly": "npm run build",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix && oxfmt --write",
+    "build": "tsc --project tsconfig.build.json && rsync -a --include='*/' --include='*.css' --exclude='*' src/ dist/",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "clsx": "2.1.1"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.87.0",
+    "@tailwindcss/vite": "4.2.2",
+    "@types/react": "^19.2.14",
+    "husky": "^9.1.7",
+    "nano-staged": "1.0.2",
+    "oxfmt": "0.72.0",
+    "oxlint": "1.87.0",
+    "oxlint-config-raccoon": "10.9.0",
+    "oxlint-tailwindcss": "1.14.0",
+    "oxlint-tsgolint": "7.0.2003",
+    "react": "^19",
+    "react-dom": "^19",
+    "tailwindcss": "4.2.2",
+    "typescript": "6.0.3"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4"
+  },
+  "nano-staged": {
+    "*.{js,cjs,mjs,ts,tsx,css,json,md}": "oxfmt --no-error-on-unmatched-pattern",
+    "*.{js,cjs,mjs,ts,tsx}": "oxlint --fix"
   },
   "browserslist": [
     ">1%",
@@ -41,29 +61,7 @@
     "Firefox ESR",
     "not dead"
   ],
-  "dependencies": {
-    "clsx": "2.1.1"
-  },
-  "peerDependencies": {
-    "tailwindcss": ">=4"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "4.2.2",
-    "@types/react": "^19.2.14",
-    "eslint": "^9.38.0",
-    "eslint-config-tamia": "^9.9.1",
-    "eslint-plugin-better-tailwindcss": "4.4.1",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "husky": "^9.1.7",
-    "nano-staged": "1.0.2",
-    "prettier": "^3.8.3",
-    "react": "^19",
-    "react-dom": "^19",
-    "tailwindcss": "4.2.2",
-    "typescript": "^5.9"
-  },
-  "nano-staged": {
-    "*.{js,cjs,mjs,ts,tsx,json,md}": "prettier --write",
-    "*.{js,cjs,mjs,ts,tsx}": "eslint --cache --fix"
+  "engines": {
+    "node": ">=24"
   }
 }
